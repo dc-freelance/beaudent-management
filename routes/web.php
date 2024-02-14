@@ -7,5 +7,5 @@ Route::get('dashboard', function () {
 })->name('admin.dashboard');
 
 Route::get('/', function () {
-    return view('welcomes');
+    return view('welcome');
 });
