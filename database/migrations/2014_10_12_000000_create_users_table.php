@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone_number');
+            $table->string('phone_number')->nullable();
             $table->date('join_date')->nullable();
             $table->string('password');
-            $table->enum('role', ['FO', 'Billing', 'Owner', 'Admin', 'Accounting']);
-            $table->bigInteger('branch_id', false, true);
+            $table->bigInteger('branch_id', false, true)->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

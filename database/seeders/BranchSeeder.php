@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Branch;
+use Illuminate\Database\Seeder;
 
 class BranchSeeder extends Seeder
 {
@@ -14,9 +13,9 @@ class BranchSeeder extends Seeder
     public function run(): void
     {
         $branch = new Branch();
-        $branch->name = "Beauty Dental Pusat Surabaya";
-        $branch->phone_number = "08179666161";
-        $branch->address = "Jl. Mayjen Sungkono No.17, Sawunggaling, Kec. Wonokromo, Surabaya, Jawa Timur 60242";
+        $branch->name = 'Beauty Dental Pusat Surabaya';
+        $branch->phone_number = '08179666161';
+        $branch->address = 'Jl. Mayjen Sungkono No.17, Sawunggaling, Kec. Wonokromo, Surabaya, Jawa Timur 60242';
         $branch->save();
     }
 }
