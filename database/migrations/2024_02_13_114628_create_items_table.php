@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->date('join_date')->nullable();
-            $table->string('password');
-            $table->enum('role', ['FO', 'Billing', 'Owner', 'Admin', 'Accounting']);
-            $table->bigInteger('branch_id', false, true);
-            $table->rememberToken();
+            $table->bigInteger('category_id', false, true);
+            $table->bigInteger('unit_id', false, true);
+            $table->decimal('total_stock', 12, 2);
+            $table->decimal('hpp', 12, 2);
+            $table->enum('type', ['Medicine', 'BMHP']);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('items');
     }
 };

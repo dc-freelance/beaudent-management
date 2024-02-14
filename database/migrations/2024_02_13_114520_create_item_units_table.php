@@ -11,16 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('item_units', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->date('join_date')->nullable();
-            $table->string('password');
-            $table->enum('role', ['FO', 'Billing', 'Owner', 'Admin', 'Accounting']);
-            $table->bigInteger('branch_id', false, true);
-            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('item_units');
     }
 };

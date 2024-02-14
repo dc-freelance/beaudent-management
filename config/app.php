@@ -169,6 +169,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // Provider Spatie Permission for role and permission
+        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*
