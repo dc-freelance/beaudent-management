@@ -24,6 +24,8 @@
                 <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
                     route="{{ route('admin.user-management.index') }}"
                     active="{{ request()->routeIs('admin.user-management.*') }}" />
+                <x-sidebar-item name="Manajemen Hak Akses" icon="fas fa-user-lock" route="{{ route('admin.role.index') }}"
+                    active="{{ request()->routeIs('admin.role.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">

@@ -35,14 +35,12 @@ class UserManagementRepository implements UserManagementInterface
             $password = bcrypt('password');
             $user = $this->user->create(array_merge($data, ['password' => $password]));
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
         }
 
         try {
             $user->assignRole($data['role']);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
         }
 
@@ -51,7 +49,6 @@ class UserManagementRepository implements UserManagementInterface
                 $user->givePermissionTo($permission);
             }
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
         }
         DB::commit();
