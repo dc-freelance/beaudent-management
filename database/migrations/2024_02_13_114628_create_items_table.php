@@ -21,9 +21,6 @@ return new class extends Migration
             $table->enum('type', ['Medicine', 'BMHP']);
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('item_categories')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('unit_id')->references('id')->on('item_units')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
