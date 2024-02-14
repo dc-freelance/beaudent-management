@@ -24,10 +24,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'branch_id',
         'phone_number',
         'join_date',
+        'password',
+        'branch_id',
     ];
 
     protected $hidden = [
@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password'          => 'hashed',
     ];
 
     public function branch()
