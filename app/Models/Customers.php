@@ -29,5 +29,10 @@ class Customers extends Model
         'facebook' ,
         'source_of_information' 
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class, 'customer_id', 'id');
+    }
     
 }

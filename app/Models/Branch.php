@@ -18,4 +18,9 @@ class Branch extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class, 'branch_id', 'id');
+    }
 }
