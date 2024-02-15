@@ -39,7 +39,6 @@ class StoreReservationRequest extends FormRequest
             'anamnesis.required' => 'Anamnesis harus diisi.',
             'customer_id.required' => 'ID pelanggan harus diisi.',
             'deposit_status.required' => 'Status deposit harus diisi.',
-            'treatment_id.required' => 'Harap pilih layanan',
             'is_control.required' => 'Harap pilih layanan'
         ];
     }
