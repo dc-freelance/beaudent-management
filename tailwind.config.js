@@ -12,17 +12,21 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Plus Jakarta Sans", ...defaultTheme.fontFamily.sans],
+                sans: [
+                    "Lexend Deca",
+                    "Plus Jakarta Sans",
+                    ...defaultTheme.fontFamily.sans,
+                ],
             },
             colors: {
-                primary: "#570DF8",
+                primary: "#D04848",
                 secondary: "#F000B8",
                 accent: "#37CDBE",
                 neutral: "#3D4451",
                 "base-100": "#FFFFFF",
                 info: "#3ABFF8",
                 success: "#36D399",
-                warning: "#FBBD23",
+                warning: "#F3B95F",
                 error: "#F87272",
                 accent: "#806043",
                 neutral: "#3D4451",

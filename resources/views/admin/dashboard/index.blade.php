@@ -1,11 +1,5 @@
 <x-app-layout>
-    <!-- TODO: Breadcumb - dibuat component pakai digtaltic -->
-    <div class="mb-8">
-        <small class="text-gray-500">Pages / Dashboard</small>
-        <h2 class="text-2xl font-semibold">Main Dashboard</h2>
-    </div>
-    <!-- End Breadcumb -->
-
+    <x-breadcrumb :links="[['name' => 'Dashboard', 'url' => '#']]" title="Dashboard" />
     {{-- Stats --}}
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
         <!-- Earnings -->

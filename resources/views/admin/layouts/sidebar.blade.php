@@ -1,55 +1,45 @@
+<button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button"
+    class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:focus:ring-gray-600">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path clip-rule="evenodd" fill-rule="evenodd"
+            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+        </path>
+    </svg>
+</button>
+
 <aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 h-screen pt-28 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 md:w-[15%] lg:block lg:w-[15%] w-1/2"
+    class="fixed top-0 left-0 z-40 w-64 h-screen border border-r transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul class="font-medium">
-
-            <x-sidebar-item title="Dashboard" route="" active="{{ request()->routeIs('admin.dashboard') }}"
-                icon="fas fa-tachometer-alt" />
-
-            <!-- User Management -->
-            <x-sidebar-dropdown title="User Management" icon="fas fa-cog" toggle="user-management" active="">
-                <x-sidebar-item title="Registration" route="" active="" />
-                <x-sidebar-item title="Authorization" route="" active="" />
-            </x-sidebar-dropdown>
-
-            <!-- CCD Management -->
-            <x-sidebar-dropdown title="CCD Management" icon="fas fa-chart-simple" toggle="ccd-management"
-                active="">
-                <x-sidebar-item title="Client" route="" active="" />
-                <x-sidebar-item title="Case" route="" active="" />
-                <x-sidebar-item title="Document" route="" active="" />
-                <x-sidebar-item title="Report" route="" active="" />
-            </x-sidebar-dropdown>
-
-            <!-- Client Trader Mapping -->
-            <x-sidebar-item title="Client Trader Mapping" route="" active="" icon="fas fa-map-marked-alt" />
-
-            <!-- Ticket Management -->
-            <x-sidebar-item title="Ticket Management" route="" active="" icon="fas fa-ticket-alt" />
-
-            <!-- House Balance -->
-            <x-sidebar-item title="House Balance" route="" active="" icon="fas fa-balance-scale" />
-
-            <!-- Monitor and Report -->
-            <x-sidebar-item title="Monitor and Report" route="" active="" icon="fas fa-chart-line" />
-
-            <!-- User Management -->
-            <x-sidebar-dropdown title="User" icon="fas fa-users" toggle="user" active="">
-                <x-sidebar-item title="Add User" route="" active="" />
-                <x-sidebar-item title="User List" route="" active="" />
-            </x-sidebar-dropdown>
-
-            <!-- Settings -->
-            <x-sidebar-item title="Settings" route="" active="" icon="fas fa-cogs" />
-
-            <!-- Log out -->
-            <x-sidebar-item title="Keluar" icon="fas fa-sign-out-alt" route="#"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();" />
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                @csrf
-            </form>
+    <div class="h-full px-4 py-8 overflow-y-auto bg-white">
+        {{-- Logo --}}
+        <a href="#" class="flex items-center justify-center mb-4">
+            <img src="{{ asset('assets/images/logo.png') }}" class="mr-3 object-contain h-20" alt="logo"
+                class="mix-blend-multiply" />
+        </a>
+        <ul class="space-y-3">
+            @role('admin_pusat')
+                <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
+                    active="{{ request()->routeIs('admin.dashboard.index') }}" />
+                <x-sidebar-item name="Manajemen Permission" icon="fas fa-user-lock"
+                    route="{{ route('admin.permission.index') }}" active="{{ request()->routeIs('admin.permission.*') }}" />
+                <x-sidebar-item name="Manajemen Hak Akses" icon="fas fa-user-lock" route="{{ route('admin.role.index') }}"
+                    active="{{ request()->routeIs('admin.role.*') }}" />
+                <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
+                    route="{{ route('admin.user-management.index') }}"
+                    active="{{ request()->routeIs('admin.user-management.*') }}" />
+            @endrole
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="flex w-full items-center p-3 font-normal text-gray-900 rounded-md dark:text-white hover:bg-gray-100">
+                        <i
+                            class="fas fa-sign-out-alt w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                        <span class="ml-3">Keluar</span>
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 </aside>
