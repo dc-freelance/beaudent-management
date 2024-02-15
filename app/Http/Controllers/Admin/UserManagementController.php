@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\BranchInterface;
 use App\Interfaces\PermissionInterface;
 use App\Interfaces\RoleInterface;
 use App\Interfaces\UserManagementInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserManagementController extends Controller
@@ -13,12 +15,14 @@ class UserManagementController extends Controller
     private $userManagement;
     private $permission;
     private $role;
+    private $branch;
 
-    public function __construct(UserManagementInterface $userManagement, PermissionInterface $permission, RoleInterface $role)
+    public function __construct(UserManagementInterface $userManagement, PermissionInterface $permission, RoleInterface $role, BranchInterface $branch)
     {
         $this->userManagement = $userManagement;
         $this->permission     = $permission;
         $this->role           = $role;
+        $this->branch         = $branch;
     }
 
     public function index(Request $request)
@@ -35,10 +39,11 @@ class UserManagementController extends Controller
                 ->addColumn('role', function ($data) {
                     return ucwords(str_replace('_', ' ', $data->getRoleNames()->first()));
                 })
-                ->addColumn('permission', function ($data) {
-                    return view('admin.user-management.column.permissions', [
-                        'permissions' => $data->getAllPermissions(),
-                    ]);
+                ->addColumn('branch', function ($data) {
+                    return $data->branch->name ?? '-';
+                })
+                ->addColumn('join_date', function ($data) {
+                    return Carbon::parse($data->join_date)->locale('id')->isoFormat('LL');
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.user-management.column.action', compact('data'));
@@ -59,17 +64,23 @@ class UserManagementController extends Controller
         return view('admin.user-management.create', [
             'roles'       => $this->role->get(),
             'permissions' => $this->permission->get(),
+            'branches'    => $this->branch->get()->where('id', '!=', 1),
         ]);
     }
 
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'name'        => 'required',
-            'email'       => 'required|email|unique:users,email',
-            'role'        => 'required',
-            'permissions' => 'array|nullable',
+            'name'         => 'required',
+            'email'        => 'required|email|unique:users,email',
+            'role'         => 'required',
+            'phone_number' => 'required',
+            'branch_id'    => 'required|exists:branches,id',
+            'join_date'    => 'required',
         ]);
+
+        $branch_id            = $request->branch_id ??  $this->branch->getById(1)->id;
+        $request['branch_id'] = $branch_id;
 
         try {
             $this->userManagement->store($validate);
@@ -82,17 +93,25 @@ class UserManagementController extends Controller
     public function edit($id)
     {
         return view('admin.user-management.edit', [
-            'user'        => $this->userManagement->getById($id),
-            'permissions' => $this->permission->get(),
+            'user'     => $this->userManagement->getById($id),
+            'roles'    => $this->role->get(),
+            'branches' => $this->branch->get()->where('id', '!=', 1),
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'  => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'name'         => 'required',
+            'email'        => 'required|email|unique:users,email,' . $id,
+            'role'         => 'required',
+            'phone_number' => 'required',
+            'branch_id'    => 'nullable|exists:branches,id',
         ]);
+
+        $branch_id            = $request->branch_id ??  $this->branch->getById(1)->id;
+        $request['branch_id'] = $branch_id;
+
         try {
             $this->userManagement->update($id, $request->all());
             return redirect()->route('admin.user-management.index')->with('success', 'Pengguna berhasil diperbarui');

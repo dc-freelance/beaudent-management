@@ -18,7 +18,8 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Permission</th>
+                    <th>Branch</th>
+                    <th>Tgl. Bergabung</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -88,9 +89,12 @@
                             name: 'role'
                         },
                         {
-                            data: 'permission',
-                            name: 'permission',
-                            width: '40%'
+                            data: 'branch',
+                            name: 'branch'
+                        },
+                        {
+                            data: 'join_date',
+                            name: 'join_date'
                         },
                         {
                             data: 'action',
