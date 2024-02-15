@@ -18,9 +18,10 @@
                 class="mix-blend-multiply" />
         </a>
         <ul class="space-y-3">
+            <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
+                active="{{ request()->routeIs('admin.dashboard.index') }}" />
+
             @role('admin_pusat')
-                <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
-                    active="{{ request()->routeIs('admin.dashboard.index') }}" />
                 <x-sidebar-item name="Manajemen Permission" icon="fas fa-user-lock"
                     route="{{ route('admin.permission.index') }}" active="{{ request()->routeIs('admin.permission.*') }}" />
                 <x-sidebar-item name="Manajemen Hak Akses" icon="fas fa-user-lock" route="{{ route('admin.role.index') }}"
@@ -28,6 +29,8 @@
                 <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
                     route="{{ route('admin.user-management.index') }}"
                     active="{{ request()->routeIs('admin.user-management.*') }}" />
+                <x-sidebar-item name="Manajemen Layanan" icon="fas fa-stethoscope"
+                    route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">

@@ -5,7 +5,7 @@
         ['name' => 'Ubah Permission', 'url' => ''],
     ]" title="Ubah Permission" />
 
-    <div class="w-1/2">
+    <div class="lg:w-1/2">
         <x-card-container>
             <form action="{{ route('admin.permission.update', $data->id) }}" method="POST">
                 @csrf
