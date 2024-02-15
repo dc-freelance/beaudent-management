@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('branch_id')->references('id')->on('branches')->cascadeOnUpdate()->cascadeOnDelete();
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->bigInteger('treatment_id', false, true)->nullable()->change();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('branch_id');
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->bigInteger('treatment_id', false, true)->change();
         });
     }
 };

@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customers extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $table = 'customers';
-    use SoftDeletes;
     protected $fillable = [
         'name', 'date_of_birth',
         'place_of_birth',
@@ -29,5 +28,10 @@ class Customers extends Model
         'facebook' ,
         'source_of_information' 
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class, 'customer_id', 'id');
+    }
     
 }

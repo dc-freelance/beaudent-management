@@ -20,8 +20,8 @@ class StoreRegistrationRequest extends FormRequest
             'religion' =>'required',
             'email' =>'required|email',
             'marrital_status' =>'required',
-            'oral_issues' =>'required',
-            'note' =>'nullable',
+            // 'oral_issues' =>'required',
+            // 'note' =>'nullable',
             'instagram' =>'nullable',
             'youtube' =>'nullable',
             'facebook' =>'nullable',
@@ -43,7 +43,7 @@ class StoreRegistrationRequest extends FormRequest
             'email.required' => 'Email harus diisi.',
             'email.email' => 'Format email tidak valid.',
             'marrital_status.required' => 'Status pernikahan harus diisi.',
-            'oral_issues.required' => 'Masalah gigi harus diisi.'
+            // 'oral_issues.required' => 'Masalah gigi harus diisi.'
         ];
     }
 }

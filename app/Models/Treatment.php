@@ -9,6 +9,7 @@ class Treatment extends Model
 {
     use HasFactory;
 
+    protected $table = 'treatments';
     protected $fillable = [
         'name',
         'parent_id',
@@ -20,5 +21,10 @@ class Treatment extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class, 'treatment_id', 'id');
     }
 }

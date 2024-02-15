@@ -19,8 +19,8 @@ class Branch extends Model
         return $this->hasMany(User::class);
     }
 
-    public function treatments()
+    public function reservations()
     {
-        return $this->hasMany(Treatment::class);
+        return $this->hasMany(Reservations::class, 'branch_id', 'id');
     }
 }
