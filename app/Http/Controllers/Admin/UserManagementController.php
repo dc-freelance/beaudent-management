@@ -36,6 +36,9 @@ class UserManagementController extends Controller
                 ->addColumn('email', function ($data) {
                     return $data->email;
                 })
+                ->addColumn('phone_number', function ($data) {
+                    return $data->phone_number;
+                })
                 ->addColumn('role', function ($data) {
                     return ucwords(str_replace('_', ' ', $data->getRoleNames()->first()));
                 })
