@@ -16,7 +16,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Turunan</th>
+                    <th>Layanan Utama</th>
                     <th>Kontrol</th>
                     <th>Harga</th>
                     <th>Aksi</th>
