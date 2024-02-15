@@ -24,4 +24,5 @@ Route::post('store-registration', RegistrationController::class);
 
 // API RESERVATION
 Route::post('store-reservation', [ReservationsController::class, 'store']);
-Route::get('/reservations/search-pasien', [ReservationsController::class, 'searchPasien']);
+Route::get('search-customer', [ReservationsController::class, 'searchCustomer']);
+Route::get('get-cabang', [ReservationsController::class, 'getCabang']);

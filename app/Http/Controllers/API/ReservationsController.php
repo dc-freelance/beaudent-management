@@ -6,31 +6,48 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservations;
 use App\Models\Customers;
+use App\Models\Branch;
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 
 class ReservationsController extends Controller
 {
-    private $reservation_model;
+    private $reservation_model, $customer_model, $branch_model;
 
     public function __construct()
     {
         $this->reservation_model = new Reservations();
         $this->customer_model = new Customers();
+        $this->branch_model = new Branch();
     }
 
-    public function searchPasien(Request $request)
+    public function searchCustomer(Request $request)
     {
-        $search = $request->input('search');
+        try {
+            $search = $request->input('search');
 
-        $customers = $this->customer_model->where('phone_number', $search)
-            ->orWhere('email', $search)
-            ->get();
+            $customers = $this->customer_model->where('phone_number', $search)
+                ->orWhere('email', $search)
+                ->get();
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Berhasil mencari customer',
-            'customers' => $customers
-        ]);
+            if ($customers->isEmpty()) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Customer tidak ditemukan',
+                ]);
+            }
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Data customer ditemukan',
+                'customers' => $customers
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 500,
+                'error' => 'Gagal mencari customer'
+            ]);
+        }
     }
 
     public function store(StoreReservationRequest $request)
@@ -46,6 +63,24 @@ class ReservationsController extends Controller
             return response()->json([
                 'code'=>500,
                 'error' => 'Gagal melakukan reservasi'
+            ]);
+        }
+    }
+
+    public function getCabang()
+    {
+        try {
+            $cabang = $this->branch_model->all();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Berhasil mendapatkan data cabang',
+                'cabang' => $cabang
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 500,
+                'error' => 'Gagal mendapatkan data cabang'
             ]);
         }
     }
