@@ -26,3 +26,4 @@ Route::post('store-registration', RegistrationController::class);
 Route::post('store-reservation', [ReservationsController::class, 'store']);
 Route::get('search-customer', [ReservationsController::class, 'searchCustomer']);
 Route::get('get-cabang', [ReservationsController::class, 'getCabang']);
+Route::get('get-layanan', [ReservationsController::class, 'getLayanan']);

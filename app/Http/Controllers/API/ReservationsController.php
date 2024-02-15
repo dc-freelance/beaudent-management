@@ -7,17 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\Reservations;
 use App\Models\Customers;
 use App\Models\Branch;
+use App\Models\Treatment;
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 
 class ReservationsController extends Controller
 {
-    private $reservation_model, $customer_model, $branch_model;
+    private $reservation_model, $customer_model, $branch_model, $treatment_model;
 
     public function __construct()
     {
         $this->reservation_model = new Reservations();
         $this->customer_model = new Customers();
         $this->branch_model = new Branch();
+        $this->treatment_model = new Treatment();
     }
 
     public function searchCustomer(Request $request)
@@ -81,6 +83,24 @@ class ReservationsController extends Controller
             return response()->json([
                 'code' => 500,
                 'error' => 'Gagal mendapatkan data cabang'
+            ]);
+        }
+    }
+
+    public function getLayanan()
+    {
+        try {
+            $layanan = $this->treatment_model->getTreatment();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Berhasil mengambil data layanan',
+                'cabang' => $layanan
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 500,
+                'error' => 'Gagal mengambil data layanan'
             ]);
         }
     }
