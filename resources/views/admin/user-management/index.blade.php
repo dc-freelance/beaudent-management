@@ -17,6 +17,7 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
+                    <th>No. Telepon</th>
                     <th>Role</th>
                     <th>Branch</th>
                     <th>Tgl. Bergabung</th>
@@ -83,6 +84,10 @@
                         {
                             data: 'email',
                             name: 'email'
+                        },
+                        {
+                            data: 'phone_number',
+                            name: 'phone_number'
                         },
                         {
                             data: 'role',
