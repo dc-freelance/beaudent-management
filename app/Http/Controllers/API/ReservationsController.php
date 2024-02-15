@@ -28,7 +28,7 @@ class ReservationsController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Berhasil mencari pasien',
+            'message' => 'Berhasil mencari customer',
             'customers' => $customers
         ]);
     }
