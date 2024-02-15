@@ -24,7 +24,7 @@ class StoreReservationRequest extends FormRequest
             'customer_bank' =>'nullable',
             'customer_bank_account_name' =>'nullable',
             'transfer_date' =>'nullable',
-            'treatment_id'=>'required',
+            'treatment_id'=>'nullable',
             'is_control'=>'required'
         ];
     }
