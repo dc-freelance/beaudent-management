@@ -1,12 +1,36 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/', DashboardController::class)->name('admin.dashboard.index');
+
+    // Permission
+    Route::group(['prefix' => 'permission'], function () {
+        Route::get('/', [PermissionController::class, 'index'])->name('admin.permission.index');
+        Route::get('get-by-id/{id}', [PermissionController::class, 'getById'])->name('admin.permission.get-by-id');
+        Route::get('create', [PermissionController::class, 'create'])->name('admin.permission.create');
+        Route::post('store', [PermissionController::class, 'store'])->name('admin.permission.store');
+        Route::get('edit/{id}', [PermissionController::class, 'edit'])->name('admin.permission.edit');
+        Route::put('update/{id}', [PermissionController::class, 'update'])->name('admin.permission.update');
+        Route::delete('delete/{id}', [PermissionController::class, 'delete'])->name('admin.permission.delete');
+    });
+
+    // Role
+    Route::group(['prefix' => 'role'], function () {
+        Route::get('/', [RoleController::class, 'index'])->name('admin.role.index');
+        Route::get('get-by-id/{id}', [RoleController::class, 'getById'])->name('admin.role.get-by-id');
+        Route::get('create', [RoleController::class, 'create'])->name('admin.role.create');
+        Route::post('store', [RoleController::class, 'store'])->name('admin.role.store');
+        Route::get('edit/{id}', [RoleController::class, 'edit'])->name('admin.role.edit');
+        Route::put('update/{id}', [RoleController::class, 'update'])->name('admin.role.update');
+        Route::delete('delete/{id}', [RoleController::class, 'delete'])->name('admin.role.delete');
+    });
 
     // User Management
     Route::group(['prefix' => 'user-management'], function () {

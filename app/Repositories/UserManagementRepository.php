@@ -14,13 +14,13 @@ class UserManagementRepository implements UserManagementInterface
 
     public function __construct(User $user, Permission $permission)
     {
-        $this->user = $user;
+        $this->user       = $user;
         $this->permission = $permission;
     }
 
     public function get()
     {
-        return $this->user->all();
+        return $this->user->with(['branch'])->get();
     }
 
     public function getById($id)
@@ -33,37 +33,38 @@ class UserManagementRepository implements UserManagementInterface
         DB::beginTransaction();
         try {
             $password = bcrypt('password');
-            $user = $this->user->create(array_merge($data, ['password' => $password]));
+            $user     = $this->user->create(array_merge($data, ['password' => $password]));
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
         }
 
         try {
             $user->assignRole($data['role']);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
         }
 
-        try {
-            foreach ($data['permissions'] as $permission) {
-                $user->givePermissionTo($permission);
-            }
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-            DB::rollBack();
-        }
         DB::commit();
     }
 
     public function update($id, $data)
     {
+        DB::beginTransaction();
+
         try {
-            return $this->user->find($id)->update($data);
+            $user = $this->user->find($id);
+            $user->update($data);
         } catch (\Throwable $th) {
-            throw $th;
+            DB::rollBack();
         }
+
+        try {
+            $user->syncRoles($data['role']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
+        DB::commit();
     }
 
     public function delete($id)

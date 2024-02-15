@@ -12,10 +12,24 @@ class BranchSeeder extends Seeder
      */
     public function run(): void
     {
-        $branch = new Branch();
-        $branch->name = 'Beauty Dental Pusat Surabaya';
-        $branch->phone_number = '08179666161';
-        $branch->address = 'Jl. Mayjen Sungkono No.17, Sawunggaling, Kec. Wonokromo, Surabaya, Jawa Timur 60242';
-        $branch->save();
+        $brances = [
+            [
+                'name'         => 'Pusat',
+                'address'      => 'Address 1',
+                'phone_number' => '08123456789',
+            ],
+            [
+                'name'         => 'Cabang 1',
+                'address'      => 'Address 2',
+                'phone_number' => '08123456789',
+            ],
+            [
+                'name'         => 'Cabang 2',
+                'address'      => 'Address 3',
+                'phone_number' => '08123456789',
+            ],
+        ];
+
+        Branch::insert($brances);
     }
 }

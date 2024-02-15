@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\RoleInterface;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -29,20 +30,45 @@ class RoleRepository implements RoleInterface
 
     public function store($data)
     {
+        DB::beginTransaction();
         try {
-            return $this->role->create($data->all());
+            $role = $this->role->create(['name' => $data['name']]);
         } catch (\Throwable $th) {
+            DB::rollBack();
             throw $th;
         }
+
+        try {
+            foreach ($data['permissions'] as $permisison) {
+                $role->givePermissionTo($permisison);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+
+        DB::commit();
     }
 
     public function update($id, $data)
     {
+        DB::beginTransaction();
         try {
-            return $this->role->find($id)->update($data->all());
+            $role = $this->role->find($id);
+            $role->update(['name' => $data['name']]);
         } catch (\Throwable $th) {
+            DB::rollBack();
             throw $th;
         }
+
+        try {
+            $role->syncPermissions($data['permissions']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+
+        DB::commit();
     }
 
     public function delete($id)

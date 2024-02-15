@@ -21,6 +21,10 @@
             @role('admin_pusat')
                 <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
                     active="{{ request()->routeIs('admin.dashboard.index') }}" />
+                <x-sidebar-item name="Manajemen Permission" icon="fas fa-user-lock"
+                    route="{{ route('admin.permission.index') }}" active="{{ request()->routeIs('admin.permission.*') }}" />
+                <x-sidebar-item name="Manajemen Hak Akses" icon="fas fa-user-lock" route="{{ route('admin.role.index') }}"
+                    active="{{ request()->routeIs('admin.role.*') }}" />
                 <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
                     route="{{ route('admin.user-management.index') }}"
                     active="{{ request()->routeIs('admin.user-management.*') }}" />

@@ -2,45 +2,87 @@
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
         ['name' => 'Manajemen Pengguna', 'url' => route('admin.user-management.index')],
-        ['name' => $user->name, 'url' => route('admin.user-management.edit', $user->id)],
-    ]" title="Edit Pengguna" />
+        ['name' => 'Ubah', 'url' => '#'],
+    ]" title="Ubah Pengguna" />
 
-    <x-card-container>
-        <form action="{{ route('admin.user-management.update', $user->id) }}" method="post" class="">
-            @csrf
-            @method('put')
-            <div class="grid grid-cols-2">
-                <h3 class=" font-medium text-base">Informasi Pengguna</h3>
-                <div class="space-y-6">
+    <div class="w-1/2">
+        <x-card-container>
+            <form action="{{ route('admin.user-management.update', $user->id) }}" method="post">
+                @csrf
+                @method('PUT')
+                <div class="space-y-6 mb-6">
                     <x-input id="name" label="Nama" name="name" required value="{{ $user->name }}" />
                     <x-input id="email" label="Email" name="email" required value="{{ $user->email }}" />
-                    <x-button type="submit">
-                        Simpan Perubahan
-                    </x-button>
-                </div>
-            </div>
-        </form>
-        <form action="{{ route('admin.user-management.update-permission', $user->id) }}" method="post" class="mt-8">
-            @csrf
-            @method('put')
-            <div class="grid grid-cols-2">
-                <h3 class="font-medium text-base">Permission</h3>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        @foreach ($permissions as $permission)
-                            <div>
-                                <input type="checkbox" class="rounded-sm" name="permission[]"
-                                    id="{{ $permission->name }}" value="{{ $permission->name }}"
-                                    @if ($user->hasPermissionTo($permission->name)) checked @endif>
-                                <label for="{{ $permission->name }}">{{ $permission->name }}</label>
+                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" required
+                        value="{{ $user->phone_number }}" />
+                    <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required
+                        value="{{ $user->join_date }}" />
+                    <div>
+                        <p>Lokasi</p>
+                        <div class="flex flex-wrap gap-6 mt-6">
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" name="branch_type" id="pusat" value="pusat"
+                                    {{ $user->branch_id == 1 || $user->branch_id == null ? 'checked' : '' }}
+                                    class="radio radio-primary" />
+                                <label for="pusat">Pusat</label>
                             </div>
-                        @endforeach
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" name="branch_type" id="cabang" value="cabang"
+                                    {{ $user->branch_id != 1 && $user->branch_id != null ? 'checked' : '' }}
+                                    class="radio radio-primary" />
+                                <label for="cabang">Cabang</label>
+                            </div>
+                        </div>
                     </div>
-                    <x-button type="submit">
-                        Ubah Permission
-                    </x-button>
+                    <div class="{{ $user->branch_id == 1 || $user->branch_id == null ? 'hidden' : '' }}">
+                        <label for="branch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Daftar Cabang
+                        </label>
+                        <select id="branch"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            name="branch_id">
+                            @foreach ($branches as $branch)
+                                <option value="{{ $branch->id }}"
+                                    {{ $user->branch_id == $branch->id ? 'selected' : '' }}>
+                                    {{ $branch->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <p>Role</p>
+                        <div class="flex flex-wrap gap-6 mt-6">
+                            @foreach ($roles as $role)
+                                {{-- radio --}}
+                                <div class="flex items-center space-x-2">
+                                    <input type="radio" name="role" id="{{ $role->name }}"
+                                        {{ $user->hasRole($role->name) ? 'checked' : '' }} value="{{ $role->name }}"
+                                        value="{{ $role->name }}" class="radio radio-primary">
+                                    <label
+                                        for="{{ $role->name }}">{{ ucwords(str_replace('_', ' ', $role->name)) }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </x-card-container>
+                <x-button type="submit" class="mt-6">Simpan Perubahan</x-button>
+            </form>
+        </x-card-container>
+    </div>
+
+    @push('js-internal')
+        <script>
+            $(function() {
+                // when user set branch type to cabang, show branch select
+                $('input[name="branch_type"]').on('change', function() {
+                    if ($(this).val() === 'cabang') {
+                        $('#branch').parent().removeClass('hidden');
+                    } else {
+                        $('#branch').val('');
+                        $('#branch').parent().addClass('hidden');
+                    }
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

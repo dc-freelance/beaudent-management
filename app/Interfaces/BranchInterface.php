@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface PermissionInterface
+interface BranchInterface
 {
     public function get();
     public function getById($id);
