@@ -2,49 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-table,
-th,
-td {
-    @apply text-sm;
-}
-
-/* datatable thead th font weight normal */
-table.dataTable thead th {
-    font-weight: normal;
-}
-
-.dataTables_length select,
-.dataTables_filter input,
-.dataTables_info,
-.dataTables_paginate a,
-.dataTables_length label,
-.dataTables_filter label {
-    @apply text-sm;
-}
-
-.swal2-popup {
-    font-size: 0.75rem !important;
-}
-
-.swal2-popup .swal2-title {
-    font-size: 1rem !important;
-}
-
-.swal2-confirm.swal2-styled {
-    font-size: 0.75rem !important;
-}
-
-.swal2-actions button {
-    border-radius: 0.375rem;
-}
-
 .select2-container {
     /* The container where the selectbox is housing*/
     @apply relative box-border align-middle inline-block m-0 mb-2;
 }
 .select2-container .select2-selection--single {
     /* Selection box itself */
-    @apply box-border cursor-pointer block select-none border rounded-md;
+    @apply box-border cursor-pointer block select-none shadow border rounded-md;
 }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
@@ -165,3 +129,264 @@ table.dataTable thead th {
 /*
 	Default template settings:
 */
+
+.select2-container--default .select2-selection--single {
+    /* Selection bar - Self */
+    @apply p-1 !h-10 border-solid border border-gray-300 focus:border-primary !rounded-lg focus:!ring-0 !ring-green-700 bg-white;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    /* Selection bar - Text color of the item you selected from the results */
+    @apply text-gray-700;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__clear {
+    /* Selection bar - Clear button - If this property is enabled*/
+    @apply cursor-pointer float-right text-red-700;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__placeholder {
+    /* Selection bar - Color of the placeholder text before selection - If this property is enabled */
+    @apply text-gray-600;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
+    /* Selection bar - DIV where the arrow pointing down is living*/
+    @apply absolute right-0 top-0 h-12 w-8;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
+    /* Arrow is a CSS triangle that does not exists in Tailwind without a package */
+    @apply absolute border-solid h-0 w-0 border-t-4 border-r-4 border-b-0 border-l-4;
+    border-color: #000 transparent transparent transparent;
+    left: 50%;
+    margin-left: -4px;
+    margin-top: -2px;
+    top: 50%;
+}
+
+.select2-container--default[dir="rtl"]
+    .select2-selection--single
+    .select2-selection__clear {
+    /* Selection bar - Clear button - If this property is enabled from right to left*/
+    @apply float-left ml-4;
+}
+
+.select2-container--default[dir="rtl"]
+    .select2-selection--single
+    .select2-selection__arrow {
+    /* Placement of the dropdown arrow when in rtl mode */
+    @apply left-0 right-auto;
+}
+
+.select2-container--default.select2-container--disabled
+    .select2-selection--single {
+    /* Selection by property disabled*/
+    @apply cursor-default bg-gray-300;
+}
+.select2-container--default.select2-container--disabled
+    .select2-selection--single
+    .select2-selection__clear {
+    /* Selection bar - Hide the clear cross when selection bar is disabled*/
+    @apply hidden;
+}
+
+.select2-container--default.select2-container--open
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
+    border-color: transparent transparent #888 transparent;
+    border-width: 0 4px 5px 4px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    @apply p-1 min-h-full h-12 border-solid border !border-green-700 !rounded-lg focus:!ring-0 !ring-green-700 shadow bg-white;
+}
+
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered {
+    @apply box-border list-none m-0 px-1 min-w-full;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered
+    li {
+    @apply list-none;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__clear {
+    @apply float-right cursor-pointer mt-1 mr-2 p-1;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    @apply bg-white border cursor-default rounded-md my-1 mr-1 px-2 float-left;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
+    @apply text-gray-700 cursor-pointer inline-block mr-1;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice__remove:hover {
+    @apply text-gray-500;
+}
+.select2-container--default.select2-container--focus
+    .select2-selection--multiple {
+    @apply !border !outline-none;
+}
+
+.select2-container--default.select2-container--disabled
+    .select2-selection__choice__remove {
+    @apply hidden;
+}
+.select2-container--classic
+    .select2-selection--multiple
+    .select2-selection__choice {
+    @apply bg-gray-300 border-2 shadow rounded-md float-left cursor-default mt-1 mr-1 px-1;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    /* The border of the search textbox */
+    @apply border-solid;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    /* Search textbox */
+    @apply border-none bg-transparent outline-none shadow-none select-text;
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+    /* Hight of the dropdown zone where the options or results are visible */
+    @apply h-full max-h-32 overflow-y-auto;
+}
+
+.select2-container--default .select2-results__option[role="group"] {
+    /* No clue what this does */
+    @apply p-0;
+}
+
+.select2-container--default .select2-results__option[aria-disabled="true"] {
+    @apply text-gray-300;
+}
+
+.select2-container--default .select2-results__option[aria-selected="true"] {
+    /* The already selected option row color */
+    @apply bg-gray-300;
+}
+.select2-results__option--selected {
+    @apply hidden;
+}
+.select2-container--default .select2-results__option .select2-results__option {
+    padding-left: 1em;
+}
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__group {
+    padding-left: 0;
+}
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
+    margin-left: -1em;
+    padding-left: 2em;
+}
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
+    margin-left: -2em;
+    padding-left: 3em;
+}
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
+    margin-left: -3em;
+    padding-left: 4em;
+}
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
+    margin-left: -4em;
+    padding-left: 5em;
+}
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
+    margin-left: -5em;
+    padding-left: 6em;
+}
+
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected] {
+    /* Background color and text color of the options rows when select is open */
+    @apply bg-blue-500 text-white;
+}
+
+.select2-container--default .select2-results__group {
+    /* Have no idea what this is for */
+    @apply cursor-default block;
+    padding: 6px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #c2d2e4;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 30px;
+    background-color: #19743b;
+}
+
+.swal2-title {
+    @apply text-xl;
+}
+
+.swal2-html-container {
+    @apply text-xs 2xl:text-sm;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    @apply bg-primary rounded-md text-sm;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+    @apply rounded-md text-sm;
+}
+
+div:where(.swal2-container) .swal2-html-container {
+    @apply text-base;
+}
+
+.dataTables_length select {
+    width: 4rem;
+    margin: 0 0.5rem;
+    font-size: 0.875rem;
+}
