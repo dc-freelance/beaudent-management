@@ -17,7 +17,7 @@ class PermissionRepository implements PermissionInterface
 
     public function get()
     {
-        return $this->permission->all();
+        return $this->permission->all()->sortByDesc('id');
     }
 
     public function getById($id)
@@ -25,18 +25,18 @@ class PermissionRepository implements PermissionInterface
         return $this->permission->find($id);
     }
 
-    public function store($request)
+    public function store($data)
     {
-        $this->permission->create($request->all());
+        return $this->permission->create($data);
     }
 
-    public function update($id, $request)
+    public function update($id, $data)
     {
-        $this->permission->find($id)->update($request->all());
+        $this->permission->find($id)->update($data);
     }
 
     public function delete($id)
     {
-        $this->permission->find($id)->delete();
+        return $this->permission->find($id)->delete();
     }
 }

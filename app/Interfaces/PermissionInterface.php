@@ -6,7 +6,7 @@ interface PermissionInterface
 {
     public function get();
     public function getById($id);
-    public function store($request);
-    public function update($id, $request);
+    public function store($data);
+    public function update($id, $data);
     public function delete($id);
 }

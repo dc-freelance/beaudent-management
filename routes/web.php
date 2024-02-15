@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserManagementController;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,17 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/', DashboardController::class)->name('admin.dashboard.index');
+
+    // Permission
+    Route::group(['prefix' => 'permission'], function () {
+        Route::get('/', [PermissionController::class, 'index'])->name('admin.permission.index');
+        Route::get('get-by-id/{id}', [PermissionController::class, 'getById'])->name('admin.permission.get-by-id');
+        Route::get('create', [PermissionController::class, 'create'])->name('admin.permission.create');
+        Route::post('store', [PermissionController::class, 'store'])->name('admin.permission.store');
+        Route::get('edit/{id}', [PermissionController::class, 'edit'])->name('admin.permission.edit');
+        Route::put('update/{id}', [PermissionController::class, 'update'])->name('admin.permission.update');
+        Route::delete('delete/{id}', [PermissionController::class, 'delete'])->name('admin.permission.delete');
+    });
 
     // Role
     Route::group(['prefix' => 'role'], function () {
