@@ -32,14 +32,13 @@ class StoreReservationRequest extends FormRequest
     {
         return [
             'no.required' => 'Nomor harus diisi.',
-            'branch_id.required' => 'ID cabang harus diisi.',
+            'branch_id.required' => 'Harap pilih cabang',
             'request_date.required' => 'Tanggal permintaan harus diisi.',
             'request_time.required' => 'Waktu permintaan harus diisi.',
             'anamnesis.required' => 'Anamnesis harus diisi.',
             'customer_id.required' => 'ID pelanggan harus diisi.',
-            'status.required' => 'Status harus diisi.',
             'deposit_status.required' => 'Status deposit harus diisi.',
-            'treatment_id.required' => 'Treatment ID harus diisi.'
+            'treatment_id.required' => 'Harap pilih layanan'
         ];
     }
 }
