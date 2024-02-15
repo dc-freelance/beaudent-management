@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservations;
+use App\Models\Customers;
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 
 class ReservationsController extends Controller
@@ -14,11 +15,22 @@ class ReservationsController extends Controller
     public function __construct()
     {
         $this->reservation_model = new Reservations();
+        $this->customer_model = new Customers();
     }
 
-    public function index()
+    public function searchPasien(Request $request)
     {
-        //
+        $search = $request->input('search');
+
+        $customers = $this->customer_model->where('phone_number', $search)
+            ->orWhere('email', $search)
+            ->get();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Berhasil mencari pasien',
+            'customers' => $customers
+        ]);
     }
 
     public function store(StoreReservationRequest $request)
