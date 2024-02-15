@@ -18,4 +18,9 @@ class Branch extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
+    }
 }

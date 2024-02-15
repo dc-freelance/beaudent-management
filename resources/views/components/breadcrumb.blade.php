@@ -10,7 +10,7 @@
             @endif
         @endforeach
     </p>
-    <h2 class="text-2xl font-semibold mt-8">
+    <h2 class="text-xl font-semibold mt-8">
         {{ $title }}
     </h2>
 </div>
