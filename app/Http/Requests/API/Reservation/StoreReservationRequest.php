@@ -24,7 +24,8 @@ class StoreReservationRequest extends FormRequest
             'customer_bank' =>'nullable',
             'customer_bank_account_name' =>'nullable',
             'transfer_date' =>'nullable',
-            'treatment_id'=>'required'
+            'treatment_id'=>'required',
+            'is_control'=>'required'
         ];
     }
 
@@ -38,7 +39,8 @@ class StoreReservationRequest extends FormRequest
             'anamnesis.required' => 'Anamnesis harus diisi.',
             'customer_id.required' => 'ID pelanggan harus diisi.',
             'deposit_status.required' => 'Status deposit harus diisi.',
-            'treatment_id.required' => 'Harap pilih layanan'
+            'treatment_id.required' => 'Harap pilih layanan',
+            'is_control.required' => 'Harap pilih layanan'
         ];
     }
 }
