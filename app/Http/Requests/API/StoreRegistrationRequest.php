@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Requests\API;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreRegistrationRequest extends FormRequest
+{
+
+    public function rules()
+    {
+        return [
+            'name' =>'required',
+            'date_of_birth' =>'required',
+            'place_of_birth' =>'required',
+            'identity_number' =>'required',
+            'gender' =>'required',
+            'occupation' =>'required',
+            'phone_number' =>'required',
+            'religion' =>'required',
+            'email' =>'required|email',
+            'marrital_status' =>'required',
+            // 'oral_issues' =>'required',
+            // 'note' =>'nullable',
+            'instagram' =>'nullable',
+            'youtube' =>'nullable',
+            'facebook' =>'nullable',
+            'source_of_information'=>'nullable'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama harus diisi.',
+            'date_of_birth.required' => 'Tanggal lahir harus diisi.',
+            'place_of_birth.required' => 'Tempat lahir harus diisi.',
+            'identity_number.required' => 'Nomor identitas harus diisi.',
+            'gender.required' => 'Jenis kelamin harus diisi.',
+            'occupation.required' => 'Pekerjaan harus diisi.',
+            'phone_number.required' => 'Nomor telepon harus diisi.',
+            'religion.required' => 'Agama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'marrital_status.required' => 'Status pernikahan harus diisi.',
+            // 'oral_issues.required' => 'Masalah gigi harus diisi.'
+        ];
+    }
+}

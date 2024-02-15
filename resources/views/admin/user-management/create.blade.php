@@ -5,7 +5,7 @@
         ['name' => 'Tambah', 'url' => '#'],
     ]" title="Tambah Pengguna" />
 
-    <div class="w-1/2">
+    <div class="lg:w-1/2">
         <x-card-container>
             <form action="{{ route('admin.user-management.store') }}" method="post">
                 @csrf

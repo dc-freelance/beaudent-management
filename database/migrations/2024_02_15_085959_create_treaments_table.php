@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('parent_id')->nullable();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->boolean('is_control')->default(false);
-            $table->string('price')->nullable();
-            $table->softDeletes();
+            $table->integer('price')->default(0);
             $table->timestamps();
         });
     }
