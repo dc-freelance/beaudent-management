@@ -32,4 +32,9 @@ class Treatment extends Model
     {
         return $this->whereNull('parent_id')->get();
     }
+
+    public function discount_treatments()
+    {
+        return $this->hasMany(Discount_Treatments::class, 'treatment_id', 'id');
+    }
 }
