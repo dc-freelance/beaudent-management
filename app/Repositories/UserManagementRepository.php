@@ -35,6 +35,7 @@ class UserManagementRepository implements UserManagementInterface
             $password = bcrypt('password');
             $user     = $this->user->create(array_merge($data, ['password' => $password]));
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             DB::rollBack();
         }
 
