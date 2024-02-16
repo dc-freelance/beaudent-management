@@ -1,12 +1,11 @@
 @props(['active' => false, 'title' => '', 'icon' => '', 'toggle' => ''])
 <li>
     <button type="button"
-        class="flex w-full items-center px-3 py-4 text-sm text-gray-900 hover:bg-gray-100 {{ $active ? 'bg-gray-200' : '' }}"
+        class="flex w-full items-center px-3 py-4 text-sm rounded-md mb-2 {{ $active ? 'bg-primary text-white' : 'text-gray-900' }}"
         aria-controls="{{ $toggle }}" data-collapse-toggle="{{ $toggle }}">
         <i
-            class="w-3 h-3 {{ $active ? 'text-primary' : 'text-gray-500' }} transition duration-75 {{ $icon }}"></i>
-        <span class="flex-1 ml-2 text-left whitespace-nowrap" sidebar-toggle-item>
-            {{ $title }}
+            class="{{ $icon }} w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ $active == true ? 'text-white' : '' }}"></i>
+        <span class="ml-3">{{ $title }}</span>
         </span>
         <i class="fas {{ $active ? 'fa-chevron-up' : 'fa-chevron-down' }} ml-auto"></i>
     </button>
