@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <x-input id="email" label="Email" name="email" type="email" required />
-                <x-input id="phone_number" label="No. Telp" name="phone_number" required />
+                <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required />
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required />
                 <div class="mt-6">
                     <x-button type="submit">Tambah Dokter</x-button>
