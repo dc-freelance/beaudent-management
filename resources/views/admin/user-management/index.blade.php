@@ -18,8 +18,8 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>No. Telepon</th>
-                    <th>Role</th>
-                    <th>Branch</th>
+                    <th>Hak Akses</th>
+                    <th>Cabang</th>
                     <th>Tgl. Bergabung</th>
                     <th>Aksi</th>
                 </tr>

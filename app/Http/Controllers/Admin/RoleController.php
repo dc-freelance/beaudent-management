@@ -50,9 +50,9 @@ class RoleController extends Controller
 
         try {
             $this->role->store($request->all());
-            return redirect()->route('admin.role.index')->with('success', 'Role created successfully');
+            return redirect()->route('admin.role.index')->with('success', 'Hak akses berhasil ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -73,9 +73,9 @@ class RoleController extends Controller
 
         try {
             $this->role->update($id, $request->all());
-            return redirect()->route('admin.role.index')->with('success', 'Role updated successfully');
+            return redirect()->route('admin.role.index')->with('success', 'Hak akses berhasil diperbarui');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
