@@ -70,7 +70,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
         Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
     });
-
+  
     // Treatment Bonus
     Route::group(['prefix' => 'treatment-bonus', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [TreatmentBonusController::class, 'index'])->name('admin.treatment-bonus.index');
@@ -81,7 +81,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [TreatmentBonusController::class, 'update'])->name('admin.treatment-bonus.update');
         Route::delete('delete/{id}', [TreatmentBonusController::class, 'delete'])->name('admin.treatment-bonus.delete');
     });
-
+  
     // Treatment
     Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [TreatmentController::class, 'index'])->name('admin.treatment.index');
@@ -109,4 +109,4 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customers extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'customers';
 
@@ -22,12 +22,11 @@ class Customers extends Model
         'religion',
         'email',
         'marrital_status',
-        'oral_issues',
-        'note',
+        'address',
         'instagram',
         'youtube',
         'facebook',
-        'source_of_information',
+        'source_of_information'
     ];
 
     public function reservations()

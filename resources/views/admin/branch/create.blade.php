@@ -10,6 +10,7 @@
             <form action="{{ route('admin.branch.store') }}" method="POST">
                 @csrf
                 <div class="space-y-6">
+                    <x-input id="code" label="Nama Cabang" name="code" value="{{ $generate_code }}" readonly="readonly" required/>
                     <x-input id="name" label="Nama Cabang" name="name" required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="text" required />
                     <x-input id="address" label="Alamat" name="address" required />

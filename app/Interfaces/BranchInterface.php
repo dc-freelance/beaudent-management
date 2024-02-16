@@ -13,4 +13,5 @@ interface BranchInterface
     public function update($id, $data);
 
     public function delete($id);
+    public function generateCode();
 }

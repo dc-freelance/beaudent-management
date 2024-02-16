@@ -17,6 +17,19 @@ class Branch extends Model
 
     protected $guarded = [];
 
+    public static function generate_code_branch(){
+        $last_code_branch = Branch::orderBy('id', 'desc')->first();
+        if(!$last_code_branch){
+            $code_branch = 'CBG-1';
+        } else {
+            $get_last_code_branch = $last_code_branch->code;
+            $last_number = substr($get_last_code_branch, 4);
+            $new_number = $last_number + 1;
+            $code_branch = 'CBG-' . $new_number;
+        }
+        return $code_branch;
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);

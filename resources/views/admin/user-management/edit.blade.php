@@ -77,8 +77,16 @@
                 const adminPusatRole = $('#role-admin_pusat');
                 const ownerRole = $('#role-owner');
 
-                adminCabangRole.addClass('hidden');
-                managerCabangRole.addClass('hidden');
+                let branch_id = '{{ $data->branch_id }}';
+                if (branch_id == 1) {
+                    // hide admin cabang and manager cabang role
+                    adminCabangRole.addClass('hidden');
+                    managerCabangRole.addClass('hidden');
+                } else {
+                    // hide admin pusat and owner role
+                    adminPusatRole.addClass('hidden');
+                    ownerRole.addClass('hidden');
+                }
 
                 branchTypeInput.on('change', function() {
                     const selectedBranchType = $(this).val();
@@ -90,7 +98,6 @@
                         managerCabangRole.removeClass('hidden');
                         adminPusatRole.addClass('hidden');
                         ownerRole.addClass('hidden');
-
                     } else {
                         // remove value branch_id
                         branchSelect.val('');

@@ -9,23 +9,37 @@ class StoreReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'no' => 'required',
-            'branch_id' => 'required',
-            'request_date' => 'required',
-            'request_time' => 'required',
-            'anamnesis' => 'required',
-            'customer_id' => 'required',
-            'status' => 'required',
-            'deposit' => 'nullable',
-            'deposit_status' => 'required',
-            'deposit_receipt' => 'nullable',
-            'customer_bank_account' => 'nullable',
-            'customer_bank' => 'nullable',
-            'customer_bank_account_name' => 'nullable',
-            'transfer_date' => 'nullable',
-            'treatment_id' => 'nullable',
-            'is_control' => 'required',
+            'no' =>'required',
+            'branch_id' =>'required',
+            'request_date' =>'required',
+            'request_time' =>'required',
+            'anamnesis' =>'required',
+            'customer_id' =>'required',
+            'status' =>'required',
+            'is_control'=>'required'
         ];
+
+        if ($this->input('is_control') == 1) {
+            $rules['treatment_id'] = 'nullable';
+            $rules['deposit'] = 'nullable';
+            $rules['deposit_status'] = 'nullable';
+            $rules['deposit_receipt'] = 'nullable';
+            $rules['customer_bank_account'] = 'nullable';
+            $rules['customer_bank'] = 'nullable';
+            $rules['customer_bank_account_name'] = 'nullable';
+            $rules['transfer_date'] = 'nullable';
+        } else {
+            $rules['treatment_id'] = 'required';
+            $rules['deposit'] = 'required';
+            $rules['deposit_status'] = 'required';
+            $rules['deposit_receipt'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $rules['customer_bank_account'] = 'required';
+            $rules['customer_bank'] = 'required';
+            $rules['customer_bank_account_name'] = 'required';
+            $rules['transfer_date'] = 'required';
+        }
+    
+        return $rules;
     }
 
     public function messages()
@@ -38,7 +52,8 @@ class StoreReservationRequest extends FormRequest
             'anamnesis.required' => 'Anamnesis harus diisi.',
             'customer_id.required' => 'ID pelanggan harus diisi.',
             'deposit_status.required' => 'Status deposit harus diisi.',
-            'is_control.required' => 'Harap pilih layanan',
+            'treatment_id.required' => 'Harap pilih layanan',
+            'is_control.required' => 'Harap pilih layanan'
         ];
     }
 }
