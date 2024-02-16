@@ -18,4 +18,9 @@ class Branch extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function sequences()
+    {
+        return $this->hasMany(Sequence::class);
+    }
 }
