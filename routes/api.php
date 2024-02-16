@@ -20,10 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // API REGISTRATION
-Route::post('store-registration', RegistrationController::class);
+Route::post('registration', RegistrationController::class);
 
 // API RESERVATION
-Route::post('store-reservation', [ReservationsController::class, 'store']);
-Route::get('search-customer', [ReservationsController::class, 'searchCustomer']);
-Route::get('get-cabang', [ReservationsController::class, 'getCabang']);
-Route::get('get-layanan', [ReservationsController::class, 'getLayanan']);
+Route::post('reservation', [ReservationsController::class, 'store']);
+Route::get('treatment', [ReservationsController::class, 'treatment']);
+Route::get('branch', [ReservationsController::class, 'branch']);
+Route::post('customer', [ReservationsController::class, 'customer']);
