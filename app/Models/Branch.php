@@ -13,4 +13,9 @@ class Branch extends Model
 
     protected $table = 'branches';
     protected $primaryKey = 'id';
+
+    public function sequences()
+    {
+        return $this->hasMany(Sequence::class);
+    }
 }
