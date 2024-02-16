@@ -68,6 +68,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctor.edit');
         Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
         Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
+    });
       
     // Treatment
     Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {

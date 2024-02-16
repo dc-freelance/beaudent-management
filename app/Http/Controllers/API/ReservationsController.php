@@ -8,6 +8,7 @@ use App\Models\Reservations;
 use App\Models\Customers;
 use App\Models\Branch;
 use App\Models\Treatment;
+
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 
 class ReservationsController extends Controller
@@ -55,7 +56,19 @@ class ReservationsController extends Controller
     public function store(StoreReservationRequest $request)
     {
         try {  
-            $reservation = $this->reservation_model->create($request->all());
+            $data = $request->all();
+            $data['no'] = generateTransactionCode('PCH', date('Y'), date('m'), $data['branch_id']);
+            $data['status'] = 'Reservation';
+
+            //Upload Gambar
+            if ($request->hasFile('deposit_receipt')) {
+                $file = $request->file('deposit_receipt');
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->storeAs('deposit-receipt', $fileName, 'public');
+                $data['deposit_receipt'] = Storage::url($filePath);
+            }
+
+            $reservation = $this->reservation_model->create($data);
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil melakukan reservasi',
