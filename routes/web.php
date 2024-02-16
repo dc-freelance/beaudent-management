@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -89,6 +90,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [BranchController::class, 'edit'])->name('admin.branch.edit');
         Route::put('update/{id}', [BranchController::class, 'update'])->name('admin.branch.update');
         Route::delete('delete/{id}', [BranchController::class, 'delete'])->name('admin.branch.delete');
+    });
+
+    // Customer
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
+        Route::get('get-by-id/{id}', [CustomerController::class, 'getById'])->name('admin.customer.get-by-id');
+        Route::get('create', [CustomerController::class, 'create'])->name('admin.customer.create');
+        Route::post('store', [CustomerController::class, 'store'])->name('admin.customer.store');
+        Route::get('edit/{id}', [CustomerController::class, 'edit'])->name('admin.customer.edit');
+        Route::get('detail/{id}', [CustomerController::class, 'detail'])->name('admin.customer.detail');
+        Route::put('update/{id}', [CustomerController::class, 'update'])->name('admin.customer.update');
+        Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
     });
 });
 

@@ -40,6 +40,8 @@
                     route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution"
                     route="{{ route('admin.branch.index') }}" active="{{ request()->routeIs('admin.branch.*') }}" />
+                <x-sidebar-item name="Manajemen Pasien" icon="fas fa-user-plus"
+                    route="{{ route('admin.customer.index') }}" active="{{ request()->routeIs('admin.customer.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">
