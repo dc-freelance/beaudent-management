@@ -31,6 +31,8 @@
                     active="{{ request()->routeIs('admin.user-management.*') }}" />
                 <x-sidebar-item name="Manajemen Layanan" icon="fas fa-stethoscope"
                     route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
+                <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution"
+                    route="{{ route('admin.branch.index') }}" active="{{ request()->routeIs('admin.branch.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">
