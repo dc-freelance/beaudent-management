@@ -41,6 +41,8 @@
                     route="{{ route('admin.branch.index') }}" active="{{ request()->routeIs('admin.branch.*') }}" />
                 <x-sidebar-item name="Manajemen Pasien" icon="fas fa-user-plus"
                     route="{{ route('admin.customer.index') }}" active="{{ request()->routeIs('admin.customer.*') }}" />
+                <x-sidebar-item name="Manajemen Diskon" icon="fas fa-money-bill-wave"
+                    route="{{ route('admin.discount.index') }}" active="{{ request()->routeIs('admin.discount.*') }}" />
                 <x-sidebar-item name="Manajemen Bonus Layanan" icon="fas fa-gift"
                     route="{{ route('admin.treatment-bonus.index') }}" active="{{ request()->routeIs('admin.treatment-bonus.*') }}" />
             @endrole
