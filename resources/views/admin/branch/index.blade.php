@@ -16,6 +16,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nama Cabang</th>
+                    <th>Kode Cabang</th>
                     <th>Nomor Telpon</th>
                     <th>Alamat</th>
                     <th>Aksi</th>
@@ -86,6 +87,10 @@
                         {
                             data: 'name',
                             name: 'name'
+                        },
+                        {
+                            data: 'code',
+                            name: 'code'
                         },
                         {
                             data: 'phone_number',
