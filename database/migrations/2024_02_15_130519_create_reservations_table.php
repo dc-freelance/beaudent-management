@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('no');
             $table->bigInteger('branch_id', false, true);
             $table->date('request_date');
-            $table->timestamp('request_time');
+            $table->time('request_time');
             $table->string('anamnesis');
             $table->bigInteger('customer_id', false, true);
             $table->enum('status', ['Reservation', 'Cancel', 'Done']);

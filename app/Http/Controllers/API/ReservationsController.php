@@ -12,6 +12,9 @@ use App\Models\Treatment;
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 use App\Interfaces\BranchInterface;
 use App\Interfaces\TreatmentInterface;
+use Illuminate\Support\Facades\Storage;
+
+use function App\Helpers\generateTransactionCode;
 
 class ReservationsController extends Controller
 {
@@ -38,10 +41,11 @@ class ReservationsController extends Controller
 
     public function store(StoreReservationRequest $request)
     {
-        try {  
+        try {
             $data = $request->all();
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
             $data['status'] = 'Reservation';
+            $data['deposit_status'] = 0;
 
             //Upload Gambar
             if ($request->hasFile('deposit_receipt')) {
