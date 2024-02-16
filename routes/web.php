@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\BranchController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -54,6 +55,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [TreatmentController::class, 'edit'])->name('admin.treatment.edit');
         Route::put('update/{id}', [TreatmentController::class, 'update'])->name('admin.treatment.update');
         Route::delete('delete/{id}', [TreatmentController::class, 'delete'])->name('admin.treatment.delete');
+    });
+
+    // Branch
+    Route::group(['prefix' => 'branch', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [BranchController::class, 'index'])->name('admin.branch.index');
+        Route::get('get-by-id/{id}', [BranchController::class, 'getById'])->name('admin.branch.get-by-id');
+        Route::get('create', [BranchController::class, 'create'])->name('admin.branch.create');
+        Route::post('store', [BranchController::class, 'store'])->name('admin.branch.store');
+        Route::get('edit/{id}', [BranchController::class, 'edit'])->name('admin.branch.edit');
+        Route::put('update/{id}', [BranchController::class, 'update'])->name('admin.branch.update');
+        Route::delete('delete/{id}', [BranchController::class, 'delete'])->name('admin.branch.delete');
     });
 });
 
