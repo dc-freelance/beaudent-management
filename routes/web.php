@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\DoctorCategoryController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\BranchController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -13,7 +15,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/', DashboardController::class)->name('admin.dashboard.index');
 
     // Permission
-    Route::group(['prefix' => 'permission'], function () {
+    Route::group(['prefix' => 'permission', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [PermissionController::class, 'index'])->name('admin.permission.index');
         Route::get('get-by-id/{id}', [PermissionController::class, 'getById'])->name('admin.permission.get-by-id');
         Route::get('create', [PermissionController::class, 'create'])->name('admin.permission.create');
@@ -24,7 +26,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     });
 
     // Role
-    Route::group(['prefix' => 'role'], function () {
+    Route::group(['prefix' => 'role', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [RoleController::class, 'index'])->name('admin.role.index');
         Route::get('get-by-id/{id}', [RoleController::class, 'getById'])->name('admin.role.get-by-id');
         Route::get('create', [RoleController::class, 'create'])->name('admin.role.create');
@@ -35,7 +37,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     });
 
     // User Management
-    Route::group(['prefix' => 'user-management'], function () {
+    Route::group(['prefix' => 'user-management', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [UserManagementController::class, 'index'])->name('admin.user-management.index');
         Route::get('get-by-id/{id}', [UserManagementController::class, 'getById'])->name('admin.user-management.get-by-id');
         Route::get('create', [UserManagementController::class, 'create'])->name('admin.user-management.create');
@@ -66,6 +68,27 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctor.edit');
         Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
         Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
+      
+    // Treatment
+    Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [TreatmentController::class, 'index'])->name('admin.treatment.index');
+        Route::get('get-by-id/{id}', [TreatmentController::class, 'getById'])->name('admin.treatment.get-by-id');
+        Route::get('create', [TreatmentController::class, 'create'])->name('admin.treatment.create');
+        Route::post('store', [TreatmentController::class, 'store'])->name('admin.treatment.store');
+        Route::get('edit/{id}', [TreatmentController::class, 'edit'])->name('admin.treatment.edit');
+        Route::put('update/{id}', [TreatmentController::class, 'update'])->name('admin.treatment.update');
+        Route::delete('delete/{id}', [TreatmentController::class, 'delete'])->name('admin.treatment.delete');
+    });
+
+    // Branch
+    Route::group(['prefix' => 'branch', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [BranchController::class, 'index'])->name('admin.branch.index');
+        Route::get('get-by-id/{id}', [BranchController::class, 'getById'])->name('admin.branch.get-by-id');
+        Route::get('create', [BranchController::class, 'create'])->name('admin.branch.create');
+        Route::post('store', [BranchController::class, 'store'])->name('admin.branch.store');
+        Route::get('edit/{id}', [BranchController::class, 'edit'])->name('admin.branch.edit');
+        Route::put('update/{id}', [BranchController::class, 'update'])->name('admin.branch.update');
+        Route::delete('delete/{id}', [BranchController::class, 'delete'])->name('admin.branch.delete');
     });
 });
 
