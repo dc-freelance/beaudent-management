@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservations extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'reservations';
 
@@ -26,6 +26,6 @@ class Reservations extends Model
 
     public function treatments()
     {
-        return $this->belongsTo(Treatments::class, 'treatment_id', 'id');
+        return $this->belongsTo(Treatment::class, 'treatment_id', 'id');
     }
 }
