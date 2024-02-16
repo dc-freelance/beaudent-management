@@ -64,9 +64,9 @@ class UserManagementController extends Controller
 
     public function create()
     {
+        $roles = $this->role->get();
         return view('admin.user-management.create', [
-            'roles'       => $this->role->get(),
-            'permissions' => $this->permission->get(),
+            'roles'       => $roles,
             'branches'    => $this->branch->get()->where('id', '!=', 1),
         ]);
     }
@@ -78,15 +78,16 @@ class UserManagementController extends Controller
             'email'        => 'required|email|unique:users,email',
             'role'         => 'required',
             'phone_number' => 'required',
-            'branch_id'    => 'required|exists:branches,id',
+            'branch_id'    => 'nullable|exists:branches,id',
             'join_date'    => 'required',
         ]);
 
-        $branch_id            = $request->branch_id ??  $this->branch->getById(1)->id;
-        $request['branch_id'] = $branch_id;
+        if (!$request->has('branch_id')) {
+            $request['branch_id'] = $this->branch->getById(1)->id;
+        }
 
         try {
-            $this->userManagement->store($validate);
+            $this->userManagement->store($request->all());
             return redirect()->route('admin.user-management.index')->with('success', 'Pengguna berhasil ditambahkan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.user-management.index')->with('error', $th->getMessage());
@@ -96,7 +97,7 @@ class UserManagementController extends Controller
     public function edit($id)
     {
         return view('admin.user-management.edit', [
-            'user'     => $this->userManagement->getById($id),
+            'data'     => $this->userManagement->getById($id),
             'roles'    => $this->role->get(),
             'branches' => $this->branch->get()->where('id', '!=', 1),
         ]);
@@ -110,10 +111,12 @@ class UserManagementController extends Controller
             'role'         => 'required',
             'phone_number' => 'required',
             'branch_id'    => 'nullable|exists:branches,id',
+            'join_date'    => 'required',
         ]);
 
-        $branch_id            = $request->branch_id ??  $this->branch->getById(1)->id;
-        $request['branch_id'] = $branch_id;
+        if (!$request->has('branch_id')) {
+            $request['branch_id'] = $this->branch->getById(1)->id;
+        }
 
         try {
             $this->userManagement->update($id, $request->all());

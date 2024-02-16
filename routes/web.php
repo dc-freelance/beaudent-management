@@ -69,7 +69,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
         Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
     });
-      
     // Treatment
     Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [TreatmentController::class, 'index'])->name('admin.treatment.index');
@@ -92,6 +91,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [BranchController::class, 'delete'])->name('admin.branch.delete');
     });
 });
+
 
 Route::get('/', function () {
     return view('auth.login');
