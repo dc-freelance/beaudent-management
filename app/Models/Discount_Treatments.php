@@ -10,7 +10,8 @@ class Discount_Treatments extends Model
     use HasFactory;
 
     protected $table = 'discount_treatments';
-    protected $guarded = []; 
+
+    protected $guarded = [];
 
     public function discounts()
     {

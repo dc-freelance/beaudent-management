@@ -11,6 +11,7 @@ class Customers extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'customers';
+
     protected $guarded = [];
 
     public function reservations()

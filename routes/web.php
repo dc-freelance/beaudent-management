@@ -1,16 +1,17 @@
 <?php
 
 use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorCategoryController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\DiscountController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -72,7 +73,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
         Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
     });
-  
+
     // Treatment Bonus
     Route::group(['prefix' => 'treatment-bonus', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [TreatmentBonusController::class, 'index'])->name('admin.treatment-bonus.index');
@@ -83,7 +84,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [TreatmentBonusController::class, 'update'])->name('admin.treatment-bonus.update');
         Route::delete('delete/{id}', [TreatmentBonusController::class, 'delete'])->name('admin.treatment-bonus.delete');
     });
-  
+
     // Treatment
     Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [TreatmentController::class, 'index'])->name('admin.treatment.index');
@@ -117,7 +118,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [CustomerController::class, 'update'])->name('admin.customer.update');
         Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
     });
-    
+
     // Diskon
     Route::group(['prefix' => 'discount', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [DiscountController::class, 'index'])->name('admin.discount.index');
@@ -128,10 +129,21 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [DiscountController::class, 'update'])->name('admin.discount.update');
         Route::delete('delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
     });
+
+    // Supplier
+    Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
+        Route::get('get-by-id/{id}', [SupplierController::class, 'getById'])->name('admin.supplier.get-by-id');
+        Route::get('create', [SupplierController::class, 'create'])->name('admin.supplier.create');
+        Route::post('store', [SupplierController::class, 'store'])->name('admin.supplier.store');
+        Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
+        Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
+        Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+    });
 });
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
