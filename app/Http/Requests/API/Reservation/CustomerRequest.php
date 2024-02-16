@@ -8,11 +8,10 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CustomerRequest extends FormRequest
 {
-
     public function rules()
     {
         return [
-            'creds' => 'required'
+            'creds' => 'required',
         ];
     }
 

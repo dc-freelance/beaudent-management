@@ -15,4 +15,9 @@ class DoctorCategory extends Model
     {
         return $this->hasMany(Doctor::class, 'category_id');
     }
+
+    public function treatmentBonuses()
+    {
+        return $this->hasMany(TreatmentBonus::class, 'doctor_category_id');
+    }
 }

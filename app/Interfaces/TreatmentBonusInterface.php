@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface BranchInterface
+interface TreatmentBonusInterface
 {
     public function get();
 

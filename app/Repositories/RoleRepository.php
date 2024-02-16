@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 class RoleRepository implements RoleInterface
 {
     private $role;
+
     private $permission;
 
     public function __construct(Role $role, Permission $permission)

@@ -13,16 +13,19 @@ use Illuminate\Http\Request;
 class UserManagementController extends Controller
 {
     private $userManagement;
+
     private $permission;
+
     private $role;
+
     private $branch;
 
     public function __construct(UserManagementInterface $userManagement, PermissionInterface $permission, RoleInterface $role, BranchInterface $branch)
     {
         $this->userManagement = $userManagement;
-        $this->permission     = $permission;
-        $this->role           = $role;
-        $this->branch         = $branch;
+        $this->permission = $permission;
+        $this->role = $role;
+        $this->branch = $branch;
     }
 
     public function index(Request $request)
@@ -54,6 +57,7 @@ class UserManagementController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+
         return view('admin.user-management.index');
     }
 
@@ -65,29 +69,31 @@ class UserManagementController extends Controller
     public function create()
     {
         $roles = $this->role->get();
+
         return view('admin.user-management.create', [
-            'roles'       => $roles,
-            'branches'    => $this->branch->get()->where('id', '!=', 1),
+            'roles' => $roles,
+            'branches' => $this->branch->get()->where('id', '!=', 1),
         ]);
     }
 
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'name'         => 'required',
-            'email'        => 'required|email|unique:users,email',
-            'role'         => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'role' => 'required',
             'phone_number' => 'required',
-            'branch_id'    => 'nullable|exists:branches,id',
-            'join_date'    => 'required',
+            'branch_id' => 'nullable|exists:branches,id',
+            'join_date' => 'required',
         ]);
 
-        if (!$request->has('branch_id')) {
+        if (! $request->has('branch_id')) {
             $request['branch_id'] = $this->branch->getById(1)->id;
         }
 
         try {
             $this->userManagement->store($request->all());
+
             return redirect()->route('admin.user-management.index')->with('success', 'Pengguna berhasil ditambahkan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.user-management.index')->with('error', $th->getMessage());
@@ -97,8 +103,8 @@ class UserManagementController extends Controller
     public function edit($id)
     {
         return view('admin.user-management.edit', [
-            'data'     => $this->userManagement->getById($id),
-            'roles'    => $this->role->get(),
+            'data' => $this->userManagement->getById($id),
+            'roles' => $this->role->get(),
             'branches' => $this->branch->get()->where('id', '!=', 1),
         ]);
     }
@@ -106,20 +112,21 @@ class UserManagementController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'         => 'required',
-            'email'        => 'required|email|unique:users,email,' . $id,
-            'role'         => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'role' => 'required',
             'phone_number' => 'required',
-            'branch_id'    => 'nullable|exists:branches,id',
-            'join_date'    => 'required',
+            'branch_id' => 'nullable|exists:branches,id',
+            'join_date' => 'required',
         ]);
 
-        if (!$request->has('branch_id')) {
+        if (! $request->has('branch_id')) {
             $request['branch_id'] = $this->branch->getById(1)->id;
         }
 
         try {
             $this->userManagement->update($id, $request->all());
+
             return redirect()->route('admin.user-management.index')->with('success', 'Pengguna berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('admin.user-management.index')->with('error', $th->getMessage());
@@ -130,6 +137,7 @@ class UserManagementController extends Controller
     {
         try {
             $this->userManagement->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Pengguna berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
@@ -143,6 +151,7 @@ class UserManagementController extends Controller
         ]);
         try {
             $this->userManagement->updatePermission($id, $request->permission);
+
             return redirect()->route('admin.user-management.index')->with('success', 'Hak akses pengguna berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('admin.user-management.index')->with('error', $th->getMessage());

@@ -11,6 +11,7 @@ class Customers extends Model
     use HasFactory,SoftDeletes;
 
     protected $table = 'customers';
+
     protected $fillable = [
         'name', 'date_of_birth',
         'place_of_birth',
@@ -22,16 +23,15 @@ class Customers extends Model
         'email',
         'marrital_status',
         'oral_issues',
-        'note' ,
-        'instagram' ,
-        'youtube' ,
-        'facebook' ,
-        'source_of_information' 
+        'note',
+        'instagram',
+        'youtube',
+        'facebook',
+        'source_of_information',
     ];
 
     public function reservations()
     {
         return $this->hasMany(Reservations::class, 'customer_id', 'id');
     }
-    
 }

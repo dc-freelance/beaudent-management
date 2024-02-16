@@ -6,26 +6,25 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreReservationRequest extends FormRequest
 {
-
     public function rules()
     {
         return [
-            'no' =>'required',
-            'branch_id' =>'required',
-            'request_date' =>'required',
-            'request_time' =>'required',
-            'anamnesis' =>'required',
-            'customer_id' =>'required',
-            'status' =>'required',
-            'deposit' =>'nullable',
-            'deposit_status' =>'required',
-            'deposit_receipt' =>'nullable',
-            'customer_bank_account' =>'nullable',
-            'customer_bank' =>'nullable',
-            'customer_bank_account_name' =>'nullable',
-            'transfer_date' =>'nullable',
-            'treatment_id'=>'nullable',
-            'is_control'=>'required'
+            'no' => 'required',
+            'branch_id' => 'required',
+            'request_date' => 'required',
+            'request_time' => 'required',
+            'anamnesis' => 'required',
+            'customer_id' => 'required',
+            'status' => 'required',
+            'deposit' => 'nullable',
+            'deposit_status' => 'required',
+            'deposit_receipt' => 'nullable',
+            'customer_bank_account' => 'nullable',
+            'customer_bank' => 'nullable',
+            'customer_bank_account_name' => 'nullable',
+            'transfer_date' => 'nullable',
+            'treatment_id' => 'nullable',
+            'is_control' => 'required',
         ];
     }
 
@@ -39,7 +38,7 @@ class StoreReservationRequest extends FormRequest
             'anamnesis.required' => 'Anamnesis harus diisi.',
             'customer_id.required' => 'ID pelanggan harus diisi.',
             'deposit_status.required' => 'Status deposit harus diisi.',
-            'is_control.required' => 'Harap pilih layanan'
+            'is_control.required' => 'Harap pilih layanan',
         ];
     }
 }
