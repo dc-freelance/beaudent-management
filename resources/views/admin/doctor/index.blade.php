@@ -1,34 +1,39 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Kategori Dokter', 'url' => ''],
-    ]" title="Kategori Dokter" />
+        ['name' => 'Manajemen Dokter', 'url' => ''],
+    ]" title="Dokter" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.doctor-category.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.doctor.create') }}" color="gray">
                 <i class="fas fa-plus mr-2"></i>
-                Tambah Kategori Dokter
+                Tambah Dokter
             </x-link-button>
         </div>
-        <table id="doctorCategoryTable">
+        <table id="doctorTable">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
+                    <th>Kategori</th>
+                    <th>Email</th>
+                    <th>No. Telp</th>
+                    <th>Tgl. Bergabung</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
         </table>
+        </div>
     </x-card-container>
 
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = "{{ route('admin.doctor-category.delete', ':id') }}".replace(':id', _id);
+                let url = "{{ route('admin.doctor.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: `Kategori dokter "${_name}" akan dihapus!`,
+                    text: `Dokter "${_name}" akan dihapus!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, hapus!',
@@ -48,7 +53,7 @@
                                         response.message,
                                         'success'
                                     );
-                                    $('#doctorCategoryTable').DataTable().ajax.reload();
+                                    $('#doctorTable').DataTable().ajax.reload();
                                 } else {
                                     Swal.fire(
                                         'Gagal!',
@@ -70,11 +75,11 @@
             }
 
             $(function() {
-                $('#doctorCategoryTable').DataTable({
+                $('#doctorTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    ajax: '{{ route('admin.doctor-category.index') }}',
+                    ajax: '{{ route('admin.doctor.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
@@ -84,9 +89,25 @@
                             name: 'name'
                         },
                         {
+                            data: 'category',
+                            name: 'category'
+                        },
+                        {
+                            data: 'email',
+                            name: 'email'
+                        },
+                        {
+                            data: 'phone_number',
+                            name: 'phone_number'
+                        },
+                        {
+                            data: 'join_date',
+                            name: 'join_date'
+                        },
+                        {
                             data: 'action',
-                            name: 'action',
-                        }
+                            name: 'action'
+                        },
                     ]
                 });
             });
@@ -94,5 +115,4 @@
             @include('components.flash-message')
         </script>
     @endpush
-
 </x-app-layout>

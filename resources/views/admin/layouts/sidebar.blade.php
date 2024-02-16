@@ -29,9 +29,11 @@
                     route="{{ route('admin.user-management.index') }}"
                     active="{{ request()->routeIs('admin.user-management.*') }}" />
                 <x-sidebar-dropdown title="Manajemen Dokter" icon="fas fa-user-md" toggle="master-doctor"
-                    active="{{ request()->routeIs('admin.doctor-category.*') }}">
+                    active="{{ request()->routeIs('admin.doctor-category.*') || request()->routeIs('admin.doctor.*') }}">
                     <x-sidebar-item name="Kategori" route="{{ route('admin.doctor-category.index') }}"
                         active="{{ request()->routeIs('admin.doctor-category.*') }}" />
+                    <x-sidebar-item name="Dokter" route="{{ route('admin.doctor.index') }}"
+                        active="{{ request()->routeIs('admin.doctor.*') }}" />
                 </x-sidebar-dropdown>
             @endrole
             <li>
