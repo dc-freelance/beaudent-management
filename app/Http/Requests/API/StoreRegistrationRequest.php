@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\API;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRegistrationRequest extends FormRequest
 {
@@ -10,22 +12,22 @@ class StoreRegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>'required',
-            'date_of_birth' =>'required',
-            'place_of_birth' =>'required',
-            'identity_number' =>'required',
-            'gender' =>'required',
-            'occupation' =>'required',
-            'phone_number' =>'required',
-            'religion' =>'required',
-            'email' =>'required|email',
-            'marrital_status' =>'required',
+            'name' => 'required',
+            'date_of_birth' => 'required',
+            'place_of_birth' => 'required',
+            'identity_number' => 'required',
+            'gender' => 'required',
+            'occupation' => 'required',
+            'phone_number' => 'required',
+            'religion' => 'required',
+            'email' => 'required|email',
+            'marrital_status' => 'required',
             // 'oral_issues' =>'required',
             // 'note' =>'nullable',
-            'instagram' =>'nullable',
-            'youtube' =>'nullable',
-            'facebook' =>'nullable',
-            'source_of_information'=>'nullable'
+            'instagram' => 'nullable',
+            'youtube' => 'nullable',
+            'facebook' => 'nullable',
+            'source_of_information' => 'nullable'
         ];
     }
 
@@ -45,5 +47,13 @@ class StoreRegistrationRequest extends FormRequest
             'marrital_status.required' => 'Status pernikahan harus diisi.',
             // 'oral_issues.required' => 'Masalah gigi harus diisi.'
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'code' => 200, // Change the response code to 200
+            'error' => $validator->errors(),
+        ], 200)); // Change the response status code to 200
     }
 }
