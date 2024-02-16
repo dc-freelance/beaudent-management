@@ -17,7 +17,7 @@
             <img src="{{ asset('assets/images/logo.png') }}" class="mr-3 object-contain h-20" alt="logo"
                 class="mix-blend-multiply" />
         </a>
-        <ul class="space-y-3">
+        <ul class="space-y-1">
             <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
                 active="{{ request()->routeIs('admin.dashboard.index') }}" />
 
