@@ -29,6 +29,13 @@
                 <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
                     route="{{ route('admin.user-management.index') }}"
                     active="{{ request()->routeIs('admin.user-management.*') }}" />
+                <x-sidebar-dropdown title="Manajemen Dokter" icon="fas fa-user-md" toggle="master-doctor"
+                    active="{{ request()->routeIs('admin.doctor-category.*') || request()->routeIs('admin.doctor.*') }}">
+                    <x-sidebar-item name="Kategori" route="{{ route('admin.doctor-category.index') }}"
+                        active="{{ request()->routeIs('admin.doctor-category.*') }}" />
+                    <x-sidebar-item name="Dokter" route="{{ route('admin.doctor.index') }}"
+                        active="{{ request()->routeIs('admin.doctor.*') }}" />
+                </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Layanan" icon="fas fa-stethoscope"
                     route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution"
