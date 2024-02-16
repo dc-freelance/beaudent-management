@@ -38,8 +38,11 @@
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Layanan" icon="fas fa-stethoscope"
                     route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
-                <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution"
-                    route="{{ route('admin.branch.index') }}" active="{{ request()->routeIs('admin.branch.*') }}" />
+                <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
+                    active="{{ request()->routeIs('admin.branch.*') }}" />
+                <x-sidebar-item name="Manajemen Bonus Layanan" icon="fas fa-gift"
+                    route="{{ route('admin.treatment-bonus.index') }}"
+                    active="{{ request()->routeIs('admin.treatment-bonus.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">

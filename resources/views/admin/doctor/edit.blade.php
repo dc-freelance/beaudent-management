@@ -24,7 +24,8 @@
                     </div>
                 </div>
                 <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
-                <x-input id="phone_number" label="No. Telp" name="phone_number" required :value="$data->phone_number" />
+                <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
+                    :value="$data->phone_number" />
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required
                     :value="$data->join_date" />
                 <div class="mt-6">

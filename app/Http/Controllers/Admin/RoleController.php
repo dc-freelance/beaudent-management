@@ -10,11 +10,12 @@ use Illuminate\Http\Request;
 class RoleController extends Controller
 {
     private $role;
+
     private $permission;
 
     public function __construct(RoleInterface $role, PermissionInterface $permission)
     {
-        $this->role       = $role;
+        $this->role = $role;
         $this->permission = $permission;
     }
 
@@ -32,20 +33,22 @@ class RoleController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+
         return view('admin.role.index');
     }
 
     public function create()
     {
         $permissions = $this->permission->get();
+
         return view('admin.role.create', compact('permissions'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required|unique:roles,name',
-            'permissions' => 'required|array'
+            'name' => 'required|unique:roles,name',
+            'permissions' => 'required|array',
         ]);
 
         try {
@@ -59,16 +62,16 @@ class RoleController extends Controller
     public function edit($id)
     {
         return view('admin.role.edit', [
-            'role'        => $this->role->getById($id),
-            'permissions' => $this->permission->get()
+            'role' => $this->role->getById($id),
+            'permissions' => $this->permission->get(),
         ]);
     }
 
     public function update($id, Request $request)
     {
         $request->validate([
-            'name'        => 'required|unique:roles,name,' . $id,
-            'permissions' => 'required|array'
+            'name' => 'required|unique:roles,name,' . $id,
+            'permissions' => 'required|array',
         ]);
 
         try {
@@ -83,6 +86,7 @@ class RoleController extends Controller
     {
         try {
             $this->role->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Hak akses berhasil dihapus']);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
