@@ -38,6 +38,8 @@
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Layanan" icon="fas fa-stethoscope"
                     route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
+                <x-sidebar-item name="Manajemen Diskon" icon="fas fa-money-bill-wave"
+                    route="{{ route('admin.discount.index') }}" active="{{ request()->routeIs('admin.discount.*') }}" />
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
                     active="{{ request()->routeIs('admin.branch.*') }}" />
                 <x-sidebar-item name="Manajemen Bonus Layanan" icon="fas fa-gift"

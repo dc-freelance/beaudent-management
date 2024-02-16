@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\DiscountController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -102,6 +103,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [BranchController::class, 'edit'])->name('admin.branch.edit');
         Route::put('update/{id}', [BranchController::class, 'update'])->name('admin.branch.update');
         Route::delete('delete/{id}', [BranchController::class, 'delete'])->name('admin.branch.delete');
+    });
+
+    // Diskon
+    Route::group(['prefix' => 'discount', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [DiscountController::class, 'index'])->name('admin.discount.index');
+        Route::get('get-by-id/{id}', [DiscountController::class, 'getById'])->name('admin.discount.get-by-id');
+        Route::get('create', [DiscountController::class, 'create'])->name('admin.discount.create');
+        Route::post('store', [DiscountController::class, 'store'])->name('admin.discount.store');
+        Route::get('edit/{id}', [DiscountController::class, 'edit'])->name('admin.discount.edit');
+        Route::put('update/{id}', [DiscountController::class, 'update'])->name('admin.discount.update');
+        Route::delete('delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
     });
 });
 
