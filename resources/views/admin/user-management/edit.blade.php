@@ -5,7 +5,7 @@
         ['name' => 'Ubah', 'url' => '#'],
     ]" title="Ubah Pengguna" />
 
-    <div class="w-1/2">
+    <div class="lg:w-1/2">
         <x-card-container>
             <form action="{{ route('admin.user-management.update', $user->id) }}" method="post">
                 @csrf

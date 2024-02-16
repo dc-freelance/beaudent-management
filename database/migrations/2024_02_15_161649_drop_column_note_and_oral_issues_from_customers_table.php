@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('branch_id')->references('id')->on('branches')->cascadeOnUpdate()->cascadeOnDelete();
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn(['note']);
+            $table->dropColumn(['oral_issues']);
         });
     }
 
@@ -21,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('branch_id');
+        Schema::table('customers', function (Blueprint $table) {
+            $table->string('note')->nullable();
+            $table->string('oral_issues');
         });
     }
 };
