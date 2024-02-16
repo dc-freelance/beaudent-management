@@ -46,11 +46,12 @@ class DoctorCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:doctor_categories,name'
+            'name' => 'required|unique:doctor_categories,name',
         ]);
 
         try {
             $this->doctorCategory->store($request->except('_token'));
+
             return redirect()->route('admin.doctor-category.index')->with('success', 'Kategori dokter berhasil ditambahkan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.doctor-category.index')->with('error', $th->getMessage());
@@ -60,18 +61,19 @@ class DoctorCategoryController extends Controller
     public function edit(string $id)
     {
         return view('admin.doctor-category.edit', [
-            'data' => $this->doctorCategory->getById($id)
+            'data' => $this->doctorCategory->getById($id),
         ]);
     }
 
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|unique:doctor_categories,name,' . $id
+            'name' => 'required|unique:doctor_categories,name,'.$id,
         ]);
 
         try {
             $this->doctorCategory->update($id, $request->except('_token'));
+
             return redirect()->route('admin.doctor-category.index')->with('success', 'Kategori dokter berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('admin.doctor-category.index')->with('error', $th->getMessage());
@@ -82,6 +84,7 @@ class DoctorCategoryController extends Controller
     {
         try {
             $this->doctorCategory->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Kategori dokter berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);

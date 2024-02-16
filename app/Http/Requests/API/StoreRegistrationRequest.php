@@ -8,7 +8,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRegistrationRequest extends FormRequest
 {
-
     public function rules()
     {
         return [
@@ -28,7 +27,7 @@ class StoreRegistrationRequest extends FormRequest
             'youtube' => 'nullable',
             'facebook' => 'nullable',
             'address' => 'required',
-            'source_of_information' => 'nullable'
+            'source_of_information' => 'nullable',
         ];
     }
 

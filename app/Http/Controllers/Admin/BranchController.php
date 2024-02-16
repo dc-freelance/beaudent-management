@@ -17,7 +17,7 @@ class BranchController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return datatables()
                 ->of($this->branch->get())
                 ->addColumn('name', function ($data) {
@@ -59,11 +59,12 @@ class BranchController extends Controller
             'name'        => 'required',
             'code'        => 'required',
             'phone_number' => 'required',
-            'address'     => 'required',
+            'address' => 'required',
         ]);
 
         try {
             $this->branch->store($request->all());
+
             return redirect()->route('admin.branch.index')->with('success', 'Data berhasil disimpan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.branch.index')->with('error', $th->getMessage());
@@ -72,7 +73,8 @@ class BranchController extends Controller
 
     public function edit($id)
     {
-        $data    = $this->branch->getById($id);
+        $data = $this->branch->getById($id);
+
         return view('admin.branch.edit', compact('data'));
     }
 
@@ -82,11 +84,12 @@ class BranchController extends Controller
             'name'        => 'required',
             'code'        => 'required',
             'phone_number' => 'required',
-            'address'     => 'required',
+            'address' => 'required',
         ]);
 
         try {
             $this->branch->update($id, $request->all());
+
             return redirect()->route('admin.branch.index')->with('success', 'Data berhasil diubah');
         } catch (\Throwable $th) {
             return redirect()->route('admin.branch.index')->with('error', $th->getMessage());
@@ -97,6 +100,7 @@ class BranchController extends Controller
     {
         try {
             $this->branch->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);

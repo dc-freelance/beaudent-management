@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
             User::FRONT_OFFICE_ROLE,
             User::MANAGER_CABANG_ROLE,
             User::BILLING_ROLE,
-            User::OWNER_ROLE
+            User::OWNER_ROLE,
         ];
 
         Role::insert(array_map(fn ($role) => ['name' => $role, 'guard_name' => 'web'], $roles));

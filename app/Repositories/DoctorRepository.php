@@ -28,6 +28,7 @@ class DoctorRepository implements DoctorInterface
     public function store($data)
     {
         $data['password'] = bcrypt('password');
+
         return $this->doctor->create($data);
     }
 
@@ -44,7 +45,9 @@ class DoctorRepository implements DoctorInterface
     public function changePassword($id, $data)
     {
         $currentPassword = $this->doctor->find($id)->password;
-        if (!Hash::check($data['current_password'], $currentPassword)) throw new \Exception('Password lama tidak sesuai');
+        if (! Hash::check($data['current_password'], $currentPassword)) {
+            throw new \Exception('Password lama tidak sesuai');
+        }
 
         return $this->doctor->find($id)->update(['password' => bcrypt($data['new_password'])]);
     }

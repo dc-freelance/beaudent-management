@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->bigInteger('treatment_id', false, true)->nullable()->change();
+        Schema::table('treatment_bonuses', function (Blueprint $table) {
+            $table->decimal('bonus_rate', 10, 2)->change();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->bigInteger('treatment_id', false, true)->change();
+        Schema::table('treatment_bonuses', function (Blueprint $table) {
+            $table->integer('bonus_rate')->change();
         });
     }
 };
