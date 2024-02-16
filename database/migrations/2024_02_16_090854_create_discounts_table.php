@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('discount', 12, 2);
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\API\StoreRegistrationRequest;
 use App\Models\Customers;
+
 class RegistrationController extends Controller
 {
     private $customer_model;
@@ -17,18 +16,19 @@ class RegistrationController extends Controller
     }
 
     public function __invoke(StoreRegistrationRequest $request)
-    {        
-        try {  
+    {
+        try {
             $customer = $this->customer_model->create($request->all());
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil Registrasi',
-                'customer' => $customer
+                'customer' => $customer,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'code'=>500,
-                'error' => 'Gagal Registrasi'
+                'code' => 500,
+                'error' => 'Gagal Registrasi',
             ]);
         }
     }

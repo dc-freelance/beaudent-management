@@ -25,10 +25,11 @@ class TreatmentController extends Controller
                 })
                 ->addColumn('parent_id', function ($data) {
                     $treatment = $this->treatment->getById($data->parent_id);
+
                     return $treatment ? $treatment->name : '-';
                 })
                 ->addColumn('price', function ($data) {
-                    return 'Rp ' . number_format($data->price, 0, ',', '.');
+                    return 'Rp '.number_format($data->price, 0, ',', '.');
                 })
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Ya' : 'Tidak';
@@ -51,25 +52,27 @@ class TreatmentController extends Controller
     public function create()
     {
         $parents = $this->treatment->get()->where('parent_id', null);
+
         return view('admin.treatment.create', compact('parents'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'       => 'required',
-            'parent_id'  => 'nullable',
-            'price'      => 'required',
+            'name' => 'required',
+            'parent_id' => 'nullable',
+            'price' => 'required',
             'is_control' => 'nullable',
         ]);
 
         if ($request->is_parent == 'parent') {
-            $request['parent_id']  = null;
+            $request['parent_id'] = null;
             $request['is_control'] = false;
         }
 
         try {
             $this->treatment->create($request->all());
+
             return redirect()->route('admin.treatment.index')->with('success', 'Data berhasil disimpan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.treatment.index')->with('error', $th->getMessage());
@@ -78,27 +81,29 @@ class TreatmentController extends Controller
 
     public function edit($id)
     {
-        $data    = $this->treatment->getById($id);
+        $data = $this->treatment->getById($id);
         $parents = $this->treatment->get()->where('parent_id', null);
+
         return view('admin.treatment.edit', compact('data', 'parents'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'       => 'required',
-            'parent_id'  => 'nullable',
-            'price'      => 'required',
+            'name' => 'required',
+            'parent_id' => 'nullable',
+            'price' => 'required',
             'is_control' => 'nullable',
         ]);
 
         if ($request->is_parent == 'parent') {
-            $request['parent_id']  = null;
+            $request['parent_id'] = null;
             $request['is_control'] = false;
         }
 
         try {
             $this->treatment->update($id, $request->all());
+
             return redirect()->route('admin.treatment.index')->with('success', 'Data berhasil diubah');
         } catch (\Throwable $th) {
             return redirect()->route('admin.treatment.index')->with('error', $th->getMessage());
@@ -109,6 +114,7 @@ class TreatmentController extends Controller
     {
         try {
             $this->treatment->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);

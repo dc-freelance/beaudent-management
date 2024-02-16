@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Interfaces\PermissionInterface;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 
 class PermissionRepository implements PermissionInterface

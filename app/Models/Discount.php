@@ -10,7 +10,19 @@ class Discount extends Model
     use HasFactory;
 
     protected $table = 'discounts';
-    protected $guarded = []; 
+    protected $fillable = [
+        'name',
+        'discount_type',
+        'discount',
+        'start_date',
+        'end_date',
+        'is_active'
+    ];
+
+    public function getDiscount()
+    {
+        return $this->get();
+    }
 
     public function discount_items()
     {
@@ -20,5 +32,10 @@ class Discount extends Model
     public function discount_treatment()
     {
         return $this->hasMany(Discount_Treatmens::class, 'discount_id', 'id');
+    }
+
+    public function getDiscountById($id)
+    {
+        return $this->where('id', $id)->first();
     }
 }

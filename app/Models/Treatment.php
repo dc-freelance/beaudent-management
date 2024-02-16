@@ -10,6 +10,7 @@ class Treatment extends Model
     use HasFactory;
 
     protected $table = 'treatments';
+
     protected $fillable = [
         'name',
         'parent_id',
@@ -28,6 +29,11 @@ class Treatment extends Model
         return $this->hasMany(Reservations::class, 'treatment_id', 'id');
     }
 
+    public function treatmentBonus()
+    {
+        return $this->hasMany(TreatmentBonus::class, 'treatment');
+    }
+
     public function getTreatment()
     {
         return $this->whereNull('parent_id')->get();
@@ -36,5 +42,10 @@ class Treatment extends Model
     public function discount_treatments()
     {
         return $this->hasMany(Discount_Treatments::class, 'treatment_id', 'id');
+    }
+
+    public function getTreatmentById($id)
+    {
+        return $this->where('id', $id)->first();
     }
 }
