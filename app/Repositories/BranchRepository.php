@@ -40,4 +40,8 @@ class BranchRepository implements BranchInterface
         $branch = $this->branch->find($id);
         $branch->delete();
     }
+
+    public function generateCode(){
+        return $this->branch->generate_code_branch();
+    }
 }

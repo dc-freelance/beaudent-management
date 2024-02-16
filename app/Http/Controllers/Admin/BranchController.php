@@ -23,6 +23,9 @@ class BranchController extends Controller
                 ->addColumn('name', function ($data) {
                     return $data->name;
                 })
+                ->addColumn('code', function ($data) {
+                    return $data->code;
+                })
                 ->addColumn('phone_number', function ($data) {
                     return $data->phone_number;
                 })
@@ -46,13 +49,15 @@ class BranchController extends Controller
 
     public function create()
     {
-        return view('admin.branch.create');
+        $generate_code = $this->branch->generateCode();
+        return view('admin.branch.create', compact('generate_code'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name'        => 'required',
+            'code'        => 'required',
             'phone_number' => 'required',
             'address'     => 'required',
         ]);
@@ -75,6 +80,7 @@ class BranchController extends Controller
     {
         $request->validate([
             'name'        => 'required',
+            'code'        => 'required',
             'phone_number' => 'required',
             'address'     => 'required',
         ]);
