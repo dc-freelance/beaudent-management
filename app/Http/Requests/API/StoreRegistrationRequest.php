@@ -27,6 +27,7 @@ class StoreRegistrationRequest extends FormRequest
             'instagram' => 'nullable',
             'youtube' => 'nullable',
             'facebook' => 'nullable',
+            'address' => 'required',
             'source_of_information' => 'nullable'
         ];
     }
@@ -44,6 +45,7 @@ class StoreRegistrationRequest extends FormRequest
             'religion.required' => 'Agama harus diisi.',
             'email.required' => 'Email harus diisi.',
             'email.email' => 'Format email tidak valid.',
+            'address.required' => 'Alamat harus diisi.',
             'marrital_status.required' => 'Status pernikahan harus diisi.',
             // 'oral_issues.required' => 'Masalah gigi harus diisi.'
         ];
