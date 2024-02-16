@@ -27,4 +27,9 @@ class Treatment extends Model
     {
         return $this->hasMany(Reservations::class, 'treatment_id', 'id');
     }
+
+    public function getTreatment()
+    {
+        return $this->whereNull('parent_id')->get();
+    }
 }
