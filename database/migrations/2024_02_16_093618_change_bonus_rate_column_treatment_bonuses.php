@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->dropColumn(['note']);
-            $table->dropColumn(['oral_issues']);
+        Schema::table('treatment_bonuses', function (Blueprint $table) {
+            $table->decimal('bonus_rate', 10, 2)->change();
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('customers', function (Blueprint $table) {
-            $table->string('note')->nullable();
-            $table->string('oral_issues');
+        Schema::table('treatment_bonuses', function (Blueprint $table) {
+            $table->integer('bonus_rate')->change();
         });
     }
 };

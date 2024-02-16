@@ -23,8 +23,7 @@ return new class extends Migration
             $table->string('religion');
             $table->string('email')->unique();
             $table->enum('marrital_status', ['Single', 'Married', 'Divorved']);
-            $table->string('oral_issues');
-            $table->string('note')->nullable();
+            $table->string('address');
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
             $table->string('facebook')->nullable();

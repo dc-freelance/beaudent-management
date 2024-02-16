@@ -43,7 +43,7 @@
                         </select>
                     </div>
                     <div>
-                        <p>Role</p>
+                        <p>Hak Akses</p>
                         <div class="flex flex-wrap gap-6 mt-6">
                             @foreach ($roles as $role)
                                 <div class="flex items-center space-x-2" id="role-{{ $role->name }}">

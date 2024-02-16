@@ -12,12 +12,18 @@ use App\Models\Treatment;
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 use App\Interfaces\BranchInterface;
 use App\Interfaces\TreatmentInterface;
+use Illuminate\Support\Facades\Storage;
+
+use function App\Helpers\generateTransactionCode;
 
 class ReservationsController extends Controller
 {
     private $reservation_model;
+
     private $treatment;
+
     private $branch;
+
     private $customer;
 
     public function __construct(TreatmentInterface $treatment, BranchInterface $branch)
@@ -35,10 +41,11 @@ class ReservationsController extends Controller
 
     public function store(StoreReservationRequest $request)
     {
-        try {  
+        try {
             $data = $request->all();
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
             $data['status'] = 'Reservation';
+            $data['deposit_status'] = 0;
 
             //Upload Gambar
             if ($request->hasFile('deposit_receipt')) {
@@ -52,12 +59,12 @@ class ReservationsController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil melakukan reservasi',
-                'reservasi' => $reservation
+                'reservasi' => $reservation,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'code' => 500,
-                'error' => 'Gagal melakukan reservasi'
+                'error' => 'Gagal melakukan reservasi',
             ]);
         }
     }
@@ -65,16 +72,17 @@ class ReservationsController extends Controller
     public function treatment()
     {
         try {
-            $treatments =  $this->treatment->getParentNull();
+            $treatments = $this->treatment->getParentNull();
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil mengambil data layanan',
-                'treatments' => $treatments
+                'treatments' => $treatments,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'code' => 500,
-                'error' => 'Tidak dapat mengambil data layanan'
+                'error' => 'Tidak dapat mengambil data layanan',
             ]);
         }
     }
@@ -82,16 +90,17 @@ class ReservationsController extends Controller
     public function branch()
     {
         try {
-            $branch =  $this->branch->get();
+            $branch = $this->branch->get();
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil mengambil data cabang',
-                'branch' => $branch
+                'branch' => $branch,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'code' => 500,
-                'error' => 'Tidak dapat mengambil data cabang'
+                'error' => 'Tidak dapat mengambil data cabang',
             ]);
         }
     }
@@ -100,15 +109,16 @@ class ReservationsController extends Controller
     {
         try {
             $customer = $this->customer->where('email', $request->creds)->orWhere('phone_number', $request->creds)->first();
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Data Customer Ditemukan',
-                'customer' => $customer
+                'customer' => $customer,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'code' => 500,
-                'error' => 'Gagal Mencari Customer'
+                'error' => 'Gagal Mencari Customer',
             ]);
         }
     }

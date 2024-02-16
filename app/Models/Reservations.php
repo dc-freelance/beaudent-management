@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservations extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'reservations';
-    protected $guarded = []; 
+
+    protected $guarded = [];
 
     public function branches()
     {
@@ -26,6 +26,6 @@ class Reservations extends Model
 
     public function treatments()
     {
-        return $this->belongsTo(Treatments::class, 'treatment_id', 'id');
+        return $this->belongsTo(Treatment::class, 'treatment_id', 'id');
     }
 }

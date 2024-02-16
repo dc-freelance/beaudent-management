@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorCategoryController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
-use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CustomerController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +71,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
         Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
     });
+  
+    // Treatment Bonus
+    Route::group(['prefix' => 'treatment-bonus', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [TreatmentBonusController::class, 'index'])->name('admin.treatment-bonus.index');
+        Route::get('get-by-id/{id}', [TreatmentBonusController::class, 'getById'])->name('admin.treatment-bonus.get-by-id');
+        Route::get('create', [TreatmentBonusController::class, 'create'])->name('admin.treatment-bonus.create');
+        Route::post('store', [TreatmentBonusController::class, 'store'])->name('admin.treatment-bonus.store');
+        Route::get('edit/{id}', [TreatmentBonusController::class, 'edit'])->name('admin.treatment-bonus.edit');
+        Route::put('update/{id}', [TreatmentBonusController::class, 'update'])->name('admin.treatment-bonus.update');
+        Route::delete('delete/{id}', [TreatmentBonusController::class, 'delete'])->name('admin.treatment-bonus.delete');
+    });
+  
     // Treatment
     Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [TreatmentController::class, 'index'])->name('admin.treatment.index');
@@ -104,7 +117,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
     });
 });
-
 
 Route::get('/', function () {
     return view('auth.login');

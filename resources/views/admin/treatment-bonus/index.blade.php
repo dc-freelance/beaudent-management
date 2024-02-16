@@ -1,26 +1,24 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Pengguna', 'url' => '#'],
-    ]" title="Manajemen Pengguna" />
+        ['name' => 'Manajemen Bonus Layanan', 'url' => ''],
+    ]" title="Bonus Layanan" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.user-management.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.treatment-bonus.create') }}" color="gray">
                 <i class="fas fa-plus mr-2"></i>
-                Tambah Pengguna
+                Tambah Bonus Layanan
             </x-link-button>
         </div>
-        <table id="userTable">
+        <table id="treatmentBonusTable">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>No. Telepon</th>
-                    <th>Hak Akses</th>
-                    <th>Cabang</th>
-                    <th>Tgl. Bergabung</th>
+                    <th>#</th>
+                    <th>Layanan</th>
+                    <th>Kategori Dokter</th>
+                    <th>Tipe Bonus</th>
+                    <th>Bonus</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,13 +28,13 @@
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = '{{ route('admin.user-management.delete', ':id') }}'.replace(':id', _id);
+                let url = "{{ route('admin.treatment-bonus.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    text: `Pengguna ${_name} akan dihapus!`,
+                    title: 'Apakah Anda yakin?',
+                    text: `Bonus layanan ${_name} akan dihapus!`,
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Ya, Hapus!',
+                    confirmButtonText: 'Ya, hapus!',
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -47,18 +45,25 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
-                                Swal.fire(
-                                    'Berhasil!',
-                                    'Pengguna berhasil dihapus.',
-                                    'success'
-                                ).then(() => {
-                                    $('#userTable').DataTable().ajax.reload(null, false);
-                                });
+                                if (response.status) {
+                                    Swal.fire(
+                                        'Berhasil!',
+                                        response.message,
+                                        'success'
+                                    );
+                                    $('#treatmentBonusTable').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire(
+                                        'Gagal!',
+                                        response.message,
+                                        'error'
+                                    );
+                                }
                             },
                             error: function(xhr) {
                                 Swal.fire(
                                     'Gagal!',
-                                    'Pengguna gagal dihapus.',
+                                    xhr.responseText,
                                     'error'
                                 );
                             }
@@ -68,38 +73,32 @@
             }
 
             $(function() {
-                $('#userTable').DataTable({
+                $('#treatmentBonusTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    ajax: '{{ route('admin.user-management.index') }}',
+                    ajax: '{{ route('admin.treatment-bonus.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'treatment',
+                            name: 'treatment'
                         },
                         {
-                            data: 'email',
-                            name: 'email'
+                            data: 'doctor_category',
+                            name: 'doctor_category'
                         },
                         {
-                            data: 'phone_number',
-                            name: 'phone_number'
+                            data: 'bonus_type',
+                            name: 'bonus_type'
                         },
                         {
-                            data: 'role',
-                            name: 'role'
-                        },
-                        {
-                            data: 'branch',
-                            name: 'branch'
-                        },
-                        {
-                            data: 'join_date',
-                            name: 'join_date'
+                            data: 'bonus_rate',
+                            name: 'bonus_rate'
                         },
                         {
                             data: 'action',
@@ -107,12 +106,11 @@
                             orderable: false,
                             searchable: false
                         },
-                    ]
+                    ],
                 });
             });
 
             @include('components.flash-message')
         </script>
     @endpush
-
 </x-app-layout>

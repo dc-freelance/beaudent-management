@@ -106,7 +106,7 @@
 
     <script>
         $('input[type="number"]').on('input', function(e) {
-            e.target.value = e.target.value.replace(/e/g, '');
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     </script>
 

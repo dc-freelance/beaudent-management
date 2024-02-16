@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customers extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'customers';
     protected $guarded = [];
@@ -17,5 +17,4 @@ class Customers extends Model
     {
         return $this->hasMany(Reservations::class, 'customer_id', 'id');
     }
-    
 }
