@@ -14,9 +14,8 @@ use App\Models\Sequence;
     $branchId = $branch->id;
 
     generateTransactionCode($code, $year, $month, $branchId);
- * 
  */
-if (!function_exists('generateTransactionCode')) {
+if (! function_exists('generateTransactionCode')) {
     function generateTransactionCode($transactionCode, $year, $month, $branch_id)
     {
         $lastNoOfSequence = Sequence::where('code', $transactionCode)
@@ -34,6 +33,6 @@ if (!function_exists('generateTransactionCode')) {
 
         $branchCode = Branch::find($branch_id)->code;
 
-        return $transactionCode . '-' . $branchCode . '-' . $year . '-' . $month . '-' . str_pad($no, 3, '0', STR_PAD_LEFT);
+        return $transactionCode.'-'.$branchCode.'-'.$year.'-'.$month.'-'.str_pad($no, 3, '0', STR_PAD_LEFT);
     }
 }

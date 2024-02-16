@@ -10,11 +10,12 @@ use Spatie\Permission\Models\Permission;
 class UserManagementRepository implements UserManagementInterface
 {
     private $user;
+
     private $permission;
 
     public function __construct(User $user, Permission $permission)
     {
-        $this->user       = $user;
+        $this->user = $user;
         $this->permission = $permission;
     }
 
@@ -33,8 +34,9 @@ class UserManagementRepository implements UserManagementInterface
         DB::beginTransaction();
         try {
             $password = bcrypt('password');
-            $user     = $this->user->create(array_merge($data, ['password' => $password]));
+            $user = $this->user->create(array_merge($data, ['password' => $password]));
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             DB::rollBack();
         }
 

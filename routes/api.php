@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\RegistrationController;
+use App\Http\Controllers\API\ReservationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\RegistrationController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('store-registration', \App\Http\Controllers\API\RegistrationController::class);
+// API REGISTRATION
+Route::post('registration', RegistrationController::class);
+
+// API RESERVATION
+Route::post('reservation', [ReservationsController::class, 'store']);
+Route::get('treatment', [ReservationsController::class, 'treatment']);
+Route::get('branch', [ReservationsController::class, 'branch']);
+Route::post('customer', [ReservationsController::class, 'customer']);
