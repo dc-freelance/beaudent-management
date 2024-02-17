@@ -4,14 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Reservation\CustomerRequest;
-use Illuminate\Http\Request;
-use App\Models\Reservations;
-use App\Models\Customers;
-use App\Models\Branch;
-use App\Models\Treatment;
 use App\Http\Requests\API\Reservation\StoreReservationRequest;
 use App\Interfaces\BranchInterface;
 use App\Interfaces\TreatmentInterface;
+use App\Models\Customers;
+use App\Models\Reservations;
 use Illuminate\Support\Facades\Storage;
 
 use function App\Helpers\generateTransactionCode;
@@ -56,6 +53,7 @@ class ReservationsController extends Controller
             }
 
             $reservation = $this->reservation_model->create($data);
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil melakukan reservasi',

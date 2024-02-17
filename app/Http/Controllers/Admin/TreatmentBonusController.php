@@ -11,12 +11,14 @@ use Illuminate\Http\Request;
 class TreatmentBonusController extends Controller
 {
     private $treatment;
+
     private $doctorCategory;
+
     private $treatmentBonus;
 
     public function __construct(TreatmentInterface $treatment, DoctorCategoryInterface $doctorCategory, TreatmentBonusInterface $treatmentBonus)
     {
-        $this->treatment      = $treatment;
+        $this->treatment = $treatment;
         $this->doctorCategory = $doctorCategory;
         $this->treatmentBonus = $treatmentBonus;
     }
@@ -37,9 +39,9 @@ class TreatmentBonusController extends Controller
                 })
                 ->addColumn('bonus_rate', function ($data) {
                     if ($data->bonus_type == 'percentage') {
-                        return number_format($data->bonus_rate, 1) . ' %';
+                        return number_format($data->bonus_rate, 1).' %';
                     } else {
-                        return 'Rp ' . number_format($data->bonus_rate, 0, ',', '.');
+                        return 'Rp '.number_format($data->bonus_rate, 0, ',', '.');
                     }
                 })
                 ->addColumn('action', function ($data) {
@@ -54,7 +56,7 @@ class TreatmentBonusController extends Controller
 
     public function create()
     {
-        $treatments       = $this->treatment->get();
+        $treatments = $this->treatment->get();
         $doctorCategories = $this->doctorCategory->get();
 
         return view('admin.treatment-bonus.create', compact('treatments', 'doctorCategories'));
@@ -63,14 +65,15 @@ class TreatmentBonusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'treatment_id'       => 'required|exists:treatments,id',
+            'treatment_id' => 'required|exists:treatments,id',
             'doctor_category_id' => 'required|exists:doctor_categories,id',
-            'bonus_type'         => 'required|in:percentage,nominal',
-            'bonus_rate'         => 'required|numeric'
+            'bonus_type' => 'required|in:percentage,nominal',
+            'bonus_rate' => 'required|numeric',
         ]);
 
         try {
             $this->treatmentBonus->store($request->all());
+
             return redirect()->route('admin.treatment-bonus.index')->with('success', 'Bonus layanan berhasil dibuat');
         } catch (\Throwable $th) {
             return redirect()->route('admin.treatment-bonus.index')->with('error', $th->getMessage());
@@ -79,8 +82,8 @@ class TreatmentBonusController extends Controller
 
     public function edit($id)
     {
-        $data             = $this->treatmentBonus->getById($id);
-        $treatments       = $this->treatment->get();
+        $data = $this->treatmentBonus->getById($id);
+        $treatments = $this->treatment->get();
         $doctorCategories = $this->doctorCategory->get();
 
         return view('admin.treatment-bonus.edit', compact('data', 'treatments', 'doctorCategories'));
@@ -89,14 +92,15 @@ class TreatmentBonusController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'treatment_id'       => 'required|exists:treatments,id',
+            'treatment_id' => 'required|exists:treatments,id',
             'doctor_category_id' => 'required|exists:doctor_categories,id',
-            'bonus_type'         => 'required|in:percentage,nominal',
-            'bonus_rate'         => 'required|numeric'
+            'bonus_type' => 'required|in:percentage,nominal',
+            'bonus_rate' => 'required|numeric',
         ]);
 
         try {
             $this->treatmentBonus->update($id, $request->all());
+
             return redirect()->route('admin.treatment-bonus.index')->with('success', 'Bonus layanan berhasil diubah');
         } catch (\Throwable $th) {
             return redirect()->route('admin.treatment-bonus.index')->with('error', $th->getMessage());
@@ -107,6 +111,7 @@ class TreatmentBonusController extends Controller
     {
         try {
             $this->treatmentBonus->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Bonus layanan berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);

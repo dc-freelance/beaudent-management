@@ -10,13 +10,14 @@ class Discount extends Model
     use HasFactory;
 
     protected $table = 'discounts';
+
     protected $fillable = [
         'name',
         'discount_type',
         'discount',
         'start_date',
         'end_date',
-        'is_active'
+        'is_active',
     ];
 
     public function getDiscount()
