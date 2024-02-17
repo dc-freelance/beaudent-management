@@ -25,7 +25,7 @@
                     </div>
                     <x-input id="occupation" label="Pekerjaan" name="occupation" type="text" required />
                     <x-input id="address" label="Alamat" name="address" required />
-                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="text" required />
+                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     <x-input id="religion" label="Agama" name="religion" type="text" required />
                     <x-input type="email" id="email" label="Surel" name="email" type="text" required />
                     <div>

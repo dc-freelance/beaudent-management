@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\ItemCategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -131,6 +132,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
     });
 
+    // Addon
+    Route::group(['prefix' => 'addon', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [AddonController::class, 'index'])->name('admin.addon.index');
+        Route::get('get-by-id/{id}', [AddonController::class, 'getById'])->name('admin.addon.get-by-id');
+        Route::get('create', [AddonController::class, 'create'])->name('admin.addon.create');
+        Route::post('store', [AddonController::class, 'store'])->name('admin.addon.store');
+        Route::get('edit/{id}', [AddonController::class, 'edit'])->name('admin.addon.edit');
+        Route::put('update/{id}', [AddonController::class, 'update'])->name('admin.addon.update');
+        Route::delete('delete/{id}', [AddonController::class, 'delete'])->name('admin.addon.delete');
+    });
+        
     // Item Category
     Route::group(['prefix' => 'item-category', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [ItemCategoryController::class, 'index'])->name('admin.item-category.index');
