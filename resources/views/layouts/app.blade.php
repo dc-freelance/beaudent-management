@@ -25,11 +25,6 @@
             margin-left: auto;
         }
     </style>
-    <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet"> --}}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +57,7 @@
 
 <body class="font-sans antialiased text-xs 2xl:text-sm overflow-hidden">
 
-    <div class="bg-white-200">
+    <div class="bg-[#F7FAFC]">
         @include('admin.layouts.sidebar')
 
         <div class="p-4 sm:ml-64 h-screen overflow-y-auto">
