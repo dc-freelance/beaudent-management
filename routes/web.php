@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorCategoryController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\ItemCategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -153,7 +153,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [ItemCategoryController::class, 'update'])->name('admin.item-category.update');
         Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->name('admin.item-category.delete');
     });
-
     // Supplier
     Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
