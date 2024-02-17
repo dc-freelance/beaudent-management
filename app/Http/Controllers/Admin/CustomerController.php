@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\CustomerInterface;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -30,10 +31,11 @@ class CustomerController extends Controller
                     return $data->email;
                 })
                 ->addColumn('date_of_birth', function ($data) {
-                    return $data->date_of_birth;
+                    return Carbon::parse($data->date_of_birth)->locale('id')->isoFormat('LL');
                 })
                 ->addColumn('gender', function ($data) {
-                    return $data->gender;
+                    $parse_gender = $data->gender == 'Male' ? 'Laki-laki' : 'Perempuan';
+                    return $parse_gender;
                 })
                 ->addColumn('address', function ($data) {
                     return $data->address;

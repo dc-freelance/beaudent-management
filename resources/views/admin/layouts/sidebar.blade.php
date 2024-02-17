@@ -45,6 +45,8 @@
                     route="{{ route('admin.discount.index') }}" active="{{ request()->routeIs('admin.discount.*') }}" />
                 <x-sidebar-item name="Manajemen Bonus Layanan" icon="fas fa-gift"
                     route="{{ route('admin.treatment-bonus.index') }}" active="{{ request()->routeIs('admin.treatment-bonus.*') }}" />
+                <x-sidebar-item name="Manajemen Layanan Tambahan" icon="fas fa-cart-plus"
+                    route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">
