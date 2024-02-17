@@ -10,17 +10,11 @@
             <form action="{{ route('admin.doctor.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <x-input id="name" label="Nama Lengkap" name="name" required />
-                <div>
-                    <p>Kategori</p>
-                    <div class="mt-1">
-                        <select id="category_id" name="category_id"
-                            class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                <x-select id="category_id" label="Kategori" name="category_id" required>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </x-select>
                 <x-input id="email" label="Email" name="email" type="email" required />
                 <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required />
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required />
