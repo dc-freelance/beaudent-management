@@ -46,20 +46,18 @@
                         active="{{ request()->routeIs('admin.doctor.*') }}" icon="fas fa-user-doctor"/>
                 </x-sidebar-dropdown>
                 <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
-                    active="{{ request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') }}">
+                    active="{{ request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*')}}">
                     <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
                         active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4"/>
                     <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
                         active="{{ request()->routeIs('admin.treatment-bonus.*') }}" icon="fas fa-gift" class=" ms-4"/>
+                    <x-sidebar-submenu name="Diskon" route="{{ route('admin.discount.index') }}"
+                        active="{{ request()->routeIs('admin.discount.*') }}" icon="fas fa-money-bill-wave" class=" ms-4"/>
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
                     active="{{ request()->routeIs('admin.branch.*') }}" />
                 <x-sidebar-item name="Manajemen Pasien" icon="fas fa-user-plus" route="{{ route('admin.customer.index') }}"
                     active="{{ request()->routeIs('admin.customer.*') }}" />
-                <x-sidebar-item name="Manajemen Diskon" icon="fas fa-money-bill-wave"
-                    route="{{ route('admin.discount.index') }}" active="{{ request()->routeIs('admin.discount.*') }}" />
-                <x-sidebar-item name="Manajemen Bonus Layanan" icon="fas fa-gift"
-                    route="{{ route('admin.treatment-bonus.index') }}" active="{{ request()->routeIs('admin.treatment-bonus.*') }}" />
                 <x-sidebar-item name="Manajemen Layanan Tambahan" icon="fas fa-cart-plus"
                     route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
                 <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-item"

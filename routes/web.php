@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\ItemCategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
