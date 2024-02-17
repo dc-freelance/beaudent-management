@@ -57,8 +57,7 @@
                     active="{{ request()->routeIs('admin.customer.*') }}" />
                 <x-sidebar-item name="Manajemen Layanan Tambahan" icon="fas fa-cart-plus"
                     route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
-                <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-item"
-                    active="{{ request()->routeIs('admin.item-category.*') }}">
+                <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-item">
                     <x-sidebar-submenu name="Kategori" route="{{ route('admin.item-category.index') }}"
                         active="{{ request()->routeIs('admin.item-category.*') }}" icon="fas fa-th-list"/>
                 </x-sidebar-dropdown>
