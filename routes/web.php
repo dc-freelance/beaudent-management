@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorCategoryController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -139,11 +142,22 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [ItemCategoryController::class, 'edit'])->name('admin.item-category.edit');
         Route::put('update/{id}', [ItemCategoryController::class, 'update'])->name('admin.item-category.update');
         Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->name('admin.item-category.delete');
+
+    // Supplier
+    Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
+        Route::get('get-by-id/{id}', [SupplierController::class, 'getById'])->name('admin.supplier.get-by-id');
+        Route::get('create', [SupplierController::class, 'create'])->name('admin.supplier.create');
+        Route::post('store', [SupplierController::class, 'store'])->name('admin.supplier.store');
+        Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
+        Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
+        Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+
     });
 });
 
 Route::get('/', function () {
     return view('auth.login');
 });
-
-require __DIR__ . '/auth.php';
+  
+require __DIR__.'/auth.php';

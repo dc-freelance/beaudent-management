@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discount_treatments', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('discount_id', false, true);
-            $table->bigInteger('treatment_id', false, true);
+            $table->string('name');
+            $table->string('phone_number');
+            $table->text('address');
+            $table->decimal('debt', 15, 2)->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('discount_treatments');
+        Schema::dropIfExists('suppliers');
     }
 };

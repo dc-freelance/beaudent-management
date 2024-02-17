@@ -8,7 +8,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreReservationRequest extends FormRequest
 {
-
     public function rules()
     {
         return [
@@ -19,7 +18,7 @@ class StoreReservationRequest extends FormRequest
             'anamnesis' => 'required',
             'customer_id' => 'required',
             'status' => 'nullable',
-            'is_control' => 'required'
+            'is_control' => 'required',
         ];
 
         if ($this->input('is_control') == 1) {
@@ -55,7 +54,7 @@ class StoreReservationRequest extends FormRequest
             'customer_id.required' => 'ID pelanggan harus diisi.',
             'deposit_status.required' => 'Status deposit harus diisi.',
             'treatment_id.required' => 'Harap pilih layanan',
-            'is_control.required' => 'Harap pilih layanan'
+            'is_control.required' => 'Harap pilih layanan',
         ];
     }
 

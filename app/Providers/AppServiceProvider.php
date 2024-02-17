@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\TreatmentBonusInterface::class, \App\Repositories\TreatmentBonusRepository::class);
         $this->app->bind(\App\Interfaces\DiscountInterface::class, \App\Repositories\DiscountRepository::class);
         $this->app->bind(\App\Interfaces\ItemCategoryInterface::class, \App\Repositories\ItemCategoryRepository::class);
+        $this->app->bind(\App\Interfaces\SupplierInterface::class, \App\Repositories\SupplierRepository::class);
 
         $this->loadHelpers();
     }
@@ -36,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function loadHelpers(): void
     {
-        foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
+        foreach (glob(__DIR__.'/../Helpers/*.php') as $filename) {
             require_once $filename;
         }
     }

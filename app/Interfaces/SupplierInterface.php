@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface CustomerInterface
+interface SupplierInterface
 {
     public function get();
 
