@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Discount_Items extends Model
 {
     use HasFactory;
 
     protected $table = 'discount_items';
-    protected $guarded = []; 
+
+    protected $guarded = [];
 
     public function discounts()
     {

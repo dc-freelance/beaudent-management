@@ -50,14 +50,15 @@ class BranchController extends Controller
     public function create()
     {
         $generate_code = $this->branch->generateCode();
+
         return view('admin.branch.create', compact('generate_code'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required',
-            'code'        => 'required',
+            'name' => 'required',
+            'code' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
         ]);
@@ -81,8 +82,8 @@ class BranchController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'        => 'required',
-            'code'        => 'required',
+            'name' => 'required',
+            'code' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
         ]);

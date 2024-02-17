@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\DiscountInterface;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
@@ -29,9 +29,9 @@ class DiscountController extends Controller
                 })
                 ->addColumn('discount', function ($data) {
                     if ($data->discount_type == 'Percentage') {
-                        return 'Rp ' . number_format($data->discount, 0, ',', '.');
+                        return 'Rp '.number_format($data->discount, 0, ',', '.');
                     } else {
-                        return $data->discount . '%';
+                        return $data->discount.'%';
                     }
                 })
                 ->addColumn('start_date', function ($data) {
@@ -73,7 +73,7 @@ class DiscountController extends Controller
             'discount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'is_active' => 'required'
+            'is_active' => 'required',
         ]);
 
         try {
@@ -101,7 +101,7 @@ class DiscountController extends Controller
             'discount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'is_active' => 'required'
+            'is_active' => 'required',
         ]);
 
         try {

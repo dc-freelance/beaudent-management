@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             return datatables()
                 ->of($this->customer->get())
                 ->addColumn('name', function ($data) {
@@ -63,25 +63,26 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'                  => 'required',
-            'date_of_birth'         => 'required',
-            'place_of_birth'        => 'required',
-            'identity_number'       => 'required',
-            'gender'                => 'required',
-            'occupation'            => 'required',
-            'address'               => 'required',
-            'phone_number'          => 'required',
-            'religion'              => 'required',
-            'email'                 => 'required',
-            'marrital_status'       => 'required',
-            'instagram'             => 'required',
-            'youtube'               => 'required',
-            'facebook'              => 'required',
+            'name' => 'required',
+            'date_of_birth' => 'required',
+            'place_of_birth' => 'required',
+            'identity_number' => 'required',
+            'gender' => 'required',
+            'occupation' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+            'religion' => 'required',
+            'email' => 'required',
+            'marrital_status' => 'required',
+            'instagram' => 'required',
+            'youtube' => 'required',
+            'facebook' => 'required',
             'source_of_information' => 'required',
         ]);
 
         try {
             $this->customer->store($request->all());
+
             return redirect()->route('admin.customer.index')->with('success', 'Data berhasil disimpan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.customer.index')->with('error', $th->getMessage());
@@ -91,37 +92,40 @@ class CustomerController extends Controller
     public function detail($id)
     {
         $data = $this->customer->getById($id);
+
         return view('admin.customer.detail', compact('data'));
     }
 
     public function edit($id)
     {
-        $data    = $this->customer->getById($id);
+        $data = $this->customer->getById($id);
+
         return view('admin.customer.edit', compact('data'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'                  => 'required',
-            'date_of_birth'         => 'required',
-            'place_of_birth'        => 'required',
-            'identity_number'       => 'required',
-            'gender'                => 'required',
-            'occupation'            => 'required',
-            'address'               => 'required',
-            'phone_number'          => 'required',
-            'religion'              => 'required',
-            'email'                 => 'required',
-            'marrital_status'       => 'required',
-            'instagram'             => 'required',
-            'youtube'               => 'required',
-            'facebook'              => 'required',
+            'name' => 'required',
+            'date_of_birth' => 'required',
+            'place_of_birth' => 'required',
+            'identity_number' => 'required',
+            'gender' => 'required',
+            'occupation' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+            'religion' => 'required',
+            'email' => 'required',
+            'marrital_status' => 'required',
+            'instagram' => 'required',
+            'youtube' => 'required',
+            'facebook' => 'required',
             'source_of_information' => 'required',
         ]);
 
         try {
             $this->customer->update($id, $request->all());
+
             return redirect()->route('admin.customer.index')->with('success', 'Data berhasil diubah');
         } catch (\Throwable $th) {
             return redirect()->route('admin.customer.index')->with('error', $th->getMessage());
@@ -132,6 +136,7 @@ class CustomerController extends Controller
     {
         try {
             $this->customer->delete($id);
+
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
