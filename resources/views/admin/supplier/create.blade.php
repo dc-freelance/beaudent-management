@@ -12,7 +12,6 @@
                 <x-input id="name" label="Nama" name="name" required />
                 <x-input id="phone_number" label="No. Telepon" name="phone_number" required />
                 <x-textarea id="address" label="Alamat" name="address" required />
-                <x-input id="debt" label="Hutang" name="debt" type="number" required />
                 <div class="mt-6">
                     <x-button type="submit">Tambah Pemasok</x-button>
                 </div>

@@ -14,8 +14,6 @@
                 <x-input id="phone_number" label="No. Telepon" name="phone_number" required
                     value="{{ $data->phone_number }}" />
                 <x-textarea id="address" label="Alamat" name="address" required value="{{ $data->address }}" />
-                <x-input id="debt" label="Hutang" name="debt" type="number" required
-                    value="{{ number_format($data->debt, 0, ',', '') }}" />
                 <div class="mt-6">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>

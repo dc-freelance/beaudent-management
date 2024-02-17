@@ -58,7 +58,6 @@ class SupplierController extends Controller
             'name'         => 'required',
             'phone_number' => 'required',
             'address'      => 'required',
-            'debt'         => 'required',
         ]);
 
         try {
@@ -83,7 +82,6 @@ class SupplierController extends Controller
             'name'         => 'required',
             'phone_number' => 'required',
             'address'      => 'required',
-            'debt'         => 'required',
         ]);
 
         try {
