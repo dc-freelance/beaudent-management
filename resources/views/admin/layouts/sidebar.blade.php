@@ -49,6 +49,11 @@
                     active="{{ request()->routeIs('admin.customer.*') }}" />
                 <x-sidebar-item name="Manajemen Diskon" icon="fas fa-money-bill-wave"
                     route="{{ route('admin.discount.index') }}" active="{{ request()->routeIs('admin.discount.*') }}" />
+                <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-item"
+                    active="{{ request()->routeIs('admin.item-category.*') }}">
+                    <x-sidebar-item name="Kategori" route="{{ route('admin.item-category.index') }}"
+                        active="{{ request()->routeIs('admin.item-category.*') }}" />
+                </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Pemasok" icon="fas fa-truck" route="{{ route('admin.supplier.index') }}"
                     active="{{ request()->routeIs('admin.supplier.*') }}" />
             @endrole

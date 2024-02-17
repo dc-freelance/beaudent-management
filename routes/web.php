@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\ItemCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -130,6 +133,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
     });
 
+    // Item Category
+    Route::group(['prefix' => 'item-category', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ItemCategoryController::class, 'index'])->name('admin.item-category.index');
+        Route::get('get-by-id/{id}', [ItemCategoryController::class, 'getById'])->name('admin.item-category.get-by-id');
+        Route::get('create', [ItemCategoryController::class, 'create'])->name('admin.item-category.create');
+        Route::post('store', [ItemCategoryController::class, 'store'])->name('admin.item-category.store');
+        Route::get('edit/{id}', [ItemCategoryController::class, 'edit'])->name('admin.item-category.edit');
+        Route::put('update/{id}', [ItemCategoryController::class, 'update'])->name('admin.item-category.update');
+        Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->name('admin.item-category.delete');
+
     // Supplier
     Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
@@ -139,11 +152,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
         Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
         Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+
     });
 });
 
 Route::get('/', function () {
     return view('auth.login');
 });
-
+  
 require __DIR__.'/auth.php';
