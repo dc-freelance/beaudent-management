@@ -3,7 +3,7 @@
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
         ['name' => 'Manajemen Pasien', 'url' => route('admin.customer.index')],
         ['name' => 'Detail Pasien', 'url' => ''],
-    ]" title="Tambah Pasien" />
+    ]" title="Detail Pasien" />
 
     <div class="w-full">
         <x-card-container>

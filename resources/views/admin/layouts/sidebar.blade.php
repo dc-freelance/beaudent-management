@@ -58,6 +58,10 @@
                     active="{{ request()->routeIs('admin.customer.*') }}" />
                 <x-sidebar-item name="Manajemen Diskon" icon="fas fa-money-bill-wave"
                     route="{{ route('admin.discount.index') }}" active="{{ request()->routeIs('admin.discount.*') }}" />
+                <x-sidebar-item name="Manajemen Bonus Layanan" icon="fas fa-gift"
+                    route="{{ route('admin.treatment-bonus.index') }}" active="{{ request()->routeIs('admin.treatment-bonus.*') }}" />
+                <x-sidebar-item name="Manajemen Layanan Tambahan" icon="fas fa-cart-plus"
+                    route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
                 <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-item"
                     active="{{ request()->routeIs('admin.item-category.*') }}">
                     <x-sidebar-submenu name="Kategori" route="{{ route('admin.item-category.index') }}"

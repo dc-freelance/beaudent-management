@@ -26,7 +26,7 @@
                     </div>
                     <x-input id="occupation" label="Pekerjaan" name="occupation" type="text" value="{{ old('occupation', $data->occupation) }}" required />
                     <x-input id="address" label="Alamat" name="address" value="{{ old('address', $data->address) }}" required />
-                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="text" value="{{ old('phone_number', $data->phone_number) }}" required />
+                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" value="{{ old('phone_number', $data->phone_number) }}" required />
                     <x-input id="religion" label="Agama" name="religion" type="text" value="{{ old('religion', $data->religion) }}" required />
                     <x-input type="email" id="email" label="Surel" name="email" type="text" value="{{ old('email', $data->email) }}" required />
                     <div>
