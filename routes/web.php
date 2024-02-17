@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\ItemCategoryController;
+use App\Http\Controllers\Admin\ItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -163,6 +164,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
         Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
         Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+    });
+
+    Route::group(['prefix' => 'item', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ItemController::class, 'index'])->name('admin.item.index');
+        Route::get('get-by-id/{id}', [ItemController::class, 'getById'])->name('admin.item.get-by-id');
+        Route::get('create', [ItemController::class, 'create'])->name('admin.item.create');
+        Route::post('store', [ItemController::class, 'store'])->name('admin.item.store');
+        Route::get('edit/{id}', [ItemController::class, 'edit'])->name('admin.item.edit');
+        Route::put('update/{id}', [ItemController::class, 'update'])->name('admin.item.update');
+        Route::delete('delete/{id}', [ItemController::class, 'delete'])->name('admin.item.delete');
     });
 });
 

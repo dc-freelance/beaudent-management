@@ -4,19 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'category_id',
-        'unit_id',
-        'total_stock',
-        'hpp',
-        'type',
-    ];
+    protected $table = 'items';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
 
     public function category()
     {
