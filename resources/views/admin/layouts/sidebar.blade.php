@@ -39,11 +39,13 @@
                         active="{{ request()->routeIs('admin.user-management.*') }}" icon="fas fa-user"/>
                 </x-sidebar-dropdown>
                 <x-sidebar-dropdown title="Manajemen Dokter" icon="fas fa-user-md" toggle="master-doctor"
-                    active="{{ request()->routeIs('admin.doctor-category.*') || request()->routeIs('admin.doctor.*') }}">
+                    active="{{ request()->routeIs('admin.doctor-category.*') || request()->routeIs('admin.doctor.*') || request()->routeIs('admin.doctor-schedule.*') }}">
                     <x-sidebar-submenu name="Kategori" route="{{ route('admin.doctor-category.index') }}"
                         active="{{ request()->routeIs('admin.doctor-category.*') }}" icon="fas fa-th-list"/>
                     <x-sidebar-submenu name="Dokter" route="{{ route('admin.doctor.index') }}"
                         active="{{ request()->routeIs('admin.doctor.*') }}" icon="fas fa-user-doctor"/>
+                    <x-sidebar-submenu name="Jadwal Dokter" route="{{ route('admin.doctor-schedule.index') }}"
+                        active="{{ request()->routeIs('admin.doctor-schedule.*') }}" icon="fas fa-calendar-plus"/>
                 </x-sidebar-dropdown>
                 <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment">
                     <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
