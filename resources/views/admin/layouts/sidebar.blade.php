@@ -60,9 +60,11 @@
                 <x-sidebar-item name="Manajemen Layanan Tambahan" icon="fas fa-cart-plus"
                     route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
                 <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-item"
-                    active="{{ request()->routeIs('admin.item-category.*') }}">
+                    active="{{ request()->routeIs('admin.item-category.*') || request()->routeIs('admin.item.*') }}">
                     <x-sidebar-submenu name="Kategori" route="{{ route('admin.item-category.index') }}"
                         active="{{ request()->routeIs('admin.item-category.*') }}" icon="fas fa-th-list"/>
+                    <x-sidebar-submenu name="Barang" route="{{ route('admin.item.index') }}"
+                            active="{{ request()->routeIs('admin.item.*') }}" icon="fas fa-box"/>
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Pemasok" icon="fas fa-truck" route="{{ route('admin.supplier.index') }}"
                     active="{{ request()->routeIs('admin.supplier.*') }}" />
