@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\ItemCategoryController;
+use App\Http\Controllers\Admin\ItemUnitController;
 use App\Http\Controllers\Admin\DiscountController;
 use Illuminate\Support\Facades\Route;
 
@@ -142,7 +143,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [AddonController::class, 'update'])->name('admin.addon.update');
         Route::delete('delete/{id}', [AddonController::class, 'delete'])->name('admin.addon.delete');
     });
-        
+
     // Item Category
     Route::group(['prefix' => 'item-category', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [ItemCategoryController::class, 'index'])->name('admin.item-category.index');
@@ -153,6 +154,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [ItemCategoryController::class, 'update'])->name('admin.item-category.update');
         Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->name('admin.item-category.delete');
     });
+
+    // Item Unit
+    Route::group(['prefix' => 'item-unit', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ItemUnitController::class, 'index'])->name('admin.item-unit.index');
+        Route::get('get-by-id/{id}', [ItemUnitController::class, 'getById'])->name('admin.item-unit.get-by-id');
+        Route::get('create', [ItemUnitController::class, 'create'])->name('admin.item-unit.create');
+        Route::post('store', [ItemUnitController::class, 'store'])->name('admin.item-unit.store');
+        Route::get('edit/{id}', [ItemUnitController::class, 'edit'])->name('admin.item-unit.edit');
+        Route::put('update/{id}', [ItemUnitController::class, 'update'])->name('admin.item-unit.update');
+        Route::delete('delete/{id}', [ItemUnitController::class, 'delete'])->name('admin.item-unit.delete');
+    });
+
     // Supplier
     Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
