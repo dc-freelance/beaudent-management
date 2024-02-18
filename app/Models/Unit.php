@@ -12,9 +12,9 @@ class Unit extends Model
 
     protected $table = 'item_units';
 
-    protected $fillable = [
-        'name'
-    ];
+    protected $table = 'item_units';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
 
     public function items()
     {

@@ -3,39 +3,43 @@
 namespace App\Repositories;
 
 use App\Interfaces\ItemUnitInterface;
+use App\Models\Item;
 use App\Models\Unit;
 
 class ItemUnitRepository implements ItemUnitInterface
 {
-    private $unit;
+    private $itemUnit;
+    private $item;
 
-    public function __construct(Unit $unit)
+    public function __construct(Unit $itemUnit, Item $item)
     {
-        $this->unit = $unit;
+        $this->itemUnit = $itemUnit;
+        $this->item = $item;
     }
 
     public function get()
     {
-        return $this->unit->get()->sortBy('id');
+        return $this->itemUnit->get()->sortBy('id');
     }
 
     public function getById($id)
     {
-        return $this->unit->find($id);
+        return $this->itemUnit->find($id);
     }
 
     public function store($data)
     {
-        return $this->unit->create($data);
+        return $this->itemUnit->create($data);
     }
 
     public function update($id, $data)
     {
-        return $this->unit->find($id)->update($data);
+        return $this->itemUnit->find($id)->update($data);
     }
 
     public function delete($id)
     {
-        return $this->unit->find($id)->delete();
+        $this->item->where('category_id', $id)->update(['category_id' => 1]);
+        return $this->itemUnit->find($id)->delete();
     }
 }

@@ -14,7 +14,9 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
 use App\Http\Controllers\Admin\ItemCategoryController;
 use App\Http\Controllers\Admin\ItemUnitController;
+use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\DoctorScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -175,6 +177,28 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
         Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
         Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+    });
+
+    // Item
+    Route::group(['prefix' => 'item', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ItemController::class, 'index'])->name('admin.item.index');
+        Route::get('get-by-id/{id}', [ItemController::class, 'getById'])->name('admin.item.get-by-id');
+        Route::get('create', [ItemController::class, 'create'])->name('admin.item.create');
+        Route::post('store', [ItemController::class, 'store'])->name('admin.item.store');
+        Route::get('edit/{id}', [ItemController::class, 'edit'])->name('admin.item.edit');
+        Route::put('update/{id}', [ItemController::class, 'update'])->name('admin.item.update');
+        Route::delete('delete/{id}', [ItemController::class, 'delete'])->name('admin.item.delete');
+    });
+
+    // DoctorSchedule
+    Route::group(['prefix' => 'doctor-schedule', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [DoctorScheduleController::class, 'index'])->name('admin.doctor-schedule.index');
+        Route::get('get-by-id/{id}', [DoctorScheduleController::class, 'getById'])->name('admin.doctor-schedule.get-by-id');
+        Route::get('create', [DoctorScheduleController::class, 'create'])->name('admin.doctor-schedule.create');
+        Route::post('store', [DoctorScheduleController::class, 'store'])->name('admin.doctor-schedule.store');
+        Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->name('admin.doctor-schedule.edit');
+        Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->name('admin.doctor-schedule.update');
+        Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->name('admin.doctor-schedule.delete');
     });
 });
 
