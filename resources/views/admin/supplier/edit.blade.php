@@ -11,7 +11,7 @@
                 @csrf
                 @method('PUT')
                 <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
-                <x-input id="phone_number" label="No. Telepon" name="phone_number" required
+                <x-input id="phone_number" label="No. Telepon" name="phone_number" required type="number"
                     value="{{ $data->phone_number }}" />
                 <x-textarea id="address" label="Alamat" name="address" required value="{{ $data->address }}" />
                 <div class="mt-6">
