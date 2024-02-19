@@ -17,7 +17,6 @@ class Treatment extends Model
         'parent_id',
         'is_control',
         'price',
-        'branch_id',
     ];
 
     public function branch()
