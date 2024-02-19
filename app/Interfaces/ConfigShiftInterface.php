@@ -2,12 +2,11 @@
 
 namespace App\Interfaces;
 
-interface DoctorInterface
+interface ConfigShiftInterface
 {
     public function get();
     public function getById($id);
     public function store($data);
     public function update($id, $data);
     public function delete($id);
-    public function changePassword($id, $data);
 }

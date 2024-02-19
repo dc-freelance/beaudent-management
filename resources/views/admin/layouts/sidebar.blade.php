@@ -67,6 +67,9 @@
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Pemasok" icon="fas fa-truck" route="{{ route('admin.supplier.index') }}"
                     active="{{ request()->routeIs('admin.supplier.*') }}" />
+                <x-sidebar-item name="Konfigurasi Shift" icon="fas fa-clock"
+                    route="{{ route('admin.config-shift.index') }}"
+                    active="{{ request()->routeIs('admin.config-shift.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">
