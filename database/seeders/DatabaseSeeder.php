@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             ItemCategorySeeder::class,
             SupplierSeeder::class,
+            ReservationSeeder::class,
         ]);
     }
 }
