@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\ItemUnitInterface::class, \App\Repositories\ItemUnitRepository::class);
         $this->app->bind(\App\Interfaces\ItemInterface::class, \App\Repositories\ItemRepository::class);
         $this->app->bind(\App\Interfaces\DoctorScheduleInterface::class, \App\Repositories\DoctorScheduleRepository::class);
-
+        $this->app->bind(\App\Interfaces\ReservationsInterface::class, \App\Repositories\ReservationsRepository::class);
         $this->loadHelpers();
     }
 

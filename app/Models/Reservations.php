@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Reservations extends Model
 {
@@ -27,5 +28,20 @@ class Reservations extends Model
     public function treatments()
     {
         return $this->belongsTo(Treatment::class, 'treatment_id', 'id');
+    }
+
+    public function getTanggalReservasiTextAttribute()
+    {
+        return Carbon::parse($this->request_date)->locale('id')->isoFormat('LL');
+    }
+
+    public function getTanggalTransferTextAttribute()
+    {
+        return Carbon::parse($this->transfer_date)->locale('id')->isoFormat('LL');
+    }
+
+    public function getWaktuReservasiTextAttribute()
+    {
+        return Carbon::parse($this->request_time)->locale('id')->isoFormat('LT');
     }
 }
