@@ -169,9 +169,9 @@ class ReservationsController extends Controller
 
             $this->reservations->cancel($id);
 
-            return redirect()->route('front-office.reservations.waiting.index')->with('success', 'Reservasi telah dibatalkan');
+            return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dibatalkan');
         } catch (\Throwable $th) {
-            return redirect()->route('front-office.reservations.waiting.index')->with('error', $th->getMessage());
+            return redirect()->route('front-office.reservations.wait.index')->with('error', $th->getMessage());
         }
     }
 
