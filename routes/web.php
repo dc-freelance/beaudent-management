@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
+use App\Http\Controllers\Admin\ConfigShiftController;
 use App\Http\Controllers\Admin\ItemCategoryController;
 use App\Http\Controllers\Admin\ItemUnitController;
 use App\Http\Controllers\Admin\ItemController;
@@ -200,6 +201,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->name('admin.doctor-schedule.edit');
         Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->name('admin.doctor-schedule.update');
         Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->name('admin.doctor-schedule.delete');
+    });
+
+    // Config Shift
+    Route::group(['prefix' => 'config-shift', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ConfigShiftController::class, 'index'])->name('admin.config-shift.index');
+        Route::get('get-by-id/{id}', [ConfigShiftController::class, 'getById'])->name('admin.config-shift.get-by-id');
+        Route::get('create', [ConfigShiftController::class, 'create'])->name('admin.config-shift.create');
+        Route::post('store', [ConfigShiftController::class, 'store'])->name('admin.config-shift.store');
+        Route::get('edit/{id}', [ConfigShiftController::class, 'edit'])->name('admin.config-shift.edit');
+        Route::put('update/{id}', [ConfigShiftController::class, 'update'])->name('admin.config-shift.update');
+        Route::delete('delete/{id}', [ConfigShiftController::class, 'delete'])->name('admin.config-shift.delete');
     });
 
     // Reservations
