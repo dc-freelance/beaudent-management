@@ -36,14 +36,14 @@ class DoctorScheduleRepository implements DoctorScheduleInterface
         }
 
         $lengthDoctor = count($data['doctor_id']);
-        $insertData = [];
+        $insertData   = [];
 
-        for ($i=0; $i < $lengthDoctor; $i++) { 
+        for ($i = 0; $i < $lengthDoctor; $i++) {
             $insertData[] = [
-                'doctor_id' => $data['doctor_id'][$i],
-                'branch_id' => $data['branch_id'],
-                'date' => $data['date'],
-                'shift' => $data['shift'],
+                'doctor_id'  => $data['doctor_id'][$i],
+                'branch_id'  => $data['branch_id'],
+                'date'       => $data['date'],
+                'shift'      => $data['shift'],
                 'created_at' => now(),
                 'updated_at' => now()
             ];
@@ -61,7 +61,7 @@ class DoctorScheduleRepository implements DoctorScheduleInterface
         if ($existingSchedule) {
             return redirect()->route('admin.doctor-schedule.index')->with('error', 'Jadwal Dokter sudah ada');
         }
-        
+
         return $this->doctorSchedule->find($id)->update($data);
     }
 
