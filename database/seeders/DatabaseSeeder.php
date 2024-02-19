@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             TreatmentSeeder::class,
             UserSeeder::class,
+            DoctorCategorySeeder::class,
+            DoctorSeeder::class,
             CustomerSeeder::class,
             PermissionSeeder::class,
             ItemCategorySeeder::class,
