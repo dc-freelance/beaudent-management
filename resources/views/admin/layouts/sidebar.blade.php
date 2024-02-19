@@ -22,15 +22,8 @@
                 active="{{ request()->routeIs('admin.dashboard.index') }}" />
 
             @role('admin_pusat')
-                {{-- <x-sidebar-item name="Manajemen Permission" icon="fas fa-user-lock"
-                    route="{{ route('admin.permission.index') }}" active="{{ request()->routeIs('admin.permission.*') }}" />
-                <x-sidebar-item name="Manajemen Hak Akses" icon="fas fa-user-lock" route="{{ route('admin.role.index') }}"
-                    active="{{ request()->routeIs('admin.role.*') }}" />
-                <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
-                    route="{{ route('admin.user-management.index') }}"
-                    active="{{ request()->routeIs('admin.user-management.*') }}" /> --}}
                 <x-sidebar-dropdown title="Manajemen Pengguna" icon="fas fa-users" toggle="master-users"
-                    active="{{ request()->routeIs('admin.permission.*') || request()->routeIs('admin.doctor.*') || request()->routeIs('admin.user-management.*') }}">
+                    active="{{ request()->routeIs('admin.permission.*') || request()->routeIs('admin.user-management.*') || request()->routeIs('admin.role.*') }}">
                     <x-sidebar-submenu name="Permission" route="{{ route('admin.permission.index') }}"
                         active="{{ request()->routeIs('admin.permission.*') }}" icon="fas fa-key" />
                     <x-sidebar-submenu name="Hak Akses" route="{{ route('admin.role.index') }}"
@@ -43,11 +36,12 @@
                     <x-sidebar-submenu name="Kategori" route="{{ route('admin.doctor-category.index') }}"
                         active="{{ request()->routeIs('admin.doctor-category.*') }}" icon="fas fa-th-list" />
                     <x-sidebar-submenu name="Dokter" route="{{ route('admin.doctor.index') }}"
-                        active="{{ request()->routeIs('admin.doctor.*') }}" icon="fas fa-user-doctor"/>
+                        active="{{ request()->routeIs('admin.doctor.*') }}" icon="fas fa-user-doctor" />
                     <x-sidebar-submenu name="Jadwal Dokter" route="{{ route('admin.doctor-schedule.index') }}"
-                        active="{{ request()->routeIs('admin.doctor-schedule.*') }}" icon="fas fa-calendar-plus"/>
+                        active="{{ request()->routeIs('admin.doctor-schedule.*') }}" icon="fas fa-calendar-plus" />
                 </x-sidebar-dropdown>
-                <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment">
+                <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
+                    active="{{ request()->routeIs('admin.treatment-category.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') }}">
                     <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
                         active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
                     <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
@@ -55,20 +49,21 @@
                     <x-sidebar-submenu name="Diskon" route="{{ route('admin.discount.index') }}"
                         active="{{ request()->routeIs('admin.discount.*') }}" icon="fas fa-money-bill-wave"
                         class=" ms-4" />
+                    <x-sidebar-item name="Layanan Tambahan" icon="fas fa-cart-plus"
+                        route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
                     active="{{ request()->routeIs('admin.branch.*') }}" />
                 <x-sidebar-item name="Manajemen Pasien" icon="fas fa-user-plus" route="{{ route('admin.customer.index') }}"
                     active="{{ request()->routeIs('admin.customer.*') }}" />
-                <x-sidebar-item name="Manajemen Layanan Tambahan" icon="fas fa-cart-plus"
-                    route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
-                    active="{{ request()->routeIs('admin.item-category.*') || request()->routeIs('admin.item.*') }}">
-                <x-sidebar-submenu name="Kategori" route="{{ route('admin.item-category.index') }}"
-                    active="{{ request()->routeIs('admin.item-category.*') }}" icon="fas fa-th-list"/>
-                <x-sidebar-submenu name="Satuan" route="{{ route('admin.item-unit.index') }}"
-                    active="{{ request()->routeIs('admin.item-unit.*') }}" icon="fas fa-boxes-packing" />
-                <x-sidebar-submenu name="Barang" route="{{ route('admin.item.index') }}"
-                        active="{{ request()->routeIs('admin.item.*') }}" icon="fas fa-box"/>
+                <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-product"
+                    active="{{ request()->routeIs('admin.item-category.*') || request()->routeIs('admin.item.*') || request()->routeIs('admin.item-unit.*') }}">
+                    <x-sidebar-submenu name="Kategori" route="{{ route('admin.item-category.index') }}"
+                        active="{{ request()->routeIs('admin.item-category.*') }}" icon="fas fa-th-list" />
+                    <x-sidebar-submenu name="Satuan" route="{{ route('admin.item-unit.index') }}"
+                        active="{{ request()->routeIs('admin.item-unit.*') }}" icon="fas fa-boxes-packing" />
+                    <x-sidebar-submenu name="Barang" route="{{ route('admin.item.index') }}"
+                        active="{{ request()->routeIs('admin.item.*') }}" icon="fas fa-box" />
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Pemasok" icon="fas fa-truck" route="{{ route('admin.supplier.index') }}"
                     active="{{ request()->routeIs('admin.supplier.*') }}" />

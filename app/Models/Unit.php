@@ -11,8 +11,6 @@ class Unit extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'item_units';
-
-    protected $table = 'item_units';
     protected $primaryKey = 'id';
     protected $guarded = [];
 
