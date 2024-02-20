@@ -4,9 +4,10 @@ namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\ReservationsInterface;
+use App\Mail\ReservationConfirmation;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Mail;
 
 class ReservationsController extends Controller
 {
@@ -40,7 +41,7 @@ class ReservationsController extends Controller
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Kontrol' : 'Perawatan';
                 })
-                
+
                 ->addColumn('action', function ($data) {
                     return view('front-office.reservations.column.action', compact('data'));
                 })
@@ -73,7 +74,7 @@ class ReservationsController extends Controller
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Kontrol' : 'Perawatan';
                 })
-                
+
                 ->addColumn('action', function ($data) {
                     return view('front-office.reservations.column.action', compact('data'));
                 })
@@ -82,7 +83,7 @@ class ReservationsController extends Controller
         }
         return view('front-office.reservations.cancel_reservations');
     }
-    
+
     public function confirm_reservations(Request $request)
     {
         $date = $request->input('date');
@@ -107,7 +108,7 @@ class ReservationsController extends Controller
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Kontrol' : 'Perawatan';
                 })
-                
+
                 ->addColumn('action', function ($data) {
                     return view('front-office.reservations.column.action', compact('data'));
                 })
@@ -122,7 +123,7 @@ class ReservationsController extends Controller
         $data = $this->reservations->getById($id);
         $reservation = $this->reservations->datatable_confirm_reservations();
 
-        return view('front-office.reservations.reschedule', compact('data','reservation'));
+        return view('front-office.reservations.reschedule', compact('data', 'reservation'));
     }
 
     public function update(Request $request, $id)
@@ -155,6 +156,7 @@ class ReservationsController extends Controller
             $reservation = $this->reservations->getById($id);
 
             $this->reservations->confirm($id);
+            Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation));
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dikonfirmasi');
         } catch (\Throwable $th) {
@@ -186,5 +188,4 @@ class ReservationsController extends Controller
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
         }
     }
-    
 }
