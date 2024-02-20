@@ -46,4 +46,9 @@ class Branch extends Model
     {
         return $this->hasMany(Reservations::class, 'branch_id', 'id');
     }
+
+    public function doctorSchedules()
+    {
+        return $this->hasMany(DoctorSchedule::class, 'branch_id', 'id');
+    }
 }
