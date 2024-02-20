@@ -31,11 +31,13 @@ class TreatmentRepository implements TreatmentInterface
 
     public function create($data)
     {
+        $data['price'] = str_replace('.', '', $data['price']);
         return $this->treatment->create($data);
     }
 
     public function update($id, $data)
     {
+        $data['price'] = str_replace('.', '', $data['price']);
         return $this->treatment->find($id)->update($data);
     }
 
