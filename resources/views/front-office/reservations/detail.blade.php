@@ -1,9 +1,6 @@
 <x-app-layout>
     @php
-        $breadcrumb = [
-            ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-            ['name' => 'Detail Reservasi', 'url' => ''],
-        ];
+        $breadcrumb = [['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Detail Reservasi', 'url' => '']];
 
         if ($data->status === 'Reservations') {
             $breadcrumb[1]['name'] = 'Menunggu Konfirmasi';
@@ -40,7 +37,7 @@
                 </tr>
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Status Reservasi</th>
-                    <td class="border px-8 py-4 w-3/4">{{ $data->status}}</td>
+                    <td class="border px-8 py-4 w-3/4">{{ $data->status }}</td>
                 </tr>
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Reservasi</th>
@@ -88,19 +85,22 @@
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Transfer</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->tanggal_transfer_text }}</td>
                 </tr>
-                @if($data->reasons !== null)
-                <tr>
-                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Alasan Penjadwalan Ulang</th>
-                    <td class="border px-8 py-4 w-3/4">{{ $data->reasons }}</td>
-                </tr>
+                @if ($data->reasons !== null)
+                    <tr>
+                        <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Alasan Penjadwalan Ulang</th>
+                        <td class="border px-8 py-4 w-3/4">{{ $data->reasons }}</td>
+                    </tr>
+                @endif
             </table>
 
-            @if ($data->status === "Reservation")   
+            @if ($data->status === 'Reservation')
                 <div class="flex justify-center mt-4">
-                    <x-button-action route="{{ route('front-office.reservations.detail.cancel', $data->id) }}" color="red">
+                    <x-button-action route="{{ route('front-office.reservations.detail.cancel', $data->id) }}"
+                        color="red">
                         Batalkan
                     </x-button-action>
-                    <x-button-action route="{{ route('front-office.reservations.detail.confirm', $data->id) }}" color="green">
+                    <x-button-action route="{{ route('front-office.reservations.detail.confirm', $data->id) }}"
+                        color="green">
                         Konfirmasi
                     </x-button-action>
                 </div>
