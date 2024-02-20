@@ -55,8 +55,8 @@
                             <option value="0" {{ $data->is_control == false ? 'selected' : '' }}>Tidak</option>
                         </select>
                     </div>
-                    <x-input id="price" label="Harga" name="price" type="number" required
-                        value="{{ $data->price }}" />
+                    <x-input format="nominal" id="price" label="Harga" name="price" type="text" required
+                        value="{{ number_format($data->price, 0, ',', '.') }}" />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Simpan Perubahan</x-button>

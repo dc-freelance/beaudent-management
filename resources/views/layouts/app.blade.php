@@ -104,6 +104,17 @@
     <!-- Flowbite -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
+    <script>
+        $(function() {
+            $('input[data-format="nominal"]').on('input', function() {
+                var value = $(this).val();
+                value = value.replace(/\D/g, '');
+                value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                $(this).val(value);
+            });
+        });
+    </script>
+
     @stack('js-internal')
 </body>
 
