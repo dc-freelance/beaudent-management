@@ -49,7 +49,7 @@
                             <option value="0">Tidak</option>
                         </select>
                     </div>
-                    <x-input id="price" label="Harga" name="price" type="number" required />
+                    <x-input format="nominal" id="price" label="Harga" name="price" type="text" required />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Tambah Layanan</x-button>
