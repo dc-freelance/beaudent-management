@@ -112,12 +112,12 @@
                 value = value.replace(/\D/g, '');
                 value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
                 $(this).val(value);
-             });
-             
+            });
+
             $('input[type="number"]').on('input', function(e) {
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
-        
+
             $('select').select2({
                 width: '100%',
             });
