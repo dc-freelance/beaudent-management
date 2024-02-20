@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ItemUnitController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorScheduleController;
+use App\Http\Controllers\FrontOffice\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -211,6 +212,30 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [ConfigShiftController::class, 'edit'])->name('admin.config-shift.edit');
         Route::put('update/{id}', [ConfigShiftController::class, 'update'])->name('admin.config-shift.update');
         Route::delete('delete/{id}', [ConfigShiftController::class, 'delete'])->name('admin.config-shift.delete');
+    });
+
+    // Reservations
+    Route::group(['prefix' => 'reservations', 'middleware' => ['role:frontoffice']], function () {
+        Route::group(['prefix' => 'wait'], function () {
+            Route::get('/', [ReservationsController::class, 'reservations'])->name('front-office.reservations.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.wait.detail');
+        });
+
+        Route::group(['prefix' => 'confirm'], function () {
+            Route::get('/', [ReservationsController::class, 'confirm_reservations'])->name('front-office.reservations.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.confirm.detail');
+            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->name('front-office.reservations.confirm.reschedule.update');
+            Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->name('front-office.reservations.confirm.reschedule');
+        });
+
+        Route::group(['prefix' => 'cancel'], function () {
+            Route::get('/', [ReservationsController::class, 'cancel_reservations'])->name('front-office.reservations.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.cancel.detail');
+        });
+
+        Route::get('/reservations/{id}/confirm', [ReservationsController::class, 'confirm'])->name('front-office.reservations.detail.confirm');
+        Route::get('/reservations/{id}/cancel', [ReservationsController::class, 'cancel'])->name('front-office.reservations.detail.cancel');
+        Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->name('front-office.reservations.delete');
     });
 });
 
