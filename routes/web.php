@@ -142,7 +142,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [AddonController::class, 'update'])->name('admin.addon.update');
         Route::delete('delete/{id}', [AddonController::class, 'delete'])->name('admin.addon.delete');
     });
-        
+
     // Item Category
     Route::group(['prefix' => 'item-category', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [ItemCategoryController::class, 'index'])->name('admin.item-category.index');
