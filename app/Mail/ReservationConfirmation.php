@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -22,14 +23,15 @@ class ReservationConfirmation extends Mailable
     {
         $this->data = [
             'id' => $reservation->id,
+            'no' => $reservation->no,
             'identity_number' => $reservation->customers->identity_number,
             'customer' => $reservation->customers->name,
             'email' => $reservation->customers->email,
             'phone' => $reservation->customers->phone_number,
             'address' => $reservation->customers->address,
             'branch' => $reservation->branches->name,
-            'date' => $reservation->request_date,
-            'time' => $reservation->request_time,
+            'date' => Carbon::parse($reservation->request_date)->isoFormat('D MMMM YYYY'),
+            'time' => Carbon::parse($reservation->request_time)->format('H:i'),
             'cs' => $reservation->branches->phone_number,
             'service' => $reservation->treatments->name
         ];

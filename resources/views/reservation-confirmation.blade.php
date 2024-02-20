@@ -23,6 +23,11 @@
             font-size: 24px;
         }
 
+        header span {
+            font-weight: 800;
+            font-size: 18px;
+        }
+
         table {
             widows: 100%;
         }
@@ -58,7 +63,11 @@
 
 <body>
     <div class="container">
-        <header>Konfirmasi Reservasi</header>
+        <header>
+            Konfirmasi Reservasi
+            <br>
+            <span>#{{ $data['no'] }}</span>
+        </header>
         <div class="content">
             <table>
                 <tr>
