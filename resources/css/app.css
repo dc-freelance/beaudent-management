@@ -92,3 +92,24 @@ div:where(.swal2-container) .swal2-html-container {
         transform: rotate(360deg);
     }
 }
+
+
+
+@keyframes moveParticle {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(50px) translateX(50px);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+
+}
+
+.animate-particle {
+    animation: moveParticle 20s linear infinite;
+}
