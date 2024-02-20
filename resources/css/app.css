@@ -22,6 +22,7 @@
 .swal2-html-container {
     @apply text-xs 2xl:text-sm;
 }
+
 div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
     @apply bg-primary rounded-md text-sm;
 }
@@ -50,15 +51,11 @@ div:where(.swal2-container) .swal2-html-container {
     @apply p-2.5 h-10 flex items-center;
 }
 
-.select2-container--default
-    .select2-selection--single
-    .select2-selection__arrow {
+.select2-container--default .select2-selection--single .select2-selection__arrow {
     @apply h-10;
 }
 
-.select2-container--default
-    .select2-selection--single
-    .select2-selection__rendered {
+.select2-container--default .select2-selection--single .select2-selection__rendered {
     @apply px-0 text-sm;
 }
 
@@ -70,7 +67,28 @@ div:where(.swal2-container) .swal2-html-container {
     @apply bg-primary text-white;
 }
 
-.select2-container--default
-    .select2-results__option--highlighted[aria-selected] {
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
     @apply bg-primary text-white;
+}
+
+/* CSS untuk indikator loading */
+.loader {
+    border-top: 4px solid #3498db;
+    border-right: 4px solid #e74c3c;
+    border-bottom: 4px solid #2ecc71;
+    border-left: 4px solid #f39c12;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
