@@ -88,6 +88,11 @@
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Transfer</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->tanggal_transfer_text }}</td>
                 </tr>
+                @if($data->reasons !== null)
+                <tr>
+                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Alasan Penjadwalan Ulang</th>
+                    <td class="border px-8 py-4 w-3/4">{{ $data->reasons }}</td>
+                </tr>
             </table>
 
             @if ($data->status === "Reservation")   

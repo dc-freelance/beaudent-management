@@ -47,7 +47,7 @@ class ReservationsRepository implements ReservationsInterface
     public function reschedule($id, $data)
     {
         return $this->reservations->find($id)->update([
-            'alasan' => $data['alasan'],
+            'reasons' => $data['reasons'],
             'request_time' => $data['request_time'],
             'request_date' => $data['request_date']
         ]);
