@@ -156,7 +156,7 @@ class ReservationsController extends Controller
             $reservation = $this->reservations->getById($id);
 
             $this->reservations->confirm($id);
-            Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation));
+            Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, true));
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dikonfirmasi');
         } catch (\Throwable $th) {
@@ -170,6 +170,7 @@ class ReservationsController extends Controller
             $reservation = $this->reservations->getById($id);
 
             $this->reservations->cancel($id);
+            Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, false));
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dibatalkan');
         } catch (\Throwable $th) {
