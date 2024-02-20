@@ -109,10 +109,9 @@
                 <p>
                     Pelanggan yang terhormat,
                     <br>
-                    kami telah {{ $data['action'] }} reservasi anda di Beaudent cabang
-                    <b>{{ $data['branch'] }}</b>
-                    untuk kunjungan pada tanggal <b>{{ $data['date'] }} {{ $data['time'] }}</b> WIB dengan layanan
-                    <b>{{ $data['service'] }}</b>.
+                    kami telah {{ $data['action'] }} pembayaran deposit anda untuk reservasi nomor {{ $data['no'] }}
+                    sejumlah <b>Rp {{ $data['count'] }}</b> dari rekening <b>{{ $data['rek'] }}</b> pada pembayaran
+                    tanggal <b>{{ $data['transfer'] }}</b>.
                 </p>
                 <br>
                 <p>
