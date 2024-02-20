@@ -130,7 +130,7 @@ class ReservationsController extends Controller
         $request->validate([
             'request_date' => 'required',
             'request_time' => 'required',
-            'alasan' => 'required',
+            'reasons' => 'required',
         ]);
 
         try {
