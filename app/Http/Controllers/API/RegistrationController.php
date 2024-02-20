@@ -3,41 +3,33 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
+use App\Http\Requests\API\StoreRegistrationRequest;
 use App\Models\Customers;
 
 class RegistrationController extends Controller
 {
-    public function __invoke(Request $request)
+    private $customer_model;
+
+    public function __construct()
     {
-        // dd($request->all());
-        $validate = $request->validate([
-            'name' =>'required',
-            'date_of_birth' =>'required',
-            'place_of_birth' =>'required',
-            'identity_number' =>'required',
-            'gender' =>'required',
-            'occupation' =>'required',
-            'phone_number' =>'required',
-            'religion' =>'required',
-            'note' =>'nullable',
-            'instagram' =>'nullable',
-            'youtube' =>'nullable',
-            'facebook' =>'nullable',
-            'source_of_information'=>'nullable'
-        ]);
+        $this->customer_model = new Customers();
+    }
+
+    public function __invoke(StoreRegistrationRequest $request)
+    {
         try {
-            $customer = Customers::create($request->all());
+            $customer = $this->customer_model->create($request->all());
+
             return response()->json([
                 'status' => 200,
-                'message' => 'Successfully registered',
-                'customer' => $customer
-            ], 200);
+                'message' => 'Berhasil Registrasi',
+                'customer' => $customer,
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => $th->getMessage(),
-            ], 500);
+                'code' => 500,
+                'error' => 'Gagal Registrasi',
+            ]);
         }
     }
 }

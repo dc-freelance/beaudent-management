@@ -25,11 +25,6 @@
             margin-left: auto;
         }
     </style>
-    <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet"> --}}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,10 +46,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Alert -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
 
     <!-- Flowbite -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -62,7 +61,7 @@
 
 <body class="font-sans antialiased text-xs 2xl:text-sm overflow-hidden">
 
-    <div class="bg-white-200">
+    <div class="bg-[#F7FAFC]">
         @include('admin.layouts.sidebar')
 
         <div class="p-4 sm:ml-64 h-screen overflow-y-auto">
@@ -94,9 +93,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
         integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <!-- Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <!-- Apexchart -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -111,6 +112,14 @@
                 value = value.replace(/\D/g, '');
                 value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
                 $(this).val(value);
+             });
+             
+            $('input[type="number"]').on('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        
+            $('select').select2({
+                width: '100%',
             });
         });
     </script>

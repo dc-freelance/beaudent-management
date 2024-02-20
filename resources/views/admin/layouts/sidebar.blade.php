@@ -17,20 +17,71 @@
             <img src="{{ asset('assets/images/logo.png') }}" class="mr-3 object-contain h-20" alt="logo"
                 class="mix-blend-multiply" />
         </a>
-        <ul class="space-y-3">
+        <ul class="space-y-1">
             <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
                 active="{{ request()->routeIs('admin.dashboard.index') }}" />
 
             @role('admin_pusat')
-                <x-sidebar-item name="Manajemen Permission" icon="fas fa-user-lock"
-                    route="{{ route('admin.permission.index') }}" active="{{ request()->routeIs('admin.permission.*') }}" />
-                <x-sidebar-item name="Manajemen Hak Akses" icon="fas fa-user-lock" route="{{ route('admin.role.index') }}"
-                    active="{{ request()->routeIs('admin.role.*') }}" />
-                <x-sidebar-item name="Manajemen Pengguna" icon="fas fa-users"
-                    route="{{ route('admin.user-management.index') }}"
-                    active="{{ request()->routeIs('admin.user-management.*') }}" />
-                <x-sidebar-item name="Manajemen Layanan" icon="fas fa-stethoscope"
-                    route="{{ route('admin.treatment.index') }}" active="{{ request()->routeIs('admin.treatment.*') }}" />
+                <x-sidebar-dropdown title="Manajemen Pengguna" icon="fas fa-users" toggle="master-users"
+                    active="{{ request()->routeIs('admin.permission.*') || request()->routeIs('admin.user-management.*') || request()->routeIs('admin.role.*') }}">
+                    <x-sidebar-submenu name="Permission" route="{{ route('admin.permission.index') }}"
+                        active="{{ request()->routeIs('admin.permission.*') }}" icon="fas fa-key" />
+                    <x-sidebar-submenu name="Hak Akses" route="{{ route('admin.role.index') }}"
+                        active="{{ request()->routeIs('admin.role.*') }}" icon="fas fa-user-lock" />
+                    <x-sidebar-submenu name="Pengguna" route="{{ route('admin.user-management.index') }}"
+                        active="{{ request()->routeIs('admin.user-management.*') }}" icon="fas fa-user" />
+                </x-sidebar-dropdown>
+                <x-sidebar-dropdown title="Manajemen Dokter" icon="fas fa-user-md" toggle="master-doctor"
+                    active="{{ request()->routeIs('admin.doctor-category.*') || request()->routeIs('admin.doctor.*') || request()->routeIs('admin.doctor-schedule.*') }}">
+                    <x-sidebar-submenu name="Kategori" route="{{ route('admin.doctor-category.index') }}"
+                        active="{{ request()->routeIs('admin.doctor-category.*') }}" icon="fas fa-th-list" />
+                    <x-sidebar-submenu name="Dokter" route="{{ route('admin.doctor.index') }}"
+                        active="{{ request()->routeIs('admin.doctor.*') }}" icon="fas fa-user-doctor" />
+                    <x-sidebar-submenu name="Jadwal Dokter" route="{{ route('admin.doctor-schedule.index') }}"
+                        active="{{ request()->routeIs('admin.doctor-schedule.*') }}" icon="fas fa-calendar-plus" />
+                </x-sidebar-dropdown>
+                <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
+                    active="{{ request()->routeIs('admin.treatment-category.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') }}">
+                    <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
+                        active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
+                    <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
+                        active="{{ request()->routeIs('admin.treatment-bonus.*') }}" icon="fas fa-gift" class=" ms-4" />
+                    <x-sidebar-submenu name="Diskon" route="{{ route('admin.discount.index') }}"
+                        active="{{ request()->routeIs('admin.discount.*') }}" icon="fas fa-money-bill-wave"
+                        class=" ms-4" />
+                    <x-sidebar-item name="Layanan Tambahan" icon="fas fa-cart-plus"
+                        route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
+                </x-sidebar-dropdown>
+                <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
+                    active="{{ request()->routeIs('admin.branch.*') }}" />
+                <x-sidebar-item name="Manajemen Pasien" icon="fas fa-user-plus" route="{{ route('admin.customer.index') }}"
+                    active="{{ request()->routeIs('admin.customer.*') }}" />
+                <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-product"
+                    active="{{ request()->routeIs('admin.item-category.*') || request()->routeIs('admin.item.*') || request()->routeIs('admin.item-unit.*') }}">
+                    <x-sidebar-submenu name="Kategori" route="{{ route('admin.item-category.index') }}"
+                        active="{{ request()->routeIs('admin.item-category.*') }}" icon="fas fa-th-list" />
+                    <x-sidebar-submenu name="Satuan" route="{{ route('admin.item-unit.index') }}"
+                        active="{{ request()->routeIs('admin.item-unit.*') }}" icon="fas fa-boxes-packing" />
+                    <x-sidebar-submenu name="Barang" route="{{ route('admin.item.index') }}"
+                        active="{{ request()->routeIs('admin.item.*') }}" icon="fas fa-box" />
+                </x-sidebar-dropdown>
+                <x-sidebar-item name="Manajemen Pemasok" icon="fas fa-truck" route="{{ route('admin.supplier.index') }}"
+                    active="{{ request()->routeIs('admin.supplier.*') }}" />
+                <x-sidebar-item name="Konfigurasi Shift" icon="fas fa-clock"
+                    route="{{ route('admin.config-shift.index') }}"
+                    active="{{ request()->routeIs('admin.config-shift.*') }}" />
+            @endrole
+
+            @role('frontoffice')
+                <x-sidebar-dropdown title="Manajemen Reservasi" icon="fas fa-calendar" toggle="master-reservasi"
+                        active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*')}}">
+                        <x-sidebar-submenu name="Menunggu Konfirmasi" route="{{ route('front-office.reservations.wait.index') }}"
+                            active="{{ request()->routeIs('front-office.reservations.wait.*') }}" icon="fas fa-hourglass-half" />
+                        <x-sidebar-submenu name="Reservasi Terkonfirmasi" route="{{ route('front-office.reservations.confirm.index') }}"
+                            active="{{ request()->routeIs('front-office.reservations.confirm.*') }}" icon="fas fa-check-circle" />
+                        <x-sidebar-submenu name="Reservasi Dibatalkan" route="{{ route('front-office.reservations.cancel.index') }}"
+                            active="{{ request()->routeIs('front-office.reservations.cancel.*') }}" icon="fas fa-calendar-times" />
+                </x-sidebar-dropdown>
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">

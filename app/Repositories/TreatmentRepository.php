@@ -19,6 +19,11 @@ class TreatmentRepository implements TreatmentInterface
         return $this->treatment->get();
     }
 
+    public function getParentNull()
+    {
+        return $this->treatment->where('parent_id', null)->get();
+    }
+
     public function getById($id)
     {
         return $this->treatment->find($id);
@@ -42,6 +47,7 @@ class TreatmentRepository implements TreatmentInterface
         if ($treatment->parent_id == null) {
             $this->treatment->where('parent_id', $treatment->id)->delete();
         }
+
         return $treatment->delete();
     }
 }

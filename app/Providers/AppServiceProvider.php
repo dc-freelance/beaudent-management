@@ -15,7 +15,22 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\PermissionInterface::class, \App\Repositories\PermissionRepository::class);
         $this->app->bind(\App\Interfaces\RoleInterface::class, \App\Repositories\RoleRepository::class);
         $this->app->bind(\App\Interfaces\BranchInterface::class, \App\Repositories\BranchRepository::class);
+        $this->app->bind(\App\Interfaces\DoctorCategoryInterface::class, \App\Repositories\DoctorCategoryRepository::class);
+        $this->app->bind(\App\Interfaces\DoctorInterface::class, \App\Repositories\DoctorRepository::class);
         $this->app->bind(\App\Interfaces\TreatmentInterface::class, \App\Repositories\TreatmentRepository::class);
+        $this->app->bind(\App\Interfaces\CustomerInterface::class, \App\Repositories\CustomerRepository::class);
+        $this->app->bind(\App\Interfaces\TreatmentBonusInterface::class, \App\Repositories\TreatmentBonusRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountInterface::class, \App\Repositories\DiscountRepository::class);
+        $this->app->bind(\App\Interfaces\AddonInterface::class, \App\Repositories\AddonRepository::class);
+        $this->app->bind(\App\Interfaces\ItemCategoryInterface::class, \App\Repositories\ItemCategoryRepository::class);
+        $this->app->bind(\App\Interfaces\ItemUnitInterface::class, \App\Repositories\ItemUnitRepository::class);
+        $this->app->bind(\App\Interfaces\SupplierInterface::class, \App\Repositories\SupplierRepository::class);
+        $this->app->bind(\App\Interfaces\ItemUnitInterface::class, \App\Repositories\ItemUnitRepository::class);
+        $this->app->bind(\App\Interfaces\ItemInterface::class, \App\Repositories\ItemRepository::class);
+        $this->app->bind(\App\Interfaces\DoctorScheduleInterface::class, \App\Repositories\DoctorScheduleRepository::class);
+        $this->app->bind(\App\Interfaces\ConfigShiftInterface::class, \App\Repositories\ConfigShiftRepository::class);
+        $this->app->bind(\App\Interfaces\ReservationsInterface::class, \App\Repositories\ReservationsRepository::class);
+        $this->loadHelpers();
     }
 
     /**
@@ -24,5 +39,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    protected function loadHelpers(): void
+    {
+        foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
+            require_once $filename;
+        }
     }
 }

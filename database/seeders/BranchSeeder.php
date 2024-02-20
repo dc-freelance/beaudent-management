@@ -14,19 +14,28 @@ class BranchSeeder extends Seeder
     {
         $brances = [
             [
-                'name'         => 'Pusat',
-                'address'      => 'Address 1',
+                'code' => 'PST',
+                'name' => 'Pusat',
+                'address' => 'Address 1',
                 'phone_number' => '08123456789',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'name'         => 'Cabang 1',
-                'address'      => 'Address 2',
+                'code' => 'CBG-1',
+                'name' => 'Cabang 1',
+                'address' => 'Address 2',
                 'phone_number' => '08123456789',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'name'         => 'Cabang 2',
-                'address'      => 'Address 3',
+                'code' => 'CBG-2',
+                'name' => 'Cabang 2',
+                'address' => 'Address 3',
                 'phone_number' => '08123456789',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

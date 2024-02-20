@@ -29,6 +29,7 @@ class PermissionController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+
         return view('admin.permission.index');
     }
 
@@ -41,6 +42,7 @@ class PermissionController extends Controller
     {
         return view('admin.permission.create');
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -48,6 +50,7 @@ class PermissionController extends Controller
         ]);
         try {
             $this->permission->store($request->all());
+
             return redirect()->route('admin.permission.index')->with('success', 'Permission berhasil dibuat');
         } catch (\Throwable $th) {
             return redirect()->route('admin.permission.index')->with('error', $th->getMessage());
@@ -57,17 +60,19 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $data = $this->permission->getById($id);
+
         return view('admin.permission.edit', compact('data'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:permissions,name,' . $id,
+            'name' => 'required|string|max:255|unique:permissions,name,'.$id,
         ]);
 
         try {
             $this->permission->update($id, $request->all());
+
             return redirect()->route('admin.permission.index')->with('success', 'Permission berhasil diubah');
         } catch (\Throwable $th) {
             return redirect()->route('admin.permission.index')->with('error', $th->getMessage());
@@ -78,6 +83,7 @@ class PermissionController extends Controller
     {
         try {
             $this->permission->delete($id);
+
             return redirect()->route('admin.permission.index')->with('success', 'Permission berhasil dihapus');
         } catch (\Throwable $th) {
             return redirect()->route('admin.permission.index')->with('error', $th->getMessage());

@@ -12,7 +12,7 @@
                 <div class="space-y-6 mb-6">
                     <x-input id="name" label="Nama" name="name" required />
                     <x-input id="email" label="Email" name="email" required />
-                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" required />
+                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required />
                     <div>
                         <p>Lokasi</p>
@@ -36,17 +36,17 @@
                         <select id="branch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                             name="branch_id">
+                            <option value="" selected disabled>Pilih Cabang</option>
                             @foreach ($branches as $branch)
                                 <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
-                        <p>Role</p>
+                        <p>Hak Akses</p>
                         <div class="flex flex-wrap gap-6 mt-6">
                             @foreach ($roles as $role)
-                                {{-- radio --}}
-                                <div class="flex items-center space-x-2">
+                                <div class="flex items-center space-x-2" id="role-{{ $role->name }}">
                                     <input type="radio" name="role" id="{{ $role->name }}"
                                         value="{{ $role->name }}" class="radio radio-primary">
                                     <label
@@ -64,13 +64,35 @@
     @push('js-internal')
         <script>
             $(function() {
-                // when user set branch type to cabang, show branch select
-                $('input[name="branch_type"]').on('change', function() {
-                    if ($(this).val() === 'cabang') {
-                        $('#branch').parent().removeClass('hidden');
+                const branchTypeInput = $('input[name="branch_type"]');
+                const branchSelect = $('#branch');
+                const adminCabangRole = $('#role-admin_cabang');
+                const managerCabangRole = $('#role-manager_cabang');
+                const adminPusatRole = $('#role-admin_pusat');
+                const ownerRole = $('#role-owner');
+
+                adminCabangRole.addClass('hidden');
+                managerCabangRole.addClass('hidden');
+
+                branchTypeInput.on('change', function() {
+                    const selectedBranchType = $(this).val();
+
+                    if (selectedBranchType === 'cabang') {
+                        // remove value branch_id
+                        branchSelect.val('');
+                        branchSelect.parent().removeClass('hidden');
+                        adminCabangRole.removeClass('hidden');
+                        managerCabangRole.removeClass('hidden');
+                        adminPusatRole.addClass('hidden');
+                        ownerRole.addClass('hidden');
+
                     } else {
-                        $('#branch').val('');
-                        $('#branch').parent().addClass('hidden');
+                        // remove value branch_id
+                        branchSelect.val('');
+                        branchSelect.parent().addClass('hidden');
+                        adminCabangRole.addClass('hidden');
+                        managerCabangRole.addClass('hidden');
+                        adminPusatRole.removeClass('hidden');
                     }
                 });
             });
