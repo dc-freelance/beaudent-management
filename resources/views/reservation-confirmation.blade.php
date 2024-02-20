@@ -84,16 +84,19 @@
             </table>
             <div class="desc">
                 <p>
-                    Pelanggan yang terhormat, kami telah mengkonfirmasi reservasi anda di Beaudent cabang
+                    Pelanggan yang terhormat,
+                    <br>
+                    kami telah mengkonfirmasi reservasi anda di Beaudent cabang
                     <b>{{ $data['branch'] }}</b>
+                    <br>
                     untuk kunjungan pada tanggal <b>{{ $data['date'] }} {{ $data['time'] }}</b> WIB dengan layanan
                     <b>{{ $data['service'] }}</b>.
                 </p>
                 <br>
                 <p>
-                    Jika terdapat kesalahan data reservasi atau perubahan waktu kunjungan harap menghubungi layanan
-                    pelanggan
-                    Beaudent melalui kontak tertera dibawah ini
+                    Jika terdapat kesalahan data reservasi atau perubahan waktu kunjungan
+                    <br>
+                    harap menghubungi layanan pelanggan Beaudent melalui kontak tertera dibawah ini
                 </p>
             </div>
         </div>
