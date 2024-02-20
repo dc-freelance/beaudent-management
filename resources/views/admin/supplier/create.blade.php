@@ -10,7 +10,7 @@
             <form action="{{ route('admin.supplier.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <x-input id="name" label="Nama" name="name" required />
-                <x-input id="phone_number" label="No. Telepon" name="phone_number" required />
+                <x-input id="phone_number" label="No. Telepon" name="phone_number" type="number" required />
                 <x-textarea id="address" label="Alamat" name="address" required />
                 <div class="mt-6">
                     <x-button type="submit">Tambah Pemasok</x-button>

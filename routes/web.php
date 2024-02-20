@@ -12,8 +12,13 @@ use App\Http\Controllers\Admin\TreatmentBonusController;
 use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AddonController;
+use App\Http\Controllers\Admin\ConfigShiftController;
 use App\Http\Controllers\Admin\ItemCategoryController;
+use App\Http\Controllers\Admin\ItemUnitController;
+use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\DoctorScheduleController;
+use App\Http\Controllers\FrontOffice\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -153,6 +158,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [ItemCategoryController::class, 'update'])->name('admin.item-category.update');
         Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->name('admin.item-category.delete');
     });
+
+    // Item Unit
+    Route::group(['prefix' => 'item-unit', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ItemUnitController::class, 'index'])->name('admin.item-unit.index');
+        Route::get('get-by-id/{id}', [ItemUnitController::class, 'getById'])->name('admin.item-unit.get-by-id');
+        Route::get('create', [ItemUnitController::class, 'create'])->name('admin.item-unit.create');
+        Route::post('store', [ItemUnitController::class, 'store'])->name('admin.item-unit.store');
+        Route::get('edit/{id}', [ItemUnitController::class, 'edit'])->name('admin.item-unit.edit');
+        Route::put('update/{id}', [ItemUnitController::class, 'update'])->name('admin.item-unit.update');
+        Route::delete('delete/{id}', [ItemUnitController::class, 'delete'])->name('admin.item-unit.delete');
+    });
+
     // Supplier
     Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
         Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
@@ -162,6 +179,63 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
         Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
         Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+    });
+
+    // Item
+    Route::group(['prefix' => 'item', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ItemController::class, 'index'])->name('admin.item.index');
+        Route::get('get-by-id/{id}', [ItemController::class, 'getById'])->name('admin.item.get-by-id');
+        Route::get('create', [ItemController::class, 'create'])->name('admin.item.create');
+        Route::post('store', [ItemController::class, 'store'])->name('admin.item.store');
+        Route::get('edit/{id}', [ItemController::class, 'edit'])->name('admin.item.edit');
+        Route::put('update/{id}', [ItemController::class, 'update'])->name('admin.item.update');
+        Route::delete('delete/{id}', [ItemController::class, 'delete'])->name('admin.item.delete');
+    });
+
+    // DoctorSchedule
+    Route::group(['prefix' => 'doctor-schedule', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [DoctorScheduleController::class, 'index'])->name('admin.doctor-schedule.index');
+        Route::get('get-by-id/{id}', [DoctorScheduleController::class, 'getById'])->name('admin.doctor-schedule.get-by-id');
+        Route::get('create', [DoctorScheduleController::class, 'create'])->name('admin.doctor-schedule.create');
+        Route::post('store', [DoctorScheduleController::class, 'store'])->name('admin.doctor-schedule.store');
+        Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->name('admin.doctor-schedule.edit');
+        Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->name('admin.doctor-schedule.update');
+        Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->name('admin.doctor-schedule.delete');
+    });
+
+    // Config Shift
+    Route::group(['prefix' => 'config-shift', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [ConfigShiftController::class, 'index'])->name('admin.config-shift.index');
+        Route::get('get-by-id/{id}', [ConfigShiftController::class, 'getById'])->name('admin.config-shift.get-by-id');
+        Route::get('create', [ConfigShiftController::class, 'create'])->name('admin.config-shift.create');
+        Route::post('store', [ConfigShiftController::class, 'store'])->name('admin.config-shift.store');
+        Route::get('edit/{id}', [ConfigShiftController::class, 'edit'])->name('admin.config-shift.edit');
+        Route::put('update/{id}', [ConfigShiftController::class, 'update'])->name('admin.config-shift.update');
+        Route::delete('delete/{id}', [ConfigShiftController::class, 'delete'])->name('admin.config-shift.delete');
+    });
+
+    // Reservations
+    Route::group(['prefix' => 'reservations', 'middleware' => ['role:frontoffice']], function () {
+        Route::group(['prefix' => 'wait'], function () {
+            Route::get('/', [ReservationsController::class, 'reservations'])->name('front-office.reservations.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.wait.detail');
+        });
+
+        Route::group(['prefix' => 'confirm'], function () {
+            Route::get('/', [ReservationsController::class, 'confirm_reservations'])->name('front-office.reservations.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.confirm.detail');
+            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->name('front-office.reservations.confirm.reschedule.update');
+            Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->name('front-office.reservations.confirm.reschedule');
+        });
+
+        Route::group(['prefix' => 'cancel'], function () {
+            Route::get('/', [ReservationsController::class, 'cancel_reservations'])->name('front-office.reservations.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.cancel.detail');
+        });
+
+        Route::get('/reservations/{id}/confirm', [ReservationsController::class, 'confirm'])->name('front-office.reservations.detail.confirm');
+        Route::get('/reservations/{id}/cancel', [ReservationsController::class, 'cancel'])->name('front-office.reservations.detail.cancel');
+        Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->name('front-office.reservations.delete');
     });
 });
 
