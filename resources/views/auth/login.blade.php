@@ -4,7 +4,6 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
         <!-- Email Address -->
         <div>
             <x-text-input id="email"
@@ -26,7 +25,7 @@
 
         <!-- Remember Me -->
         <div class="mt-4">
-            <button class="p-2 text-white w-full rounded-xl bg-primary active:bg-red-800">
+            <button class="p-2 text-white w-full rounded-xl bg-primary active:bg-red-800" onclick="performLogin()">
                 {{ __('Log in') }}
             </button>
         </div>
