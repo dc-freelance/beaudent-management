@@ -249,8 +249,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('/close-shift/{id}/update', [ShiftLogController::class, 'close_shift_update'])->name('front-office.shift-log.close-shift-update');
 
         Route::get('/recap-shit', [ShiftLogController::class, 'recap_shift'])->name('front-office.shift-log.recap-shift');
+        Route::get('/recap-shit/{shiftLog}/pdf', [ShiftLogController::class, 'recap_shift_pdf'])->name('front-office.shift-log.recap-shift-pdf');
     });
-    
+
     // Deposit
     Route::group(['prefix' => 'deposit', 'middleware' => ['role:frontoffice']], function () {
         Route::group(['prefix' => 'wait'], function () {

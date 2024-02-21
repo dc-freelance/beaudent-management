@@ -61,4 +61,9 @@ class Branch extends Model
     {
         return $this->hasMany(ShiftLog::class, 'branch_id', 'id');
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'branch_id', 'id');
+    }
 }

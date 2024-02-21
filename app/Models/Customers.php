@@ -18,4 +18,9 @@ class Customers extends Model
     {
         return $this->hasMany(Reservations::class, 'customer_id', 'id');
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'customer_id', 'id');
+    }
 }

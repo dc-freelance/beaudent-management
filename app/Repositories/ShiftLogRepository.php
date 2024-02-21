@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\ShiftLogInterface;
 use App\Models\ShiftLog;
+use App\Models\Transaction;
 use Carbon\Carbon;
 
 class ShiftLogRepository implements ShiftLogInterface
@@ -73,5 +74,60 @@ class ShiftLogRepository implements ShiftLogInterface
                             ->first();
         
         return $logExists;
+    }
+
+    public function sum_transaction_close_shift()
+    {
+        $currentDate = Carbon::now()->toDateString();
+        $totalCashPayment = Transaction::where('date_time', '>=', $currentDate)
+                                        ->where('branch_id', auth()->user()->branch_id)
+                                        ->where('is_paid', 1)
+                                        ->where('payment_method_id', 1)
+                                        ->sum('grand_total');
+
+        return $totalCashPayment;
+    }
+
+    public function recap_shift()
+    {
+        return $this->shiftLog->with('config_shift', 'user', 'branch')->where('branch_id', auth()->user()->branch_id)->get();
+    }
+
+    public function recap_shift_pdf($id)
+    {
+        return $shiftLog = $this->shiftLog->with('config_shift', 'user', 'branch')->where('id', $id)->first();
+    }
+
+    public function sum_recap_shift_cash($branch, $start, $end)
+    {
+        $totalSum = Transaction::where('date_time', '>=', $start)
+                               ->where('date_time', '<=', $end)
+                               ->where('branch_id', $branch)
+                               ->where('is_paid', 1)
+                               ->where('payment_method_id', 1)
+                               ->sum('grand_total');
+        return $totalSum;
+    }
+
+    public function sum_recap_shift_transfer($branch, $start, $end)
+    {
+        $totalSum = Transaction::where('date_time', '>=', $start)
+                               ->where('date_time', '<=', $end)
+                               ->where('branch_id', $branch)
+                               ->where('is_paid', 1)
+                               ->where('payment_method_id', 2)
+                               ->sum('grand_total');
+        return $totalSum;
+    }
+    
+    public function sum_recap_shift_card($branch, $start, $end)
+    {
+        $totalSum = Transaction::where('date_time', '>=', $start)
+                               ->where('date_time', '<=', $end)
+                               ->where('branch_id', $branch)
+                               ->where('is_paid', 1)
+                               ->where('payment_method_id', 3)
+                               ->sum('grand_total');
+        return $totalSum;
     }
 }

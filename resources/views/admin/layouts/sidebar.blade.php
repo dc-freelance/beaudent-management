@@ -108,6 +108,8 @@
                             active="{{ request()->routeIs('front-office.shift-log.open-shift') }}" icon="fas fa-user-clock" />
                         <x-sidebar-submenu name="Tutup Sesi" route="{{ route('front-office.shift-log.close-shift') }}"
                             active="{{ request()->routeIs('front-office.shift-log.close-shift') }}" icon="fas fa-user-clock" />
+                        <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
+                            active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
                 </x-sidebar-dropdown>
             @endrole
             <li>

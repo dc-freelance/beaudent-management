@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ShiftLog::class, 'user_id', 'id');
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'cashier_id', 'id');
+    }
 }
