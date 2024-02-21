@@ -38,6 +38,31 @@ class ReservationsRepository implements ReservationsInterface
         return $query->get();
     }
 
+    public function datatable_deposit()
+    {
+        return $this->reservations->where('deposit_status', 'Waiting')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+    }
+
+    public function datatable_cancel_deposit()
+    {
+        return $this->reservations->where('deposit_status', 'Decline')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+    }
+
+    public function datatable_confirm_deposit($date = null)
+    {
+        $query = $this->reservations->where('deposit_status', 'Confirm')
+            ->where('status', 'Done')
+            ->orderBy('request_date', 'asc')
+            ->orderBy('request_time', 'asc')
+            ->orderBy('updated_at', 'asc');
+
+        if ($date) {
+            $query->whereDate('request_date', $date);
+        }
+
+        return $query->get();
+    }
+
 
     public function getById($id)
     {
@@ -73,10 +98,24 @@ class ReservationsRepository implements ReservationsInterface
         ]);
     }
 
+    public function deposit_cancel($id)
+    {
+        return $this->reservations->find($id)->update([
+            'deposit_status' => 'Decline'
+        ]);
+    }
+
     public function confirm($id)
     {
         return $this->reservations->find($id)->update([
             'status' => 'Done'
+        ]);
+    }
+
+    public function deposit_confirm($id)
+    {
+        return $this->reservations->find($id)->update([
+            'deposit_status' => 'Confirm'
         ]);
     }
 

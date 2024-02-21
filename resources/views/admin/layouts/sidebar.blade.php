@@ -77,13 +77,30 @@
 
             @role('frontoffice')
                 <x-sidebar-dropdown title="Manajemen Reservasi" icon="fas fa-calendar" toggle="master-reservasi"
-                        active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*')}}">
-                        <x-sidebar-submenu name="Menunggu Konfirmasi" route="{{ route('front-office.reservations.wait.index') }}"
-                            active="{{ request()->routeIs('front-office.reservations.wait.*') }}" icon="fas fa-hourglass-half" />
-                        <x-sidebar-submenu name="Reservasi Terkonfirmasi" route="{{ route('front-office.reservations.confirm.index') }}"
-                            active="{{ request()->routeIs('front-office.reservations.confirm.*') }}" icon="fas fa-check-circle" />
-                        <x-sidebar-submenu name="Reservasi Dibatalkan" route="{{ route('front-office.reservations.cancel.index') }}"
-                            active="{{ request()->routeIs('front-office.reservations.cancel.*') }}" icon="fas fa-calendar-times" />
+                    active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') }}">
+                    <x-sidebar-submenu name="Menunggu Konfirmasi"
+                        route="{{ route('front-office.reservations.wait.index') }}"
+                        active="{{ request()->routeIs('front-office.reservations.wait.*') }}"
+                        icon="fas fa-hourglass-half" />
+                    <x-sidebar-submenu name="Reservasi Terkonfirmasi"
+                        route="{{ route('front-office.reservations.confirm.index') }}"
+                        active="{{ request()->routeIs('front-office.reservations.confirm.*') }}"
+                        icon="fas fa-check-circle" />
+                    <x-sidebar-submenu name="Reservasi Dibatalkan"
+                        route="{{ route('front-office.reservations.cancel.index') }}"
+                        active="{{ request()->routeIs('front-office.reservations.cancel.*') }}"
+                        icon="fas fa-calendar-times" />
+                </x-sidebar-dropdown>
+                <x-sidebar-dropdown title="Manajemen Deposit" icon="fas fa-money-check-dollar" toggle="master-deposit"
+                    active="{{ request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') || request()->routeIs('front-office.deposit.cancel.*') }}">
+                    <x-sidebar-submenu name="Menunggu Konfirmasi" route="{{ route('front-office.deposit.wait.index') }}"
+                        active="{{ request()->routeIs('front-office.deposit.wait.*') }}" icon="fas fa-hourglass-half" />
+                    <x-sidebar-submenu name="Deposit Terkonfirmasi"
+                        route="{{ route('front-office.deposit.confirm.index') }}"
+                        active="{{ request()->routeIs('front-office.deposit.confirm.*') }}" icon="fas fa-check-circle" />
+                    <x-sidebar-submenu name="Deposit Dibatalkan" route="{{ route('front-office.deposit.cancel.index') }}"
+                        active="{{ request()->routeIs('front-office.deposit.cancel.*') }}"
+                        icon="fas fa-calendar-times" />
                 </x-sidebar-dropdown>
             @endrole
             <li>

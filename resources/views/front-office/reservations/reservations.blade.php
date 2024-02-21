@@ -12,8 +12,8 @@
                     <th>No Reservasi</th>
                     <th>Nama Pelanggan</th>
                     <th>Cabang</th>
-                    <th>Tanggal Reservasi</th>
-                    <th>Waktu Reservasi</th>
+                    <th>Tanggal Kunjungan</th>
+                    <th>Waktu Kunjungan</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -84,7 +84,7 @@
                             data: 'no',
                             name: 'no'
                         },
-                        
+
                         {
                             data: 'customer_id',
                             name: 'customer_id'
