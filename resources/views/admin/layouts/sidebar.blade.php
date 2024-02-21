@@ -70,6 +70,9 @@
                 <x-sidebar-item name="Konfigurasi Shift" icon="fas fa-clock"
                     route="{{ route('admin.config-shift.index') }}"
                     active="{{ request()->routeIs('admin.config-shift.*') }}" />
+                <x-sidebar-item name="Manajemen Metode Pembayaran" icon="fab fa-cc-mastercard" 
+                    route="{{ route('admin.payment-methods.index') }}"
+                    active="{{ request()->routeIs('admin.payment-methods.*') }}" />
             @endrole
 
             @role('frontoffice')

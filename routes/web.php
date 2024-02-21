@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ItemUnitController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorScheduleController;
+use App\Http\Controllers\Admin\PaymentMethodsController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
@@ -257,6 +258,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
         Route::get('/deposit/{id}/confirm', [ReservationsController::class, 'deposit_confirm'])->name('front-office.deposit.detail.confirm');
         Route::get('/deposit/{id}/cancel', [ReservationsController::class, 'deposit_cancel'])->name('front-office.deposit.detail.cancel');
+    });
+
+    // Payment methods
+    Route::group(['prefix' => 'payment-methods', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [PaymentMethodsController::class, 'index'])->name('admin.payment-methods.index');
+        Route::get('get-by-id/{id}', [PaymentMethodsController::class, 'getById'])->name('admin.payment-methods.get-by-id');
+        Route::get('create', [PaymentMethodsController::class, 'create'])->name('admin.payment-methods.create');
+        Route::post('store', [PaymentMethodsController::class, 'store'])->name('admin.payment-methods.store');
+        Route::get('edit/{id}', [PaymentMethodsController::class, 'edit'])->name('admin.payment-methods.edit');
+        Route::put('update/{id}', [PaymentMethodsController::class, 'update'])->name('admin.payment-methods.update');
+        Route::delete('delete/{id}', [PaymentMethodsController::class, 'delete'])->name('admin.payment-methods.delete');
     });
 });
 
