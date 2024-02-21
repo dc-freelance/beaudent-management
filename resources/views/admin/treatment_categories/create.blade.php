@@ -13,7 +13,7 @@
                     <x-input id="category" label="Kategori" name="category" required />
                 </div>
                 <div class="mt-6">
-                    <x-button type="submit">Tambah Metode Pembayaran</x-button>
+                    <x-button type="submit">Tambah Kategori Layanan</x-button>
                 </div>
             </form>
         </x-card-container>
