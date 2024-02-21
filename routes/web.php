@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorScheduleController;
 use App\Http\Controllers\Admin\PaymentMethodsController;
+use App\Http\Controllers\Admin\TreatmentCategoriesController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
@@ -269,6 +270,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [PaymentMethodsController::class, 'edit'])->name('admin.payment-methods.edit');
         Route::put('update/{id}', [PaymentMethodsController::class, 'update'])->name('admin.payment-methods.update');
         Route::delete('delete/{id}', [PaymentMethodsController::class, 'delete'])->name('admin.payment-methods.delete');
+    });
+
+    // Treatment Category
+    Route::group(['prefix' => 'treatment-categories', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [TreatmentCategoriesController::class, 'index'])->name('admin.treatment-categories.index');
+        Route::get('get-by-id/{id}', [TreatmentCategoriesController::class, 'getById'])->name('admin.treatment-categories.get-by-id');
+        Route::get('create', [TreatmentCategoriesController::class, 'create'])->name('admin.treatment-categories.create');
+        Route::post('store', [TreatmentCategoriesController::class, 'store'])->name('admin.treatment-categories.store');
+        Route::get('edit/{id}', [TreatmentCategoriesController::class, 'edit'])->name('admin.treatment-categories.edit');
+        Route::put('update/{id}', [TreatmentCategoriesController::class, 'update'])->name('admin.treatment-categories.update');
+        Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->name('admin.treatment-categories.delete');
     });
 });
 
