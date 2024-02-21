@@ -49,14 +49,6 @@ class ReservationsController extends Controller
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
             $data['status'] = 'Reservation';
 
-            //Upload Gambar
-            if ($request->hasFile('deposit_receipt')) {
-                $file = $request->file('deposit_receipt');
-                $fileName = $file->getClientOriginalName();
-                $filePath = $file->storeAs('deposit-receipt', $fileName, 'public');
-                $data['deposit_receipt'] = Storage::url($filePath);
-            }
-
             $reservation = $this->reservation_model->create($data);
 
             return response()->json([
@@ -76,7 +68,16 @@ class ReservationsController extends Controller
     {
         try {
             $data = $request->all();
-            $reservation = $this->reservation->deposit($data['no'], $data);
+            $data['deposit'] = str_replace('.', '', $data['deposit']);
+
+            if ($request->hasFile('deposit_receipt')) {
+                $file = $request->file('deposit_receipt');
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->storeAs('deposit-receipt', $fileName, 'public');
+                $data['deposit_receipt'] = Storage::url($filePath);
+            }
+
+            $reservation = $this->reservation->deposit($data['id'], $data);
 
             return response()->json([
                 'status' => 200,
@@ -134,6 +135,16 @@ class ReservationsController extends Controller
                 'reservations' => function ($query) {
                     $query->whereDate('request_date', '>=', Carbon::now()->format('Y-m-d'));
                     $query->where('status', '!=', 'Cancel');
+                    $query->with([
+                        'branches' => function ($query) {
+                            $query->select('id', 'name');
+                        }
+                    ]);
+                    $query->with([
+                        'treatments' => function ($query) {
+                            $query->select('id', 'name');
+                        }
+                    ]);
                 }
             ])->where('email', $request->creds)->orWhere('phone_number', $request->creds)->first();
 

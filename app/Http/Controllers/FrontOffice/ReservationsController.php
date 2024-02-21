@@ -228,10 +228,10 @@ class ReservationsController extends Controller
         ]);
 
         try {
-            $this->reservations->reschedule($id, $request->all());
-
             $reservation = $this->reservations->getById($id);
             Mail::to($reservation->customers->email)->send(new Reschedule($reservation));
+
+            $this->reservations->reschedule($id, $request->all());
 
             return redirect()->route('front-office.reservations.confirm.index')->with('success', 'Penjadwalan Ulang Berhasil');
         } catch (\Throwable $th) {
@@ -258,8 +258,9 @@ class ReservationsController extends Controller
         try {
             $reservation = $this->reservations->getById($id);
 
-            $this->reservations->confirm($id);
             Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, true));
+
+            $this->reservations->confirm($id);
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dikonfirmasi');
         } catch (\Throwable $th) {
@@ -272,8 +273,9 @@ class ReservationsController extends Controller
         try {
             $reservation = $this->reservations->getById($id);
 
-            $this->reservations->deposit_confirm($id);
             Mail::to($reservation->customers->email)->send(new DepositConfirmation($reservation, true));
+
+            $this->reservations->deposit_confirm($id);
 
             return redirect()->route('front-office.deposit.wait.index')->with('success', 'Deposit telah dikonfirmasi');
         } catch (\Throwable $th) {
@@ -286,8 +288,9 @@ class ReservationsController extends Controller
         try {
             $reservation = $this->reservations->getById($id);
 
-            $this->reservations->cancel($id);
             Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, false));
+
+            $this->reservations->cancel($id);
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dibatalkan');
         } catch (\Throwable $th) {
@@ -300,8 +303,9 @@ class ReservationsController extends Controller
         try {
             $reservation = $this->reservations->getById($id);
 
-            $this->reservations->deposit_cancel($id);
             Mail::to($reservation->customers->email)->send(new DepositConfirmation($reservation, false));
+
+            $this->reservations->deposit_cancel($id);
 
             return redirect()->route('front-office.deposit.wait.index')->with('success', 'Deposit telah dibatalkan');
         } catch (\Throwable $th) {
