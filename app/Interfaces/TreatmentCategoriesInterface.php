@@ -2,13 +2,9 @@
 
 namespace App\Interfaces;
 
-interface TreatmentInterface
+interface TreatmentCategoriesInterface
 {
     public function get();
-
-    public function getParentNull();
-
-    public function getTreatmentCategories();
 
     public function getById($id);
 

@@ -4,14 +4,16 @@ namespace App\Repositories;
 
 use App\Interfaces\TreatmentInterface;
 use App\Models\Treatment;
+use App\Models\TreatmentCategories;
 
 class TreatmentRepository implements TreatmentInterface
 {
-    private $treatment;
+    private $treatment, $treatment_categories;
 
-    public function __construct(Treatment $treatment)
+    public function __construct(Treatment $treatment, TreatmentCategories $treatment_categories)
     {
         $this->treatment = $treatment;
+        $this->treatment_categories = $treatment_categories;
     }
 
     public function get()
@@ -22,6 +24,11 @@ class TreatmentRepository implements TreatmentInterface
     public function getParentNull()
     {
         return $this->treatment->where('parent_id', null)->get();
+    }
+
+    public function getTreatmentCategories()
+    {
+        return $this->treatment_categories->all();
     }
 
     public function getById($id)
