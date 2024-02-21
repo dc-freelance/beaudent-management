@@ -11,10 +11,10 @@ class StoreDepositRequest extends FormRequest
     public function rules()
     {
         return [
-            'no' => 'required',
+            'id' => 'required',
             'deposit' => 'required',
             'deposit_receipt' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'customer_bank_account' => 'nullable',
+            'customer_bank_account' => 'required',
             'customer_bank' => 'required',
             'customer_bank_account_name' => 'required',
             'transfer_date' => 'required'
@@ -24,7 +24,7 @@ class StoreDepositRequest extends FormRequest
     public function messages()
     {
         return [
-            'no.required' => 'Harap memasukkan nomor reservasi',
+            'id.required' => 'Harap memasukkan nomor reservasi',
             'deposit.required' => 'Jumlah deposit harus diisi',
             'deposit_receipt.required' => 'Bukti transfer harus diisi',
             'deposit_receipt.image' => 'Format bukti tidak didukung',
