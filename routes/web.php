@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ItemUnitController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorScheduleController;
+use App\Http\Controllers\Admin\PaymentMethodsController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
 use App\Http\Controllers\FrontOffice\ShiftLogController;
 use Illuminate\Support\Facades\Route;
@@ -248,6 +249,38 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('/close-shift/{id}/update', [ShiftLogController::class, 'close_shift_update'])->name('front-office.shift-log.close-shift-update');
 
         Route::get('/recap-shit', [ShiftLogController::class, 'recap_shift'])->name('front-office.shift-log.recap-shift');
+    });
+    
+    // Deposit
+    Route::group(['prefix' => 'deposit', 'middleware' => ['role:frontoffice']], function () {
+        Route::group(['prefix' => 'wait'], function () {
+            Route::get('/', [ReservationsController::class, 'deposit'])->name('front-office.deposit.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.wait.detail');
+        });
+
+        Route::group(['prefix' => 'confirm'], function () {
+            Route::get('/', [ReservationsController::class, 'confirm_deposit'])->name('front-office.deposit.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.confirm.detail');
+        });
+
+        Route::group(['prefix' => 'cancel'], function () {
+            Route::get('/', [ReservationsController::class, 'cancel_deposit'])->name('front-office.deposit.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.cancel.detail');
+        });
+
+        Route::get('/deposit/{id}/confirm', [ReservationsController::class, 'deposit_confirm'])->name('front-office.deposit.detail.confirm');
+        Route::get('/deposit/{id}/cancel', [ReservationsController::class, 'deposit_cancel'])->name('front-office.deposit.detail.cancel');
+    });
+
+    // Payment methods
+    Route::group(['prefix' => 'payment-methods', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [PaymentMethodsController::class, 'index'])->name('admin.payment-methods.index');
+        Route::get('get-by-id/{id}', [PaymentMethodsController::class, 'getById'])->name('admin.payment-methods.get-by-id');
+        Route::get('create', [PaymentMethodsController::class, 'create'])->name('admin.payment-methods.create');
+        Route::post('store', [PaymentMethodsController::class, 'store'])->name('admin.payment-methods.store');
+        Route::get('edit/{id}', [PaymentMethodsController::class, 'edit'])->name('admin.payment-methods.edit');
+        Route::put('update/{id}', [PaymentMethodsController::class, 'update'])->name('admin.payment-methods.update');
+        Route::delete('delete/{id}', [PaymentMethodsController::class, 'delete'])->name('admin.payment-methods.delete');
     });
 });
 

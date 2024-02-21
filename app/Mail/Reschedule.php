@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DepositConfirmation extends Mailable
+class Reschedule extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,35 +19,24 @@ class DepositConfirmation extends Mailable
      */
     public $data;
 
-    public function __construct($reservation, $status)
+    public function __construct($reservation)
     {
-        $title = '';
-        $action = '';
-        $note = '';
         $cta = '';
-        if ($status === true) {
-            $title = 'Pembayaran Dikonfirmasi';
-            $action = 'mengonfirmasi';
-            $note = 'Jika terdapat kesalahan dalam pembayaran deposit, harap menghubungi layanan
-            pelanggan Beaudent melalui kontak tertera dibawah';
+
+        if ($reservation->is_control === 0 && $reservation->deposit_status == null) {
             $cta = '<p>
-                        Reservasi anda telah berhasil dan akan berakhir setelah tanggal kunjungan anda. Anda dapat melihat kembali detail reservasi dengan mengakses tombol dibawah ini
+                         Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tombol dibawah ini
                     </p>
-                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential">Lihat Detail</a>
+                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential">Lakukan Pembayaran</a>
                 ';
-        } else {
-            $title = 'Pembayaran Dibatalkan';
-            $action = 'membatalkan';
-            $note = 'Jika anda membutuhkan informasi lebih lanjut mengenai pembatalan ini, harap menghubungi layanan
-            pelanggan Beaudent melalui kontak tertera dibawah ini';
         };
 
         $this->data = [
             'id' => $reservation->id,
             'no' => $reservation->no,
-            'title' => $title,
-            'action' => $action,
-            'note' => $note,
+            'title' => 'Penjadwalan Ulang Dikonfirmasi',
+            'note' => 'Jika terdapat kesalahan data reservasi atau perubahan waktu kunjungan, harap menghubungi layanan
+            pelanggan Beaudent melalui kontak tertera dibawah',
             'cta' => $cta,
             'identity_number' => $reservation->customers->identity_number,
             'customer' => $reservation->customers->name,
@@ -55,10 +44,11 @@ class DepositConfirmation extends Mailable
             'phone' => $reservation->customers->phone_number,
             'address' => $reservation->customers->address,
             'branch' => $reservation->branches->name,
-            'count' => $reservation->deposit,
-            'rek' => $reservation->customer_bank_account,
-            'transfer' => Carbon::parse($reservation->transfer_date)->isoFormat('D MMMM YYYY'),
+            'date' => Carbon::parse($reservation->request_date)->isoFormat('D MMMM YYYY'),
+            'time' => Carbon::parse($reservation->request_time)->format('H:i'),
             'cs' => $reservation->branches->phone_number,
+            'reason' => $reservation->reasons,
+            'service' => $reservation->treatments->name
         ];
     }
 
@@ -68,7 +58,7 @@ class DepositConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Deposit Beaudent',
+            subject: 'Penjadwalan Ulang',
         );
     }
 
@@ -78,7 +68,7 @@ class DepositConfirmation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email-confirmation.deposit-confirmation',
+            view: 'email-confirmation.reschedule',
         );
     }
 

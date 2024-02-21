@@ -1,20 +1,21 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Menunggu Konfirmasi', 'url' => route('front-office.reservations.wait.index')],
-    ]" title="Menunggu Konfirmasi" />
+        ['name' => 'Manajemen Metode Pembayaran', 'url' => route('admin.payment-methods.index')],
+    ]" title="Manajemen Metode Pembayaran" />
 
     <x-card-container>
-        <table id="reservationsTable">
+        <div class="text-end mb-4">
+            <x-link-button route="{{ route('admin.payment-methods.create') }}" color="gray">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Metode Pembayaran
+            </x-link-button>
+        </div>
+        <table id="paymentMethodTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>No Reservasi</th>
-                    <th>Nama Pelanggan</th>
-                    <th>Cabang</th>
-                    <th>Tanggal Kunjungan</th>
-                    <th>Waktu Kunjungan</th>
-                    <th>Status</th>
+                    <th>Nama</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -24,10 +25,10 @@
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = "{{ route('front-office.reservations.delete', ':id') }}".replace(':id', _id);
+                let url = "{{ route('admin.payment-methods.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: `Reservasi ${_name} akan dihapus!`,
+                    text: `Metode Pembayaran ${_name} akan dihapus!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, hapus!',
@@ -70,40 +71,19 @@
             }
 
             $(function() {
-                $('#reservationsTable').DataTable({
+                $('#paymentMethodTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('front-office.reservations.wait.index') }}',
+                    ajax: '{{ route('admin.payment-methods.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'no',
-                            name: 'no'
-                        },
-
-                        {
-                            data: 'customer_id',
-                            name: 'customer_id'
-                        },
-                        {
-                            data: 'branch_id',
-                            name: 'branch_id'
-                        },
-                        {
-                            data: 'request_date',
-                            name: 'request_date'
-                        },
-                        {
-                            data: 'request_time',
-                            name: 'request_time'
-                        },
-                        {
-                            data: 'is_control',
-                            name: 'is_control'
+                            data: 'name',
+                            name: 'name'
                         },
                         {
                             data: 'action',
