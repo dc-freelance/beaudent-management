@@ -23,7 +23,7 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <div class="mt-4 w-2/3 mx-auto">
+        <div class="mt-4 w-1/3 mx-auto">
             <button class="p-2 w-full max-md:p-1 text-white rounded-lg bg-primary active:bg-red-800"
                 onclick="performLogin()">
                 {{ __('Log in') }}
