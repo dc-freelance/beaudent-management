@@ -12,6 +12,8 @@ interface ReservationsInterface
 
     public function getById($id);
 
+    public function deposit($id, $data);
+
     public function reschedule($id, $data);
 
     public function cancel($id);

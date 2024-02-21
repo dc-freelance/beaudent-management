@@ -44,6 +44,19 @@ class ReservationsRepository implements ReservationsInterface
         return $this->reservations->find($id);
     }
 
+    public function deposit($id, $data)
+    {
+        return $this->reservations->find($id)->update([
+            'deposit' => $data['deposit'],
+            'deposit_status' => 'Waiting',
+            'deposit_receipt' => $data['deposit_receipt'],
+            'customer_bank_account' => $data['customer_bank_account'],
+            'customer_bank' => $data['customer_bank'],
+            'customer_bank_account_name' => $data['customer_bank_account_name'],
+            'transfer_date' => $data['transfer_date']
+        ]);
+    }
+
     public function reschedule($id, $data)
     {
         return $this->reservations->find($id)->update([
