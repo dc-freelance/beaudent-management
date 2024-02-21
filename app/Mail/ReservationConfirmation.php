@@ -87,7 +87,7 @@ class ReservationConfirmation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'reservation-confirmation',
+            view: 'email-confirmation.reservation-confirmation',
         );
     }
 
