@@ -1,20 +1,20 @@
 <x-app-layout>
     @php
-        $breadcrumb = [['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Detail Reservasi', 'url' => '']];
+        $breadcrumb = [['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Detail Deposit', 'url' => '']];
 
         if ($data->status === 'Reservations') {
             $breadcrumb[1]['name'] = 'Menunggu Konfirmasi';
-            $breadcrumb[1]['url'] = route('front-office.reservations.wait.index');
+            $breadcrumb[1]['url'] = route('front-office.deposit.wait.index');
         } elseif ($data->status === 'Cancel') {
-            $breadcrumb[1]['name'] = 'Reservasi Dibatalkan';
-            $breadcrumb[1]['url'] = 'front-office.reservations.cancel.index';
+            $breadcrumb[1]['name'] = 'Deposit Dibatalkan';
+            $breadcrumb[1]['url'] = 'front-office.deposit.cancel.index';
         } else {
-            $breadcrumb[1]['name'] = 'Reservasi Terkonfirmasi';
-            $breadcrumb[1]['url'] = 'front-office.reservations.confirm.index';
+            $breadcrumb[1]['name'] = 'Deposit Terkonfirmasi';
+            $breadcrumb[1]['url'] = 'front-office.deposit.confirm.index';
         }
     @endphp
 
-    <x-breadcrumb :links="$breadcrumb" title="Detail Reservasi" />
+    <x-breadcrumb :links="$breadcrumb" title="Detail Deposit" />
 
     <div class="w-full">
         <x-card-container>
@@ -27,10 +27,10 @@
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Nama Pelanggan</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->customers->name }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Status</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->is_control ? 'Kontrol' : 'Perawatan' }}</td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Layanan yang dipilih</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->treatments->name }}</td>
@@ -85,23 +85,17 @@
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Transfer</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->tanggal_transfer_text }}</td>
                 </tr>
-                @if ($data->reasons !== null)
-                    <tr>
-                        <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Alasan Penjadwalan Ulang</th>
-                        <td class="border px-8 py-4 w-3/4">{{ $data->reasons }}</td>
-                    </tr>
-                @endif
             </table>
 
-            @if ($data->status === 'Reservation')
+            @if ($data->deposit_status === 'Waiting')
                 <div class="flex justify-center mt-4">
-                    <x-button-action route="{{ route('front-office.reservations.detail.cancel', $data->id) }}"
+                    <x-button-action route="{{ route('front-office.deposit.detail.cancel', $data->id) }}"
                         color="red">
-                        Batalkan Reservasi
+                        Batalkan Pembayaran
                     </x-button-action>
-                    <x-button-action route="{{ route('front-office.reservations.detail.confirm', $data->id) }}"
+                    <x-button-action route="{{ route('front-office.deposit.detail.confirm', $data->id) }}"
                         color="green">
-                        Konfirmasi Reservasi
+                        Konfirmasi Pembayaran
                     </x-button-action>
                 </div>
             @endif

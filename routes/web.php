@@ -237,6 +237,27 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('/reservations/{id}/cancel', [ReservationsController::class, 'cancel'])->name('front-office.reservations.detail.cancel');
         Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->name('front-office.reservations.delete');
     });
+
+    // Deposit
+    Route::group(['prefix' => 'deposit', 'middleware' => ['role:frontoffice']], function () {
+        Route::group(['prefix' => 'wait'], function () {
+            Route::get('/', [ReservationsController::class, 'deposit'])->name('front-office.deposit.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.wait.detail');
+        });
+
+        Route::group(['prefix' => 'confirm'], function () {
+            Route::get('/', [ReservationsController::class, 'confirm_deposit'])->name('front-office.deposit.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.confirm.detail');
+        });
+
+        Route::group(['prefix' => 'cancel'], function () {
+            Route::get('/', [ReservationsController::class, 'cancel_deposit'])->name('front-office.deposit.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.cancel.detail');
+        });
+
+        Route::get('/deposit/{id}/confirm', [ReservationsController::class, 'deposit_confirm'])->name('front-office.deposit.detail.confirm');
+        Route::get('/deposit/{id}/cancel', [ReservationsController::class, 'deposit_cancel'])->name('front-office.deposit.detail.cancel');
+    });
 });
 
 Route::get('/', function () {

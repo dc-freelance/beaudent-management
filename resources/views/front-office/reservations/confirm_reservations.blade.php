@@ -19,8 +19,8 @@
                     <th>No Reservasi</th>
                     <th>Nama Pelanggan</th>
                     <th>Cabang</th>
-                    <th>Tanggal Reservasi</th>
-                    <th>Waktu Reservasi</th>
+                    <th>Tanggal Kunjungan</th>
+                    <th>Waktu Kunjungan</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -88,15 +88,38 @@
                             d.date = $('#datepicker').val();
                         }
                     },
-                    columns: [
-                        { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                        { data: 'no', name: 'no' },
-                        { data: 'customer_id', name: 'customer_id' },
-                        { data: 'branch_id', name: 'branch_id' },
-                        { data: 'request_date', name: 'request_date' },
-                        { data: 'request_time', name: 'request_time' },
-                        { data: 'is_control', name: 'is_control' },
-                        { data: 'action', name: 'action' },
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'no',
+                            name: 'no'
+                        },
+                        {
+                            data: 'customer_id',
+                            name: 'customer_id'
+                        },
+                        {
+                            data: 'branch_id',
+                            name: 'branch_id'
+                        },
+                        {
+                            data: 'request_date',
+                            name: 'request_date'
+                        },
+                        {
+                            data: 'request_time',
+                            name: 'request_time'
+                        },
+                        {
+                            data: 'is_control',
+                            name: 'is_control'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action'
+                        },
                     ]
                 });
 
