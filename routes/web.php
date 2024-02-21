@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorScheduleController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
+use App\Http\Controllers\FrontOffice\ShiftLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -236,6 +237,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('/reservations/{id}/confirm', [ReservationsController::class, 'confirm'])->name('front-office.reservations.detail.confirm');
         Route::get('/reservations/{id}/cancel', [ReservationsController::class, 'cancel'])->name('front-office.reservations.detail.cancel');
         Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->name('front-office.reservations.delete');
+    });
+
+    // ShiftLog
+    Route::group(['prefix' => 'shift-log', 'middleware' => ['role:frontoffice']], function () {
+        Route::get('/open-shift', [ShiftLogController::class, 'open_shift'])->name('front-office.shift-log.open-shift');
+        Route::post('/open-shift/create', [ShiftLogController::class, 'open_shift_create'])->name('front-office.shift-log.open-shift-create');
+
+        Route::get('/close-shift', [ShiftLogController::class, 'close_shift'])->name('front-office.shift-log.close-shift');
+        Route::put('/close-shift/{id}/update', [ShiftLogController::class, 'close_shift_update'])->name('front-office.shift-log.close-shift-update');
+
+        Route::get('/recap-shit', [ShiftLogController::class, 'recap_shift'])->name('front-office.shift-log.recap-shift');
     });
 });
 

@@ -15,4 +15,9 @@ class ConfigShift extends Model
         'start_time',
         'end_time',
     ];
+
+    public function shift_log()
+    {
+        return $this->hasMany(ShiftLog::class, 'config_shift_id', 'id');
+    }
 }

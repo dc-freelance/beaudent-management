@@ -51,4 +51,14 @@ class Branch extends Model
     {
         return $this->hasMany(DoctorSchedule::class, 'branch_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->hasMany(Branch::class, 'branch_id', 'id');
+    }
+
+    public function shift_log()
+    {
+        return $this->hasMany(ShiftLog::class, 'branch_id', 'id');
+    }
 }

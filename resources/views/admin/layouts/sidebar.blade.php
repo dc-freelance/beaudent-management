@@ -82,6 +82,13 @@
                         <x-sidebar-submenu name="Reservasi Dibatalkan" route="{{ route('front-office.reservations.cancel.index') }}"
                             active="{{ request()->routeIs('front-office.reservations.cancel.*') }}" icon="fas fa-calendar-times" />
                 </x-sidebar-dropdown>
+                <x-sidebar-dropdown title="Manajemen Sesi" icon="fas fa-clock" toggle="shift"
+                        active="{{ request()->routeIs('front-office.shift-log.*') }}">
+                        <x-sidebar-submenu name="Buka Sesi" route="{{ route('front-office.shift-log.open-shift') }}"
+                            active="{{ request()->routeIs('front-office.shift-log.open-shift') }}" icon="fas fa-user-clock" />
+                        <x-sidebar-submenu name="Tutup Sesi" route="{{ route('front-office.shift-log.close-shift') }}"
+                            active="{{ request()->routeIs('front-office.shift-log.close-shift') }}" icon="fas fa-user-clock" />
+                </x-sidebar-dropdown>
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">
