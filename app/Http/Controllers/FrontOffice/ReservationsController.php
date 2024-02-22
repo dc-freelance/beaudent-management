@@ -221,7 +221,7 @@ class ReservationsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $new = $request->validate([
             'request_date' => 'required',
             'request_time' => 'required',
             'reasons' => 'required',
@@ -229,7 +229,7 @@ class ReservationsController extends Controller
 
         try {
             $reservation = $this->reservations->getById($id);
-            Mail::to($reservation->customers->email)->send(new Reschedule($reservation));
+            Mail::to($reservation->customers->email)->send(new Reschedule($reservation, $new));
 
             $this->reservations->reschedule($id, $request->all());
 

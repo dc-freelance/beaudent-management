@@ -19,7 +19,7 @@ class Reschedule extends Mailable
      */
     public $data;
 
-    public function __construct($reservation)
+    public function __construct($reservation, $new)
     {
         $cta = '';
 
@@ -44,10 +44,10 @@ class Reschedule extends Mailable
             'phone' => $reservation->customers->phone_number,
             'address' => $reservation->customers->address,
             'branch' => $reservation->branches->name,
-            'date' => Carbon::parse($reservation->request_date)->isoFormat('D MMMM YYYY'),
-            'time' => Carbon::parse($reservation->request_time)->format('H:i'),
+            'date' => Carbon::parse($new['request_date'])->isoFormat('D MMMM YYYY'),
+            'time' => Carbon::parse($new['request_time'])->format('H:i'),
             'cs' => $reservation->branches->phone_number,
-            'reason' => $reservation->reasons,
+            'reason' => $new['reasons'],
             'service' => $reservation->treatments->name
         ];
     }
