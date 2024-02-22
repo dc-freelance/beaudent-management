@@ -16,14 +16,14 @@
                     <input id="email"
                         class="w-full text-sm rounded-lg p-2 border border-slate-200 focus:ring-1 focus:ring-red-200 transition duration-300 ease-in-out focus:border-red-200 placeholder:capitalize placeholder:text-sm"
                         type="email" name="email" :value="old('email')" required autofocus
-                        placeholder="enter your email" />
+                        placeholder="masukkan email" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-start mt-4">
                     <button
                         class="bg-primary text-white p-2 rounded-lg w-1/2 mt-1 active:bg-red-800 transition duration-300 ease-in-out mx-auto">
-                        {{ __('Reset Password') }}
+                        {{ __('Reset Sandi') }}
                     </button>
                 </div>
             </form>

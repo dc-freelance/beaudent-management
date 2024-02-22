@@ -55,7 +55,7 @@
 
                 @if (Route::has('password.request'))
                     <a class="text-primary text-sm focus:text-red-800 underline" href="{{ route('password.request') }}">
-                        {{ __('lupa password?') }}
+                        {{ __('lupa sandi?') }}
                     </a>
                 @endif
             </div>
