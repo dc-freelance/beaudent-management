@@ -12,4 +12,9 @@ class PaymentMethods extends Model
 
     protected $table = 'payment_methods';
     protected $guarded = [];
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'payment_method_id', 'id');
+    }
 }

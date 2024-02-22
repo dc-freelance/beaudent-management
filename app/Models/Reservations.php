@@ -44,4 +44,9 @@ class Reservations extends Model
     {
         return Carbon::parse($this->request_time)->locale('id')->isoFormat('LT');
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'reservation_id', 'id');
+    }
 }

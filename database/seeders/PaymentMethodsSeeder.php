@@ -13,8 +13,18 @@ class PaymentMethodsSeeder extends Seeder
      */
     public function run(): void
     {
-        PaymentMethods::create([
-            'name'  => 'Cash',
-        ]);
+        $paymentMethod = [
+            [
+                'name'  => 'Cash',
+            ],
+            [
+                'name'  => 'Transfer',
+            ],
+            [
+                'name'  => 'Debit',
+            ],
+        ];
+
+        PaymentMethods::create($paymentMethod);
     }
 }
