@@ -25,13 +25,13 @@ class DiscountController extends Controller
                     return $data->name;
                 })
                 ->addColumn('discount_type', function ($data) {
-                    return $data->discount_type ? 'Percentage' : 'Nominal';
+                    return $data->discount_type === 'Percentage' ? 'Percentage' : 'Nominal';
                 })
                 ->addColumn('discount', function ($data) {
                     if ($data->discount_type == 'Percentage') {
-                        return 'Rp '.number_format($data->discount, 0, ',', '.');
+                        return number_format($data->discount, 0, ',', '.').'%';
                     } else {
-                        return $data->discount.'%';
+                        return 'Rp '.number_format($data->discount, 0, ',', '.');
                     }
                 })
                 ->addColumn('start_date', function ($data) {
@@ -77,6 +77,15 @@ class DiscountController extends Controller
         ]);
 
         try {
+            if ($request->discount_type === 'Percentage') {
+                $request->merge(['discount' => (float) str_replace(',', '.', $request->discount)]);
+            }
+            else if ($request->discount_type === 'Nominal') {
+                $request->merge([
+                    'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
+                ]);
+            }
+    
             $this->discount->create($request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil ditambahkan');
@@ -105,6 +114,15 @@ class DiscountController extends Controller
         ]);
 
         try {
+            if ($request->discount_type === 'Percentage') {
+                $request->merge(['discount' => (float) str_replace(',', '.', $request->discount)]);
+            }
+            else if ($request->discount_type === 'Nominal') {
+                $request->merge([
+                    'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
+                ]);
+            }
+            
             $this->discount->update($id, $request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil diubah');

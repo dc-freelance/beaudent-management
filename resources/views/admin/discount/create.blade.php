@@ -22,7 +22,7 @@
                             <option value="Nominal">Nominal</option>
                         </select>
                     </div>
-                    <x-input id="discount" label="Diskon" name="discount" type="number" required />
+                    <x-input id="discount" label="Diskon" name="discount" type="text" required />
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required />
                     <div>
@@ -43,5 +43,42 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const discountType = document.getElementById('discount_type');
+                const discountInput = document.getElementById('discount');
+
+                function updateDiscountSymbol() {
+                    if (discountType.value === 'Percentage') {
+                        discountInput.value = discountInput.value.replace(/[^0-9]/g, '');
+                        discountInput.setAttribute('placeholder', '0%');
+                    } else if (discountType.value === 'Nominal') {
+                        discountInput.value = discountInput.value.replace(/[^0-9]/g, '');
+                        discountInput.setAttribute('placeholder', 'Rp. 0');
+                    }
+                }
+
+                updateDiscountSymbol();
+
+                discountType.addEventListener('change', function() {
+                    updateDiscountSymbol();
+                });
+
+                discountInput.addEventListener('input', function() {
+                    if (discountType.value === 'Percentage') {
+                        if (parseInt(this.value) > 100) {
+                            this.value = '100';
+                        }
+                        this.value = this.value.replace(/\D/g, '') + '%';
+                    } else if (discountType.value === 'Nominal') {
+                        this.value = 'Rp. ' + this.value.replace(/\D/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                    }
+                });
+            });
+
+        </script>
+    @endpush
 
 </x-app-layout>

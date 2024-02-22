@@ -16,14 +16,14 @@
                         <label for="discount_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tipe Diskon
                         </label>
-                        <select id="control_list"
+                        <select id="discount_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                             name="discount_type">
                             <option value="Percentage" {{ $data->discount_type == 'Percentage' ? 'selected' : '' }}>Persentase</option>
                             <option value="Nominal" {{ $data->discount_type == 'Nominal' ? 'selected' : '' }}>Nominal</option>
                         </select>
                     </div>
-                    <x-input id="discount" label="Diskon" name="discount" type="number" required
+                    <x-input id="discount" label="Diskon" name="discount" type="text" required
                         value="{{ $data->discount }}" />
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required
                         :value="$data->start_date" />
@@ -47,5 +47,42 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const discountType = document.getElementById('discount_type');
+                const discountInput = document.getElementById('discount');
+
+                function updateDiscountSymbol() {
+                    if (discountType.value === 'Percentage') {
+                        discountInput.value = discountInput.value.replace(/[^\d.]/g, '');
+                        discountInput.setAttribute('placeholder', '0%');
+                    } else if (discountType.value === 'Nominal') {
+                        discountInput.value = 'Rp. ' + discountInput.value.replace(/[^\d]/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                        discountInput.setAttribute('placeholder', 'Rp. 0');
+                    }
+                }
+
+                updateDiscountSymbol();
+
+                discountType.addEventListener('change', function() {
+                    updateDiscountSymbol();
+                });
+
+                discountInput.addEventListener('input', function() {
+                    if (discountType.value === 'Percentage') {
+                        if (parseInt(this.value) > 100) {
+                            this.value = '100';
+                        }
+                        this.value = this.value.replace(/\D/g, '') + '%';
+                    } else if (discountType.value === 'Nominal') {
+                        this.value = 'Rp. ' + this.value.replace(/\D/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                    }
+                });
+            });
+
+        </script>
+    @endpush
 
 </x-app-layout>
