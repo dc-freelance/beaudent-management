@@ -41,9 +41,11 @@ class StoreRegistrationRequest extends FormRequest
             'gender.required' => 'Jenis kelamin harus diisi.',
             'occupation.required' => 'Pekerjaan harus diisi.',
             'phone_number.required' => 'Nomor telepon harus diisi.',
+            'phone_number.unique' => 'Nomor telepon sudah digunakan.',
             'religion.required' => 'Agama harus diisi.',
             'email.required' => 'Email harus diisi.',
             'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
             'address.required' => 'Alamat harus diisi.',
             'marrital_status.required' => 'Status pernikahan harus diisi.',
             // 'oral_issues.required' => 'Masalah gigi harus diisi.'
