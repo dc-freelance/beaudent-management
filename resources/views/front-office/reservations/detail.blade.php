@@ -66,9 +66,13 @@
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Bukti Pembayaran</th>
                     <td class="border px-8 py-4 w-3/4">
-                        <img src="{{ asset($data->deposit_receipt) }}" alt="Bukti Pembayaran">
+                        @if(!empty($data->deposit_receipt))
+                            <img src="{{ asset($data->deposit_receipt) }}" alt="Bukti Pembayaran">
+                        @else
+                            -
+                        @endif
                     </td>
-                </tr>
+                </tr>                
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Akun Bank</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->customer_bank_account }}</td>

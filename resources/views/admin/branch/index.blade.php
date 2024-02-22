@@ -19,6 +19,7 @@
                     <th>Kode Cabang</th>
                     <th>Nomor Telpon</th>
                     <th>Alamat</th>
+                    <th>Minimum Deposit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -99,6 +100,10 @@
                         {
                             data: 'address',
                             name: 'address'
+                        },
+                        {
+                            data: 'deposit_minimum',
+                            name: 'deposit_minimum'
                         },
                         {
                             data: 'action',

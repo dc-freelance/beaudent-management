@@ -25,6 +25,6 @@ class PaymentMethodsSeeder extends Seeder
             ],
         ];
 
-        PaymentMethods::create($paymentMethod);
+        PaymentMethods::insert($paymentMethod);
     }
 }

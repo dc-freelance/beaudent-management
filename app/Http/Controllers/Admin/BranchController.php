@@ -26,6 +26,9 @@ class BranchController extends Controller
                 ->addColumn('code', function ($data) {
                     return $data->code;
                 })
+                ->addColumn('deposit_minimum', function ($data) {
+                    return 'Rp '.number_format($data->deposit_minimum, 0, ',', '.');
+                })
                 ->addColumn('phone_number', function ($data) {
                     return $data->phone_number;
                 })
@@ -61,9 +64,14 @@ class BranchController extends Controller
             'code' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
+            'deposit_minimum' => 'required',
         ]);
-
+    
         try {
+            $request->merge([
+                'deposit_minimum' => str_replace(['Rp.', '.', ','], '', $request->input('deposit_minimum'))
+            ]);
+    
             $this->branch->store($request->all());
 
             return redirect()->route('admin.branch.index')->with('success', 'Data berhasil disimpan');
@@ -86,9 +94,14 @@ class BranchController extends Controller
             'code' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
+            'deposit_minimum' =>'required',
         ]);
 
         try {
+            $request->merge([
+                'deposit_minimum' => str_replace(['Rp.', '.', ','], '', $request->input('deposit_minimum'))
+            ]);
+    
             $this->branch->update($id, $request->all());
 
             return redirect()->route('admin.branch.index')->with('success', 'Data berhasil diubah');
