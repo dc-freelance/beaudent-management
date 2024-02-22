@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->boolean('is_control')->default(false)->after('treatment_id');
+        Schema::table('reservation', function (Blueprint $table) {
+            $table->enum('deposit_status', ['Waiting', 'Decline', 'Confirm'])->nullable()->change();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->dropColumn('is_control');
+        Schema::table('reservation', function (Blueprint $table) {
+            $table->enum('deposit_status', ['Waiting', 'Decline', 'Confirm'])->nullable()->change();
         });
     }
 };
