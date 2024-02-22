@@ -18,17 +18,12 @@
 
 </head>
 
-<body class="font-sans text-gray-900 antialiased bg-white">
-    <div class="w-full min-h-screen flex flex-wrap justify-center items-center relative">
-        <div class="w-full h-[60dvh] absolute top-0 left-0 right-0">
-            <div class="bg-primary absolute top-0 left-0 right-0 w-full h-full bg-opacity-50">
-                <div class="particle-container">
-                    @for ($i = 0; $i < 30; $i++)
-                        <div class="particle absolute bg-white w-2 h-2 rounded-full animate-particle opacity-60"></div>
-                    @endfor
-                </div>
-                <h1 class="text-white text-center font-bold text-2xl mt-16 z-50">welcome back</h1>
-                <p class="text-center text-white z-50">sign in to continue to Beauty Dental</p>
+<body class="font-sans text-gray-900">
+    <div class="w-full min-h-screen flex flex-wrap justify-center items-center">
+        <div class="w-full lg:h-[60dvh] absolute top-0 left-0 right-0">
+            <div class="bg-primary absolute top-0 left-0 right-0 w-full h-full bg-opacity-10">
+                <h1 class="text-slate-500 text-center font-bold text-2xl mt-16 z-50 uppercase">selamat datang</h1>
+                <p class="text-center text-slate-500 z-50 capitalize">masuk untuk lanjut ke beauDent</p>
             </div>
             <img src="{{ asset('assets/images/bg.jpg') }}" alt="Jepun Image" class="object-cover w-full h-full" />
             <svg class="absolute -bottom-1 left-0 border-none" xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -38,20 +33,19 @@
                 </path>
             </svg>
         </div>
+        <img src="{{ asset('assets/images/no-pic.png') }}" alt="" width="80" height="80"
+            class="rounded-full absolute z-50 top-[24%] max-md:top-[26%] max-md:w-14 max-md:h-14">
         <div
-            class=" mx-auto pb-14 pt-9 bg-white dark:bg-gray-800 shadow-2xl overflow-hidden rounded-lg max-lg:mx-4 max-lg:px-4 md:w-1/2 lg:w-2/5 lg:px-16 absolute top-40">
-            <a href="/">
-                <img src="{{ asset('assets/images/logo.png') }}" class="fill-current mx-auto text-gray-500 mb-3"
-                    width="150" height="150" />
-            </a>
+            class=" mx-auto h-[60dvh] pt-9 overflow-hidden rounded-lg max-lg:mx-4 md:w-1/2 lg:w-2/5 mt-16 bg-opacity-90 z-30">
             {{ $slot }}
         </div>
     </div>
-    <div id="loadingIndicator"
+    {{-- <div id="loadingIndicator"
         class="fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-800 flex items-center justify-center">
-        <div id="loading" class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4">
+        <div id="loading"
+            class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4 z-50">
         </div>
-    </div>
+    </div> --}}
 
     {{-- custom js --}}
     <script src="{{ asset('js/main.js') }}"></script>

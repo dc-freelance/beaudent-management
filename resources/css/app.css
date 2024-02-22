@@ -81,6 +81,7 @@ div:where(.swal2-container) .swal2-html-container {
     width: 44px;
     height: 44px;
     animation: spin 1s linear infinite;
+    z-index: 999;
 }
 
 @keyframes spin {
@@ -91,25 +92,4 @@ div:where(.swal2-container) .swal2-html-container {
     100% {
         transform: rotate(360deg);
     }
-}
-
-
-
-@keyframes moveParticle {
-    0% {
-        transform: translateY(0) translateX(0);
-    }
-
-    50% {
-        transform: translateY(50px) translateX(50px);
-    }
-
-    100% {
-        transform: translateY(0) translateX(0);
-    }
-
-}
-
-.animate-particle {
-    animation: moveParticle 20s linear infinite;
 }
