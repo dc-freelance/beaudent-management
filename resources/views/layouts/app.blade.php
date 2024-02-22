@@ -14,6 +14,7 @@
     <style>
         input[type="search"] {
             font-size: 0.75rem;
+            width: 300px;
         }
 
         .dataTables_length label select option {
@@ -23,6 +24,13 @@
         #tableContent_filter {
             margin-bottom: 10px;
             margin-left: auto;
+        }
+
+        #permissionTable thead th {
+            border: none;
+            background-color: white;
+            border-bottom: 1px solid silver;
+            padding: 20px 0 20px 0;
         }
     </style>
 
@@ -124,6 +132,21 @@
         });
     </script>
 
+    <script>
+        let tableChecker = setInterval(() => {
+            const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri')
+            const hiddenLabel = document.querySelector('#permissionTable_filter label').innerHTML = document
+                .querySelector('#permissionTable_filter label').innerHTML.replace('Search:', '')
+            let toolbars = document.querySelectorAll('.fg-toolbar')
+            toolbars.forEach(toolbar => {
+                if (toolbar) {
+                    toolbar.style.backgroundColor = 'white'
+                    toolbar.style.border = 'none'
+                    clearInterval(tableChecker)
+                }
+            })
+        }, 500);
+    </script>
     @stack('js-internal')
 </body>
 
