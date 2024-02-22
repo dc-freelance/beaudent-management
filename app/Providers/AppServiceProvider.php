@@ -31,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\DoctorScheduleInterface::class, \App\Repositories\DoctorScheduleRepository::class);
         $this->app->bind(\App\Interfaces\ConfigShiftInterface::class, \App\Repositories\ConfigShiftRepository::class);
         $this->app->bind(\App\Interfaces\ReservationsInterface::class, \App\Repositories\ReservationsRepository::class);
+        $this->app->bind(\App\Interfaces\ShiftLogInterface::class, \App\Repositories\ShiftLogRepository::class);
         $this->app->bind(\App\Interfaces\PaymentMethodsInterface::class, \App\Repositories\PaymentMethodsRepository::class);
+        $this->app->bind(\App\Interfaces\TreatmentCategoriesInterface::class, \App\Repositories\TreatmentCategoriesRepository::class);
         $this->loadHelpers();
     }
 

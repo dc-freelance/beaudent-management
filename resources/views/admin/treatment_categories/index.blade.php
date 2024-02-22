@@ -1,26 +1,21 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Layanan', 'url' => route('admin.treatment.index')],
-    ]" title="Manajemen Layanan" />
+        ['name' => 'Manajemen Kategori Layanan', 'url' => route('admin.treatment-categories.index')],
+    ]" title="Manajemen Kategori Layanan" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.treatment.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.treatment-categories.create') }}" color="gray">
                 <i class="fas fa-plus mr-2"></i>
-                Tambah Layanan
+                Tambah Kategori Layanan
             </x-link-button>
         </div>
-        <table id="treatmentTable">
+        <table id="treatmentCategoriesTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nama</th>
-                    <th>Kode</th>
-                    <th>Layanan Utama</th>
-                    <th>Kontrol</th>
                     <th>Kategori</th>
-                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,10 +25,10 @@
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = "{{ route('admin.treatment.delete', ':id') }}".replace(':id', _id);
+                let url = "{{ route('admin.treatment-categories.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: `Layanan ${_name} akan dihapus!`,
+                    text: `Kategori Layanan ${_name} akan dihapus!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, hapus!',
@@ -76,39 +71,19 @@
             }
 
             $(function() {
-                $('#treatmentTable').DataTable({
+                $('#treatmentCategoriesTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('admin.treatment.index') }}',
+                    ajax: '{{ route('admin.treatment-categories.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'name',
-                            name: 'name'
-                        },
-                        {
-                            data: 'code',
-                            name: 'code'
-                        },
-                        {
-                            data: 'parent_id',
-                            name: 'parent_id'
-                        },
-                        {
-                            data: 'is_control',
-                            name: 'is_control'
-                        },
-                        {
-                            data: 'treatment_category_id',
-                            name: 'treatment_category_id'
-                        },
-                        {
-                            data: 'price',
-                            name: 'price'
+                            data: 'category',
+                            name: 'category'
                         },
                         {
                             data: 'action',

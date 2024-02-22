@@ -1,26 +1,27 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Layanan', 'url' => route('admin.treatment.index')],
-    ]" title="Manajemen Layanan" />
+        ['name' => 'Manajemen Cabang', 'url' => route('admin.branch.index')],
+    ]" title="Manajemen Cabang" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.treatment.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
                 <i class="fas fa-plus mr-2"></i>
-                Tambah Layanan
+                Tambah Cabang
             </x-link-button>
         </div>
-        <table id="treatmentTable">
+        <table id="shiftLogTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nama</th>
-                    <th>Kode</th>
-                    <th>Layanan Utama</th>
-                    <th>Kontrol</th>
-                    <th>Kategori</th>
-                    <th>Harga</th>
+                    <th>Sesi</th>
+                    <th>Sesi Dibuka Pada</th>
+                    <th>Sesi Ditutup Pada</th>
+                    <th>Pengguna</th>
+                    <th>Cabang</th>
+                    <th>Total Uang Yang Harus Dibayarkan</th>
+                    <th>Total Uang Yang Diterima</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,7 +31,7 @@
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = "{{ route('admin.treatment.delete', ':id') }}".replace(':id', _id);
+                let url = "{{ route('admin.branch.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
                     text: `Layanan ${_name} akan dihapus!`,
@@ -76,43 +77,49 @@
             }
 
             $(function() {
-                $('#treatmentTable').DataTable({
+                $('#shiftLogTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('admin.treatment.index') }}',
+                    ajax: '{{ route('front-office.shift-log.recap-shift') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'config_shift',
+                            name: 'config_shift'
                         },
                         {
-                            data: 'code',
-                            name: 'code'
+                            data: 'start_time',
+                            name: 'start_time'
                         },
                         {
-                            data: 'parent_id',
-                            name: 'parent_id'
+                            data: 'end_time',
+                            name: 'end_time'
                         },
                         {
-                            data: 'is_control',
-                            name: 'is_control'
+                            data: 'user',
+                            name: 'user'
                         },
                         {
-                            data: 'treatment_category_id',
-                            name: 'treatment_category_id'
+                            data: 'branch',
+                            name: 'branch'
                         },
                         {
-                            data: 'price',
-                            name: 'price'
+                            data: 'total_cash_payment',
+                            name: 'total_cash_payment'
+                        },
+                        {
+                            data: 'total_cash_received',
+                            name: 'total_cash_received'
                         },
                         {
                             data: 'action',
-                            name: 'action'
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
                         },
                     ]
                 });

@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentMethods extends Model
+class TreatmentCategories extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'payment_methods';
+    protected $table = 'treatment_categories';
     protected $guarded = [];
 
-    public function transaction()
+    public function treatment_categories()
     {
-        return $this->hasMany(Transaction::class, 'payment_method_id', 'id');
+        return $this->hasMany(Treatment::class, 'treatment_category_id', 'id');
     }
 }

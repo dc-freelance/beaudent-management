@@ -19,7 +19,9 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\DoctorScheduleController;
 use App\Http\Controllers\Admin\PaymentMethodsController;
+use App\Http\Controllers\Admin\TreatmentCategoriesController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
+use App\Http\Controllers\FrontOffice\ShiftLogController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -239,6 +241,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->name('front-office.reservations.delete');
     });
 
+    // ShiftLog
+    Route::group(['prefix' => 'shift-log', 'middleware' => ['role:frontoffice']], function () {
+        Route::get('/open-shift', [ShiftLogController::class, 'open_shift'])->name('front-office.shift-log.open-shift');
+        Route::post('/open-shift/create', [ShiftLogController::class, 'open_shift_create'])->name('front-office.shift-log.open-shift-create');
+
+        Route::get('/close-shift', [ShiftLogController::class, 'close_shift'])->name('front-office.shift-log.close-shift');
+        Route::put('/close-shift/{id}/update', [ShiftLogController::class, 'close_shift_update'])->name('front-office.shift-log.close-shift-update');
+
+        Route::get('/recap-shit', [ShiftLogController::class, 'recap_shift'])->name('front-office.shift-log.recap-shift');
+        Route::get('/recap-shit/{shiftLog}/pdf', [ShiftLogController::class, 'recap_shift_pdf'])->name('front-office.shift-log.recap-shift-pdf');
+    });
+
     // Deposit
     Route::group(['prefix' => 'deposit', 'middleware' => ['role:frontoffice']], function () {
         Route::group(['prefix' => 'wait'], function () {
@@ -269,6 +283,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [PaymentMethodsController::class, 'edit'])->name('admin.payment-methods.edit');
         Route::put('update/{id}', [PaymentMethodsController::class, 'update'])->name('admin.payment-methods.update');
         Route::delete('delete/{id}', [PaymentMethodsController::class, 'delete'])->name('admin.payment-methods.delete');
+    });
+
+    // Treatment Category
+    Route::group(['prefix' => 'treatment-categories', 'middleware' => ['role:admin_pusat']], function () {
+        Route::get('/', [TreatmentCategoriesController::class, 'index'])->name('admin.treatment-categories.index');
+        Route::get('get-by-id/{id}', [TreatmentCategoriesController::class, 'getById'])->name('admin.treatment-categories.get-by-id');
+        Route::get('create', [TreatmentCategoriesController::class, 'create'])->name('admin.treatment-categories.create');
+        Route::post('store', [TreatmentCategoriesController::class, 'store'])->name('admin.treatment-categories.store');
+        Route::get('edit/{id}', [TreatmentCategoriesController::class, 'edit'])->name('admin.treatment-categories.edit');
+        Route::put('update/{id}', [TreatmentCategoriesController::class, 'update'])->name('admin.treatment-categories.update');
+        Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->name('admin.treatment-categories.delete');
     });
 });
 

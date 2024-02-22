@@ -41,7 +41,7 @@
                         active="{{ request()->routeIs('admin.doctor-schedule.*') }}" icon="fas fa-calendar-plus" />
                 </x-sidebar-dropdown>
                 <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
-                    active="{{ request()->routeIs('admin.treatment-category.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') }}">
+                    active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') || request()->routeIs('admin.addon.*')}}">
                     <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
                         active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
                     <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
@@ -49,7 +49,9 @@
                     <x-sidebar-submenu name="Diskon" route="{{ route('admin.discount.index') }}"
                         active="{{ request()->routeIs('admin.discount.*') }}" icon="fas fa-money-bill-wave"
                         class=" ms-4" />
-                    <x-sidebar-item name="Layanan Tambahan" icon="fas fa-cart-plus"
+                    <x-sidebar-submenu name="Kategori" route="{{ route('admin.treatment-categories.index') }}"
+                        active="{{ request()->routeIs('admin.treatment-categories.*') }}" icon="fas fa-th-list" />
+                    <x-sidebar-submenu name="Layanan Tambahan" icon="fas fa-cart-plus"
                         route="{{ route('admin.addon.index') }}" active="{{ request()->routeIs('admin.addon.*') }}" />
                 </x-sidebar-dropdown>
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
@@ -101,6 +103,15 @@
                     <x-sidebar-submenu name="Deposit Dibatalkan" route="{{ route('front-office.deposit.cancel.index') }}"
                         active="{{ request()->routeIs('front-office.deposit.cancel.*') }}"
                         icon="fas fa-calendar-times" />
+                </x-sidebar-dropdown>
+                <x-sidebar-dropdown title="Manajemen Sesi" icon="fas fa-clock" toggle="shift"
+                        active="{{ request()->routeIs('front-office.shift-log.*') }}">
+                        <x-sidebar-submenu name="Buka Sesi" route="{{ route('front-office.shift-log.open-shift') }}"
+                            active="{{ request()->routeIs('front-office.shift-log.open-shift') }}" icon="fas fa-user-clock" />
+                        <x-sidebar-submenu name="Tutup Sesi" route="{{ route('front-office.shift-log.close-shift') }}"
+                            active="{{ request()->routeIs('front-office.shift-log.close-shift') }}" icon="fas fa-user-clock" />
+                        <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
+                            active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
                 </x-sidebar-dropdown>
             @endrole
             <li>
