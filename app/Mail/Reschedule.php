@@ -27,7 +27,7 @@ class Reschedule extends Mailable
             $cta = '<p>
                          Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tombol dibawah ini
                     </p>
-                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential">Lakukan Pembayaran</a>
+                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential?creds=' . $reservation->customers->email . '">Lakukan Pembayaran</a>
                 ';
         };
 
