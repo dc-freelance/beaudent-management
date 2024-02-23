@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\ReservationsInterface;
 use App\Models\Reservations;
+use Carbon\Carbon;
 
 use function App\Helpers\rupiahFormat;
 
@@ -53,22 +54,35 @@ class ReservationsRepository implements ReservationsInterface
 
     public function datatable_cancel_deposit()
     {
-        return $this->reservations->where('deposit_status', 'Decline')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+        $data = $this->reservations->where('deposit_status', 'Decline')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+        foreach ($data as $reservation) {
+            if ($reservation->deposit != null) {
+                $reservation->deposit = rupiahFormat($reservation->deposit);
+            };
+        };
+        return $data;
     }
 
     public function datatable_confirm_deposit($date = null)
     {
-        $query = $this->reservations->where('deposit_status', 'Confirm')
+        if ($date === null) {
+            $date = Carbon::now()->format('Y-m-d');
+        };
+
+        $data = $this->reservations->where('deposit_status', 'Confirm')
             ->where('status', 'Done')
+            ->whereDate('transfer_date', $date)
             ->orderBy('request_date', 'asc')
             ->orderBy('request_time', 'asc')
-            ->orderBy('updated_at', 'asc');
+            ->orderBy('updated_at', 'asc')->get();
 
-        if ($date) {
-            $query->whereDate('request_date', $date);
-        }
+        foreach ($data as $reservation) {
+            if ($reservation->deposit != null) {
+                $reservation->deposit = rupiahFormat($reservation->deposit);
+            };
+        };
 
-        return $query->get();
+        return $data;
     }
 
 
