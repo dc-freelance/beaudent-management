@@ -137,7 +137,7 @@ class ReservationsController extends Controller
                     $query->where('status', '!=', 'Cancel');
                     $query->with([
                         'branches' => function ($query) {
-                            $query->select('id', 'name');
+                            $query->select('id', 'name', 'minimum_deposit');
                         }
                     ]);
                     $query->with([
