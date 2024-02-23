@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
+use function App\Helpers\rupiahFormat;
+
 class ReservationsController extends Controller
 {
     private $reservations;
@@ -242,6 +244,7 @@ class ReservationsController extends Controller
     public function detail($id)
     {
         $data = $this->reservations->getById($id);
+        $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
         return view('front-office.reservations.detail', compact('data'));
     }
@@ -249,6 +252,7 @@ class ReservationsController extends Controller
     public function deposit_detail($id)
     {
         $data = $this->reservations->getById($id);
+        $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
         return view('front-office.deposit.detail', compact('data'));
     }
