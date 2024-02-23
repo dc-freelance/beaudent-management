@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Interfaces\ReservationsInterface;
 use App\Models\Reservations;
 
+use function App\Helpers\rupiahFormat;
+
 class ReservationsRepository implements ReservationsInterface
 {
     private $reservations;
@@ -40,7 +42,13 @@ class ReservationsRepository implements ReservationsInterface
 
     public function datatable_deposit()
     {
-        return $this->reservations->where('deposit_status', 'Waiting')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+        $data = $this->reservations->where('deposit_status', 'Waiting')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+        foreach ($data as $reservation) {
+            if ($reservation->deposit != null) {
+                $reservation->deposit = rupiahFormat($reservation->deposit);
+            };
+        };
+        return $data;
     }
 
     public function datatable_cancel_deposit()

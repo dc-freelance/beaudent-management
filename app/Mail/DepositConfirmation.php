@@ -10,6 +10,8 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+use function App\Helpers\rupiahFormat;
+
 class DepositConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
@@ -55,7 +57,7 @@ class DepositConfirmation extends Mailable
             'phone' => $reservation->customers->phone_number,
             'address' => $reservation->customers->address,
             'branch' => $reservation->branches->name,
-            'count' => $reservation->deposit,
+            'count' => rupiahFormat($reservation->deposit),
             'rek' => $reservation->customer_bank_account,
             'transfer' => Carbon::parse($reservation->transfer_date)->isoFormat('D MMMM YYYY'),
             'cs' => $reservation->branches->phone_number,
