@@ -22,8 +22,8 @@
     <div class="w-full min-h-screen flex flex-wrap justify-center items-center">
         <div class="w-full lg:h-[60dvh] absolute top-0 left-0 right-0">
             <div class="bg-primary absolute top-0 left-0 right-0 w-full h-full bg-opacity-10">
-                <h1 class="text-slate-500 text-center font-bold text-2xl mt-16 z-50 uppercase">selamat datang</h1>
-                <p class="text-center text-slate-500 z-50 capitalize">masuk untuk lanjut ke beauDent</p>
+                <h1 class="text-slate-700 text-center font-bold text-2xl mt-16 z-50 uppercase">selamat datang</h1>
+                <p class="text-center text-slate-700 z-50 capitalize">masuk untuk lanjut ke beauDent</p>
             </div>
             <img src="{{ asset('assets/images/bg.jpg') }}" alt="Jepun Image" class="object-cover w-full h-full" />
             <svg class="absolute -bottom-1 left-0 border-none" xmlns="http://www.w3.org/2000/svg" version="1.1"
