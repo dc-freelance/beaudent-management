@@ -26,17 +26,14 @@
             margin-left: auto;
         }
 
-        #permissionTable thead th {
-            border: none;
-            background-color: white;
-            border-bottom: 1px solid silver;
-            padding: 20px 0 20px 0;
-        }
-
         .dataTables_paginate {
             background-color: whitesmoke;
-            padding: 10px;
+            padding: 10px 10px 5px 10px;
             border-radius: 15px;
+        }
+
+        .dataTables_paginate a {
+            color: red;
         }
     </style>
 
@@ -143,6 +140,10 @@
             const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri...')
             // const hiddenLabel = document.querySelector('#permissionTable_filter label').innerHTML = document
             //     .querySelector('#permissionTable_filter label').innerHTML.replace('Search:', '')
+            const test = document.querySelectorAll('table thead th')
+            test.forEach(tes => {
+                tes.style.border = 'none'
+            })
             let toolbars = document.querySelectorAll('.fg-toolbar')
             toolbars.forEach(toolbar => {
                 if (toolbar) {
