@@ -14,7 +14,7 @@
     <style>
         input[type="search"] {
             font-size: 0.75rem;
-            width: 300px;
+            width: 250px;
         }
 
         .dataTables_length label select option {
@@ -31,6 +31,12 @@
             background-color: white;
             border-bottom: 1px solid silver;
             padding: 20px 0 20px 0;
+        }
+
+        .dataTables_paginate {
+            background-color: whitesmoke;
+            padding: 10px;
+            border-radius: 15px;
         }
     </style>
 
@@ -134,9 +140,9 @@
 
     <script>
         let tableChecker = setInterval(() => {
-            const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri')
-            const hiddenLabel = document.querySelector('#permissionTable_filter label').innerHTML = document
-                .querySelector('#permissionTable_filter label').innerHTML.replace('Search:', '')
+            const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri...')
+            // const hiddenLabel = document.querySelector('#permissionTable_filter label').innerHTML = document
+            //     .querySelector('#permissionTable_filter label').innerHTML.replace('Search:', '')
             let toolbars = document.querySelectorAll('.fg-toolbar')
             toolbars.forEach(toolbar => {
                 if (toolbar) {
