@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('medications')->nullable();
             $table->boolean('allergies_to_food');
             $table->text('foods')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

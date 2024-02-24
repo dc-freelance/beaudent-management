@@ -148,8 +148,10 @@ class ReservationsController extends Controller
                 }
             ])->where('email', $request->creds)->orWhere('phone_number', $request->creds)->first();
 
-            if (isset($customer->reservations[count($customer->reservations) - 1])) {
-                $customer->reservations[count($customer->reservations) - 1]['request_time'] = Carbon::parse($customer->reservations[count($customer->reservations) - 1]['request_time'])->format('H:i');
+            if (isset($customer)) {
+                if (isset($customer->reservations[count($customer->reservations) - 1])) {
+                    $customer->reservations[count($customer->reservations) - 1]['request_time'] = Carbon::parse($customer->reservations[count($customer->reservations) - 1]['request_time'])->format('H:i');
+                };
             };
 
             return response()->json([
