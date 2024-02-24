@@ -23,4 +23,9 @@ class Customers extends Model
     {
         return $this->hasMany(Transaction::class, 'customer_id', 'id');
     }
+
+    public function medicalRecord()
+    {
+        return $this->hasOne(MedicalRecord::class, 'customer_id', 'id');
+    }
 }

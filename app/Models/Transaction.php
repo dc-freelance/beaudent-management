@@ -44,4 +44,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'cashier_id', 'id');
     }
+
+    public function examination()
+    {
+        return $this->hasOne(Examination::class, 'transaction_id', 'id');
+    }
 }
