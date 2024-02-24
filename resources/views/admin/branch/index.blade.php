@@ -6,12 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.branch.create') }}" class="tombol">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Cabang
             </x-link-button>
         </div>
-        <table id="branchTable">
+        <table id="branchTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -78,7 +78,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    responsive: true,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.branch.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

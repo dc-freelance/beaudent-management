@@ -79,11 +79,18 @@ div:where(.swal2-container) .swal2-html-container {
 .dataTables_paginate {
     background-color: whitesmoke;
     padding: 10px 10px 5px 10px;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .dataTables_paginate a {
-    color: red;
+    border-radius: 5px !important;
+    transition: 0.2s ease-in-out;
+}
+
+.dataTables_paginate a:hover {
+    background-color: white;
+    color: black;
+    transition: 0.2s ease-in-out;
 }
 
 .dataTable thead th {
@@ -110,13 +117,15 @@ div:where(.swal2-container) .swal2-html-container {
     border: none;
 }
 
-.search-input {
-    padding-left: 30px;
-    /* Sesuaikan padding sesuai kebutuhan */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M513 482.835L379.411 349.245C414.112 306.805 431.173 252.65 427.066 197.983C422.959 143.315 397.997 92.318 357.343 55.5391C316.69 18.7602 263.455 -0.986311 208.651 0.383967C153.847 1.75425 101.666 24.1365 62.9011 62.9011C24.1365 101.666 1.75425 153.847 0.383967 208.651C-0.986311 263.455 18.7602 316.69 55.5391 357.343C92.318 397.997 143.315 422.959 197.983 427.066C252.65 431.173 306.805 414.112 349.245 379.411L482.835 513L513 482.835ZM214.333 385C180.579 385 147.582 374.991 119.516 356.237C91.45 337.484 69.5752 310.83 56.6579 279.645C43.7405 248.459 40.3607 214.144 46.946 181.038C53.5312 147.932 69.7856 117.522 93.6538 93.6538C117.522 69.7856 147.932 53.5312 181.038 46.946C214.144 40.3607 248.459 43.7405 279.645 56.6579C310.83 69.5752 337.484 91.45 356.237 119.516C374.991 147.582 385 180.579 385 214.333C384.949 259.581 366.952 302.962 334.957 334.957C302.962 366.952 259.581 384.949 214.333 385Z' fill='black'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: 20px;
-    /* Sesuaikan ukuran ikon sesuai kebutuhan */
-    background-position: 8px center;
-    /* Sesuaikan posisi ikon sesuai kebutuhan */
+/* scroll vertikal responsive */
+/* ::-webkit-scrollbar {
+    width: 12px;
+} */
+
+::-webkit-scrollbar-thumb {
+    background-color: silver;
+}
+
+::-webkit-scrollbar-track {
+    background-color: white;
 }

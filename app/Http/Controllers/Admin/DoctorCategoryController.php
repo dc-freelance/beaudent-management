@@ -68,7 +68,7 @@ class DoctorCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|unique:doctor_categories,name,'.$id,
+            'name' => 'required|unique:doctor_categories,name,' . $id,
         ]);
 
         try {

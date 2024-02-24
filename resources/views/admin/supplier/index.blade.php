@@ -7,12 +7,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.supplier.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.supplier.create') }}" class="tombol">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Pemasok
             </x-link-button>
         </div>
-        <table id="supplierTable">
+        <table id="supplierTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -78,6 +78,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.supplier.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

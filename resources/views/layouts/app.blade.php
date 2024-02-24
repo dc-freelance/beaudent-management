@@ -14,7 +14,7 @@
     <style>
         input {
             font-size: 0.75rem;
-            width: 300px;
+            width: 200px;
             border-radius: 30px;
         }
 

@@ -6,12 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.doctor-schedule.create') }}" color="gray">
+            <x-link-button route="{{ route('admin.doctor-schedule.create') }}" class="tombol">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Jadwal Dokter
             </x-link-button>
         </div>
-        <table id="doctorScheduleTable">
+        <table id="doctorScheduleTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -78,7 +78,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    responsive: true,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.doctor-schedule.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

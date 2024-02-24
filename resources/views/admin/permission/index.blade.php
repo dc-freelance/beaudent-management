@@ -11,7 +11,7 @@
                 Tambah Permission
             </x-link-button>
         </div>
-        <table id="permissionTable" class="hover">
+        <table id="permissionTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -74,6 +74,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.permission.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
