@@ -4,9 +4,14 @@ namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\ReservationsInterface;
+use App\Mail\DepositConfirmation;
+use App\Mail\Reschedule;
+use App\Mail\ReservationConfirmation;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
+use function App\Helpers\rupiahFormat;
 
 class ReservationsController extends Controller
 {
@@ -40,7 +45,7 @@ class ReservationsController extends Controller
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Kontrol' : 'Perawatan';
                 })
-                
+
                 ->addColumn('action', function ($data) {
                     return view('front-office.reservations.column.action', compact('data'));
                 })
@@ -48,6 +53,36 @@ class ReservationsController extends Controller
                 ->make(true);
         }
         return view('front-office.reservations.reservations');
+    }
+
+    public function deposit(Request $request)
+    {
+        if ($request->ajax()) {
+            return datatables()
+                ->of($this->reservations->datatable_deposit())
+                ->addColumn('no', function ($data) {
+                    return $data->no;
+                })
+                ->addColumn('branch_id', function ($data) {
+                    return $data->branches->name;
+                })
+                ->addColumn('transfer_date', function ($data) {
+                    return $data->transfer_date;
+                })
+                ->addColumn('deposit', function ($data) {
+                    return $data->deposit;
+                })
+                ->addColumn('customer_id', function ($data) {
+                    return $data->customers->name;
+                })
+
+                ->addColumn('action', function ($data) {
+                    return view('front-office.deposit.column.action', compact('data'));
+                })
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('front-office.deposit.deposit');
     }
 
     public function cancel_reservations(Request $request)
@@ -73,7 +108,7 @@ class ReservationsController extends Controller
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Kontrol' : 'Perawatan';
                 })
-                
+
                 ->addColumn('action', function ($data) {
                     return view('front-office.reservations.column.action', compact('data'));
                 })
@@ -82,7 +117,7 @@ class ReservationsController extends Controller
         }
         return view('front-office.reservations.cancel_reservations');
     }
-    
+
     public function confirm_reservations(Request $request)
     {
         $date = $request->input('date');
@@ -107,7 +142,7 @@ class ReservationsController extends Controller
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Kontrol' : 'Perawatan';
                 })
-                
+
                 ->addColumn('action', function ($data) {
                     return view('front-office.reservations.column.action', compact('data'));
                 })
@@ -117,23 +152,87 @@ class ReservationsController extends Controller
         return view('front-office.reservations.confirm_reservations', compact('date'));
     }
 
+    public function cancel_deposit(Request $request)
+    {
+        if ($request->ajax()) {
+            return datatables()
+                ->of($this->reservations->datatable_cancel_deposit())
+                ->addColumn('no', function ($data) {
+                    return $data->no;
+                })
+                ->addColumn('branch_id', function ($data) {
+                    return $data->branches->name;
+                })
+                ->addColumn('transfer_date', function ($data) {
+                    return $data->transfer_date;
+                })
+                ->addColumn('deposit', function ($data) {
+                    return $data->deposit;
+                })
+                ->addColumn('customer_id', function ($data) {
+                    return $data->customers->name;
+                })
+
+                ->addColumn('action', function ($data) {
+                    return view('front-office.deposit.column.action', compact('data'));
+                })
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('front-office.deposit.cancel_deposit');
+    }
+
+    public function confirm_deposit(Request $request)
+    {
+        $date = $request->input('date');
+        if ($request->ajax()) {
+            return datatables()
+                ->of($this->reservations->datatable_confirm_deposit($date))
+                ->addColumn('no', function ($data) {
+                    return $data->no;
+                })
+                ->addColumn('branch_id', function ($data) {
+                    return $data->branches->name;
+                })
+                ->addColumn('transfer_date', function ($data) {
+                    return $data->transfer_date;
+                })
+                ->addColumn('deposit', function ($data) {
+                    return $data->deposit;
+                })
+                ->addColumn('customer_id', function ($data) {
+                    return $data->customers->name;
+                })
+
+                ->addColumn('action', function ($data) {
+                    return view('front-office.deposit.column.action', compact('data'));
+                })
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('front-office.deposit.confirm_deposit', compact('date'));
+    }
+
     public function reschedule($id)
     {
         $data = $this->reservations->getById($id);
         $reservation = $this->reservations->datatable_confirm_reservations();
 
-        return view('front-office.reservations.reschedule', compact('data','reservation'));
+        return view('front-office.reservations.reschedule', compact('data', 'reservation'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $new = $request->validate([
             'request_date' => 'required',
             'request_time' => 'required',
-            'alasan' => 'required',
+            'reasons' => 'required',
         ]);
 
         try {
+            $reservation = $this->reservations->getById($id);
+            Mail::to($reservation->customers->email)->send(new Reschedule($reservation, $new));
+
             $this->reservations->reschedule($id, $request->all());
 
             return redirect()->route('front-office.reservations.confirm.index')->with('success', 'Penjadwalan Ulang Berhasil');
@@ -145,14 +244,25 @@ class ReservationsController extends Controller
     public function detail($id)
     {
         $data = $this->reservations->getById($id);
+        $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
         return view('front-office.reservations.detail', compact('data'));
+    }
+
+    public function deposit_detail($id)
+    {
+        $data = $this->reservations->getById($id);
+        $data->deposit && $data->deposit = rupiahFormat($data->deposit);
+
+        return view('front-office.deposit.detail', compact('data'));
     }
 
     public function confirm($id)
     {
         try {
             $reservation = $this->reservations->getById($id);
+
+            Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, true));
 
             $this->reservations->confirm($id);
 
@@ -162,16 +272,48 @@ class ReservationsController extends Controller
         }
     }
 
+    public function deposit_confirm($id)
+    {
+        try {
+            $reservation = $this->reservations->getById($id);
+
+            Mail::to($reservation->customers->email)->send(new DepositConfirmation($reservation, true));
+
+            $this->reservations->deposit_confirm($id);
+
+            return redirect()->route('front-office.deposit.wait.index')->with('success', 'Deposit telah dikonfirmasi');
+        } catch (\Throwable $th) {
+            return redirect()->route('front-office.deposit.wait.index')->with('error', $th->getMessage());
+        }
+    }
+
     public function cancel($id)
     {
         try {
             $reservation = $this->reservations->getById($id);
+
+            Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, false));
 
             $this->reservations->cancel($id);
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dibatalkan');
         } catch (\Throwable $th) {
             return redirect()->route('front-office.reservations.wait.index')->with('error', $th->getMessage());
+        }
+    }
+
+    public function deposit_cancel($id)
+    {
+        try {
+            $reservation = $this->reservations->getById($id);
+
+            Mail::to($reservation->customers->email)->send(new DepositConfirmation($reservation, false));
+
+            $this->reservations->deposit_cancel($id);
+
+            return redirect()->route('front-office.deposit.wait.index')->with('success', 'Deposit telah dibatalkan');
+        } catch (\Throwable $th) {
+            return redirect()->route('front-office.deposit.wait.index')->with('error', $th->getMessage());
         }
     }
 
@@ -186,5 +328,4 @@ class ReservationsController extends Controller
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
         }
     }
-    
 }

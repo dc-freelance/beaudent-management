@@ -23,6 +23,9 @@ class TreatmentController extends Controller
                 ->addColumn('name', function ($data) {
                     return $data->name;
                 })
+                ->addColumn('code', function ($data) {
+                    return $data->code != null ? $data->code : '-';
+                })
                 ->addColumn('parent_id', function ($data) {
                     $treatment = $this->treatment->getById($data->parent_id);
 
@@ -30,6 +33,9 @@ class TreatmentController extends Controller
                 })
                 ->addColumn('price', function ($data) {
                     return 'Rp '.number_format($data->price, 0, ',', '.');
+                })
+                ->addColumn('treatment_category_id', function ($data) {
+                    return $data->treatment_category_id ? $data->treatment_categories->category : '-';
                 })
                 ->addColumn('is_control', function ($data) {
                     return $data->is_control ? 'Ya' : 'Tidak';
@@ -52,16 +58,19 @@ class TreatmentController extends Controller
     public function create()
     {
         $parents = $this->treatment->get()->where('parent_id', null);
+        $treatment_categories = $this->treatment->getTreatmentCategories();
 
-        return view('admin.treatment.create', compact('parents'));
+        return view('admin.treatment.create', compact('parents', 'treatment_categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
+            'code' => 'required',
             'parent_id' => 'nullable',
             'price' => 'required',
+            'treatment_category_id' => 'required',
             'is_control' => 'nullable',
         ]);
 
@@ -83,16 +92,19 @@ class TreatmentController extends Controller
     {
         $data = $this->treatment->getById($id);
         $parents = $this->treatment->get()->where('parent_id', null);
+        $treatment_categories = $this->treatment->getTreatmentCategories();
 
-        return view('admin.treatment.edit', compact('data', 'parents'));
+        return view('admin.treatment.edit', compact('data', 'parents', 'treatment_categories'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
+            'code' => 'required',
             'parent_id' => 'nullable',
             'price' => 'required',
+            'treatment_category_id' => 'required',
             'is_control' => 'nullable',
         ]);
 

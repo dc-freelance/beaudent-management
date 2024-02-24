@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->string('alasan')->nullable()->after('is_control');
+        Schema::table('branches', function (Blueprint $table) {
+            $table->decimal('deposit_minimum', 12, 2)->nullable()->after('code');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->dropColumn('alasan');
+        Schema::table('branches', function (Blueprint $table) {
+            $table->dropColumn('deposit_minimum');
         });
     }
 };

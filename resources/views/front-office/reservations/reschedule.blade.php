@@ -15,7 +15,7 @@
                     :value="$data->request_date" />
                     <x-input id="request_time" label="Waktu Reservasi" name="request_time" type="time" required 
                     :value="$data->request_time"/>
-                    <x-input id="alasan" label="Alasan" name="alasan" required type="text" value="{{ $data->alasan }}" />
+                    <x-input id="reasons" label="Alasan" name="reasons" required type="text" value="{{ $data->reasons }}" />
                 </div>
                 <x-button type="submit" class="mt-6">Jadwalkan Ulang</x-button>
             </form>

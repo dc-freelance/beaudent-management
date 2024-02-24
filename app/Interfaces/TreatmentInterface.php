@@ -8,6 +8,8 @@ interface TreatmentInterface
 
     public function getParentNull();
 
+    public function getTreatmentCategories();
+
     public function getById($id);
 
     public function create($data);

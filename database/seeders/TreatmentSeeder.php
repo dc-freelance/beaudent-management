@@ -15,9 +15,11 @@ class TreatmentSeeder extends Seeder
     {
         Treatment::create([
             'name'      => 'Treatment 1',
+            'code' => null,
             'parent_id' => null,
             'is_control' => 1,
             'price'     => 100000,
+            'treatment_category_id' => null,
         ]);
     }
 }

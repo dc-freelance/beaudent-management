@@ -33,6 +33,21 @@ if (! function_exists('generateTransactionCode')) {
 
         $branchCode = Branch::find($branch_id)->code;
 
-        return $transactionCode.'-'.$branchCode.'-'.$year.'-'.$month.'-'.str_pad($no, 3, '0', STR_PAD_LEFT);
+        $newTransactionCode = $transactionCode.'-'.$branchCode.'-'.$year.'-'.$month.'-'.str_pad($no, 3, '0', STR_PAD_LEFT);
+
+        // Menyimpan nomor urut terakhir ke dalam database
+        if (!$lastNoOfSequence) {
+            Sequence::create([
+                'code' => $transactionCode,
+                'year' => $year,
+                'month' => $month,
+                'branch_id' => $branch_id,
+                'no' => $no,
+            ]);
+        } else {
+            $lastNoOfSequence->update(['no' => $no]);
+        }
+
+        return $newTransactionCode;
     }
 }

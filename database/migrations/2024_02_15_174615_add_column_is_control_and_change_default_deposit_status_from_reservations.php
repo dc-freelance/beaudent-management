@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('reservations', function (Blueprint $table) {
             $table->boolean('is_control')->default(false)->after('treatment_id');
-            $table->boolean('deposit_status')->default(0)->change();
         });
     }
 
@@ -24,7 +23,6 @@ return new class extends Migration
     {
         Schema::table('reservations', function (Blueprint $table) {
             $table->dropColumn('is_control');
-            $table->boolean('deposit_status')->default(false)->change();
         });
     }
 };

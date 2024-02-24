@@ -14,8 +14,10 @@ class Treatment extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'parent_id',
         'is_control',
+        'treatment_category_id',
         'price',
     ];
 
@@ -42,6 +44,11 @@ class Treatment extends Model
     public function discount_treatments()
     {
         return $this->hasMany(Discount_Treatments::class, 'treatment_id', 'id');
+    }
+
+    public function treatment_categories()
+    {
+        return $this->belongsTo(TreatmentCategories::class, 'treatment_category_id', 'id');
     }
 
     public function getTreatmentById($id)

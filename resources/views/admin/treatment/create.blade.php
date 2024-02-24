@@ -11,6 +11,7 @@
                 @csrf
                 <div class="space-y-6">
                     <x-input id="name" label="Nama" name="name" required />
+                    <x-input id="code" label="Kode" name="code" required />
                     <div>
                         <p>Jenis</p>
                         <div class="flex flex-wrap gap-6 mt-6">
@@ -49,7 +50,19 @@
                             <option value="0">Tidak</option>
                         </select>
                     </div>
-                    <x-input id="price" label="Harga" name="price" type="number" required />
+                    <div>
+                        <label for="treatment_categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Pilih Kategori Layanan
+                        </label>
+                        <select id="treatment_categories"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            name="treatment_category_id">
+                            @foreach ($treatment_categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->category }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <x-input format="nominal" id="price" label="Harga" name="price" type="text" required />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Tambah Layanan</x-button>

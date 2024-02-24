@@ -6,13 +6,16 @@
     'id' => '',
     'type' => 'text',
     'value' => '',
+    'format' => '',
     'readonly' => '',
+    'step' => false,
 ])
 <div>
     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{ $id }}">
         {{ $label }} {!! $required ? '<span class="text-red-600">*</span>' : '' !!}
     </label>
-    <input type="{{ $type }}" id="{{ $id }}"
+    <input type="{{ $type }}" id="{{ $id }}" data-format="{{ $format }}"
+        {{ $step ? 'step="any"' : '' }}
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary focus:border-primary block w-full p-2.5"
         name="{{ $name }}" value="{{ $value }}" required="{{ $required }}" {{ $readonly }} />
     @if ($tip)

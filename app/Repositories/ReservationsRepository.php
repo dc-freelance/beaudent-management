@@ -4,6 +4,9 @@ namespace App\Repositories;
 
 use App\Interfaces\ReservationsInterface;
 use App\Models\Reservations;
+use Carbon\Carbon;
+
+use function App\Helpers\rupiahFormat;
 
 class ReservationsRepository implements ReservationsInterface
 {
@@ -38,16 +41,73 @@ class ReservationsRepository implements ReservationsInterface
         return $query->get();
     }
 
+    public function datatable_deposit()
+    {
+        $data = $this->reservations->where('deposit_status', 'Waiting')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+        foreach ($data as $reservation) {
+            if ($reservation->deposit != null) {
+                $reservation->deposit = rupiahFormat($reservation->deposit);
+            };
+        };
+        return $data;
+    }
+
+    public function datatable_cancel_deposit()
+    {
+        $data = $this->reservations->where('deposit_status', 'Decline')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
+        foreach ($data as $reservation) {
+            if ($reservation->deposit != null) {
+                $reservation->deposit = rupiahFormat($reservation->deposit);
+            };
+        };
+        return $data;
+    }
+
+    public function datatable_confirm_deposit($date = null)
+    {
+        if ($date === null) {
+            $date = Carbon::now()->format('Y-m-d');
+        };
+
+        $data = $this->reservations->where('deposit_status', 'Confirm')
+            ->where('status', 'Done')
+            ->whereDate('transfer_date', $date)
+            ->orderBy('request_date', 'asc')
+            ->orderBy('request_time', 'asc')
+            ->orderBy('updated_at', 'asc')->get();
+
+        foreach ($data as $reservation) {
+            if ($reservation->deposit != null) {
+                $reservation->deposit = rupiahFormat($reservation->deposit);
+            };
+        };
+
+        return $data;
+    }
+
 
     public function getById($id)
     {
         return $this->reservations->find($id);
     }
 
+    public function deposit($id, $data)
+    {
+        return $this->reservations->find($id)->update([
+            'deposit' => $data['deposit'],
+            'deposit_status' => 'Waiting',
+            'deposit_receipt' => $data['deposit_receipt'],
+            'customer_bank_account' => $data['customer_bank_account'],
+            'customer_bank' => $data['customer_bank'],
+            'customer_bank_account_name' => $data['customer_bank_account_name'],
+            'transfer_date' => $data['transfer_date']
+        ]);
+    }
+
     public function reschedule($id, $data)
     {
         return $this->reservations->find($id)->update([
-            'alasan' => $data['alasan'],
+            'reasons' => $data['reasons'],
             'request_time' => $data['request_time'],
             'request_date' => $data['request_date']
         ]);
@@ -60,10 +120,24 @@ class ReservationsRepository implements ReservationsInterface
         ]);
     }
 
+    public function deposit_cancel($id)
+    {
+        return $this->reservations->find($id)->update([
+            'deposit_status' => 'Decline'
+        ]);
+    }
+
     public function confirm($id)
     {
         return $this->reservations->find($id)->update([
             'status' => 'Done'
+        ]);
+    }
+
+    public function deposit_confirm($id)
+    {
+        return $this->reservations->find($id)->update([
+            'deposit_status' => 'Confirm'
         ]);
     }
 

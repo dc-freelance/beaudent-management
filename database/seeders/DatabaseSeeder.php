@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ItemCategorySeeder::class,
             SupplierSeeder::class,
             ReservationSeeder::class,
+            PaymentMethodsSeeder::class,
+            TransactionSeeder::class,
         ]);
     }
 }
