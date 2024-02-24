@@ -128,9 +128,6 @@
 
     <script>
         let tableChecker = setInterval(() => {
-            const input = document.querySelector('input[type="search"]');
-            input.setAttribute('placeholder', 'Telusuri...');
-            input.classList.add('search-input'); // Tambahkan kelas untuk mengaplikasikan gaya CSS
             const noFt = document.querySelector('.dataTable').classList.remove('no-footer')
             clearInterval(tableChecker)
         }, 500);
