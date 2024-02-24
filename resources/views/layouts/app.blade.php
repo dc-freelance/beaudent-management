@@ -12,9 +12,10 @@
     <link rel="icon" href="{{ asset('assets/application/logo mini.jpeg') }}">
 
     <style>
-        input[type="search"] {
+        input {
             font-size: 0.75rem;
-            width: 250px;
+            width: 300px;
+            border-radius: 30px;
         }
 
         .dataTables_length label select option {
@@ -127,7 +128,11 @@
 
     <script>
         let tableChecker = setInterval(() => {
-            const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri...')
+            const input = document.querySelector('input[type="search"]');
+            input.setAttribute('placeholder', 'Telusuri...');
+            input.classList.add('search-input'); // Tambahkan kelas untuk mengaplikasikan gaya CSS
+            const noFt = document.querySelector('.dataTable').classList.remove('no-footer')
+            clearInterval(tableChecker)
         }, 500);
     </script>
     @stack('js-internal')
