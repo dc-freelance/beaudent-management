@@ -128,20 +128,6 @@
     <script>
         let tableChecker = setInterval(() => {
             const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri...')
-            // const hiddenLabel = document.querySelector('#permissionTable_filter label').innerHTML = document
-            //     .querySelector('#permissionTable_filter label').innerHTML.replace('Search:', '')
-            // const test = document.querySelectorAll('table thead th')
-            // test.forEach(tes => {
-            //     tes.style.border = 'none'
-            // })
-            let toolbars = document.querySelectorAll('.fg-toolbar')
-            toolbars.forEach(toolbar => {
-                if (toolbar) {
-                    toolbar.style.backgroundColor = 'white'
-                    toolbar.style.border = 'none'
-                    clearInterval(tableChecker)
-                }
-            })
         }, 500);
     </script>
     @stack('js-internal')

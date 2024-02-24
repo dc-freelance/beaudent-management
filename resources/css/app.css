@@ -76,10 +76,6 @@ div:where(.swal2-container) .swal2-html-container {
     font-size: 0.875rem;
 }
 
-table thead th {
-    border: none;
-}
-
 .dataTables_paginate {
     background-color: whitesmoke;
     padding: 10px 10px 5px 10px;
@@ -90,6 +86,16 @@ table thead th {
     color: red;
 }
 
-table thead {
+.dataTable thead th {
     border: none;
+}
+
+.dataTable tbody td {
+    border-bottom: 1px solid #dddbdb;
+}
+
+.fg-toolbar {
+    background-color: white;
+    border: none;
+
 }
