@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('medical_record_number');
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('branch_id')->constrained('branches');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
