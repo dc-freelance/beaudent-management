@@ -43,42 +43,4 @@
             </form>
         </x-card-container>
     </div>
-
-    @push('js-internal')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const discountType = document.getElementById('discount_type');
-                const discountInput = document.getElementById('discount');
-
-                function updateDiscountSymbol() {
-                    if (discountType.value === 'Percentage') {
-                        discountInput.value = discountInput.value.replace(/[^0-9]/g, '');
-                        discountInput.setAttribute('placeholder', '0%');
-                    } else if (discountType.value === 'Nominal') {
-                        discountInput.value = discountInput.value.replace(/[^0-9]/g, '');
-                        discountInput.setAttribute('placeholder', 'Rp. 0');
-                    }
-                }
-
-                updateDiscountSymbol();
-
-                discountType.addEventListener('change', function() {
-                    updateDiscountSymbol();
-                });
-
-                discountInput.addEventListener('input', function() {
-                    if (discountType.value === 'Percentage') {
-                        if (parseInt(this.value) > 100) {
-                            this.value = '100';
-                        }
-                        this.value = this.value.replace(/\D/g, '') + '%';
-                    } else if (discountType.value === 'Nominal') {
-                        this.value = 'Rp. ' + this.value.replace(/\D/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-                    }
-                });
-            });
-
-        </script>
-    @endpush
-
 </x-app-layout>
