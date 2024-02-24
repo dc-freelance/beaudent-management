@@ -25,16 +25,6 @@
             margin-bottom: 10px;
             margin-left: auto;
         }
-
-        .dataTables_paginate {
-            background-color: whitesmoke;
-            padding: 10px 10px 5px 10px;
-            border-radius: 15px;
-        }
-
-        .dataTables_paginate a {
-            color: red;
-        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -140,10 +130,10 @@
             const input = document.querySelector('input[type="search"]').setAttribute('placeholder', 'Telusuri...')
             // const hiddenLabel = document.querySelector('#permissionTable_filter label').innerHTML = document
             //     .querySelector('#permissionTable_filter label').innerHTML.replace('Search:', '')
-            const test = document.querySelectorAll('table thead th')
-            test.forEach(tes => {
-                tes.style.border = 'none'
-            })
+            // const test = document.querySelectorAll('table thead th')
+            // test.forEach(tes => {
+            //     tes.style.border = 'none'
+            // })
             let toolbars = document.querySelectorAll('.fg-toolbar')
             toolbars.forEach(toolbar => {
                 if (toolbar) {

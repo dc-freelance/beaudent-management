@@ -22,6 +22,7 @@
 .swal2-html-container {
     @apply text-xs 2xl:text-sm;
 }
+
 div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
     @apply bg-primary rounded-md text-sm;
 }
@@ -34,12 +35,6 @@ div:where(.swal2-container) .swal2-html-container {
     @apply text-base;
 }
 
-.dataTables_length select {
-    width: 4rem;
-    margin: 0 0.5rem;
-    font-size: 0.875rem;
-}
-
 /* SELECT 2 */
 
 .select2-container--default .select2-selection--single {
@@ -50,15 +45,11 @@ div:where(.swal2-container) .swal2-html-container {
     @apply p-2.5 h-10 flex items-center;
 }
 
-.select2-container--default
-    .select2-selection--single
-    .select2-selection__arrow {
+.select2-container--default .select2-selection--single .select2-selection__arrow {
     @apply h-10;
 }
 
-.select2-container--default
-    .select2-selection--single
-    .select2-selection__rendered {
+.select2-container--default .select2-selection--single .select2-selection__rendered {
     @apply px-0 text-sm;
 }
 
@@ -70,7 +61,35 @@ div:where(.swal2-container) .swal2-html-container {
     @apply bg-primary text-white;
 }
 
-.select2-container--default
-    .select2-results__option--highlighted[aria-selected] {
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
     @apply bg-primary text-white;
+}
+
+/* datatable */
+.tombol {
+    background-color: forestgreen;
+}
+
+.dataTables_length select {
+    width: 4rem;
+    margin: 0 0.5rem;
+    font-size: 0.875rem;
+}
+
+table thead th {
+    border: none;
+}
+
+.dataTables_paginate {
+    background-color: whitesmoke;
+    padding: 10px 10px 5px 10px;
+    border-radius: 15px;
+}
+
+.dataTables_paginate a {
+    color: red;
+}
+
+table thead {
+    border: none;
 }

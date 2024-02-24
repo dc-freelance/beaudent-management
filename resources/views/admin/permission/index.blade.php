@@ -6,12 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.permission.create') }}" color="green">
+            <x-link-button route="{{ route('admin.permission.create') }}" class="tombol">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Permission
             </x-link-button>
         </div>
-        <table id="permissionTable" class="hover stripe">
+        <table id="permissionTable" class="hover">
             <thead>
                 <tr>
                     <th>#</th>
