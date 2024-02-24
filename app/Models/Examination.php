@@ -49,4 +49,14 @@ class Examination extends Model
     {
         return $this->hasMany(OdontogramResult::class);
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    public function addonTransactions()
+    {
+        return $this->hasMany(AddonTransaction::class);
+    }
 }

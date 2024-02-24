@@ -33,4 +33,14 @@ class Doctor extends Model
     {
         return $this->hasMany(Transaction::class, 'doctor_id');
     }
+
+    public function examination()
+    {
+        return $this->hasMany(Examination::class, 'doctor_id');
+    }
+
+    public function addonTransaction()
+    {
+        return $this->hasMany(AddonTransaction::class, 'doctor_id');
+    }
 }
