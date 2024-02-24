@@ -39,4 +39,14 @@ class Examination extends Model
     {
         return $this->belongsTo(MedicalRecord::class);
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customers::class);
+    }
+
+    public function odontogramResults()
+    {
+        return $this->hasMany(OdontogramResult::class);
+    }
 }

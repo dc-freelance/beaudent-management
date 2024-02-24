@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ReservationSeeder::class,
             PaymentMethodsSeeder::class,
             TransactionSeeder::class,
+            OdontogramSeeder::class,
         ]);
     }
 }
