@@ -15,4 +15,9 @@ class Addon extends Model
     protected $table = 'addons';
     protected $primaryKey = 'id';
     protected $guarded = [];
+
+    public function addonTransaction()
+    {
+        return $this->hasMany(AddonTransaction::class);
+    }
 }

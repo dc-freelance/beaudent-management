@@ -11,7 +11,7 @@ class Examination extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'transaction_id',
+        'reservation_id',
         'medical_record_id',
         'customer_id',
         'examination_date',
@@ -30,9 +30,9 @@ class Examination extends Model
         'foods', // if alergies to food fill this
     ];
 
-    public function transaction()
+    public function reservation()
     {
-        return $this->belongsTo(Transaction::class);
+        return $this->belongsTo(Reservations::class);
     }
 
     public function medicalRecord()
@@ -48,5 +48,15 @@ class Examination extends Model
     public function odontogramResults()
     {
         return $this->hasMany(OdontogramResult::class);
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    public function addonTransactions()
+    {
+        return $this->hasMany(AddonTransaction::class);
     }
 }

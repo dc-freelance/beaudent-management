@@ -62,7 +62,7 @@ class OdontogramSeeder extends Seeder
             ],
             [
                 'name'        => 'Attrition',
-                'symbol'      => '',
+                'symbol'      => 'att',
                 'description' => 'Gigi mengalami keausan di mahkota karena gesekan',
                 'placement'   => 'full',
                 'is_outside'  => 'yes',
@@ -242,6 +242,13 @@ class OdontogramSeeder extends Seeder
                 'placement'   => 'full',
                 'is_outside'  => 'no',
             ],
+            [
+                'name'        => 'Missing Pontic Porcelain Bridge',
+                'symbol'      => 'mis-pon-pob',
+                'description' => 'Gigi hilang, pontic, porcelain bridge',
+                'placement'   => 'full',
+                'is_outside'  => 'no',
+            ]
         ];
 
         Odontogram::insert($odontograms);
