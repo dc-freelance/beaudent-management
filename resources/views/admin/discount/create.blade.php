@@ -74,6 +74,15 @@
             $(function() {
                 $('#discount').on('input', function() {
                     this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                    let value = $(this).val();
+                    if (parseFloat(value) > 100) {
+                        $(this).val('');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Nilai tidak boleh lebih dari 100',
+                        });
+                    }
                 });
 
                 let tipPercentageTag = '<p class="mt-2 text-gray-500">Gunakan . (titik) untuk desimal</p>';
