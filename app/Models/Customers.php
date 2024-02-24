@@ -28,4 +28,9 @@ class Customers extends Model
     {
         return $this->hasOne(MedicalRecord::class, 'customer_id', 'id');
     }
+
+    public function examinations()
+    {
+        return $this->hasMany(Examination::class, 'customer_id', 'id');
+    }
 }
