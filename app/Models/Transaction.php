@@ -20,10 +20,6 @@ class Transaction extends Model
         return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 
-    public function reservation()
-    {
-        return $this->belongsTo(Reservations::class, 'reservation_id', 'id');
-    }
 
     public function doctor()
     {
