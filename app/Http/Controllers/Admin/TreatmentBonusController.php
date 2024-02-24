@@ -39,9 +39,9 @@ class TreatmentBonusController extends Controller
                 })
                 ->addColumn('bonus_rate', function ($data) {
                     if ($data->bonus_type == 'percentage') {
-                        return number_format($data->bonus_rate, 1).' %';
+                        return number_format($data->bonus_rate, 1) . ' %';
                     } else {
-                        return 'Rp '.number_format($data->bonus_rate, 0, ',', '.');
+                        return 'Rp ' . number_format($data->bonus_rate, 0, ',', '.');
                     }
                 })
                 ->addColumn('action', function ($data) {
@@ -68,7 +68,7 @@ class TreatmentBonusController extends Controller
             'treatment_id' => 'required|exists:treatments,id',
             'doctor_category_id' => 'required|exists:doctor_categories,id',
             'bonus_type' => 'required|in:percentage,nominal',
-            'bonus_rate' => 'required|numeric',
+            'bonus_rate' => 'required',
         ]);
 
         try {
@@ -95,7 +95,7 @@ class TreatmentBonusController extends Controller
             'treatment_id' => 'required|exists:treatments,id',
             'doctor_category_id' => 'required|exists:doctor_categories,id',
             'bonus_type' => 'required|in:percentage,nominal',
-            'bonus_rate' => 'required|numeric',
+            'bonus_rate' => 'required',
         ]);
 
         try {
