@@ -18,8 +18,8 @@
                         <select id="discount_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                             name="discount_type">
-                            <option value="Percentage">Persentase</option>
-                            <option value="Nominal">Nominal</option>
+                            <option value="percentage">Persentase</option>
+                            <option value="nominal">Nominal</option>
                         </select>
                     </div>
                     <x-input id="discount" label="Diskon" name="discount" type="text" required />
@@ -43,4 +43,65 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            function percentageInput() {
+                $('#discount').on('input', function() {
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                });
+                $('#discount').on('input', function() {
+                    if (parseFloat($(this).val()) > 100) {
+                        $(this).val('');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Nilai tidak boleh lebih dari 100',
+                        });
+                    }
+                });
+            }
+
+            function nominalInput() {
+                $('#discount').on('input', function() {
+                    var value = $(this).val();
+                    value = value.replace(/\D/g, '');
+                    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                    $(this).val(value);
+                });
+            }
+
+            $(function() {
+                $('#discount').on('input', function() {
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                    let value = $(this).val();
+                    if (parseFloat(value) > 100) {
+                        $(this).val('');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Nilai tidak boleh lebih dari 100',
+                        });
+                    }
+                });
+
+                let tipPercentageTag = '<p class="mt-2 text-gray-500">Gunakan . (titik) untuk desimal</p>';
+                let tipNominalTag = '<p class="mt-2 text-gray-500">Hanya angka</p>';
+
+                $('#discount_type').on('change', function() {
+                    $('#discount').val('');
+                    $('#discount').off('input');
+                    if ($(this).val() == 'percentage') {
+                        $('#discount').next().remove();
+                        $('#discount').after(tipPercentageTag);
+                        percentageInput();
+                    } else {
+                        $('#discount').next().remove();
+                        $('#discount').after(tipNominalTag);
+                        nominalInput();
+                    }
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>
