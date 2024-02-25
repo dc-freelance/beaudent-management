@@ -8,23 +8,25 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([
-            RoleSeeder::class,
-            ConfigShiftSeeder::class,
-            BranchSeeder::class,
-            DoctorCategorySeeder::class,
-            DoctorSeeder::class,
-            DoctorScheduleSeeder::class,
-            TreatmentSeeder::class,
-            UserSeeder::class,
-            CustomerSeeder::class,
-            PermissionSeeder::class,
-            ItemCategorySeeder::class,
-            SupplierSeeder::class,
-            ReservationSeeder::class,
-            PaymentMethodsSeeder::class,
-            TransactionSeeder::class,
-            OdontogramSeeder::class,
-        ]);
+        // $this->call([
+        //     RoleSeeder::class,
+        //     ConfigShiftSeeder::class,
+        //     BranchSeeder::class,
+        //     DoctorCategorySeeder::class,
+        //     DoctorSeeder::class,
+        //     DoctorScheduleSeeder::class,
+        //     TreatmentSeeder::class,
+        //     UserSeeder::class,
+        //     CustomerSeeder::class,
+        //     PermissionSeeder::class,
+        //     ItemCategorySeeder::class,
+        //     SupplierSeeder::class,
+        //     ReservationSeeder::class,
+        //     PaymentMethodsSeeder::class,
+        //     TransactionSeeder::class,
+        //     OdontogramSeeder::class,
+        // ]);
+
+        // \App\Models\Item::factory(100)->create();
     }
 }
