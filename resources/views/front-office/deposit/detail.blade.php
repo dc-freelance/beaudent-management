@@ -2,15 +2,12 @@
     @php
         $breadcrumb = [['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Detail Deposit', 'url' => '']];
 
-        if ($data->status === 'Reservations') {
-            $breadcrumb[1]['name'] = 'Menunggu Konfirmasi';
+        if ($data->status === 'Waiting Deposit') {
+            $breadcrumb[1]['name'] = 'Menunggu Pembayaran Deposit';
+            $breadcrumb[1]['url'] = route('front-office.deposit.wait_depo.index');
+        } elseif ($data->status === 'Pending Deposit') {
+            $breadcrumb[1]['name'] = 'Menunggu Konfirmasi Pembayaran';
             $breadcrumb[1]['url'] = route('front-office.deposit.wait.index');
-        } elseif ($data->status === 'Cancel') {
-            $breadcrumb[1]['name'] = 'Deposit Dibatalkan';
-            $breadcrumb[1]['url'] = 'front-office.deposit.cancel.index';
-        } else {
-            $breadcrumb[1]['name'] = 'Deposit Terkonfirmasi';
-            $breadcrumb[1]['url'] = 'front-office.deposit.confirm.index';
         }
     @endphp
 
@@ -87,11 +84,11 @@
                 </tr>
             </table>
 
-            @if ($data->deposit_status === 'Waiting')
+            @if ($data->status === 'Pending Deposit')
                 <div class="flex justify-center mt-4">
-                    <x-button-action route="{{ route('front-office.deposit.detail.cancel', $data->id) }}"
+                    <x-button-action route="{{ route('front-office.reservations.detail.cancel', $data->id) }}"
                         color="red">
-                        Batalkan Pembayaran
+                        Batalkan Reservasi
                     </x-button-action>
                     <x-button-action route="{{ route('front-office.deposit.detail.confirm', $data->id) }}"
                         color="green">

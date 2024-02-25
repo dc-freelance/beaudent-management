@@ -47,7 +47,7 @@ class ReservationsController extends Controller
         try {
             $data = $request->all();
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
-            $data['status'] = 'Reservation';
+            $data['status'] = 'Pending';
 
             $reservation = $this->reservation_model->create($data);
 

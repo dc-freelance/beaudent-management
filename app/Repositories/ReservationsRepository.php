@@ -17,72 +17,22 @@ class ReservationsRepository implements ReservationsInterface
         $this->reservations = $reservations;
     }
 
-    public function datatable_reservations()
+    public function datatable_reservations($date = null, $status = null)
     {
-        return $this->reservations->where('status', 'Reservation')->orderBy('created_at', 'desc')->get();
-    }
-
-    public function datatable_cancel_reservations()
-    {
-        return $this->reservations->where('status', 'Cancel')->orderBy('updated_at', 'desc')->get();
-    }
-
-    public function datatable_confirm_reservations($date = null)
-    {
-        $query = $this->reservations->where('status', 'Done')
+        $query = $this->reservations->where('status', $status)
+            ->whereDate('request_date', $date)
             ->orderBy('request_date', 'asc')
-            ->orderBy('request_time', 'asc')
-            ->orderBy('updated_at', 'asc');
+            ->orderBy('request_time', 'asc')->get();
 
-        if ($date) {
-            $query->whereDate('request_date', $date);
-        }
-
-        return $query->get();
-    }
-
-    public function datatable_deposit()
-    {
-        $data = $this->reservations->where('deposit_status', 'Waiting')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
-        foreach ($data as $reservation) {
-            if ($reservation->deposit != null) {
-                $reservation->deposit = rupiahFormat($reservation->deposit);
-            };
-        };
-        return $data;
-    }
-
-    public function datatable_cancel_deposit()
-    {
-        $data = $this->reservations->where('deposit_status', 'Decline')->where('status', 'Done')->orderBy('updated_at', 'desc')->get();
-        foreach ($data as $reservation) {
-            if ($reservation->deposit != null) {
-                $reservation->deposit = rupiahFormat($reservation->deposit);
-            };
-        };
-        return $data;
-    }
-
-    public function datatable_confirm_deposit($date = null)
-    {
-        if ($date === null) {
-            $date = Carbon::now()->format('Y-m-d');
-        };
-
-        $data = $this->reservations->where('deposit_status', 'Confirm')
-            ->where('status', 'Done')
-            ->whereDate('transfer_date', $date)
-            ->orderBy('request_date', 'asc')
-            ->orderBy('request_time', 'asc')
-            ->orderBy('updated_at', 'asc')->get();
-
-        foreach ($data as $reservation) {
-            if ($reservation->deposit != null) {
-                $reservation->deposit = rupiahFormat($reservation->deposit);
+        if ($query) {
+            foreach ($query as $reservation) {
+                if ($reservation->deposit != null) {
+                    $reservation->deposit = rupiahFormat($reservation->deposit);
+                };
             };
         };
 
-        return $data;
+        return $query;
     }
 
 
@@ -95,7 +45,7 @@ class ReservationsRepository implements ReservationsInterface
     {
         return $this->reservations->find($id)->update([
             'deposit' => $data['deposit'],
-            'deposit_status' => 'Waiting',
+            'status' => 'Pending Deposit',
             'deposit_receipt' => $data['deposit_receipt'],
             'customer_bank_account' => $data['customer_bank_account'],
             'customer_bank' => $data['customer_bank'],
@@ -120,24 +70,24 @@ class ReservationsRepository implements ReservationsInterface
         ]);
     }
 
-    public function deposit_cancel($id)
-    {
-        return $this->reservations->find($id)->update([
-            'deposit_status' => 'Decline'
-        ]);
-    }
-
     public function confirm($id)
     {
-        return $this->reservations->find($id)->update([
-            'status' => 'Done'
-        ]);
+        $reservation = $this->reservations->find($id);
+
+        $reservation->is_control == 1 ?
+            $reservation->update([
+                'status' => 'Confirm'
+            ])
+            :
+            $reservation->update([
+                'status' => 'Waiting Deposit'
+            ]);
     }
 
     public function deposit_confirm($id)
     {
         return $this->reservations->find($id)->update([
-            'deposit_status' => 'Confirm'
+            'status' => 'Confirm'
         ]);
     }
 
