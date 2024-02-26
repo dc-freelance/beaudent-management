@@ -18,7 +18,16 @@ class RegistrationController extends Controller
     public function __invoke(StoreRegistrationRequest $request)
     {
         try {
-            $customer = $this->customer_model->create($request->all());
+            $data = $request->all();
+            $data['phone_number'] = str_replace('.', '',  str_replace('-', '', str_replace('+', '', $data['phone_number'])));
+            if (substr($data['phone_number'], 0, 2) == '62') {
+                $data['phone_number'] = substr($data['phone_number'], 2, strlen($data['phone_number']));
+            };
+            if (substr($data['phone_number'], 0, 1) == '0') {
+                $data['phone_number'] = substr($data['phone_number'], 1, strlen($data['phone_number']));
+            };
+
+            $customer = $this->customer_model->create($data);
 
             return response()->json([
                 'status' => 200,
