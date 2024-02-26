@@ -33,6 +33,11 @@ class CustomerController extends Controller
                 ->addColumn('date_of_birth', function ($data) {
                     return Carbon::parse($data->date_of_birth)->locale('id')->isoFormat('LL');
                 })
+                ->addColumn('age', function ($data) {
+                    $now = Carbon::now();
+                    $old = $now->diffInYears($data->date_of_birth);
+                    return $old.' Tahun';
+                })
                 ->addColumn('gender', function ($data) {
                     $parse_gender = $data->gender == 'Male' ? 'Laki-laki' : 'Perempuan';
                     return $parse_gender;

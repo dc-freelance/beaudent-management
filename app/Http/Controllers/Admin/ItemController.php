@@ -78,6 +78,9 @@ class ItemController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'hpp' => str_replace(['Rp.', '.', ','], '', $request->input('hpp'))
+            ]);
             $this->item->store($request->all());
 
             return redirect()->route('admin.item.index')->with('success', 'Data berhasil disimpan');
@@ -107,6 +110,10 @@ class ItemController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'hpp' => str_replace(['Rp.', '.', ','], '', $request->input('hpp'))
+            ]);
+            $this->item->store($request->all());
             $this->item->update($id, $request->all());
 
             return redirect()->route('admin.item.index')->with('success', 'Data berhasil diubah');
