@@ -38,5 +38,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'read product']);
         Permission::create(['name' => 'update product']);
         Permission::create(['name' => 'delete product']);
+
+        //Front Office
+        Permission::create(['name' => 'Reservation']);
+        Permission::create(['name' =>'Shift Log']);
+        Permission::create(['name' => 'Deposit']);
     }
 }

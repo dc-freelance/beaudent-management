@@ -77,7 +77,7 @@
                     active="{{ request()->routeIs('admin.payment-methods.*') }}" />
             @endrole
 
-            @role('frontoffice')
+            @can('Reservation')
                 <x-sidebar-dropdown title="Manajemen Reservasi" icon="fas fa-calendar" toggle="master-reservasi"
                     active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') }}">
                     <x-sidebar-submenu name="Menunggu Konfirmasi"
@@ -93,6 +93,8 @@
                         active="{{ request()->routeIs('front-office.reservations.cancel.*') }}"
                         icon="fas fa-calendar-times" />
                 </x-sidebar-dropdown>
+            @endcan
+            @can('Deposit')
                 <x-sidebar-dropdown title="Manajemen Deposit" icon="fas fa-money-check-dollar" toggle="master-deposit"
                     active="{{ request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') || request()->routeIs('front-office.deposit.cancel.*') }}">
                     <x-sidebar-submenu name="Menunggu Konfirmasi" route="{{ route('front-office.deposit.wait.index') }}"
@@ -104,6 +106,8 @@
                         active="{{ request()->routeIs('front-office.deposit.cancel.*') }}"
                         icon="fas fa-calendar-times" />
                 </x-sidebar-dropdown>
+            @endcan
+            @can('Shift Log')
                 <x-sidebar-dropdown title="Manajemen Sesi" icon="fas fa-clock" toggle="shift"
                         active="{{ request()->routeIs('front-office.shift-log.*') }}">
                         <x-sidebar-submenu name="Buka Sesi" route="{{ route('front-office.shift-log.open-shift') }}"
@@ -113,7 +117,7 @@
                         <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
                             active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
                 </x-sidebar-dropdown>
-            @endrole
+            @endcan
             <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
