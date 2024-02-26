@@ -6,10 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.doctor-schedule.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Jadwal Dokter
-            </x-link-button>
+            @can('create doctor schedule')
+                <x-link-button route="{{ route('admin.doctor-schedule.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Jadwal Dokter
+                </x-link-button>
+            @endcan
         </div>
         <table id="doctorScheduleTable">
             <thead>

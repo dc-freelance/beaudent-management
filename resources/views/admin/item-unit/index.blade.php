@@ -6,10 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.item-unit.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Satuan Barang
-            </x-link-button>
+            @can('create item unit')
+                <x-link-button route="{{ route('admin.item-unit.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Satuan Barang
+                </x-link-button>
+            @endcan
         </div>
         <table id="itemUnitTable">
             <thead>

@@ -7,10 +7,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.supplier.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Pemasok
-            </x-link-button>
+            @can('create supplier')
+                <x-link-button route="{{ route('admin.supplier.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Pemasok
+                </x-link-button>
+            @endcan
         </div>
         <table id="supplierTable">
             <thead>

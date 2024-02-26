@@ -9,16 +9,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            RoleSeeder::class,
             ConfigShiftSeeder::class,
             BranchSeeder::class,
             DoctorCategorySeeder::class,
             DoctorSeeder::class,
             DoctorScheduleSeeder::class,
             TreatmentSeeder::class,
-            UserSeeder::class,
             CustomerSeeder::class,
             PermissionSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
             ItemCategorySeeder::class,
             SupplierSeeder::class,
             ReservationSeeder::class,
