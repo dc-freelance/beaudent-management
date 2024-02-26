@@ -45,7 +45,6 @@ class StoreReservationRequest extends FormRequest
             'request_time.required' => 'Waktu kunjungan harus diisi',
             'anamnesis.required' => 'Masalah mulut harus diisi',
             'customer_id.required' => 'ID pelanggan harus diisi',
-            'deposit_status.required' => 'Status deposit harus diisi',
             'treatment_id.required' => 'Harap memilih layanan',
             'is_control.required' => 'Harap memasukkan jenis',
         ];

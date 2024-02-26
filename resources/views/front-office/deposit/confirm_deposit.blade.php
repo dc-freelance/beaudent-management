@@ -4,7 +4,7 @@
         ['name' => 'Deposit Terkonfirmasi', 'url' => route('front-office.deposit.confirm.index')],
     ]" title="Deposit Terkonfirmasi" />
 
-    <x-card-container>
+    <x-tab-container>
         <div class="flex justify-between items-center mb-4">
             <div>
                 <label for="datepicker" class="text-sm font-medium text-gray-500 mr-2">Pilih Tanggal Transfer:</label>
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
         </table>
-    </x-card-container>
+    </x-tab-container>
 
     @push('js-internal')
         <script>

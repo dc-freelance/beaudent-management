@@ -4,7 +4,14 @@
         ['name' => 'Reservasi Dibatalkan', 'url' => route('front-office.reservations.cancel.index')],
     ]" title="Reservasi Dibatalkan" />
 
-    <x-card-container>
+    <x-tab-container>
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <label for="datepicker" class="text-sm font-medium text-gray-500 mr-2">Pilih Tanggal Kunjungan:</label>
+                <input type="date" id="datepicker" name="date" class="border border-gray-200 rounded px-2 py-1">
+            </div>
+        </div>
+
         <table id="reservationsTable">
             <thead>
                 <tr>
@@ -19,10 +26,20 @@
                 </tr>
             </thead>
         </table>
-    </x-card-container>
+    </x-tab-container>
 
     @push('js-internal')
         <script>
+            var today = new Date();
+
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+
+            document.getElementById('datepicker').value = today;
+
             function btnDelete(_id, _name) {
                 let url = "{{ route('front-office.reservations.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
@@ -75,12 +92,16 @@
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('front-office.reservations.cancel.index') }}',
+                    ajax: {
+                        url: '{{ route('front-office.reservations.cancel.index') }}',
+                        data: function(d) {
+                            d.date = $('#datepicker').val();
+                        }
+                    },
                     columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
+                            data: 'id',
+                            name: 'id'
+                        }, {
                             data: 'no',
                             name: 'no'
                         },
@@ -109,7 +130,14 @@
                             data: 'action',
                             name: 'action'
                         },
-                    ]
+                    ],
+                    createdRow: function(row, data, index) {
+                        $('td', row).eq(0).html(index + 1);
+                    }
+                });
+
+                $('#datepicker').change(function() {
+                    $('#reservationsTable').DataTable().ajax.reload();
                 });
             });
 

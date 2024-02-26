@@ -9,6 +9,7 @@ use App\Http\Requests\API\Reservation\StoreReservationRequest;
 use App\Interfaces\BranchInterface;
 use App\Interfaces\ReservationsInterface;
 use App\Interfaces\TreatmentInterface;
+use App\Models\ConfigShift;
 use App\Models\Customers;
 use App\Models\Reservations;
 use Carbon\Carbon;
@@ -28,6 +29,8 @@ class ReservationsController extends Controller
 
     private $reservation;
 
+    private $shift;
+
     public function __construct(TreatmentInterface $treatment, BranchInterface $branch, ReservationsInterface $reservation)
     {
         $this->reservation_model = new Reservations();
@@ -35,6 +38,7 @@ class ReservationsController extends Controller
         $this->branch = $branch;
         $this->customer = new Customers();
         $this->reservation = $reservation;
+        $this->shift = new ConfigShift();
     }
 
     public function index()
@@ -47,7 +51,7 @@ class ReservationsController extends Controller
         try {
             $data = $request->all();
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
-            $data['status'] = 'Reservation';
+            $data['status'] = 'Pending';
 
             $reservation = $this->reservation_model->create($data);
 
@@ -124,6 +128,28 @@ class ReservationsController extends Controller
             return response()->json([
                 'code' => 500,
                 'error' => 'Tidak dapat mengambil data cabang',
+            ]);
+        }
+    }
+
+    public function shift()
+    {
+        try {
+            $start = $this->shift->orderBy('start_time', 'asc')->first();
+            $end = $this->shift->orderBy('end_time', 'desc')->first();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Berhasil mengambil data shift',
+                'start_h' => Carbon::parse($start->start_time)->format('H'),
+                'start_m' => Carbon::parse($start->start_time)->format('i'),
+                'end_h' => Carbon::parse($end->end_time)->format('H'),
+                'end_m' => Carbon::parse($end->end_time)->format('i')
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 500,
+                'error' => 'Tidak dapat mengambil data shift',
             ]);
         }
     }

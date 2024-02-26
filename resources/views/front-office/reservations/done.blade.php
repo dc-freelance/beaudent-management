@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Reservasi Terkonfirmasi', 'url' => route('front-office.reservations.confirm.index')],
-    ]" title="Reservasi Terkonfirmasi" />
+        ['name' => 'Reservasi Selesai', 'url' => route('front-office.reservations.done.index')],
+    ]" title="Reservasi Selesai" />
 
     <x-tab-container>
         <div class="flex justify-between items-center mb-4">
@@ -93,7 +93,7 @@
                     autoWidth: false,
                     responsive: true,
                     ajax: {
-                        url: '{{ route('front-office.reservations.confirm.index') }}',
+                        url: '{{ route('front-office.reservations.done.index') }}',
                         data: function(d) {
                             d.date = $('#datepicker').val();
                         }
@@ -101,8 +101,7 @@
                     columns: [{
                             data: 'id',
                             name: 'id'
-                        },
-                        {
+                        }, {
                             data: 'no',
                             name: 'no'
                         },
