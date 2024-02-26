@@ -141,8 +141,10 @@ class ReservationsController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil mengambil data shift',
-                'start' => $start->start_time,
-                'end' => $end->end_time,
+                'start_h' => Carbon::parse($start->start_time)->format('H'),
+                'start_m' => Carbon::parse($start->start_time)->format('i'),
+                'end_h' => Carbon::parse($end->end_time)->format('H'),
+                'end_m' => Carbon::parse($end->end_time)->format('i')
             ]);
         } catch (\Throwable $th) {
             return response()->json([
