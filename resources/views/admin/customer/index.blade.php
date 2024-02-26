@@ -19,6 +19,7 @@
                     <th>Nomor Telpon</th>
                     <th>Surel</th>
                     <th>Tanggal Lahir</th>
+                    <th>Usia</th>
                     <th>Jenis Kelamin</th>
                     <th>Alamat</th>
                     <th>Aksi</th>
@@ -101,6 +102,10 @@
                         {
                             data: 'date_of_birth',
                             name: 'date_of_birth'
+                        },
+                        {
+                            data: 'age',
+                            name: 'age'
                         },
                         {
                             data: 'gender',

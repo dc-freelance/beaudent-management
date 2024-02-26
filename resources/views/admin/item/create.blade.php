@@ -36,9 +36,9 @@
                         </select>
                     </div>
                     <x-input id="total_stock" label="Total Stok" name="total_stock" type="number" required />
-                    <x-input id="hpp" label="HPP" name="hpp" type="number" required />
+                    <x-input id="hpp" label="HPP" name="hpp" type="text" placeholder="Rp." required />
                     <div>
-                        <p>Status Pernikahan :</p>
+                        <p>Tipe Barang :</p>
                         <div class="mt-2">
                             <select id="type" name="type" class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                                 <option value="Medicine">Obat</option>
@@ -53,4 +53,17 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var hppInput = document.getElementById('hpp');
+                hppInput.addEventListener('input', function(event) {
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
+                });
+            });
+        </script>    
+    @endpush
 </x-app-layout>

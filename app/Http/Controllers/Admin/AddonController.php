@@ -58,6 +58,9 @@ class AddonController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
+            ]);
             $this->addon->store($request->all());
 
             return redirect()->route('admin.addon.index')->with('success', 'Data berhasil disimpan');
@@ -82,6 +85,9 @@ class AddonController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
+            ]);
             $this->addon->update($id, $request->all());
 
             return redirect()->route('admin.addon.index')->with('success', 'Data berhasil diubah');
