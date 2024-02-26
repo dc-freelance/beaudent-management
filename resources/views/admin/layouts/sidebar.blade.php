@@ -41,7 +41,7 @@
                         active="{{ request()->routeIs('admin.doctor-schedule.*') }}" icon="fas fa-calendar-plus" />
                 </x-sidebar-dropdown>
                 <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
-                    active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') || request()->routeIs('admin.addon.*')}}">
+                    active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') || request()->routeIs('admin.addon.*') }}">
                     <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
                         active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
                     <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
@@ -72,12 +72,12 @@
                 <x-sidebar-item name="Konfigurasi Shift" icon="fas fa-clock"
                     route="{{ route('admin.config-shift.index') }}"
                     active="{{ request()->routeIs('admin.config-shift.*') }}" />
-                <x-sidebar-item name="Manajemen Metode Pembayaran" icon="fab fa-cc-mastercard" 
+                <x-sidebar-item name="Manajemen Metode Pembayaran" icon="fab fa-cc-mastercard"
                     route="{{ route('admin.payment-methods.index') }}"
                     active="{{ request()->routeIs('admin.payment-methods.*') }}" />
             @endrole
 
-            @role('frontoffice')
+            {{-- @role('frontoffice')
                 <x-sidebar-dropdown title="Manajemen Reservasi" icon="fas fa-calendar" toggle="master-reservasi"
                     active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') }}">
                     <x-sidebar-submenu name="Menunggu Konfirmasi"
@@ -113,6 +113,11 @@
                         <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
                             active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
                 </x-sidebar-dropdown>
+            @endrole --}}
+            @role('frontoffice')
+                <x-sidebar-item name="Manajemen Reservasi" icon="fas fa-calendar"
+                    route="{{ route('front-office.reservations.wait.index') }}"
+                    active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') || request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') }}" />
             @endrole
             <li>
                 <form action="{{ route('logout') }}" method="POST">

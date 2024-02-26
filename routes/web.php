@@ -224,6 +224,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.wait.detail');
         });
 
+        Route::group(['prefix' => 'done'], function () {
+            Route::get('/', [ReservationsController::class, 'done'])->name('front-office.reservations.done.index');
+        });
+
         Route::group(['prefix' => 'confirm'], function () {
             Route::get('/', [ReservationsController::class, 'confirm_reservations'])->name('front-office.reservations.confirm.index');
             Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.confirm.detail');
@@ -258,6 +262,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::group(['prefix' => 'wait'], function () {
             Route::get('/', [ReservationsController::class, 'deposit'])->name('front-office.deposit.wait.index');
             Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.wait.detail');
+        });
+
+        Route::group(['prefix' => 'wait_deposit'], function () {
+            Route::get('/', [ReservationsController::class, 'wait_deposit'])->name('front-office.deposit.wait_depo.index');
         });
 
         Route::group(['prefix' => 'confirm'], function () {

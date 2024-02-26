@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Reservasi Terkonfirmasi', 'url' => route('front-office.reservations.confirm.index')],
-    ]" title="Reservasi Terkonfirmasi" />
+        ['name' => 'Menunggu Pembayaran Deposit', 'url' => route('front-office.deposit.wait_depo.index')],
+    ]" title="Menunggu Pembayaran Deposit" />
 
     <x-tab-container>
         <div class="flex justify-between items-center mb-4">
@@ -86,6 +86,52 @@
                 });
             }
 
+            function btnDelete(_id, _name) {
+                let url = "{{ route('front-office.reservations.delete', ':id') }}".replace(':id', _id);
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: `Reservasi ${_name} akan dihapus!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                if (response.status) {
+                                    Swal.fire(
+                                        'Berhasil!',
+                                        response.message,
+                                        'success'
+                                    ).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Gagal!',
+                                        response.message,
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    xhr.responseJSON.message,
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            }
+
             $(function() {
                 $('#reservationsTable').DataTable({
                     processing: true,
@@ -93,7 +139,7 @@
                     autoWidth: false,
                     responsive: true,
                     ajax: {
-                        url: '{{ route('front-office.reservations.confirm.index') }}',
+                        url: '{{ route('front-office.deposit.wait_depo.index') }}',
                         data: function(d) {
                             d.date = $('#datepicker').val();
                         }
@@ -101,8 +147,7 @@
                     columns: [{
                             data: 'id',
                             name: 'id'
-                        },
-                        {
+                        }, {
                             data: 'no',
                             name: 'no'
                         },

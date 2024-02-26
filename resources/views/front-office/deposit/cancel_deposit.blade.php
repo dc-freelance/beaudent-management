@@ -4,7 +4,7 @@
         ['name' => 'Deposit Dibatalkan', 'url' => route('front-office.deposit.cancel.index')],
     ]" title="Deposit Dibatalkan" />
 
-    <x-card-container>
+    <x-tab-container>
         <table id="depositTable">
             <thead>
                 <tr>
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
         </table>
-    </x-card-container>
+    </x-tab-container>
 
     @push('js-internal')
         <script>
