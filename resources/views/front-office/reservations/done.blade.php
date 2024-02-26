@@ -7,7 +7,7 @@
     <x-tab-container>
         <div class="flex justify-between items-center mb-4">
             <div>
-                <label for="datepicker" class="text-sm font-medium text-gray-500 mr-2">Filter Tanggal:</label>
+                <label for="datepicker" class="text-sm font-medium text-gray-500 mr-2">Pilih Tanggal Kunjungan:</label>
                 <input type="date" id="datepicker" name="date" class="border border-gray-200 rounded px-2 py-1">
             </div>
         </div>
