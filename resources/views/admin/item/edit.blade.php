@@ -37,9 +37,9 @@
                         </select>
                     </div>
                     <x-input id="total_stock" label="Total Stok" name="total_stock" value="{{ old('total_stock', $data->total_stock) }}" type="number" required />
-                    <x-input id="hpp" label="HPP" name="hpp" type="number" value="{{ old('hpp', $data->hpp) }}" required />
+                    <x-input id="hpp" label="HPP" name="hpp" type="text" value="Rp. {{ number_format(old('hpp', $data->hpp), 0, ',', '.') }}" placeholder="Rp." required />
                     <div>
-                        <p>Status Pernikahan :</p>
+                        <p>Tipe Barang :</p>
                         <div class="mt-2">
                             <select id="type" name="type" class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                                 <option value="Medicine" {{ $data->type == 'Medicine' ? 'selected' : ''}}>Obat</option>
@@ -54,4 +54,17 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var hppInput = document.getElementById('hpp');
+                hppInput.addEventListener('input', function(event) {
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
+                });
+            });
+        </script>    
+    @endpush
 </x-app-layout>
