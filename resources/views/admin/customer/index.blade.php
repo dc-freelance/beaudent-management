@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create customer')
+            @can('create_customer')
                 <x-link-button route="{{ route('admin.customer.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Pasien

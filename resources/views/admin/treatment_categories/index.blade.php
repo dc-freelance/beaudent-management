@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create treatment category')
+            @can('create_treatment_category')
                 <x-link-button route="{{ route('admin.treatment-categories.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Kategori Layanan

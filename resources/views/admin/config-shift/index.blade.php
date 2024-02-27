@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create config shift')
+            @can('create_config_shift')
                 <x-link-button route="{{ route('admin.config-shift.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Konfigurasi Shift

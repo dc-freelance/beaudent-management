@@ -246,7 +246,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     });
 
     // ShiftLog
-    Route::group(['prefix' => 'shift-log', 'middleware' => ['role:frontoffice']], function () {
+    Route::group(['prefix' => 'shift-log', 'middleware' => ['role:telemarketing']], function () {
         Route::get('/open-shift', [ShiftLogController::class, 'open_shift'])->name('front-office.shift-log.open-shift');
         Route::post('/open-shift/create', [ShiftLogController::class, 'open_shift_create'])->name('front-office.shift-log.open-shift-create');
 

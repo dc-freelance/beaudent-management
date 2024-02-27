@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create addon')
+            @can('create_addon')
                 <x-link-button route="{{ route('admin.addon.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Layanan Tambahan

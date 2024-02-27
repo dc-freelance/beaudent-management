@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create user')
+            @can('create_user')
                 <x-link-button route="{{ route('admin.user-management.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Pengguna

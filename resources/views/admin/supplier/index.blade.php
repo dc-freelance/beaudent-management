@@ -7,7 +7,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create supplier')
+            @can('create_supplier')
                 <x-link-button route="{{ route('admin.supplier.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Pemasok

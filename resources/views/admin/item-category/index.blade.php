@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create item category')
+            @can('create_item_category')
                 <x-link-button route="{{ route('admin.item-category.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Kategori Barang

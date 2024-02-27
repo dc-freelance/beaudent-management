@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create payment method')
+            @can('create_payment_method')
                 <x-link-button route="{{ route('admin.payment-methods.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Metode Pembayaran

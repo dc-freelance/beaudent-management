@@ -61,7 +61,7 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique',
             'phone_number' => 'required',
             'address' => 'required',
             'deposit_minimum' => 'required',
@@ -91,7 +91,7 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique',
             'phone_number' => 'required',
             'address' => 'required',
             'deposit_minimum' =>'required',

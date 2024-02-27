@@ -26,11 +26,12 @@ class RoleSeeder extends Seeder
         $role_manager_cabang = Role::create(['name' => User::MANAGER_CABANG_ROLE, 'guard_name' => 'web']);
         $role_billing = Role::create(['name' => User::BILLING_ROLE, 'guard_name' => 'web']);
         $role_owner = Role::create(['name' => User::OWNER_ROLE, 'guard_name' => 'web']);
+        $role_telemarketing = Role::create(['name' => User::TELEMARKETING_ROLE, 'guard_name' => 'web']);
 
         $permission_admin_pusat = [
-            'read permission', 'update permission', 'delete permission', 'create permission',
-            'read role', 'update role', 'delete role', 'create role',
-            'read user', 'update user', 'delete user', 'create user'
+            'read_permission', 'update_permission', 'delete_permission', 'create_permission',
+            'read_role', 'update_role', 'delete_role', 'create_role',
+            'read_user', 'update_user', 'delete_user', 'create_user'
         ];
 
         $role_admin_pusat->givePermissionTo($permission_admin_pusat);
