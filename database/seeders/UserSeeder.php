@@ -27,8 +27,17 @@ class UserSeeder extends Seeder
             'password' => password_hash('password', PASSWORD_DEFAULT),
         ]);
 
+        $telemarketing = User::create([
+            'name' => 'Telemarketing',
+            'email' => 'telemarketing1@mail.com',
+            'phone_number' => '081445478596',
+            'branch_id' => '1',
+            'password' => password_hash('password', PASSWORD_DEFAULT),
+        ]);
+
         $adminPusat->assignRole(User::ADMIN_PUSAT_ROLE);
         $adminCabang->assignRole(User::ADMIN_CABANG_ROLE);
         $frontOffice->assignRole(User::FRONT_OFFICE_ROLE);
+        $telemarketing->assignRole(User::TELEMARKETING_ROLE);
     }
 }

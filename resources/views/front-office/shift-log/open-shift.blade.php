@@ -20,7 +20,8 @@
                             </select>
                         </div>
                     </div>
-                    <x-input id="user" label="Pengguna Aktif" name="user" value="{{ auth()->user()->name }} - ({{ auth()->user()->branch->code }} - {{ auth()->user()->branch->name }})" readonly="readonly"/>
+                    <x-input id="user" label="Pengguna Aktif" name="user" value="{{ auth()->user()->name }} - {{ auth()->user()->branch ? '(' . auth()->user()->branch->code . ' - ' . auth()->user()->branch->name . ')' : ' (Cabang Tidak Ditemukan)' }}" readonly="readonly"/>
+
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Buka Sesi</x-button>

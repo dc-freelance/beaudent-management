@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create doctor category')
+            @can('create_doctor_category')
                 <x-link-button route="{{ route('admin.doctor-category.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Kategori Dokter

@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create item unit')
+            @can('create_item_unit')
                 <x-link-button route="{{ route('admin.item-unit.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Satuan Barang

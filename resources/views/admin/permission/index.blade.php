@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create permission')    
+            @can('create_permission')    
                 <x-link-button route="{{ route('admin.permission.create') }}">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Permission

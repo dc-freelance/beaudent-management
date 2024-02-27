@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create doctor')
+            @can('create_doctor')
                 <x-link-button route="{{ route('admin.doctor.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Dokter

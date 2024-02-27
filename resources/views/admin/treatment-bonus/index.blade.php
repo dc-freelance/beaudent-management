@@ -6,7 +6,7 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create treatment bonus')
+            @can('create_treatment_bonus')
                 <x-link-button route="{{ route('admin.treatment-bonus.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Bonus Layanan
