@@ -6,10 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Cabang
-            </x-link-button>
+            @can('create branch')
+                <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Cabang
+                </x-link-button>
+            @endcan
         </div>
         <table id="shiftLogTable">
             <thead>

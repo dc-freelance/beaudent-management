@@ -6,10 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.payment-methods.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Metode Pembayaran
-            </x-link-button>
+            @can('create payment method')
+                <x-link-button route="{{ route('admin.payment-methods.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Metode Pembayaran
+                </x-link-button>
+            @endcan
         </div>
         <table id="paymentMethodTable">
             <thead>
