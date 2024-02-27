@@ -260,8 +260,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Deposit
     Route::group(['prefix' => 'deposit'], function () {
         Route::group(['prefix' => 'wait'], function () {
-            Route::get('/', [ReservationsController::class, 'deposit']->middleware('permission:read_wait_deposit'))->name('front-office.deposit.wait.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail']->middleware('permission:detail_deposit'))->name('front-office.deposit.wait.detail');
+            Route::get('/', [ReservationsController::class, 'deposit'])->middleware('permission:read_wait_deposit')->name('front-office.deposit.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->middleware('permission:detail_deposit')->name('front-office.deposit.wait.detail');
         });
 
         Route::group(['prefix' => 'wait_deposit'], function () {
@@ -269,13 +269,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix' => 'confirm'], function () {
-            Route::get('/', [ReservationsController::class, 'confirm_deposit']->middleware('permission:read_confirm_deposit'))->name('front-office.deposit.confirm.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail']->middleware('permission:detail_deposit'))->name('front-office.deposit.confirm.detail');
+            Route::get('/', [ReservationsController::class, 'confirm_deposit'])->middleware('permission:read_confirm_deposit')->name('front-office.deposit.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->middleware('permission:detail_deposit')->name('front-office.deposit.confirm.detail');
         });
 
         Route::group(['prefix' => 'cancel'], function () {
-            Route::get('/', [ReservationsController::class, 'cancel_deposit']->middleware('permission:read_cancel_deposit'))->name('front-office.deposit.cancel.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail']->middleware('permission:detail_deposit'))->name('front-office.deposit.cancel.detail');
+            Route::get('/', [ReservationsController::class, 'cancel_deposit'])->middleware('permission:read_cancel_deposit')->name('front-office.deposit.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->middleware('permission:detail_deposit')->name('front-office.deposit.cancel.detail');
         });
 
         Route::get('/deposit/{id}/confirm', [ReservationsController::class, 'deposit_confirm'])->name('front-office.deposit.detail.confirm');
