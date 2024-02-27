@@ -142,12 +142,17 @@ class PermissionSeeder extends Seeder
         // Deposit
         Permission::create(['name' =>'read_wait_deposit']);
         Permission::create(['name' =>'read_confirm_deposit']);
+        Permission::create(['name' =>'read_cancel_deposit']);
         Permission::create(['name' =>'reschedule_deposit']);
         Permission::create(['name' =>'detail_deposit']);
         Permission::create(['name' =>'delete_deposit']);
 
         // Shift Log
-        Permission::create(['name' =>'read_shift_log']);
+        Permission::create(['name' =>'read_open_shift_log']);
+        Permission::create(['name' =>'read_close_shift_log']);
+        Permission::create(['name' =>'read_recap_shift_log']);
+        Permission::create(['name' =>'create_shift_log']);
+        Permission::create(['name' =>'update_shift_log']);
         Permission::create(['name' => 'print_shift_log']);
     }
 }

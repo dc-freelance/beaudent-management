@@ -29,253 +29,253 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/', DashboardController::class)->name('admin.dashboard.index');
 
     // Permission
-    Route::group(['prefix' => 'permission', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [PermissionController::class, 'index'])->name('admin.permission.index');
+    Route::group(['prefix' => 'permission'], function () {
+        Route::get('/', [PermissionController::class, 'index'])->middleware('permission:read_permission')->name('admin.permission.index');
         Route::get('get-by-id/{id}', [PermissionController::class, 'getById'])->name('admin.permission.get-by-id');
-        Route::get('create', [PermissionController::class, 'create'])->name('admin.permission.create');
-        Route::post('store', [PermissionController::class, 'store'])->name('admin.permission.store');
-        Route::get('edit/{id}', [PermissionController::class, 'edit'])->name('admin.permission.edit');
-        Route::put('update/{id}', [PermissionController::class, 'update'])->name('admin.permission.update');
-        Route::delete('delete/{id}', [PermissionController::class, 'delete'])->name('admin.permission.delete');
+        Route::get('create', [PermissionController::class, 'create'])->middleware('permission:create_permission')->name('admin.permission.create');
+        Route::post('store', [PermissionController::class, 'store'])->middleware('permission:create_permission')->name('admin.permission.store');
+        Route::get('edit/{id}', [PermissionController::class, 'edit'])->middleware('permission:update_permission')->name('admin.permission.edit');
+        Route::put('update/{id}', [PermissionController::class, 'update'])->middleware('permission:update_permission')->name('admin.permission.update');
+        Route::delete('delete/{id}', [PermissionController::class, 'delete'])->middleware('permission:delete_permission')->name('admin.permission.delete');
     });
 
     // Role
-    Route::group(['prefix' => 'role', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [RoleController::class, 'index'])->name('admin.role.index');
+    Route::group(['prefix' => 'role'], function () {
+        Route::get('/', [RoleController::class, 'index'])->middleware('permission:read_role')->name('admin.role.index');
         Route::get('get-by-id/{id}', [RoleController::class, 'getById'])->name('admin.role.get-by-id');
-        Route::get('create', [RoleController::class, 'create'])->name('admin.role.create');
-        Route::post('store', [RoleController::class, 'store'])->name('admin.role.store');
-        Route::get('edit/{id}', [RoleController::class, 'edit'])->name('admin.role.edit');
-        Route::put('update/{id}', [RoleController::class, 'update'])->name('admin.role.update');
-        Route::delete('delete/{id}', [RoleController::class, 'delete'])->name('admin.role.delete');
+        Route::get('create', [RoleController::class, 'create'])->middleware('permission:create_role')->name('admin.role.create');
+        Route::post('store', [RoleController::class, 'store'])->middleware('permission:create_role')->name('admin.role.store');
+        Route::get('edit/{id}', [RoleController::class, 'edit'])->middleware('permission:update_role')->name('admin.role.edit');
+        Route::put('update/{id}', [RoleController::class, 'update'])->middleware('permission:update_role')->name('admin.role.update');
+        Route::delete('delete/{id}', [RoleController::class, 'delete'])->middleware('permission:delete_role')->name('admin.role.delete');
     });
 
     // User Management
-    Route::group(['prefix' => 'user-management', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [UserManagementController::class, 'index'])->name('admin.user-management.index');
+    Route::group(['prefix' => 'user-management'], function () {
+        Route::get('/', [UserManagementController::class, 'index'])->middleware('permission:read_user')->name('admin.user-management.index');
         Route::get('get-by-id/{id}', [UserManagementController::class, 'getById'])->name('admin.user-management.get-by-id');
-        Route::get('create', [UserManagementController::class, 'create'])->name('admin.user-management.create');
-        Route::post('store', [UserManagementController::class, 'store'])->name('admin.user-management.store');
-        Route::get('edit/{id}', [UserManagementController::class, 'edit'])->name('admin.user-management.edit');
-        Route::put('update/{id}', [UserManagementController::class, 'update'])->name('admin.user-management.update');
-        Route::delete('delete/{id}', [UserManagementController::class, 'delete'])->name('admin.user-management.delete');
+        Route::get('create', [UserManagementController::class, 'create'])->middleware('permission:create_user')->name('admin.user-management.create');
+        Route::post('store', [UserManagementController::class, 'store'])->middleware('permission:create_user')->name('admin.user-management.store');
+        Route::get('edit/{id}', [UserManagementController::class, 'edit'])->middleware('permission:update_user')->name('admin.user-management.edit');
+        Route::put('update/{id}', [UserManagementController::class, 'update'])->middleware('permission:update_user')->name('admin.user-management.update');
+        Route::delete('delete/{id}', [UserManagementController::class, 'delete'])->middleware('permission:delete_user')->name('admin.user-management.delete');
         Route::put('update-permission/{id}', [UserManagementController::class, 'updatePermission'])->name('admin.user-management.update-permission');
     });
 
     // Doctor Category
     Route::group(['prefix' => 'doctor-category'], function () {
-        Route::get('/', [DoctorCategoryController::class, 'index'])->name('admin.doctor-category.index');
+        Route::get('/', [DoctorCategoryController::class, 'index'])->middleware('permission:read_doctor_category')->name('admin.doctor-category.index');
         Route::get('get-by-id/{id}', [DoctorCategoryController::class, 'getById'])->name('admin.doctor-category.get-by-id');
-        Route::get('create', [DoctorCategoryController::class, 'create'])->name('admin.doctor-category.create');
-        Route::post('store', [DoctorCategoryController::class, 'store'])->name('admin.doctor-category.store');
-        Route::get('edit/{id}', [DoctorCategoryController::class, 'edit'])->name('admin.doctor-category.edit');
-        Route::put('update/{id}', [DoctorCategoryController::class, 'update'])->name('admin.doctor-category.update');
-        Route::delete('delete/{id}', [DoctorCategoryController::class, 'delete'])->name('admin.doctor-category.delete');
+        Route::get('create', [DoctorCategoryController::class, 'create'])->middleware('permission:create_doctor_category')->name('admin.doctor-category.create');
+        Route::post('store', [DoctorCategoryController::class, 'store'])->middleware('permission:create_doctor_category')->name('admin.doctor-category.store');
+        Route::get('edit/{id}', [DoctorCategoryController::class, 'edit'])->middleware('permission:update_doctor_category')->name('admin.doctor-category.edit');
+        Route::put('update/{id}', [DoctorCategoryController::class, 'update'])->middleware('permission:update_doctor_category')->name('admin.doctor-category.update');
+        Route::delete('delete/{id}', [DoctorCategoryController::class, 'delete'])->middleware('permission:delete_doctor_category')->name('admin.doctor-category.delete');
     });
 
     // Doctor
     Route::group(['prefix' => 'doctor'], function () {
-        Route::get('/', [DoctorController::class, 'index'])->name('admin.doctor.index');
+        Route::get('/', [DoctorController::class, 'index'])->middleware('permission:read_doctor')->name('admin.doctor.index');
         Route::get('get-by-id/{id}', [DoctorController::class, 'getById'])->name('admin.doctor.get-by-id');
-        Route::get('create', [DoctorController::class, 'create'])->name('admin.doctor.create');
-        Route::post('store', [DoctorController::class, 'store'])->name('admin.doctor.store');
-        Route::get('edit/{id}', [DoctorController::class, 'edit'])->name('admin.doctor.edit');
-        Route::put('update/{id}', [DoctorController::class, 'update'])->name('admin.doctor.update');
-        Route::delete('delete/{id}', [DoctorController::class, 'delete'])->name('admin.doctor.delete');
+        Route::get('create', [DoctorController::class, 'create'])->middleware('permission:create_doctor')->name('admin.doctor.create');
+        Route::post('store', [DoctorController::class, 'store'])->middleware('permission:create_doctor')->name('admin.doctor.store');
+        Route::get('edit/{id}', [DoctorController::class, 'edit'])->middleware('permission:update_doctor')->name('admin.doctor.edit');
+        Route::put('update/{id}', [DoctorController::class, 'update'])->middleware('permission:update_doctor')->name('admin.doctor.update');
+        Route::delete('delete/{id}', [DoctorController::class, 'delete'])->middleware('permission:delete_doctor')->name('admin.doctor.delete');
     });
 
     // Treatment Bonus
-    Route::group(['prefix' => 'treatment-bonus', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [TreatmentBonusController::class, 'index'])->name('admin.treatment-bonus.index');
+    Route::group(['prefix' => 'treatment-bonus'], function () {
+        Route::get('/', [TreatmentBonusController::class, 'index'])->middleware('permission:read_treatment_bonus')->name('admin.treatment-bonus.index');
         Route::get('get-by-id/{id}', [TreatmentBonusController::class, 'getById'])->name('admin.treatment-bonus.get-by-id');
-        Route::get('create', [TreatmentBonusController::class, 'create'])->name('admin.treatment-bonus.create');
-        Route::post('store', [TreatmentBonusController::class, 'store'])->name('admin.treatment-bonus.store');
-        Route::get('edit/{id}', [TreatmentBonusController::class, 'edit'])->name('admin.treatment-bonus.edit');
-        Route::put('update/{id}', [TreatmentBonusController::class, 'update'])->name('admin.treatment-bonus.update');
-        Route::delete('delete/{id}', [TreatmentBonusController::class, 'delete'])->name('admin.treatment-bonus.delete');
+        Route::get('create', [TreatmentBonusController::class, 'create'])->middleware('permission:create_treatment_bonus')->name('admin.treatment-bonus.create');
+        Route::post('store', [TreatmentBonusController::class, 'store'])->middleware('permission:create_treatment_bonus')->name('admin.treatment-bonus.store');
+        Route::get('edit/{id}', [TreatmentBonusController::class, 'edit'])->middleware('permission:update_treatment_bonus')->name('admin.treatment-bonus.edit');
+        Route::put('update/{id}', [TreatmentBonusController::class, 'update'])->middleware('permission:update_treatment_bonus')->name('admin.treatment-bonus.update');
+        Route::delete('delete/{id}', [TreatmentBonusController::class, 'delete'])->middleware('permission:delete_treatment_bonus')->name('admin.treatment-bonus.delete');
     });
 
     // Treatment
-    Route::group(['prefix' => 'treatment', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [TreatmentController::class, 'index'])->name('admin.treatment.index');
+    Route::group(['prefix' => 'treatment'], function () {
+        Route::get('/', [TreatmentController::class, 'index'])->middleware('permission:read_treatment')->name('admin.treatment.index');
         Route::get('get-by-id/{id}', [TreatmentController::class, 'getById'])->name('admin.treatment.get-by-id');
-        Route::get('create', [TreatmentController::class, 'create'])->name('admin.treatment.create');
-        Route::post('store', [TreatmentController::class, 'store'])->name('admin.treatment.store');
-        Route::get('edit/{id}', [TreatmentController::class, 'edit'])->name('admin.treatment.edit');
-        Route::put('update/{id}', [TreatmentController::class, 'update'])->name('admin.treatment.update');
-        Route::delete('delete/{id}', [TreatmentController::class, 'delete'])->name('admin.treatment.delete');
+        Route::get('create', [TreatmentController::class, 'create'])->middleware('permission:create_treatment')->name('admin.treatment.create');
+        Route::post('store', [TreatmentController::class, 'store'])->middleware('permission:create_treatment')->name('admin.treatment.store');
+        Route::get('edit/{id}', [TreatmentController::class, 'edit'])->middleware('permission:update_treatment')->name('admin.treatment.edit');
+        Route::put('update/{id}', [TreatmentController::class, 'update'])->middleware('permission:update_treatment')->name('admin.treatment.update');
+        Route::delete('delete/{id}', [TreatmentController::class, 'delete'])->middleware('permission:delete_treatment')->name('admin.treatment.delete');
     });
 
     // Branch
-    Route::group(['prefix' => 'branch', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [BranchController::class, 'index'])->name('admin.branch.index');
+    Route::group(['prefix' => 'branch'], function () {
+        Route::get('/', [BranchController::class, 'index'])->middleware('permission:read_branch')->name('admin.branch.index');
         Route::get('get-by-id/{id}', [BranchController::class, 'getById'])->name('admin.branch.get-by-id');
-        Route::get('create', [BranchController::class, 'create'])->name('admin.branch.create');
-        Route::post('store', [BranchController::class, 'store'])->name('admin.branch.store');
-        Route::get('edit/{id}', [BranchController::class, 'edit'])->name('admin.branch.edit');
-        Route::put('update/{id}', [BranchController::class, 'update'])->name('admin.branch.update');
-        Route::delete('delete/{id}', [BranchController::class, 'delete'])->name('admin.branch.delete');
+        Route::get('create', [BranchController::class, 'create'])->middleware('permission:create_branch')->name('admin.branch.create');
+        Route::post('store', [BranchController::class, 'store'])->middleware('permission:create_branch')->name('admin.branch.store');
+        Route::get('edit/{id}', [BranchController::class, 'edit'])->middleware('permission:update_branch')->name('admin.branch.edit');
+        Route::put('update/{id}', [BranchController::class, 'update'])->middleware('permission:update_branch')->name('admin.branch.update');
+        Route::delete('delete/{id}', [BranchController::class, 'delete'])->middleware('permission:delete_branch')->name('admin.branch.delete');
     });
 
     // Customer
     Route::group(['prefix' => 'customer'], function () {
-        Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
+        Route::get('/', [CustomerController::class, 'index'])->middleware('permission:read_customer')->name('admin.customer.index');
         Route::get('get-by-id/{id}', [CustomerController::class, 'getById'])->name('admin.customer.get-by-id');
-        Route::get('create', [CustomerController::class, 'create'])->name('admin.customer.create');
-        Route::post('store', [CustomerController::class, 'store'])->name('admin.customer.store');
-        Route::get('edit/{id}', [CustomerController::class, 'edit'])->name('admin.customer.edit');
-        Route::get('detail/{id}', [CustomerController::class, 'detail'])->name('admin.customer.detail');
-        Route::put('update/{id}', [CustomerController::class, 'update'])->name('admin.customer.update');
-        Route::delete('delete/{id}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
+        Route::get('create', [CustomerController::class, 'create'])->middleware('permission:create_customer')->name('admin.customer.create');
+        Route::post('store', [CustomerController::class, 'store'])->middleware('permission:create_customer')->name('admin.customer.store');
+        Route::get('edit/{id}', [CustomerController::class, 'edit'])->middleware('permission:update_customer')->name('admin.customer.edit');
+        Route::get('detail/{id}', [CustomerController::class, 'detail'])->middleware('permission:detail_customer')->name('admin.customer.detail');
+        Route::put('update/{id}', [CustomerController::class, 'update'])->middleware('permission:update_customer')->name('admin.customer.update');
+        Route::delete('delete/{id}', [CustomerController::class, 'delete'])->middleware('permission:delete_customer')->name('admin.customer.delete');
     });
 
     // Diskon
-    Route::group(['prefix' => 'discount', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [DiscountController::class, 'index'])->name('admin.discount.index');
+    Route::group(['prefix' => 'discount'], function () {
+        Route::get('/', [DiscountController::class, 'index'])->middleware('permission:read_discount')->name('admin.discount.index');
         Route::get('get-by-id/{id}', [DiscountController::class, 'getById'])->name('admin.discount.get-by-id');
-        Route::get('create', [DiscountController::class, 'create'])->name('admin.discount.create');
-        Route::post('store', [DiscountController::class, 'store'])->name('admin.discount.store');
-        Route::get('edit/{id}', [DiscountController::class, 'edit'])->name('admin.discount.edit');
-        Route::put('update/{id}', [DiscountController::class, 'update'])->name('admin.discount.update');
-        Route::delete('delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
+        Route::get('create', [DiscountController::class, 'create'])->middleware('permission:create_discount')->name('admin.discount.create');
+        Route::post('store', [DiscountController::class, 'store'])->middleware('permission:create_discount')->name('admin.discount.store');
+        Route::get('edit/{id}', [DiscountController::class, 'edit'])->middleware('permission:update_discount')->name('admin.discount.edit');
+        Route::put('update/{id}', [DiscountController::class, 'update'])->middleware('permission:update_discount')->name('admin.discount.update');
+        Route::delete('delete/{id}', [DiscountController::class, 'delete'])->middleware('permission:delete_discount')->name('admin.discount.delete');
     });
 
     // Addon
-    Route::group(['prefix' => 'addon', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [AddonController::class, 'index'])->name('admin.addon.index');
+    Route::group(['prefix' => 'addon'], function () {
+        Route::get('/', [AddonController::class, 'index'])->middleware('permission:read_addon')->name('admin.addon.index');
         Route::get('get-by-id/{id}', [AddonController::class, 'getById'])->name('admin.addon.get-by-id');
-        Route::get('create', [AddonController::class, 'create'])->name('admin.addon.create');
-        Route::post('store', [AddonController::class, 'store'])->name('admin.addon.store');
-        Route::get('edit/{id}', [AddonController::class, 'edit'])->name('admin.addon.edit');
-        Route::put('update/{id}', [AddonController::class, 'update'])->name('admin.addon.update');
-        Route::delete('delete/{id}', [AddonController::class, 'delete'])->name('admin.addon.delete');
+        Route::get('create', [AddonController::class, 'create'])->middleware('permission:create_addon')->name('admin.addon.create');
+        Route::post('store', [AddonController::class, 'store'])->middleware('permission:create_addon')->name('admin.addon.store');
+        Route::get('edit/{id}', [AddonController::class, 'edit'])->middleware('permission:update_addon')->name('admin.addon.edit');
+        Route::put('update/{id}', [AddonController::class, 'update'])->middleware('permission:update_addon')->name('admin.addon.update');
+        Route::delete('delete/{id}', [AddonController::class, 'delete'])->middleware('permission:delete_addon')->name('admin.addon.delete');
     });
 
     // Item Category
-    Route::group(['prefix' => 'item-category', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [ItemCategoryController::class, 'index'])->name('admin.item-category.index');
+    Route::group(['prefix' => 'item-category'], function () {
+        Route::get('/', [ItemCategoryController::class, 'index'])->middleware('permission:read_item_category')->name('admin.item-category.index');
         Route::get('get-by-id/{id}', [ItemCategoryController::class, 'getById'])->name('admin.item-category.get-by-id');
-        Route::get('create', [ItemCategoryController::class, 'create'])->name('admin.item-category.create');
-        Route::post('store', [ItemCategoryController::class, 'store'])->name('admin.item-category.store');
-        Route::get('edit/{id}', [ItemCategoryController::class, 'edit'])->name('admin.item-category.edit');
-        Route::put('update/{id}', [ItemCategoryController::class, 'update'])->name('admin.item-category.update');
-        Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->name('admin.item-category.delete');
+        Route::get('create', [ItemCategoryController::class, 'create'])->middleware('permission:create_item_category')->name('admin.item-category.create');
+        Route::post('store', [ItemCategoryController::class, 'store'])->middleware('permission:create_item_category')->name('admin.item-category.store');
+        Route::get('edit/{id}', [ItemCategoryController::class, 'edit'])->middleware('permission:update_item_category')->name('admin.item-category.edit');
+        Route::put('update/{id}', [ItemCategoryController::class, 'update'])->middleware('permission:update_item_category')->name('admin.item-category.update');
+        Route::delete('delete/{id}', [ItemCategoryController::class, 'delete'])->middleware('permission:delete_item_category')->name('admin.item-category.delete');
     });
 
     // Item Unit
-    Route::group(['prefix' => 'item-unit', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [ItemUnitController::class, 'index'])->name('admin.item-unit.index');
+    Route::group(['prefix' => 'item-unit'], function () {
+        Route::get('/', [ItemUnitController::class, 'index'])->middleware('permission:read_item_unit')->name('admin.item-unit.index');
         Route::get('get-by-id/{id}', [ItemUnitController::class, 'getById'])->name('admin.item-unit.get-by-id');
-        Route::get('create', [ItemUnitController::class, 'create'])->name('admin.item-unit.create');
-        Route::post('store', [ItemUnitController::class, 'store'])->name('admin.item-unit.store');
-        Route::get('edit/{id}', [ItemUnitController::class, 'edit'])->name('admin.item-unit.edit');
-        Route::put('update/{id}', [ItemUnitController::class, 'update'])->name('admin.item-unit.update');
-        Route::delete('delete/{id}', [ItemUnitController::class, 'delete'])->name('admin.item-unit.delete');
+        Route::get('create', [ItemUnitController::class, 'create'])->middleware('permission:create_item_unit')->name('admin.item-unit.create');
+        Route::post('store', [ItemUnitController::class, 'store'])->middleware('permission:create_item_unit')->name('admin.item-unit.store');
+        Route::get('edit/{id}', [ItemUnitController::class, 'edit'])->middleware('permission:update_item_unit')->name('admin.item-unit.edit');
+        Route::put('update/{id}', [ItemUnitController::class, 'update'])->middleware('permission:update_item_unit')->name('admin.item-unit.update');
+        Route::delete('delete/{id}', [ItemUnitController::class, 'delete'])->middleware('permission:delete_item_unit')->name('admin.item-unit.delete');
     });
 
     // Supplier
-    Route::group(['prefix' => 'supplier', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [SupplierController::class, 'index'])->name('admin.supplier.index');
+    Route::group(['prefix' => 'supplier'], function () {
+        Route::get('/', [SupplierController::class, 'index'])->middleware('permission:read_supplier')->name('admin.supplier.index');
         Route::get('get-by-id/{id}', [SupplierController::class, 'getById'])->name('admin.supplier.get-by-id');
-        Route::get('create', [SupplierController::class, 'create'])->name('admin.supplier.create');
-        Route::post('store', [SupplierController::class, 'store'])->name('admin.supplier.store');
-        Route::get('edit/{id}', [SupplierController::class, 'edit'])->name('admin.supplier.edit');
-        Route::put('update/{id}', [SupplierController::class, 'update'])->name('admin.supplier.update');
-        Route::delete('delete/{id}', [SupplierController::class, 'delete'])->name('admin.supplier.delete');
+        Route::get('create', [SupplierController::class, 'create'])->middleware('permission:create_supplier')->name('admin.supplier.create');
+        Route::post('store', [SupplierController::class, 'store'])->middleware('permission:create_supplier')->name('admin.supplier.store');
+        Route::get('edit/{id}', [SupplierController::class, 'edit'])->middleware('permission:update_supplier')->name('admin.supplier.edit');
+        Route::put('update/{id}', [SupplierController::class, 'update'])->middleware('permission:update_supplier')->name('admin.supplier.update');
+        Route::delete('delete/{id}', [SupplierController::class, 'delete'])->middleware('permission:delete_supplier')->name('admin.supplier.delete');
     });
 
     // Item
-    Route::group(['prefix' => 'item', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [ItemController::class, 'index'])->name('admin.item.index');
+    Route::group(['prefix' => 'item'], function () {
+        Route::get('/', [ItemController::class, 'index'])->middleware('permission:read_item')->name('admin.item.index');
         Route::get('get-by-id/{id}', [ItemController::class, 'getById'])->name('admin.item.get-by-id');
-        Route::get('create', [ItemController::class, 'create'])->name('admin.item.create');
-        Route::post('store', [ItemController::class, 'store'])->name('admin.item.store');
-        Route::get('edit/{id}', [ItemController::class, 'edit'])->name('admin.item.edit');
-        Route::put('update/{id}', [ItemController::class, 'update'])->name('admin.item.update');
-        Route::delete('delete/{id}', [ItemController::class, 'delete'])->name('admin.item.delete');
+        Route::get('create', [ItemController::class, 'create'])->middleware('permission:create_item')->name('admin.item.create');
+        Route::post('store', [ItemController::class, 'store'])->middleware('permission:create_item')->name('admin.item.store');
+        Route::get('edit/{id}', [ItemController::class, 'edit'])->middleware('permission:update_item')->name('admin.item.edit');
+        Route::put('update/{id}', [ItemController::class, 'update'])->middleware('permission:update_item')->name('admin.item.update');
+        Route::delete('delete/{id}', [ItemController::class, 'delete'])->middleware('permission:delete_item')->name('admin.item.delete');
     });
 
     // DoctorSchedule
-    Route::group(['prefix' => 'doctor-schedule', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [DoctorScheduleController::class, 'index'])->name('admin.doctor-schedule.index');
+    Route::group(['prefix' => 'doctor-schedule'], function () {
+        Route::get('/', [DoctorScheduleController::class, 'index'])->middleware('permission:read_doctor_schedule')->name('admin.doctor-schedule.index');
         Route::get('get-by-id/{id}', [DoctorScheduleController::class, 'getById'])->name('admin.doctor-schedule.get-by-id');
-        Route::get('create', [DoctorScheduleController::class, 'create'])->name('admin.doctor-schedule.create');
-        Route::post('store', [DoctorScheduleController::class, 'store'])->name('admin.doctor-schedule.store');
-        Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->name('admin.doctor-schedule.edit');
-        Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->name('admin.doctor-schedule.update');
-        Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->name('admin.doctor-schedule.delete');
+        Route::get('create', [DoctorScheduleController::class, 'create'])->middleware('permission:create_doctor_schedule')->name('admin.doctor-schedule.create');
+        Route::post('store', [DoctorScheduleController::class, 'store'])->middleware('permission:create_doctor_schedule')->name('admin.doctor-schedule.store');
+        Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->middleware('permission:update_doctor_schedule')->name('admin.doctor-schedule.edit');
+        Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->middleware('permission:update_doctor_schedule')->name('admin.doctor-schedule.update');
+        Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->middleware('permission:delete_doctor_schedule')->name('admin.doctor-schedule.delete');
     });
 
     // Config Shift
-    Route::group(['prefix' => 'config-shift', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [ConfigShiftController::class, 'index'])->name('admin.config-shift.index');
+    Route::group(['prefix' => 'config-shift'], function () {
+        Route::get('/', [ConfigShiftController::class, 'index'])->middleware('permission:read_config_shift')->name('admin.config-shift.index');
         Route::get('get-by-id/{id}', [ConfigShiftController::class, 'getById'])->name('admin.config-shift.get-by-id');
-        Route::get('create', [ConfigShiftController::class, 'create'])->name('admin.config-shift.create');
-        Route::post('store', [ConfigShiftController::class, 'store'])->name('admin.config-shift.store');
-        Route::get('edit/{id}', [ConfigShiftController::class, 'edit'])->name('admin.config-shift.edit');
-        Route::put('update/{id}', [ConfigShiftController::class, 'update'])->name('admin.config-shift.update');
-        Route::delete('delete/{id}', [ConfigShiftController::class, 'delete'])->name('admin.config-shift.delete');
+        Route::get('create', [ConfigShiftController::class, 'create'])->middleware('permission:create_config_shift')->name('admin.config-shift.create');
+        Route::post('store', [ConfigShiftController::class, 'store'])->middleware('permission:create_config_shift')->name('admin.config-shift.store');
+        Route::get('edit/{id}', [ConfigShiftController::class, 'edit'])->middleware('permission:update_config_shift')->name('admin.config-shift.edit');
+        Route::put('update/{id}', [ConfigShiftController::class, 'update'])->middleware('permission:update_config_shift')->name('admin.config-shift.update');
+        Route::delete('delete/{id}', [ConfigShiftController::class, 'delete'])->middleware('permission:delete_config_shift')->name('admin.config-shift.delete');
     });
 
     // Reservations
-    Route::group(['prefix' => 'reservations', 'middleware' => ['role:frontoffice']], function () {
+    Route::group(['prefix' => 'reservations'], function () {
         Route::group(['prefix' => 'wait'], function () {
-            Route::get('/', [ReservationsController::class, 'reservations'])->name('front-office.reservations.wait.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.wait.detail');
+            Route::get('/', [ReservationsController::class, 'reservations'])->middleware('permission:read_wait_reservation')->name('front-office.reservations.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->middleware('permission:detail_reservation')->name('front-office.reservations.wait.detail');
         });
 
         Route::group(['prefix' => 'done'], function () {
-            Route::get('/', [ReservationsController::class, 'done'])->name('front-office.reservations.done.index');
+            Route::get('/', [ReservationsController::class, 'done'])->middleware('permission:read_done_reservation')->name('front-office.reservations.done.index');
         });
 
         Route::group(['prefix' => 'confirm'], function () {
-            Route::get('/', [ReservationsController::class, 'confirm_reservations'])->name('front-office.reservations.confirm.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.confirm.detail');
-            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->name('front-office.reservations.confirm.reschedule.update');
-            Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->name('front-office.reservations.confirm.reschedule');
+            Route::get('/', [ReservationsController::class, 'confirm_reservations'])->middleware('permission:read_confirm_reservation')->name('front-office.reservations.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->middleware('permission:detail_reservation')->name('front-office.reservations.confirm.detail');
+            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->middleware('permission:update_reservation')->name('front-office.reservations.confirm.reschedule.update');
+            Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule');
         });
 
         Route::group(['prefix' => 'cancel'], function () {
-            Route::get('/', [ReservationsController::class, 'cancel_reservations'])->name('front-office.reservations.cancel.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->name('front-office.reservations.cancel.detail');
+            Route::get('/', [ReservationsController::class, 'cancel_reservations'])->middleware('permission:read_cancel_reservation')->name('front-office.reservations.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'detail'])->middleware('permission:detail_reservation')->name('front-office.reservations.cancel.detail');
         });
 
         Route::get('/reservations/{id}/confirm', [ReservationsController::class, 'confirm'])->name('front-office.reservations.detail.confirm');
         Route::get('/reservations/{id}/cancel', [ReservationsController::class, 'cancel'])->name('front-office.reservations.detail.cancel');
-        Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->name('front-office.reservations.delete');
+        Route::delete('delete/{id}', [ReservationsController::class, 'delete'])->middleware('permission:delete_reservation')->name('front-office.reservations.delete');
     });
 
     // ShiftLog
-    Route::group(['prefix' => 'shift-log', 'middleware' => ['role:telemarketing']], function () {
-        Route::get('/open-shift', [ShiftLogController::class, 'open_shift'])->name('front-office.shift-log.open-shift');
-        Route::post('/open-shift/create', [ShiftLogController::class, 'open_shift_create'])->name('front-office.shift-log.open-shift-create');
+    Route::group(['prefix' => 'shift-log'], function () {
+        Route::get('/open-shift', [ShiftLogController::class, 'open_shift'])->middleware('permission:read_open_shift_log')->name('front-office.shift-log.open-shift');
+        Route::post('/open-shift/create', [ShiftLogController::class, 'open_shift_create'])->middleware('permission:create_shift_log')->name('front-office.shift-log.open-shift-create');
 
-        Route::get('/close-shift', [ShiftLogController::class, 'close_shift'])->name('front-office.shift-log.close-shift');
-        Route::put('/close-shift/{id}/update', [ShiftLogController::class, 'close_shift_update'])->name('front-office.shift-log.close-shift-update');
+        Route::get('/close-shift', [ShiftLogController::class, 'close_shift'])->middleware('permission:read_close_shift_log')->name('front-office.shift-log.close-shift');
+        Route::put('/close-shift/{id}/update', [ShiftLogController::class, 'close_shift_update'])->middleware('permission:update_shift_log')->name('front-office.shift-log.close-shift-update');
 
-        Route::get('/recap-shit', [ShiftLogController::class, 'recap_shift'])->name('front-office.shift-log.recap-shift');
-        Route::get('/recap-shit/{shiftLog}/pdf', [ShiftLogController::class, 'recap_shift_pdf'])->name('front-office.shift-log.recap-shift-pdf');
+        Route::get('/recap-shit', [ShiftLogController::class, 'recap_shift'])->middleware('permission:read_recap_shift_log')->name('front-office.shift-log.recap-shift');
+        Route::get('/recap-shit/{shiftLog}/pdf', [ShiftLogController::class, 'recap_shift_pdf'])->middleware('permission:print_shift_log')->name('front-office.shift-log.recap-shift-pdf');
     });
 
     // Deposit
-    Route::group(['prefix' => 'deposit', 'middleware' => ['role:frontoffice']], function () {
+    Route::group(['prefix' => 'deposit'], function () {
         Route::group(['prefix' => 'wait'], function () {
-            Route::get('/', [ReservationsController::class, 'deposit'])->name('front-office.deposit.wait.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.wait.detail');
+            Route::get('/', [ReservationsController::class, 'deposit']->middleware('permission:read_wait_deposit'))->name('front-office.deposit.wait.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail']->middleware('permission:detail_deposit'))->name('front-office.deposit.wait.detail');
         });
 
         Route::group(['prefix' => 'wait_deposit'], function () {
-            Route::get('/', [ReservationsController::class, 'wait_deposit'])->name('front-office.deposit.wait_depo.index');
+            Route::get('/', [ReservationsController::class, 'wait_deposit'])->middleware('permission:read_wait_deposit')->name('front-office.deposit.wait_depo.index');
         });
 
         Route::group(['prefix' => 'confirm'], function () {
-            Route::get('/', [ReservationsController::class, 'confirm_deposit'])->name('front-office.deposit.confirm.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.confirm.detail');
+            Route::get('/', [ReservationsController::class, 'confirm_deposit']->middleware('permission:read_confirm_deposit'))->name('front-office.deposit.confirm.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail']->middleware('permission:detail_deposit'))->name('front-office.deposit.confirm.detail');
         });
 
         Route::group(['prefix' => 'cancel'], function () {
-            Route::get('/', [ReservationsController::class, 'cancel_deposit'])->name('front-office.deposit.cancel.index');
-            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail'])->name('front-office.deposit.cancel.detail');
+            Route::get('/', [ReservationsController::class, 'cancel_deposit']->middleware('permission:read_cancel_deposit'))->name('front-office.deposit.cancel.index');
+            Route::get('detail/{id}', [ReservationsController::class, 'deposit_detail']->middleware('permission:detail_deposit'))->name('front-office.deposit.cancel.detail');
         });
 
         Route::get('/deposit/{id}/confirm', [ReservationsController::class, 'deposit_confirm'])->name('front-office.deposit.detail.confirm');
@@ -283,25 +283,25 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     });
 
     // Payment methods
-    Route::group(['prefix' => 'payment-methods', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [PaymentMethodsController::class, 'index'])->name('admin.payment-methods.index');
+    Route::group(['prefix' => 'payment-methods'], function () {
+        Route::get('/', [PaymentMethodsController::class, 'index'])->middleware('permission:read_payment_method')->name('admin.payment-methods.index');
         Route::get('get-by-id/{id}', [PaymentMethodsController::class, 'getById'])->name('admin.payment-methods.get-by-id');
-        Route::get('create', [PaymentMethodsController::class, 'create'])->name('admin.payment-methods.create');
-        Route::post('store', [PaymentMethodsController::class, 'store'])->name('admin.payment-methods.store');
-        Route::get('edit/{id}', [PaymentMethodsController::class, 'edit'])->name('admin.payment-methods.edit');
-        Route::put('update/{id}', [PaymentMethodsController::class, 'update'])->name('admin.payment-methods.update');
-        Route::delete('delete/{id}', [PaymentMethodsController::class, 'delete'])->name('admin.payment-methods.delete');
+        Route::get('create', [PaymentMethodsController::class, 'create'])->middleware('permission:create_payment_method')->name('admin.payment-methods.create');
+        Route::post('store', [PaymentMethodsController::class, 'store'])->middleware('permission:create_payment_method')->name('admin.payment-methods.store');
+        Route::get('edit/{id}', [PaymentMethodsController::class, 'edit'])->middleware('permission:update_payment_method')->name('admin.payment-methods.edit');
+        Route::put('update/{id}', [PaymentMethodsController::class, 'update'])->middleware('permission:update_payment_method')->name('admin.payment-methods.update');
+        Route::delete('delete/{id}', [PaymentMethodsController::class, 'delete'])->middleware('permission:delete_payment_method')->name('admin.payment-methods.delete');
     });
 
     // Treatment Category
-    Route::group(['prefix' => 'treatment-categories', 'middleware' => ['role:admin_pusat']], function () {
-        Route::get('/', [TreatmentCategoriesController::class, 'index'])->name('admin.treatment-categories.index');
+    Route::group(['prefix' => 'treatment-categories'], function () {
+        Route::get('/', [TreatmentCategoriesController::class, 'index'])->middleware('permission:read_treatment_category')->name('admin.treatment-categories.index');
         Route::get('get-by-id/{id}', [TreatmentCategoriesController::class, 'getById'])->name('admin.treatment-categories.get-by-id');
-        Route::get('create', [TreatmentCategoriesController::class, 'create'])->name('admin.treatment-categories.create');
-        Route::post('store', [TreatmentCategoriesController::class, 'store'])->name('admin.treatment-categories.store');
-        Route::get('edit/{id}', [TreatmentCategoriesController::class, 'edit'])->name('admin.treatment-categories.edit');
-        Route::put('update/{id}', [TreatmentCategoriesController::class, 'update'])->name('admin.treatment-categories.update');
-        Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->name('admin.treatment-categories.delete');
+        Route::get('create', [TreatmentCategoriesController::class, 'create'])->middleware('permission:create_treatment_category')->name('admin.treatment-categories.create');
+        Route::post('store', [TreatmentCategoriesController::class, 'store'])->middleware('permission:create_treatment_category')->name('admin.treatment-categories.store');
+        Route::get('edit/{id}', [TreatmentCategoriesController::class, 'edit'])->middleware('permission:update_treatment_category')->name('admin.treatment-categories.edit');
+        Route::put('update/{id}', [TreatmentCategoriesController::class, 'update'])->middleware('permission:update_treatment_category')->name('admin.treatment-categories.update');
+        Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->middleware('permission:delete_treatment_category')->name('admin.treatment-categories.delete');
     });
 });
 
