@@ -132,49 +132,11 @@
             {{-- @endrole --}}
 
             {{-- @role('frontoffice') --}}
-                @can('read reservation')
-                    <x-sidebar-dropdown title="Manajemen Reservasi" icon="fas fa-calendar" toggle="master-reservasi"
-                        active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') }}">
-                        <x-sidebar-submenu name="Menunggu Konfirmasi"
-                            route="{{ route('front-office.reservations.wait.index') }}"
-                            active="{{ request()->routeIs('front-office.reservations.wait.*') }}"
-                            icon="fas fa-hourglass-half" />
-                        <x-sidebar-submenu name="Reservasi Terkonfirmasi"
-                            route="{{ route('front-office.reservations.confirm.index') }}"
-                            active="{{ request()->routeIs('front-office.reservations.confirm.*') }}"
-                            icon="fas fa-check-circle" />
-                        <x-sidebar-submenu name="Reservasi Dibatalkan"
-                            route="{{ route('front-office.reservations.cancel.index') }}"
-                            active="{{ request()->routeIs('front-office.reservations.cancel.*') }}"
-                            icon="fas fa-calendar-times" />
-                    </x-sidebar-dropdown>
-                @endcan
-                
-                @can('read deposit')
-                    <x-sidebar-dropdown title="Manajemen Deposit" icon="fas fa-money-check-dollar" toggle="master-deposit"
-                        active="{{ request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') || request()->routeIs('front-office.deposit.cancel.*') }}">
-                        <x-sidebar-submenu name="Menunggu Konfirmasi" route="{{ route('front-office.deposit.wait.index') }}"
-                            active="{{ request()->routeIs('front-office.deposit.wait.*') }}" icon="fas fa-hourglass-half" />
-                        <x-sidebar-submenu name="Deposit Terkonfirmasi"
-                            route="{{ route('front-office.deposit.confirm.index') }}"
-                            active="{{ request()->routeIs('front-office.deposit.confirm.*') }}" icon="fas fa-check-circle" />
-                        <x-sidebar-submenu name="Deposit Dibatalkan" route="{{ route('front-office.deposit.cancel.index') }}"
-                            active="{{ request()->routeIs('front-office.deposit.cancel.*') }}"
-                            icon="fas fa-calendar-times" />
-                    </x-sidebar-dropdown>
-                @endcan
-
-                @can('read shift log')
-                    <x-sidebar-dropdown title="Manajemen Sesi" icon="fas fa-clock" toggle="shift"
-                            active="{{ request()->routeIs('front-office.shift-log.*') }}">
-                            <x-sidebar-submenu name="Buka Sesi" route="{{ route('front-office.shift-log.open-shift') }}"
-                                active="{{ request()->routeIs('front-office.shift-log.open-shift') }}" icon="fas fa-user-clock" />
-                            <x-sidebar-submenu name="Tutup Sesi" route="{{ route('front-office.shift-log.close-shift') }}"
-                                active="{{ request()->routeIs('front-office.shift-log.close-shift') }}" icon="fas fa-user-clock" />
-                            <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
-                                active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
-                    </x-sidebar-dropdown>
-                @endcan
+            @canany(['read wait reservation', 'read confirm reservation', 'read done reservation', 'read cancel reservation', 'read wait deposit', 'read confirm deposit'])
+                <x-sidebar-item name="Manajemen Reservasi" icon="fas fa-calendar"
+                route="{{ route('front-office.reservations.wait.index') }}"
+                active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') || request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') }}" />
+            @endcanany
             {{-- @endrole --}}
             <li>
                 <form action="{{ route('logout') }}" method="POST">

@@ -131,13 +131,17 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'delete payment method']);
 
         // Reservation
-        Permission::create(['name' =>'read reservation']);
+        Permission::create(['name' =>'read wait reservation']);
+        Permission::create(['name' => 'read confirm reservation']);
+        Permission::create(['name' => 'read done reservation']);
+        Permission::create(['name' => 'read cancel reservation']);
         Permission::create(['name' => 'reschedule reservation']);
         Permission::create(['name' => 'detail reservation']);
         Permission::create(['name' => 'delete reservation']);
 
         // Deposit
-        Permission::create(['name' =>'read deposit']);
+        Permission::create(['name' =>'read wait deposit']);
+        Permission::create(['name' =>'read confirm deposit']);
         Permission::create(['name' => 'reschedule deposit']);
         Permission::create(['name' =>'detail deposit']);
         Permission::create(['name' => 'delete deposit']);
