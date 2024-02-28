@@ -11,8 +11,10 @@
                 @csrf
                 <div class="space-y-6 mb-6">
                     <x-input id="name" label="Nama" name="name" required />
-                    <x-input id="email" label="Email" name="email" required />
-                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
+                    <div class="grid grid-cols-2 gap-6">
+                        <x-input id="email" label="Email" name="email" required />
+                        <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
+                    </div>
                     <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required />
                     <div>
                         <p>Lokasi</p>

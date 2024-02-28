@@ -117,7 +117,7 @@ div:where(.swal2-container) .swal2-html-container {
 }
 
 .no-footer {
-    border: none;
+    border: none !important;
 }
 
 /* scroll vertikal responsive */
