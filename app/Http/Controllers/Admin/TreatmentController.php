@@ -101,7 +101,7 @@ class TreatmentController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required|unique:treatments,code',
+            'code' => 'required|unique:treatments,code,'.$id,
             'parent_id' => 'nullable',
             'price' => 'required',
             'treatment_category_id' => 'required',
