@@ -1,4 +1,3 @@
-   <x-app-layout>
        <div class="absolute top-0 right-0 bottom-0 left-0 bg-slate-500 bg-opacity-75 z-50" id="modal">
            <div class="w-2/3 lg:w-1/2 lg:h-[75dvh] max-md:h-[80dvh] rounded-3xl shadow-xl bg-white shadow-slate-300 absolute top-28 left-1/4 overflow-y-auto"
                id="card">
@@ -173,4 +172,3 @@
                });
            </script>
        @endpush
-   </x-app-layout>

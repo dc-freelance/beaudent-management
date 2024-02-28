@@ -1,4 +1,3 @@
-    <x-app-layout>
         <div class="absolute top-0 right-0 bottom-0 left-0 bg-slate-700 z-50 bg-opacity-40">
             <div id="buySellModal"
                 class="fixed inset-x-0 inset-y-10 flex flex-col items-center justify-between max-md:px-5">
@@ -142,4 +141,3 @@
 
             openContent('buy');
         </script>
-    </x-app-layout>
