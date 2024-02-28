@@ -36,9 +36,9 @@
                 </x-select>
                 <x-input id="bonus_rate" name="bonus_rate" type="text" label="Bonus"
                     value="{{ $data->bonus_type == 'percentage'
-                        ? number_format($data->bonus_rate, 1)
+                        ? old('bonus_rate', $data->bonus_rate)
                         : // remove decimal after comma if it's 0, and remove .
-                        number_format($data->bonus_rate, 0, ',', '') }}" />
+                        'Rp. '  . number_format(old('bonus_rate', $data->bonus_rate), 0, ',', '.') }}" />
                 <div class="mt-6">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
@@ -66,9 +66,9 @@
             function nominalInput() {
                 $('#bonus_rate').on('input', function() {
                     var value = $(this).val();
-                    value = value.replace(/\D/g, '');
-                    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-                    $(this).val(value);
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
                 });
             }
 
