@@ -6,12 +6,14 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.item-category.create') }}" class="tombol">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Kategori Barang
-            </x-link-button>
+            @can('create_item_category')
+                <x-link-button route="{{ route('admin.item-category.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Kategori Barang
+                </x-link-button>
+            @endcan
         </div>
-        <table id="itemCategoryTable" class="hover stripe">
+        <table id="itemCategoryTable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -74,8 +76,6 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    // responsive: true,   
-                    scrollX: true,
                     ajax: '{{ route('admin.item-category.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

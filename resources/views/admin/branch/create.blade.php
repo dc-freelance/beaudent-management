@@ -15,6 +15,8 @@
                     <x-input id="name" label="Nama Cabang" name="name" required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     <x-input id="address" label="Alamat" name="address" required />
+                    <x-input id="deposit_minimum" label="Deposit Minimum" name="deposit_minimum" type="text"
+                        placeholder="Rp." required />
                 </div>
                 <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
                     <x-button type="submit">Tambah Cabang</x-button>
@@ -22,4 +24,17 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var depositInput = document.getElementById('deposit_minimum');
+                depositInput.addEventListener('input', function(event) {
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

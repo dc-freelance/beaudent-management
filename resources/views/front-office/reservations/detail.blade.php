@@ -2,15 +2,18 @@
     @php
         $breadcrumb = [['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Detail Reservasi', 'url' => '']];
 
-        if ($data->status === 'Reservations') {
+        if ($data->status === 'Pending') {
             $breadcrumb[1]['name'] = 'Menunggu Konfirmasi';
             $breadcrumb[1]['url'] = route('front-office.reservations.wait.index');
         } elseif ($data->status === 'Cancel') {
             $breadcrumb[1]['name'] = 'Reservasi Dibatalkan';
-            $breadcrumb[1]['url'] = 'front-office.reservations.cancel.index';
-        } else {
+            $breadcrumb[1]['url'] = route('front-office.reservations.cancel.index');
+        } elseif ($data->status === 'Confirm') {
             $breadcrumb[1]['name'] = 'Reservasi Terkonfirmasi';
-            $breadcrumb[1]['url'] = 'front-office.reservations.confirm.index';
+            $breadcrumb[1]['url'] = route('front-office.reservations.confirm.index');
+        } elseif ($data->status === 'Done') {
+            $breadcrumb[1]['name'] = 'Reservasi Selesai';
+            $breadcrumb[1]['url'] = route('front-office.reservations.done.index');
         }
     @endphp
 
@@ -40,11 +43,11 @@
                     <td class="border px-8 py-4 w-3/4">{{ $data->status }}</td>
                 </tr>
                 <tr>
-                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Reservasi</th>
+                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Kunjungan</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->tanggal_reservasi_text }}</td>
                 </tr>
                 <tr>
-                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Waktu Reservasi</th>
+                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Waktu Kunjungan</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->waktu_reservasi_text }}</td>
                 </tr>
                 <tr>
@@ -66,7 +69,11 @@
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Bukti Pembayaran</th>
                     <td class="border px-8 py-4 w-3/4">
-                        <img src="{{ asset($data->deposit_receipt) }}" alt="Bukti Pembayaran">
+                        @if (!empty($data->deposit_receipt))
+                            <img src="{{ asset($data->deposit_receipt) }}" alt="Bukti Pembayaran">
+                        @else
+                            -
+                        @endif
                     </td>
                 </tr>
                 <tr>
@@ -93,15 +100,15 @@
                 @endif
             </table>
 
-            @if ($data->status === 'Reservation')
+            @if ($data->status === 'Pending')
                 <div class="flex justify-center mt-4">
                     <x-button-action route="{{ route('front-office.reservations.detail.cancel', $data->id) }}"
                         color="red">
-                        Batalkan
+                        Batalkan Reservasi
                     </x-button-action>
                     <x-button-action route="{{ route('front-office.reservations.detail.confirm', $data->id) }}"
                         color="green">
-                        Konfirmasi
+                        Konfirmasi Reservasi
                     </x-button-action>
                 </div>
             @endif

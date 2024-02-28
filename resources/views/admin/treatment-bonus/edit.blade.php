@@ -51,9 +51,8 @@
             function percentageInput() {
                 $('#bonus_rate').on('input', function() {
                     this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-                });
-                $('#bonus_rate').on('input', function() {
-                    if (parseFloat($(this).val()) > 100) {
+                    let value = $(this).val();
+                    if (parseFloat(value) > 100) {
                         $(this).val('');
                         Swal.fire({
                             icon: 'error',

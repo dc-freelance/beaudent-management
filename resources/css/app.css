@@ -35,6 +35,12 @@ div:where(.swal2-container) .swal2-html-container {
     @apply text-base;
 }
 
+.dataTables_length select {
+    width: 4rem;
+    margin: 0 0.5rem;
+    font-size: 0.875rem;
+}
+
 /* SELECT 2 */
 
 .select2-container--default .select2-selection--single {
@@ -65,23 +71,7 @@ div:where(.swal2-container) .swal2-html-container {
     @apply bg-primary text-white;
 }
 
-/* datatable */
-.tombol {
-    background-color: #28b128;
-    border: none !important;
-    outline: none !important;
-}
-
-.tombol::focus {
-    border: none !important;
-}
-
-.dataTables_length select {
-    width: 4rem;
-    margin: 0 0.5rem;
-    font-size: 0.875rem;
-}
-
+/* CSS untuk indikator loading */
 .dataTables_paginate {
     background-color: whitesmoke;
     padding: 10px 10px 5px 10px;

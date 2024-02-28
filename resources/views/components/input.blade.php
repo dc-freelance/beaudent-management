@@ -11,7 +11,7 @@
     'step' => false,
 ])
 <div>
-    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{ $id }}">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{ $id }}">
         {{ $label }} {!! $required ? '<span class="text-red-600">*</span>' : '' !!}
     </label>
     <input type="{{ $type }}" id="{{ $id }}" data-format="{{ $format }}"
