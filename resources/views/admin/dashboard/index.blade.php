@@ -1,82 +1,82 @@
 <x-app-layout>
     <x-breadcrumb :links="[['name' => 'Dashboard', 'url' => '#']]" title="Dashboard" />
     {{-- Stats --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
+    <div class="flex flex-wrap gap-4 mb-4">
         <!-- Earnings -->
-        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
+        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4 flex-1" style="min-width: max-content">
             <div class="bg-blue-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
                 <i class="fas fa-rupiah-sign text-sm"></i>
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Pemasukan</p>
-                <h3 class="text-xl font-bold">Rp 100</h3>
+                <h3 class="text-xl font-bold">{{ $data['pemasukan'] }}</h3>
             </div>
         </div>
         <!-- End Earnings -->
 
         <!-- Orders -->
-        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
+        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4 flex-1" style="min-width: max-content">
             <div class="bg-green-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
                 <i class="fas fa-hospital-user text-sm"></i>
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Reservasi</p>
-                <h3 class="text-xl font-bold">200</h3>
+                <h3 class="text-xl font-bold">{{ $data['reservasi'] }}</h3>
             </div>
         </div>
         <!-- End Orders -->
 
         <!-- Products -->
-        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
+        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4 flex-1" style="min-width: max-content">
             <div class="bg-yellow-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
                 <i class="fa-sharp fas fa-star-of-life text-sm"></i>
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Layanan</p>
-                <h3 class="text-xl font-bold">100</h3>
+                <h3 class="text-xl font-bold">{{ $data['layanan'] }}</h3>
             </div>
         </div>
         <!-- End Products -->
 
         <!-- Customers -->
-        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
+        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4 flex-1" style="min-width: max-content">
             <div class="bg-red-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
                 <i class="fas fa-users text-sm"></i>
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Pasien</p>
-                <h3 class="text-xl font-bold">1,200</h3>
+                <h3 class="text-xl font-bold">{{ $data['pasien'] }}</h3>
             </div>
         </div>
         <!-- End Customers -->
 
         <!-- Categories -->
-        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
+        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4 flex-1" style="min-width: max-content">
             <div class="bg-purple-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
                 <i class="fas fa-user-doctor text-sm"></i>
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Dokter</p>
-                <h3 class="text-xl font-bold">20</h3>
+                <h3 class="text-xl font-bold">{{ $data['dokter'] }}</h3>
             </div>
         </div>
         <!-- End Categories -->
 
         <!-- Brands -->
-        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
+        <div class="bg-white p-3 rounded-xl flex items-center gap-x-4 flex-1" style="min-width: max-content">
             <div class="bg-indigo-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
                 <i class="fas fa-hospital text-sm"></i>
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Cabang</p>
-                <h3 class="text-xl font-bold">10</h3>
+                <h3 class="text-xl font-bold">{{ $data['cabang'] }}</h3>
             </div>
         </div>
         <!-- End Brands -->
     </div>
 
     {{-- Charts 2 Column --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-4 mb-4">
         <!-- Sales Chart -->
         <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between mb-5">
@@ -84,15 +84,15 @@
                     <div>
                         <h5
                             class="inline-flex items-center text-gray-500 dark:text-gray-400 leading-none font-normal mb-2">
-                            Clicks
-                            <svg data-popover-target="clicks-info" data-popover-placement="bottom"
+                            Pemasukan
+                            {{-- <svg data-popover-target="clicks-info" data-popover-placement="bottom"
                                 class="w-3 h-3 text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 20 20">
                                 <path
                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                            </svg>
-                            <div data-popover id="clicks-info" role="tooltip"
+                            </svg> --}}
+                            {{-- <div data-popover id="clicks-info" role="tooltip"
                                 class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
                                 <div class="p-3 space-y-2">
                                     <h3 class="font-semibold text-gray-900 dark:text-white">Clicks growth - Incremental
@@ -113,11 +113,12 @@
                                         </svg></a>
                                 </div>
                                 <div data-popper-arrow></div>
-                            </div>
+                            </div> --}}
                         </h5>
-                        <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold">42,3k</p>
+                        <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold">
+                            {{ $data['pemasukan_tahun'] }}</p>
                     </div>
-                    <div>
+                    {{-- <div>
                         <h5
                             class="inline-flex items-center text-gray-500 dark:text-gray-400 leading-none font-normal mb-2">
                             CPC
@@ -152,10 +153,10 @@
                             </div>
                         </h5>
                         <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold">$5.40</p>
-                    </div>
+                    </div> --}}
                 </div>
-                <div>
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
+                {{-- <div>
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
                         data-dropdown-placement="bottom" type="button"
                         class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Last
                         week <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +164,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" d="m1 1 4 4 4-4" />
                         </svg></button>
-                    <div id="lastDaysdropdown"
+                    <div id="earningTime"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                             aria-labelledby="dropdownDefaultButton">
@@ -192,10 +193,10 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div id="line-chart"></div>
-            <div
+            {{-- <div
                 class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2.5">
                 <div class="pt-5">
                     <a href="#"
@@ -209,12 +210,12 @@
                         View full report
                     </a>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- End Sales Chart -->
 
         <!-- Orders Chart -->
-        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        {{-- <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center">
                     <div
@@ -237,8 +238,8 @@
                         class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
                         <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 10 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 13V1m0 0L1 5m4-4 4 4" />
                         </svg>
                         42.5%
                     </span>
@@ -267,8 +268,8 @@
                         Last 7 days
                         <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 1 4 4 4-4" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
                     <!-- Dropdown menu -->
@@ -312,12 +313,12 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Orders Chart -->
     </div>
 
     {{-- Chart 3 Column 3-6-3 --}}
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+    {{-- <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
         <!-- Traffic Chart -->
         <div class="col-span-3 w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 h-fit">
@@ -327,8 +328,7 @@
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Website traffic</h5>
                     <svg data-popover-target="chart-info" data-popover-placement="bottom"
                         class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 20 20">
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
                     </svg>
@@ -359,8 +359,7 @@
                         class="hidden sm:inline-flex items-center justify-center text-gray-500 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg
                             class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 16 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2"
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
                         </svg><span class="sr-only">Download data</span>
                     </button>
@@ -860,7 +859,7 @@
         </div>
         <!-- End Orders Chart -->
 
-    </div>
+    </div> --}}
 
     @push('js-internal')
         <!-- ApexCharts -->
@@ -868,6 +867,16 @@
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 let options = {
+                    pan: {
+                        enabled: true,
+                        mode: 'x',
+                        rangeSelector: {
+                            enabled: false
+                        }
+                    },
+                    zoom: {
+                        enabled: false,
+                    },
                     chart: {
                         height: "100%",
                         maxWidth: "100%",
@@ -902,16 +911,9 @@
                         },
                     },
                     series: [{
-                            name: "Clicks",
-                            data: [6500, 6418, 6456, 6526, 6356, 6456],
-                            color: "#1A56DB",
-                        },
-                        {
-                            name: "CPC",
-                            data: [6456, 6356, 6526, 6332, 6418, 6500],
-                            color: "#7E3AF2",
-                        },
-                    ],
+                        name: "Pemasukan",
+                        data: [6500, 6418, 6456, 6526, 6356, 6456],
+                    }],
                     legend: {
                         show: false
                     },
@@ -919,7 +921,9 @@
                         curve: 'smooth'
                     },
                     xaxis: {
-                        categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
+                        categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                            'September', 'Oktober', 'November', 'Desember'
+                        ],
                         labels: {
                             show: true,
                             style: {
@@ -937,12 +941,14 @@
                     yaxis: {
                         show: false,
                     },
-                }
+                };
 
                 if (document.getElementById("line-chart") && typeof ApexCharts !== 'undefined') {
                     const chart = new ApexCharts(document.getElementById("line-chart"), options);
                     chart.render();
                 }
+
+
             });
         </script>
 

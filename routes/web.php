@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
-    Route::get('/', DashboardController::class)->name('admin.dashboard.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
     // Permission
     Route::group(['prefix' => 'permission'], function () {
@@ -231,7 +231,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::group(['prefix' => 'confirm'], function () {
             Route::get('/', [ReservationsController::class, 'confirm_reservations'])->middleware('permission:read_confirm_reservation')->name('front-office.reservations.confirm.index');
             Route::get('detail/{id}', [ReservationsController::class, 'detail'])->middleware('permission:detail_reservation')->name('front-office.reservations.confirm.detail');
-            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->middleware('permission:update_reservation')->name('front-office.reservations.confirm.reschedule.update');
+            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule.update');
             Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule');
         });
 
