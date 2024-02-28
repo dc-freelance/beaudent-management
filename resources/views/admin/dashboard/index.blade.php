@@ -5,11 +5,11 @@
         <!-- Earnings -->
         <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
             <div class="bg-blue-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
-                <i class="fas fa-dollar text-sm"></i>
+                <i class="fas fa-rupiah-sign text-sm"></i>
             </div>
             <div>
-                <p class="text-gray-400 text-sm">Earnings</p>
-                <h3 class="text-xl font-bold">$ 1,200</h3>
+                <p class="text-gray-400 text-sm">Pemasukan</p>
+                <h3 class="text-xl font-bold">Rp 100</h3>
             </div>
         </div>
         <!-- End Earnings -->
@@ -17,10 +17,10 @@
         <!-- Orders -->
         <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
             <div class="bg-green-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
-                <i class="fas fa-cart-shopping text-sm"></i>
+                <i class="fas fa-hospital-user text-sm"></i>
             </div>
             <div>
-                <p class="text-gray-400 text-sm">Orders</p>
+                <p class="text-gray-400 text-sm">Reservasi</p>
                 <h3 class="text-xl font-bold">200</h3>
             </div>
         </div>
@@ -29,10 +29,10 @@
         <!-- Products -->
         <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
             <div class="bg-yellow-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
-                <i class="fas fa-box text-sm"></i>
+                <i class="fa-sharp fas fa-star-of-life text-sm"></i>
             </div>
             <div>
-                <p class="text-gray-400 text-sm">Products</p>
+                <p class="text-gray-400 text-sm">Layanan</p>
                 <h3 class="text-xl font-bold">100</h3>
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <i class="fas fa-users text-sm"></i>
             </div>
             <div>
-                <p class="text-gray-400 text-sm">Customers</p>
+                <p class="text-gray-400 text-sm">Pasien</p>
                 <h3 class="text-xl font-bold">1,200</h3>
             </div>
         </div>
@@ -53,10 +53,10 @@
         <!-- Categories -->
         <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
             <div class="bg-purple-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
-                <i class="fas fa-tags text-sm"></i>
+                <i class="fas fa-user-doctor text-sm"></i>
             </div>
             <div>
-                <p class="text-gray-400 text-sm">Categories</p>
+                <p class="text-gray-400 text-sm">Dokter</p>
                 <h3 class="text-xl font-bold">20</h3>
             </div>
         </div>
@@ -65,10 +65,10 @@
         <!-- Brands -->
         <div class="bg-white p-3 rounded-xl flex items-center gap-x-4">
             <div class="bg-indigo-500 text-white p-2 rounded-full w-10 h-w-10 text-center">
-                <i class="fas fa-tags text-sm"></i>
+                <i class="fas fa-hospital text-sm"></i>
             </div>
             <div>
-                <p class="text-gray-400 text-sm">Brands</p>
+                <p class="text-gray-400 text-sm">Cabang</p>
                 <h3 class="text-xl font-bold">10</h3>
             </div>
         </div>
