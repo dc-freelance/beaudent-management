@@ -41,7 +41,12 @@ class DashboardRepository implements DashboardInterface
             ->where('is_paid', 1)
             ->sum('grand_total')
             :
-            null;
+            $data = $this->transaction
+            ->where('branch_id', Auth::user()->branch_id)
+            ->whereYear('date_time', Carbon::now()->format('Y'))
+            ->whereMonth('date_time', Carbon::now()->format('m'))
+            ->where('is_paid', 1)
+            ->sum('grand_total');
         return $data;
     }
 
@@ -61,7 +66,18 @@ class DashboardRepository implements DashboardInterface
                 return $item->sum('grand_total');
             })
             :
-            null;
+            $data = $this->transaction
+            ->select('id', 'date_time', 'grand_total')
+            ->where('branch_id', Auth::user()->branch_id)
+            ->whereYear('date_time', Carbon::now()->format('Y'))
+            ->where('is_paid', 1)
+            ->get()
+            ->groupBy(function ($date) {
+                return Carbon::parse($date->date_time)->format('m');
+            })
+            ->map(function ($item) {
+                return $item->sum('grand_total');
+            });
         return $data;
     }
 
