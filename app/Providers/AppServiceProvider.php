@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\PermissionInterface::class, \App\Repositories\PermissionRepository::class);
         $this->app->bind(\App\Interfaces\RoleInterface::class, \App\Repositories\RoleRepository::class);
         $this->app->bind(\App\Interfaces\BranchInterface::class, \App\Repositories\BranchRepository::class);
+        $this->app->bind(\App\Interfaces\DashboardInterface::class, \App\Repositories\DashboardRepository::class);
         $this->app->bind(\App\Interfaces\DoctorCategoryInterface::class, \App\Repositories\DoctorCategoryRepository::class);
         $this->app->bind(\App\Interfaces\DoctorInterface::class, \App\Repositories\DoctorRepository::class);
         $this->app->bind(\App\Interfaces\TreatmentInterface::class, \App\Repositories\TreatmentRepository::class);
@@ -34,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\ShiftLogInterface::class, \App\Repositories\ShiftLogRepository::class);
         $this->app->bind(\App\Interfaces\PaymentMethodsInterface::class, \App\Repositories\PaymentMethodsRepository::class);
         $this->app->bind(\App\Interfaces\TreatmentCategoriesInterface::class, \App\Repositories\TreatmentCategoriesRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountItemInterface::class, \App\Repositories\DiscountItemRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountTreatmentInterface::class, \App\Repositories\DiscountTreatmentRepository::class);
         $this->loadHelpers();
     }
 

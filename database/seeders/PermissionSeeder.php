@@ -154,5 +154,17 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' =>'create_shift_log']);
         Permission::create(['name' =>'update_shift_log']);
         Permission::create(['name' => 'print_shift_log']);
+
+        // Discount Treatment
+        Permission::create(['name' => 'create_discount_treatment']);
+        Permission::create(['name' =>'read_discount_treatment']);
+        Permission::create(['name' => 'update_discount_treatment']);
+        Permission::create(['name' => 'delete_discount_treatment']);
+
+        // Discount Item
+        Permission::create(['name' => 'create_discount_item']);
+        Permission::create(['name' =>'read_discount_item']);
+        Permission::create(['name' => 'update_discount_item']);
+        Permission::create(['name' => 'delete_discount_item']);
     }
 }
