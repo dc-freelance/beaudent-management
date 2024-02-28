@@ -10,7 +10,7 @@
             <form action="{{ route('admin.item-unit.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <x-input id="name" label="Nama" name="name" required />
-                <div class="mt-6 w-full md:w-1/3 lg:w-1/2">
+                <div class="mt-6">
                     <x-button type="submit" class="mt-6">Tambah Satuan Barang</x-button>
                 </div>
             </form>

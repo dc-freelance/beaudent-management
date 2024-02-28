@@ -11,7 +11,7 @@
                 @csrf
                 @method('PUT')
                 <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
-                <div class="mt-6 w-full md:w-1/3 lg:w-1/2">
+                <div class="mt-6">
                     <x-button type="submit" class="mt-6">Simpan Perubahan</x-button>
                 </div>
             </form>

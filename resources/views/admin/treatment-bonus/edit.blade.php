@@ -38,8 +38,8 @@
                     value="{{ $data->bonus_type == 'percentage'
                         ? old('bonus_rate', $data->bonus_rate)
                         : // remove decimal after comma if it's 0, and remove .
-                            'Rp. ' . number_format(old('bonus_rate', $data->bonus_rate), 0, ',', '.') }}" />
-                <div class="mt-6 mx-auto w-full md:w-1/3 lg:w-1/2">
+                        'Rp. '  . number_format(old('bonus_rate', $data->bonus_rate), 0, ',', '.') }}" />
+                <div class="mt-6">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

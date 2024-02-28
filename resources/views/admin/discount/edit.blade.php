@@ -29,7 +29,7 @@
                         value="{{ $data->discount_type == 'Percentage'
                             ? number_format($data->discount, 1)
                             : // remove decimal after comma if it's 0, and remove .
-                            number_format($data->discount, 0, ',', '') }}" />
+                                'Rp. ' . number_format(old('discount', $data->discount), 0, ',', '.') }}" />
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required
                         :value="$data->start_date" />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required
@@ -47,7 +47,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
+                <div class="mt-6">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

@@ -11,10 +11,8 @@
                 @csrf
                 <div class="space-y-6 mb-6">
                     <x-input id="name" label="Nama" name="name" required />
-                    <div class="grid grid-cols-2 gap-4">
-                        <x-input id="email" label="Email" name="email" required />
-                        <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
-                    </div>
+                    <x-input id="email" label="Email" name="email" required />
+                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required />
                     <div>
                         <p>Lokasi</p>
@@ -46,7 +44,7 @@
                     </div>
                     <div>
                         <p>Hak Akses</p>
-                        <div class="flex justify-center flex-wrap gap-6 mt-6">
+                        <div class="flex flex-wrap gap-6 mt-6">
                             @foreach ($roles as $role)
                                 <div class="flex items-center space-x-2" id="role-{{ $role->name }}">
                                     <input type="radio" name="role" id="{{ $role->name }}"

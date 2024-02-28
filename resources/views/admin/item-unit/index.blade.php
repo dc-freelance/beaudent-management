@@ -6,20 +6,18 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <<<<<<< HEAD <x-link-button route="{{ route('admin.item-unit.create') }}"
-                class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+            <x-link-button route="{{ route('admin.item-unit.create') }}" class="tombol class="tombol hover:opacity-80
+                ring-0 focus:border-none focus:ring-0"">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Satuan Barang
+            </x-link-button>
+            @can('create_item_unit')
+                <x-link-button route="{{ route('admin.item-unit.create') }}"
+                    class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Satuan Barang
                 </x-link-button>
-                =======
-                @can('create_item_unit')
-                    <x-link-button route="{{ route('admin.item-unit.create') }}"
-                        class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
-                        <i class="fas fa-plus mr-2"></i>
-                        Tambah Satuan Barang
-                    </x-link-button>
-                @endcan
-                >>>>>>> b3be73f582ca8137307e3906b022603f520fa611
+            @endcan
         </div>
         <table id="itemUnitTable">
             <thead>

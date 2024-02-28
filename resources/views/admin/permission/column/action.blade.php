@@ -1,15 +1,14 @@
 <div class="lg:flex gap-x-2">
     @can('update_permission')
         <a href="{{ route('admin.permission.edit', $data->id) }}"
-            class="text-white bg-orange-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center">
-            <i class="fas fa-pencil fa-sm"></i>
+            class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-600 font-medium rounded-md text-sm p-2 text-center inline-flex items-center px-3">
+            Ubah
         </a>
     @endcan
     @can('delete_permission')
         <label onclick="btnDelete('{{ $data->id }}', '{{ $data->name }}')"
-            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center cursor-pointer">
-            <i class="fas fa-trash fa-sm"></i>
+            class="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-600 font-medium rounded-md text-sm p-2 text-center inline-flex items-center cursor-pointer">
+            Hapus
         </label>
     @endcan
 </div>
-

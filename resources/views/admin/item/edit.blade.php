@@ -39,11 +39,17 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-input id="total_stock" label="Total Stok" name="total_stock"
+                    <<<<<<< HEAD <x-input id="total_stock" label="Total Stok" name="total_stock"
                         value="{{ old('total_stock', $data->total_stock) }}" type="number" required />
                     <x-input id="hpp" label="HPP" name="hpp" type="text"
                         value="Rp. {{ number_format(old('hpp', $data->hpp), 0, ',', '.') }}" placeholder="Rp."
                         required />
+                    =======
+                    <x-input id="total_stock" label="Total Stok" name="total_stock"
+                        value="{{ old('total_stock', $data->total_stock) }}" type="number" required />
+                    <x-input id="hpp" label="HPP" name="hpp" type="number"
+                        value="{{ old('hpp', $data->hpp) }}" required />
+                    >>>>>>> parent of ccd46fd (form-component)
                     <div>
                         <p>Tipe Barang :</p>
                         <div class="mt-2">
@@ -57,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
+                <div class="mt-6">
                     <x-button type="submit">Simpan</x-button>
                 </div>
             </form>

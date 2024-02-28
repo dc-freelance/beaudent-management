@@ -20,6 +20,11 @@
         .dataTables_length label select option {
             font-size: 0.75rem;
         }
+
+        #tableContent_filter {
+            margin-bottom: 10px;
+            margin-left: auto;
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -21,7 +21,7 @@
                         placeholder="Rp." required
                         value="Rp. {{ number_format($data->deposit_minimum, 0, ',', '.') }}" />
                 </div>
-                <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
+                <div class="mt-6">
                     <x-button type="submit">Simpan</x-button>
                 </div>
             </form>

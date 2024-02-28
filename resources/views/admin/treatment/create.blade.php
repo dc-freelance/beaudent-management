@@ -64,7 +64,7 @@
                     </div>
                     <x-input format="nominal" id="price" label="Harga" name="price" type="text" required />
                 </div>
-                <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
+                <div class="mt-6">
                     <x-button type="submit">Tambah Layanan</x-button>
                 </div>
             </form>
