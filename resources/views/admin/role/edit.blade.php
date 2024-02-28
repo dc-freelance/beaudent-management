@@ -9,18 +9,19 @@
         <form action="{{ route('admin.role.update', $role->id) }}" method="POST">
             @csrf
             @method('PUT')
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 gap-6">
                 <h3 class=" font-medium text-base">Informasi Hak Akses</h3>
-                <div class="space-y-6">
+                <div class="space-y-6 w-2/3">
                     <x-input id="name" label="Nama" name="name" required value="{{ $role->name }}" />
-                    <div>
+                    <div class="">
                         <p>Permission</p>
-                        <div class="grid grid-cols-2 gap-6 mt-6">
+                        <div class="grid max-md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                             @foreach ($permissions as $permission)
                                 {{-- checkbox --}}
                                 <div class="flex items-center space-x-2">
                                     <input type="checkbox" name="permissions[]" id="{{ $permission->name }}"
-                                        value="{{ $permission->name }}" class="checkbox checkbox-primary"
+                                        value="{{ $permission->name }}"
+                                        class="checkbox checkbox-primary rounded-sm hover:cursor-pointer text-blue-600 focus:ring-blue-600 focus:ring-1"
                                         @if ($role->hasPermissionTo($permission->name)) checked @endif>
                                     <label
                                         for="{{ $permission->name }}">{{ ucwords(str_replace('_', ' ', $permission->name)) }}</label>

@@ -5,6 +5,7 @@
     ]" title="Manajemen Permission" />
 
     <x-card-container>
+        {{-- @include('../../components/modalTable') --}}
         <div class="text-end mb-4">
             <x-link-button route="{{ route('admin.permission.create') }}" class="tombol">
                 <i class="fas fa-plus mr-2"></i>

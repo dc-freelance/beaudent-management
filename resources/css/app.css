@@ -93,9 +93,14 @@ div:where(.swal2-container) .swal2-html-container {
     transition: 0.2s ease-in-out;
 }
 
-.dataTable thead th {
+/* .dataTable thead th {
     border: none !important;
     padding: 15px;
+} */
+
+.dataTable thead tr th {
+    border: none !important;
+    border-bottom: 1px solid #e2e8f0 !important;
 }
 
 .dataTable thead th::after,
@@ -106,6 +111,8 @@ div:where(.swal2-container) .swal2-html-container {
 
 .dataTable tbody td {
     border-bottom: 1px solid #f2f2f2;
+    /* text-align: center; */
+    /* margin: 0 auto; */
 }
 
 .fg-toolbar {

@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- icon -->
-    <link rel="icon" href="{{ asset('assets/application/logo mini.jpeg') }}">
+    <link rel="icon" href="{{ asset('assets/images/logo.png') }}">
 
     <style>
         input {
@@ -127,10 +127,10 @@
     </script>
 
     <script>
-        let tableChecker = setInterval(() => {
-            const noFt = document.querySelector('.dataTable').classList.remove('no-footer')
-            clearInterval(tableChecker)
-        }, 500);
+        // let tableChecker = setInterval(() => {
+        // const noFt = document.querySelector('.dataTable').classList.remove('no-footer')
+        //     clearInterval(tableChecker)
+        // }, 500);
     </script>
     @stack('js-internal')
 </body>
