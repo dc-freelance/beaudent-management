@@ -18,11 +18,11 @@
                         <select id="discount_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                             name="discount_type">
-                            <option value="percentage">Persentase</option>
-                            <option value="nominal">Nominal</option>
+                            <option value="Percentage">Persentase</option>
+                            <option value="Nominal">Nominal</option>
                         </select>
                     </div>
-                    <x-input id="discount" label="Diskon" name="discount" type="text" required />
+                    <x-input id="discount" label="Diskon" name="discount" type="number" required />
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required />
                     <div>
