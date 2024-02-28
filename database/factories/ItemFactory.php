@@ -24,6 +24,7 @@ class ItemFactory extends Factory
             'unit_id'     => $itemUnits->random()->id,
             'total_stock' => $faker->numberBetween(1, 100),
             'hpp'         => 0,
+            'price'       => $this->faker->numberBetween(10000, 100000),
             'type'        => $this->faker->randomElement(['Medicine', 'BMHP']),
         ];
     }
