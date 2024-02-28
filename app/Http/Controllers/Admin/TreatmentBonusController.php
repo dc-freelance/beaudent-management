@@ -38,10 +38,10 @@ class TreatmentBonusController extends Controller
                     return $data->bonus_type;
                 })
                 ->addColumn('bonus_rate', function ($data) {
-                    if ($data->bonus_type == 'percentage') {
-                        return number_format($data->bonus_rate, 0, ',', '.') . '%';
-                    } else {
+                    if ($data->bonus_type != 'percentage') {
                         return 'Rp ' . number_format($data->bonus_rate, 0, ',', '.');
+                    } else {
+                        return floatval($data->bonus_rate) .'%';
                     }
                 })
                 ->addColumn('action', function ($data) {
@@ -76,6 +76,10 @@ class TreatmentBonusController extends Controller
                 $request->merge([
                     'bonus_rate' => str_replace(['Rp.', '.', ','], '', $request->input('bonus_rate'))
                 ]);
+            } else {
+                $request->merge([
+                    'bonus_rate' => (float) $request->input('bonus_rate')
+                ]);
             }
             $this->treatmentBonus->store($request->all());
 
@@ -107,6 +111,10 @@ class TreatmentBonusController extends Controller
             if ($request->bonus_type == 'nominal') {
                 $request->merge([
                     'bonus_rate' => str_replace(['Rp.', '.', ','], '', $request->input('bonus_rate'))
+                ]);
+            } else {
+                $request->merge([
+                    'bonus_rate' => (float) $request->input('bonus_rate')
                 ]);
             }
             $this->treatmentBonus->update($id, $request->all());
