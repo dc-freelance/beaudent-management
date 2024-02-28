@@ -24,10 +24,10 @@ class AddonController extends Controller
                     return $data->name;
                 })
                 ->addColumn('price', function ($data) {
-                    return 'Rp '.number_format($data->price, 0, ',', '.');
+                    return 'Rp ' . number_format($data->price, 0, ',', '.');
                 })
                 ->addColumn('fee_percentage', function ($data) {
-                    return $data->fee_percentage.'%';
+                    return number_format($data->fee_percentage, 0, ',', '.') . '%';
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.addon.column.action', compact('data'));

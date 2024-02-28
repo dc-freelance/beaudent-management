@@ -65,9 +65,9 @@
             function nominalInput() {
                 $('#discount').on('input', function() {
                     var value = $(this).val();
-                    value = value.replace(/\D/g, '');
-                    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-                    $(this).val(value);
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
                 });
             }
 
