@@ -14,6 +14,7 @@
     <style>
         input[type="search"] {
             font-size: 0.75rem;
+            width: 200px;
         }
 
         .dataTables_length label select option {
