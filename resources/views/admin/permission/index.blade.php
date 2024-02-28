@@ -6,14 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_permission')    
-                <x-link-button route="{{ route('admin.permission.create') }}">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Permission
-                </x-link-button>
-            @endcan
+            <x-link-button route="{{ route('admin.permission.create') }}" class="tombol">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Permission
+            </x-link-button>
         </div>
-        <table id="permissionTable">
+        <table id="permissionTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -76,6 +74,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.permission.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

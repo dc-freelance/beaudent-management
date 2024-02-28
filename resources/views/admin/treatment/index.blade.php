@@ -6,22 +6,18 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_treatment')
-                <x-link-button route="{{ route('admin.treatment.create') }}" color="gray">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Layanan
-                </x-link-button>
-            @endcan
+            <x-link-button route="{{ route('admin.treatment.create') }}" class="tombol">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Layanan
+            </x-link-button>
         </div>
-        <table id="treatmentTable">
+        <table id="treatmentTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Kode</th>
                     <th>Layanan Utama</th>
                     <th>Kontrol</th>
-                    <th>Kategori</th>
                     <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
@@ -82,7 +78,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    responsive: true,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.treatment.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
@@ -93,20 +90,12 @@
                             name: 'name'
                         },
                         {
-                            data: 'code',
-                            name: 'code'
-                        },
-                        {
                             data: 'parent_id',
                             name: 'parent_id'
                         },
                         {
                             data: 'is_control',
                             name: 'is_control'
-                        },
-                        {
-                            data: 'treatment_category_id',
-                            name: 'treatment_category_id'
                         },
                         {
                             data: 'price',

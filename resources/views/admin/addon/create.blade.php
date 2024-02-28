@@ -11,8 +11,8 @@
                 @csrf
                 <div class="space-y-6">
                     <x-input id="name" label="Nama Layanan Tambahan" name="name" required />
-                    <x-input id="price" label="Harga" name="price" type="text" placeholder="Rp." required />
-                    <x-input id="fee_percentage" label="Persentase Biaya (%)" type="number" name="fee_percentage" required />
+                    <x-input id="price" label="Harga" name="price" type="number" required />
+                    <x-input id="fee_percentage" label="Persentase Biaya" type="number" name="fee_percentage" required />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Tambah Layanan Tambahan</x-button>
@@ -20,28 +20,4 @@
             </form>
         </x-card-container>
     </div>
-    
-    @push('js-internal')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var priceInput = document.getElementById('price');
-                priceInput.addEventListener('input', function(event) {
-                    var inputVal = this.value.replace(/\D/g, '');
-                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
-                    this.value = formattedVal;
-                });
-
-                var fee_percentageInput = document.getElementById('fee_percentage');
-                fee_percentageInput.addEventListener('input', function(event) {
-                    handleChange(this);
-                });
-            });
-        </script>
-        <script>
-            function handleChange(input) {
-                if (input.value < 0) input.value = 0;
-                if (input.value > 100) input.value = 100;
-            }
-        </script>
-    @endpush
 </x-app-layout>
