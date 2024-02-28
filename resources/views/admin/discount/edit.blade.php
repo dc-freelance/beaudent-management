@@ -27,9 +27,9 @@
                     </div>
                     <x-input id="discount" label="Diskon" name="discount" type="text" required
                         value="{{ $data->discount_type == 'Percentage'
-                            ? old('discount', $data->discount)
+                            ? number_format($data->discount, 1)
                             : // remove decimal after comma if it's 0, and remove .
-                            'Rp. '  . number_format(old('discount', $data->discount), 0, ',', '.') }}" />
+                            number_format($data->discount, 0, ',', '') }}" />
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required
                         :value="$data->start_date" />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required
@@ -84,9 +84,9 @@
             function nominalInput() {
                 $('#discount').on('input', function() {
                     var value = $(this).val();
-                    var inputVal = this.value.replace(/\D/g, '');
-                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
-                    this.value = formattedVal;
+                    value = value.replace(/\D/g, '');
+                    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                    $(this).val(value);
                 });
             }
 
