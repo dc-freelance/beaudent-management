@@ -7,7 +7,7 @@
                 <li class="me-2">
                     <a href="{{ route('front-office.reservations.wait.index') }}"
                         class="inline-block p-4 rounded-t-lg {{ request()->routeIs('front-office.reservations.wait.*') ? 'text-red-600 border border-gray-100 border-b-0 shadow-sm bg-white active' : 'hover:text-gray-600 hover:bg-gray-50' }}">Menunggu
-                    _Konfirmasi</a>
+                        Konfirmasi</a>
                 </li>
             @endcan
 

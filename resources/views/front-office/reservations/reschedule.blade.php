@@ -12,10 +12,11 @@
                 @method('PUT')
                 <div class="space-y-6 mb-6">
                     <x-input id="request_date" label="Tanggal Reservasi" name="request_date" type="date" required
-                    :value="$data->request_date" />
-                    <x-input id="request_time" label="Waktu Reservasi" name="request_time" type="time" required 
-                    :value="$data->request_time"/>
-                    <x-input id="reasons" label="Alasan" name="reasons" required type="text" value="{{ $data->reasons }}" />
+                        :value="$data->request_date" />
+                    <x-input id="request_time" label="Waktu Reservasi" name="request_time" type="time" required
+                        :value="\Carbon\Carbon::parse($data->request_time)->format('H:i')" />
+                    <x-input id="reasons" label="Alasan" name="reasons" required type="text"
+                        value="{{ $data->reasons }}" />
                 </div>
                 <x-button type="submit" class="mt-6">Jadwalkan Ulang</x-button>
             </form>
