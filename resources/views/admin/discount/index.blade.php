@@ -6,14 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_discount')
-                <x-link-button route="{{ route('admin.discount.create') }}" color="gray">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Diskon
-                </x-link-button>
-            @endcan
+            <x-link-button route="{{ route('admin.discount.create') }}" class="tombol">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Diskon
+            </x-link-button>
         </div>
-        <table id="discountTable">
+        <table id="discountTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -82,7 +80,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    responsive: true,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.discount.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

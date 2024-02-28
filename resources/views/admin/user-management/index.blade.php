@@ -6,14 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_user')
-                <x-link-button route="{{ route('admin.user-management.create') }}" color="gray">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Pengguna
-                </x-link-button>
-            @endcan
+            <x-link-button route="{{ route('admin.user-management.create') }}" class="tombol">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Pengguna
+            </x-link-button>
         </div>
-        <table id="userTable">
+        <table id="userTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>No</th>
@@ -74,6 +72,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.user-management.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

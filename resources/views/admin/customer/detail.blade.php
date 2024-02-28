@@ -51,9 +51,9 @@
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Status Pernikahan</th>
                     <td class="border px-8 py-4 w-3/4">
-                        @if ($data->marrital_status == 'Married')
+                        @if ($data->marital_status == 'Married')
                             Menikah
-                        @elseif ($data->marrital_status == 'Single')
+                        @elseif ($data->marital_status == 'Single')
                             Lajang
                         @else
                             Cerai

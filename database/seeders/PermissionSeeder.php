@@ -82,7 +82,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'delete_discount']);
     
         // Addon
-        Permission::create(['name' => 'create addon']);
+        Permission::create(['name' => 'create_addon']);
         Permission::create(['name' =>'read_addon']);
         Permission::create(['name' => 'update_addon']);
         Permission::create(['name' => 'delete_addon']);

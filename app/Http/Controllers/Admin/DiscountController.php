@@ -77,6 +77,9 @@ class DiscountController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
+            ]);
             $this->discount->create($request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil ditambahkan');
@@ -105,6 +108,9 @@ class DiscountController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
+            ]);
             $this->discount->update($id, $request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil diubah');
