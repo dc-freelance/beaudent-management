@@ -39,8 +39,9 @@
             function percentageInput() {
                 $('#bonus_rate').on('input', function() {
                     this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-                    let value = $(this).val();
-                    if (parseFloat(value) > 100) {
+                });
+                $('#bonus_rate').on('input', function() {
+                    if (parseFloat($(this).val()) > 100) {
                         $(this).val('');
                         Swal.fire({
                             icon: 'error',
@@ -54,9 +55,9 @@
             function nominalInput() {
                 $('#bonus_rate').on('input', function() {
                     var value = $(this).val();
-                    value = value.replace(/\D/g, '');
-                    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-                    $(this).val(value);
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
                 });
             }
 

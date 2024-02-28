@@ -6,14 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_addon')
-                <x-link-button route="{{ route('admin.addon.create') }}" color="gray">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Layanan Tambahan
-                </x-link-button>
-            @endcan
+            <x-link-button route="{{ route('admin.addon.create') }}" class="tombol">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Layanan Tambahan
+            </x-link-button>
         </div>
-        <table id="addonTable">
+        <table id="addonTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -79,10 +77,10 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    responsive: true,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.addon.index') }}',
-                    columns: [
-                        {
+                    columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },

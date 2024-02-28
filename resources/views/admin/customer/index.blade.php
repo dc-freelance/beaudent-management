@@ -6,14 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_customer')
-                <x-link-button route="{{ route('admin.customer.create') }}" color="gray">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Pasien
-                </x-link-button>
-            @endcan
+            <x-link-button route="{{ route('admin.customer.create') }}" class="tombol">
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Pasien
+            </x-link-button>
         </div>
-        <table id="customerTable">
+        <table id="customerTable" class="hover stripe">
             <thead>
                 <tr>
                     <th>#</th>
@@ -21,7 +19,6 @@
                     <th>Nomor Telpon</th>
                     <th>Surel</th>
                     <th>Tanggal Lahir</th>
-                    <th>Usia</th>
                     <th>Jenis Kelamin</th>
                     <th>Alamat</th>
                     <th>Aksi</th>
@@ -83,7 +80,8 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    responsive: true,
+                    // responsive: true,   
+                    scrollX: true,
                     ajax: '{{ route('admin.customer.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
@@ -104,10 +102,6 @@
                         {
                             data: 'date_of_birth',
                             name: 'date_of_birth'
-                        },
-                        {
-                            data: 'age',
-                            name: 'age'
                         },
                         {
                             data: 'gender',

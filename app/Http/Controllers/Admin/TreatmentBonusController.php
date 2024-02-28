@@ -39,7 +39,7 @@ class TreatmentBonusController extends Controller
                 })
                 ->addColumn('bonus_rate', function ($data) {
                     if ($data->bonus_type == 'percentage') {
-                        return number_format($data->bonus_rate, 1) . ' %';
+                        return number_format($data->bonus_rate, 0, ',', '.') . '%';
                     } else {
                         return 'Rp ' . number_format($data->bonus_rate, 0, ',', '.');
                     }
@@ -72,6 +72,9 @@ class TreatmentBonusController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'bonus_rate' => str_replace(['Rp.', '.', ','], '', $request->input('bonus_rate'))
+            ]);
             $this->treatmentBonus->store($request->all());
 
             return redirect()->route('admin.treatment-bonus.index')->with('success', 'Bonus layanan berhasil dibuat');
@@ -99,6 +102,9 @@ class TreatmentBonusController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'bonus_rate' => str_replace(['Rp.', '.', ','], '', $request->input('bonus_rate'))
+            ]);
             $this->treatmentBonus->update($id, $request->all());
 
             return redirect()->route('admin.treatment-bonus.index')->with('success', 'Bonus layanan berhasil diubah');

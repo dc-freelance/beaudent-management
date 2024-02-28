@@ -1,14 +1,10 @@
 <div class="lg:flex gap-x-2">
-    @can('update_role')
-        <a href="{{ route('admin.role.edit', $data->id) }}"
-            class="text-white bg-orange-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center">
-            Ubah
-        </a>
-    @endcan
-    @can('delete_role')
-        <label onclick="btnDelete('{{ $data->id }}', '{{ $data->name }}')"
-            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center cursor-pointer">
-            Hapus
-        </label>
-    @endcan
+    <a href="{{ route('admin.role.edit', $data->id) }}"
+        class="text-white capitalize px-4 bg-blue-500 hover:bg-blue-800 transition duration-200 focus:ring-4 focus:outline-none focus:ring-blue-600 font-medium rounded-md text-sm p-2 text-center inline-flex items-center">
+        edit
+    </a>
+    <label onclick="btnDelete('{{ $data->id }}', '{{ $data->name }}')"
+        class="text-white capitalize bg-primary hover:bg-red-800 focus:ring-4 transition duration-200 focus:outline-none focus:ring-red-500 font-medium rounded-md text-sm p-2 text-center inline-flex items-center cursor-pointer">
+        hapus
+    </label>
 </div>

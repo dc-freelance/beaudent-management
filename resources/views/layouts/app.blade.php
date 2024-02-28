@@ -9,11 +9,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- icon -->
-    <link rel="icon" href="{{ asset('assets/application/logo mini.jpeg') }}">
+    <link rel="icon" href="{{ asset('assets/images/logo.png') }}">
 
     <style>
-        input[type="search"] {
+        input {
             font-size: 0.75rem;
+            width: 200px;
+            border-radius: 30px;
         }
 
         .dataTables_length label select option {
@@ -124,6 +126,12 @@
         });
     </script>
 
+    <script>
+        // let tableChecker = setInterval(() => {
+        // const noFt = document.querySelector('.dataTable').classList.remove('no-footer')
+        //     clearInterval(tableChecker)
+        // }, 500);
+    </script>
     @stack('js-internal')
 </body>
 
