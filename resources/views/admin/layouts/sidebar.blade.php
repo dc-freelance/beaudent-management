@@ -21,21 +21,21 @@
             <x-sidebar-item name="Dashboard" icon="fas fa-home" route="{{ route('admin.dashboard.index') }}"
                 active="{{ request()->routeIs('admin.dashboard.index') }}" />
 
-            {{-- @role('admin_pusat') --}}
+            @role('admin_pusat')
                 @canany(['read_permission', 'read_user', 'read_role'])
                     <x-sidebar-dropdown title="Manajemen Pengguna" icon="fas fa-users" toggle="master-users"
                         active="{{ request()->routeIs('admin.permission.*') || request()->routeIs('admin.user-management.*') || request()->routeIs('admin.role.*') }}">
                         @can('read_permission')
-                        <x-sidebar-submenu name="Permission" route="{{ route('admin.permission.index') }}"                            
-                            active="{{ request()->routeIs('admin.permission.*') }}" icon="fas fa-key" />
+                            <x-sidebar-submenu name="Permission" route="{{ route('admin.permission.index') }}"
+                                active="{{ request()->routeIs('admin.permission.*') }}" icon="fas fa-key" />
                         @endcan
                         @can('read_role')
-                        <x-sidebar-submenu name="Hak Akses" route="{{ route('admin.role.index') }}"
-                            active="{{ request()->routeIs('admin.role.*') }}" icon="fas fa-user-lock" />
+                            <x-sidebar-submenu name="Hak Akses" route="{{ route('admin.role.index') }}"
+                                active="{{ request()->routeIs('admin.role.*') }}" icon="fas fa-user-lock" />
                         @endcan
                         @can('read_user')
-                        <x-sidebar-submenu name="Pengguna" route="{{ route('admin.user-management.index') }}"
-                            active="{{ request()->routeIs('admin.user-management.*') }}" icon="fas fa-user" />
+                            <x-sidebar-submenu name="Pengguna" route="{{ route('admin.user-management.index') }}"
+                                active="{{ request()->routeIs('admin.user-management.*') }}" icon="fas fa-user" />
                         @endcan
                     </x-sidebar-dropdown>
                 @endcanany
@@ -58,12 +58,13 @@
                     </x-sidebar-dropdown>
                 @endcanany
 
-                @canany(['read_treatment', 'read_treatment_bonus', 'read_discount', 'read_treatment_category', 'read_addon'])
+                @canany(['read_treatment', 'read_treatment_bonus', 'read_discount', 'read_treatment_category',
+                    'read_addon'])
                     <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
-                        active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') || request()->routeIs('admin.addon.*')}}">
+                        active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') || request()->routeIs('admin.addon.*') }}">
                         @can('read_treatment')
                             <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
-                            active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
+                                active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
                         @endcan
                         @can('read_treatment_bonus')
                             <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
@@ -76,7 +77,7 @@
                         @endcan
                         @can('read_tretment_category')
                             <x-sidebar-submenu name="Kategori" route="{{ route('admin.treatment-categories.index') }}"
-                            active="{{ request()->routeIs('admin.treatment-categories.*') }}" icon="fas fa-th-list" />
+                                active="{{ request()->routeIs('admin.treatment-categories.*') }}" icon="fas fa-th-list" />
                         @endcan
                         @can('read_addon')
                             <x-sidebar-submenu name="Layanan Tambahan" icon="fas fa-cart-plus"
@@ -94,7 +95,7 @@
                     <x-sidebar-item name="Manajemen Pasien" icon="fas fa-user-plus" route="{{ route('admin.customer.index') }}"
                         active="{{ request()->routeIs('admin.customer.*') }}" />
                 @endcan
-                
+
                 @canany(['read_item_category', 'read_item_unit', 'read_item'])
                     <x-sidebar-dropdown title="Manajemen Barang" icon="fas fa-boxes" toggle="master-product"
                         active="{{ request()->routeIs('admin.item-category.*') || request()->routeIs('admin.item.*') || request()->routeIs('admin.item-unit.*') }}">
@@ -112,7 +113,7 @@
                         @endcan
                     </x-sidebar-dropdown>
                 @endcanany
-                
+
                 @can('read_supplier')
                     <x-sidebar-item name="Manajemen Pemasok" icon="fas fa-truck" route="{{ route('admin.supplier.index') }}"
                         active="{{ request()->routeIs('admin.supplier.*') }}" />
@@ -123,31 +124,35 @@
                         route="{{ route('admin.config-shift.index') }}"
                         active="{{ request()->routeIs('admin.config-shift.*') }}" />
                 @endcan
-                
+
                 @can('read_payment_method')
-                    <x-sidebar-item name="Manajemen Metode Pembayaran" icon="fab fa-cc-mastercard" 
+                    <x-sidebar-item name="Manajemen Metode Pembayaran" icon="fab fa-cc-mastercard"
                         route="{{ route('admin.payment-methods.index') }}"
                         active="{{ request()->routeIs('admin.payment-methods.*') }}" />
                 @endcan
-            {{-- @endrole --}}
+            @endrole
 
-            {{-- @role('frontoffice') --}}
-            @canany(['read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation', 'read_cancel_reservation', 'read_wait_deposit', 'read_confirm_deposit'])
-                <x-sidebar-item name="Manajemen Reservasi" icon="fas fa-calendar"
-                route="{{ route('front-office.reservations.wait.index') }}"
-                active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') || request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') }}" />
-            @endcanany
-            {{-- @endrole --}}
+            @role('frontoffice')
+                @canany(['read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation',
+                    'read_cancel_reservation', 'read_wait_deposit', 'read_confirm_deposit'])
+                    <x-sidebar-item name="Manajemen Reservasi" icon="fas fa-calendar"
+                        route="{{ route('front-office.reservations.wait.index') }}"
+                        active="{{ request()->routeIs('front-office.reservations.wait.*') || request()->routeIs('front-office.reservations.confirm.*') || request()->routeIs('front-office.reservations.cancel.*') || request()->routeIs('front-office.deposit.wait.*') || request()->routeIs('front-office.deposit.confirm.*') }}" />
+                @endcanany
+            @endrole
 
             @can('read_shift_log')
                 <x-sidebar-dropdown title="Manajemen Sesi" icon="fas fa-clock" toggle="shift"
                     active="{{ request()->routeIs('front-office.shift-log.*') }}">
                     <x-sidebar-submenu name="Buka Sesi" route="{{ route('front-office.shift-log.open-shift') }}"
-                        active="{{ request()->routeIs('front-office.shift-log.open-shift') }}" icon="fas fa-user-clock" />
+                        active="{{ request()->routeIs('front-office.shift-log.open-shift') }}"
+                        icon="fas fa-user-clock" />
                     <x-sidebar-submenu name="Tutup Sesi" route="{{ route('front-office.shift-log.close-shift') }}"
-                        active="{{ request()->routeIs('front-office.shift-log.close-shift') }}" icon="fas fa-user-clock" />
+                        active="{{ request()->routeIs('front-office.shift-log.close-shift') }}"
+                        icon="fas fa-user-clock" />
                     <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
-                        active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
+                        active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}"
+                        icon="fas fa-clipboard-list" />
                 </x-sidebar-dropdown>
             @endcan
             <li>
