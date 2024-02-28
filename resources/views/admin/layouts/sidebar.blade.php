@@ -58,25 +58,20 @@
                 </x-sidebar-dropdown>
             @endcanany
 
-            @canany(['read_treatment', 'read_treatment_bonus', 'read_discount', 'read_treatment_category',
+            @canany(['read_treatment', 'read_treatment_bonus', 'read_treatment_category',
                 'read_addon'])
                 <x-sidebar-dropdown title="Manajemen Layanan" icon="fas fa-stethoscope" toggle="master-treatment"
-                    active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.discount.*') || request()->routeIs('admin.addon.*') }}">
+                    active="{{ request()->routeIs('admin.treatment-categories.*') || request()->routeIs('admin.treatment.*') || request()->routeIs('admin.treatment-bonus.*') || request()->routeIs('admin.addon.*') }}">
                     @can('read_treatment')
                         <x-sidebar-submenu name="Layanan" route="{{ route('admin.treatment.index') }}"
                             active="{{ request()->routeIs('admin.treatment.*') }}" icon="fas fa-band-aid" class=" ms-4" />
-                    @endcan
-                    @can('read_treatment_bonus')
-                        <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
-                            active="{{ request()->routeIs('admin.treatment-bonus.*') }}" icon="fas fa-gift" class=" ms-4" />
-                    @endcan
-                    @can('read_discount')
-                        <x-sidebar-submenu name="Diskon" route="{{ route('admin.discount.index') }}"
-                            active="{{ request()->routeIs('admin.discount.*') }}" icon="fas fa-money-bill-wave"
-                            class=" ms-4" />
-                    @endcan
-                    @can('read_treatment_category')
-                        <x-sidebar-submenu name="Kategori" route="{{ route('admin.treatment-categories.index') }}"
+                        @endcan
+                        @can('read_treatment_bonus')
+                            <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
+                                active="{{ request()->routeIs('admin.treatment-bonus.*') }}" icon="fas fa-gift" class=" ms-4" />
+                        @endcan
+                        @can('read_tretment_category')
+                            <x-sidebar-submenu name="Kategori" route="{{ route('admin.treatment-categories.index') }}"
                             active="{{ request()->routeIs('admin.treatment-categories.*') }}" icon="fas fa-th-list" />
                     @endcan
                     @can('read_addon')
@@ -85,6 +80,27 @@
                     @endcan
                 </x-sidebar-dropdown>
             @endcanany
+
+            @canany(['read_discount', 'read_discount_treatment', 'read_discount_item'])
+                <x-sidebar-dropdown title="Manajemen Diskon" icon="fas fa-money-bill-wave" toggle="master-discount"
+                    active="{{ request()->routeIs('admin.discount.*') || request()->routeIs('admin.discount_treatment.*') || request()->routeIs('admin.discount_item.*')}}">
+                    @can('read_discount')
+                        <x-sidebar-submenu name="Diskon" route="{{ route('admin.discount.index') }}"
+                            active="{{ request()->routeIs('admin.discount.*') }}" icon="fas fa-money-bill-wave"
+                            class=" ms-4" />
+                    @endcan
+                    @can('read_discount_treatment')
+                        <x-sidebar-submenu name="Diskon Layanan" route="{{ route('admin.discount_treatment.index') }}"
+                            active="{{ request()->routeIs('admin.discount_treatment.*') }}" icon="fas fa-band-aid"
+                            class=" ms-4" />
+                    @endcan
+                    @can('read_discount_item')
+                        <x-sidebar-submenu name="Diskon Barang" route="{{ route('admin.discount_item.index') }}"
+                            active="{{ request()->routeIs('admin.discount_item.*') }}" icon="fas fa-box"
+                            class=" ms-4" />
+                    @endcan
+                    </x-sidebar-dropdown>
+                @endcanany
 
             @can('read_branch')
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
