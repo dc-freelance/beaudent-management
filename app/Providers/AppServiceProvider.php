@@ -34,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\ShiftLogInterface::class, \App\Repositories\ShiftLogRepository::class);
         $this->app->bind(\App\Interfaces\PaymentMethodsInterface::class, \App\Repositories\PaymentMethodsRepository::class);
         $this->app->bind(\App\Interfaces\TreatmentCategoriesInterface::class, \App\Repositories\TreatmentCategoriesRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountItemInterface::class, \App\Repositories\DiscountItemRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountTreatmentInterface::class, \App\Repositories\DiscountTreatmentRepository::class);
         $this->loadHelpers();
     }
 

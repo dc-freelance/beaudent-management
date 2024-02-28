@@ -41,8 +41,12 @@ class RoleSeeder extends Seeder
             // Menu Manajemen Layanan
             'create_treatment', 'update_treatment', 'delete_treatment', 'read_treatment',
             'create_treatment_bonus', 'update_treatment_bonus', 'delete_treatment_bonus', 'read_treatment_bonus',
-            'create_discount', 'update_discount', 'delete_discount', 'read_discount',
             'create_addon', 'update_addon', 'delete_addon', 'read_addon',
+
+            // Menu Manajemen Diskon
+            'create_discount', 'update_discount', 'delete_discount', 'read_discount',
+            'create_discount_treatment', 'update_discount_treatment', 'delete_discount_treatment', 'read_discount_treatment',
+            'create_discount_item', 'update_discount_item', 'delete_discount_item', 'read_discount_item',
 
             // Menu Manajemen Cabang
             'create_branch', 'update_branch', 'delete_branch', 'read_branch',
@@ -64,7 +68,7 @@ class RoleSeeder extends Seeder
             // Menu Pembayaran
             'create_payment_method', 'update_payment_method', 'delete_payment_method','read_payment_method',
 
-// Menu Manajemen Reservasi
+            // Menu Manajemen Reservasi
             'read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation', 'read_cancel_reservation',
             'reschedule_reservation', 'detail_reservation', 'delete_reservation',
 

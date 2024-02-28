@@ -1,26 +1,26 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Diskon', 'url' => route('admin.discount.index')],
-    ]" title="Manajemen Diskon" />
+        ['name' => 'Manajemen Diskon Layanan', 'url' => route('admin.discount_treatment.index')],
+    ]" title="Manajemen Diskon Layanan" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            @can('create_discount')
-                <x-link-button route="{{ route('admin.discount.create') }}" color="gray">
+            @can('create_discount_treatment')
+                <x-link-button route="{{ route('admin.discount_treatment.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
-                    Tambah Diskon
+                    Tambah Diskon Layanan
                 </x-link-button>
             @endcan
         </div>
-        <table id="discountTable">
+        <table id="discountTreatmentTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nama</th>
-                    <th>Awal Periode Diskon</th>
-                    <th>Akhir Periode Diskon</th>
-                    <th>Status</th>
+                    <th>Nama Diskon</th>
+                    <th>Layanan</th>
+                    <th>Tipe Diskon</th>
+                    <th>Diskon</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,10 +30,10 @@
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = "{{ route('admin.discount.delete', ':id') }}".replace(':id', _id);
+                let url = "{{ route('admin.discount_treatment.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: `Diskon ${_name} akan dihapus!`,
+                    text: `Diskon Layanan ${_name} akan dihapus!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, hapus!',
@@ -76,31 +76,31 @@
             }
 
             $(function() {
-                $('#discountTable').DataTable({
+                $('#discountTreatmentTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('admin.discount.index') }}',
+                    ajax: '{{ route('admin.discount_treatment.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'discount_id',
+                            name: 'discount_id'
                         },
                         {
-                            data: 'start_date',
-                            name: 'start_date'
+                            data: 'treatment_id',
+                            name: 'treatment_id'
                         },
                         {
-                            data: 'end_date',
-                            name: 'end_date'
+                            data: 'discount_type',
+                            name: 'discount_type'
                         },
                         {
-                            data: 'is_active',
-                            name: 'is_active'
+                            data: 'discount',
+                            name: 'discount'
                         },
                         {
                             data: 'action',
