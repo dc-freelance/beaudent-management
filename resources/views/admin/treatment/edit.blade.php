@@ -58,7 +58,7 @@
                     <x-input format="nominal" id="price" label="Harga" name="price" type="text" required
                         value="{{ number_format($data->price, 0, ',', '.') }}" />
                 </div>
-                <div class="mt-6">
+                <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

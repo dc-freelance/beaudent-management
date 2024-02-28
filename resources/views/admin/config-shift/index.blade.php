@@ -6,7 +6,8 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.config-shift.create') }}" class="tombol">
+            <x-link-button route="{{ route('admin.config-shift.create') }}"
+                class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Konfigurasi Shift
             </x-link-button>

@@ -23,7 +23,7 @@
                     :value="$data->phone_number" />
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required
                     :value="$data->join_date" />
-                <div class="mt-6">
+                <div class="mt-6 w-full md:w-1/3 lg:w-1/2">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

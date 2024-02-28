@@ -12,22 +12,26 @@
                 @method('PUT')
                 <div class="space-y-6 mb-6">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
-                    <x-input id="email" label="Email" name="email" required value="{{ $data->email }}" />
-                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required
-                        value="{{ $data->phone_number }}" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <x-input id="email" label="Email" name="email" required value="{{ $data->email }}" />
+                        <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required
+                            value="{{ $data->phone_number }}" />
+                    </div>
                     <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required
                         value="{{ $data->join_date }}" />
                     <div>
-                        <p>Lokasi</p>
-                        <div class="flex flex-wrap gap-6 mt-6">
+                        <p class="font-normal">Lokasi: </p>
+                        <div class="flex flex-wrap gap-6 mt-6 w-1/2">
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="pusat" value="pusat"
-                                    {{ $data->branch_id === 1 ? 'checked' : '' }} class="radio radio-primary">
+                                    {{ $data->branch_id === 1 ? 'checked' : '' }}
+                                    class="radio text-blue-500 focus:ring-blur-500 hover:cursor-pointer">
                                 <label for="pusat">Pusat</label>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="cabang" value="cabang"
-                                    {{ $data->branch_id !== 1 ? 'checked' : '' }} class="radio radio-primary">
+                                    {{ $data->branch_id !== 1 ? 'checked' : '' }}
+                                    class="radio text-blue-500 focus:ring-blue-500 hover:cursor-pointer">
                                 <label for="cabang">Cabang</label>
                             </div>
                         </div>
@@ -37,9 +41,11 @@
                             Daftar Cabang
                         </label>
                         <select id="branch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             name="branch_id">
-                            <option value="" selected disabled>Pilih Cabang</option>
+                            <option value="" selected disabled class="transition duration-150 ease-in-out">Pilih
+                                Cabang
+                            </option>
                             @foreach ($branches as $branch)
                                 <option value="{{ $branch->id }}"
                                     {{ $data->branch_id === $branch->id ? 'selected' : '' }}>
@@ -49,12 +55,12 @@
                     </div>
                     <div>
                         <p>Hak Akses</p>
-                        <div class="flex flex-wrap gap-6 mt-6">
+                        <div class="flex justify-center flex-wrap gap-6 mt-6">
                             @foreach ($roles as $role)
                                 <div class="flex items-center space-x-2" id="role-{{ $role->name }}">
                                     <input type="radio" name="role" id="{{ $role->name }}"
                                         value="{{ $role->name }}" {{ $data->hasRole($role->name) ? 'checked' : '' }}
-                                        class="radio radio-primary">
+                                        class="radio text-blue-500 focus:ring-blue-500 hover:cursor-pointer">
                                     <label
                                         for="{{ $role->name }}">{{ ucwords(str_replace('_', ' ', $role->name)) }}</label>
                                 </div>

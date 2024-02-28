@@ -10,12 +10,13 @@
             <form action="{{ route('admin.branch.store') }}" method="POST">
                 @csrf
                 <div class="space-y-6">
-                    <x-input id="code" label="Kode Cabang" name="code" value="{{ $generate_code }}" readonly="readonly" required/>
+                    <x-input id="code" label="Kode Cabang" name="code" value="{{ $generate_code }}"
+                        readonly="readonly" required />
                     <x-input id="name" label="Nama Cabang" name="name" required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     <x-input id="address" label="Alamat" name="address" required />
                 </div>
-                <div class="mt-6">
+                <div class="mx-auto mt-6 w-full md:w-1/3 lg:w-1/2">
                     <x-button type="submit">Tambah Cabang</x-button>
                 </div>
             </form>

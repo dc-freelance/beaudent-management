@@ -16,7 +16,7 @@
     </label>
     <input type="{{ $type }}" id="{{ $id }}" data-format="{{ $format }}"
         {{ $step ? 'step="any"' : '' }}
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-slate-400 focus:border-slate-400 transition duration-200 ease-in block w-full p-2.5"
+        class="bg-gray-50 border border-slate-200 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-200 ease-in block w-full p-2.5"
         name="{{ $name }}" value="{{ $value }}" required="{{ $required }}" {{ $readonly }} />
     @if ($tip)
         <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ $tip }}</p>
