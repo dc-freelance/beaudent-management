@@ -15,9 +15,8 @@
                     <x-input id="name" label="Nama" name="name" required value="{{ $role->name }}" />
                     <div class="">
                         <p>Permission</p>
-                        <div class="grid max-md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                        <div class="grid max-md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
                             @foreach ($permissions as $permission)
-                                {{-- checkbox --}}
                                 <div class="flex items-center space-x-2">
                                     <input type="checkbox" name="permissions[]" id="{{ $permission->name }}"
                                         value="{{ $permission->name }}"
