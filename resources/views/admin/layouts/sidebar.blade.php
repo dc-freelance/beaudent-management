@@ -99,8 +99,8 @@
                             active="{{ request()->routeIs('admin.discount_item.*') }}" icon="fas fa-box"
                             class=" ms-4" />
                     @endcan
-                </x-sidebar-dropdown>
-            @endcanany
+                    </x-sidebar-dropdown>
+                @endcanany
 
             @can('read_branch')
                 <x-sidebar-item name="Manajemen Cabang" icon="fas fa-institution" route="{{ route('admin.branch.index') }}"
