@@ -76,7 +76,6 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    scrollX: true,
                     ajax: '{{ route('admin.doctor-category.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

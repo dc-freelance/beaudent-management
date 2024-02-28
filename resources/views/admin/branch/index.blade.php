@@ -6,12 +6,14 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.branch.create') }}" class="tombol">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Cabang
-            </x-link-button>
+            @can('create_branch')
+                <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Cabang
+                </x-link-button>
+            @endcan
         </div>
-        <table id="branchTable" class="hover stripe">
+        <table id="branchTable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -19,6 +21,7 @@
                     <th>Kode Cabang</th>
                     <th>Nomor Telpon</th>
                     <th>Alamat</th>
+                    <th>Minimum Deposit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -78,8 +81,7 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    // responsive: true,   
-                    scrollX: true,
+                    responsive: true,
                     ajax: '{{ route('admin.branch.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
@@ -100,6 +102,10 @@
                         {
                             data: 'address',
                             name: 'address'
+                        },
+                        {
+                            data: 'deposit_minimum',
+                            name: 'deposit_minimum'
                         },
                         {
                             data: 'action',

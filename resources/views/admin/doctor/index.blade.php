@@ -6,12 +6,14 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.doctor.create') }}" class="tombol">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Dokter
-            </x-link-button>
+            @can('create_doctor')
+                <x-link-button route="{{ route('admin.doctor.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Dokter
+                </x-link-button>
+            @endcan
         </div>
-        <table id="doctorTable" class="hover stripe">
+        <table id="doctorTable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -79,8 +81,6 @@
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
-                    // responsive: true,   
-                    scrollX: true,
                     ajax: '{{ route('admin.doctor.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',

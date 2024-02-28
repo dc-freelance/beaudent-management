@@ -35,6 +35,12 @@ div:where(.swal2-container) .swal2-html-container {
     @apply text-base;
 }
 
+.dataTables_length select {
+    width: 4rem;
+    margin: 0 0.5rem;
+    font-size: 0.875rem;
+}
+
 /* SELECT 2 */
 
 .select2-container--default .select2-selection--single {
@@ -65,74 +71,25 @@ div:where(.swal2-container) .swal2-html-container {
     @apply bg-primary text-white;
 }
 
-/* datatable */
-.tombol {
-    background-color: forestgreen;
+/* CSS untuk indikator loading */
+.loader {
+    border-top: 4px solid #3498db;
+    border-right: 4px solid #e74c3c;
+    border-bottom: 4px solid #2ecc71;
+    border-left: 4px solid #f39c12;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    animation: spin 1s linear infinite;
+    z-index: 999;
 }
 
-.dataTables_length select {
-    width: 4rem;
-    margin: 0 0.5rem;
-    font-size: 0.875rem;
-}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
-.dataTables_paginate {
-    background-color: whitesmoke;
-    padding: 10px 10px 5px 10px;
-    border-radius: 5px;
-}
-
-.dataTables_paginate a {
-    border-radius: 5px !important;
-    transition: 0.2s ease-in-out;
-}
-
-.dataTables_paginate a:hover {
-    background-color: white;
-    color: black;
-    transition: 0.2s ease-in-out;
-}
-
-/* .dataTable thead th {
-    border: none !important;
-    padding: 15px;
-} */
-
-.dataTable thead tr th {
-    border: none !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-}
-
-.dataTable thead th::after,
-.dataTable thead th::before {
-    visibility: hidden;
-}
-
-
-.dataTable tbody td {
-    border-bottom: 1px solid #f2f2f2;
-    /* text-align: center; */
-    /* margin: 0 auto; */
-}
-
-.fg-toolbar {
-    background-color: white;
-    border: none !important;
-}
-
-.no-footer {
-    border: none;
-}
-
-/* scroll vertikal responsive */
-/* ::-webkit-scrollbar {
-    width: 12px;
-} */
-
-::-webkit-scrollbar-thumb {
-    background-color: silver;
-}
-
-::-webkit-scrollbar-track {
-    background-color: white;
+    100% {
+        transform: rotate(360deg);
+    }
 }
