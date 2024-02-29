@@ -155,7 +155,10 @@
                     </div> --}}
                 </div>
                 <div>
-
+                    <select id="select-year"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block p-2.5"
+                        name="year">
+                    </select>
                     {{-- <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
                         data-dropdown-placement="bottom" type="button"
                         class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Last
