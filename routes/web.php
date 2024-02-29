@@ -42,6 +42,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Role
     Route::group(['prefix' => 'role'], function () {
         Route::get('/', [RoleController::class, 'index'])->middleware('permission:read_role')->name('admin.role.index');
+        Route::get('get-by-place/{place}', [RoleController::class, 'getWhich'])->middleware('permission:read_role')->name('admin.role.get-by-place');
         Route::get('get-by-id/{id}', [RoleController::class, 'getById'])->name('admin.role.get-by-id');
         Route::get('create', [RoleController::class, 'create'])->middleware('permission:create_role')->name('admin.role.create');
         Route::post('store', [RoleController::class, 'store'])->middleware('permission:create_role')->name('admin.role.store');

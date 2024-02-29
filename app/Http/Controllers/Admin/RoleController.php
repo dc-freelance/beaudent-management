@@ -71,7 +71,7 @@ class RoleController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:roles,name,'.$id,
+            'name' => 'required|unique:roles,name,' . $id,
             'permissions' => 'required|array',
         ]);
 
@@ -90,6 +90,15 @@ class RoleController extends Controller
             $this->role->delete($id);
 
             return response()->json(['status' => 'success', 'message' => 'Hak akses berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function getWhich($place)
+    {
+        try {
+            return $this->role->getWich($place);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
