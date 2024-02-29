@@ -12,6 +12,7 @@ class ItemController extends Controller
 {
     private $item;
     private $itemCategory;
+    private $itemUnit;
 
     public function __construct(ItemInterface $item, ItemCategoryInterface $itemCategory, ItemUnitInterface $itemUnit)
     {
@@ -22,7 +23,7 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return datatables()
                 ->of($this->item->get())
                 ->addColumn('name', function ($data) {
@@ -38,7 +39,7 @@ class ItemController extends Controller
                     return $data->name;
                 })
                 ->addColumn('hpp', function ($data) {
-                    return 'Rp '.number_format($data->hpp, 0, ',', '.');
+                    return 'Rp ' . number_format($data->hpp, 0, ',', '.');
                 })
                 ->addColumn('type', function ($data) {
                     $type = $data->type == 'Medicine' ? 'Obat' : 'BMHP';

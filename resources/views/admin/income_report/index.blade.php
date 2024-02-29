@@ -112,7 +112,7 @@
                         // Remove the formatting to get integer data for summation
                         var intVal = function(i) {
                             return typeof i === 'string' ?
-                                i.replace(/[\$,]/g, '') * 1 :
+                                i.replace(/[\$.]/g, '') * 1 :
                                 typeof i === 'number' ?
                                 i : 0;
                         };
