@@ -38,6 +38,9 @@ class ItemController extends Controller
                 ->addColumn('total_stock', function ($data) {
                     return $data->name;
                 })
+                ->addColumn('hpp', function ($data) {
+                    return 'Rp ' . number_format($data->hpp, 0, ',', '.');
+                })
                 ->addColumn('price', function ($data) {
                     return 'Rp ' . number_format($data->price, 0, ',', '.');
                 })
