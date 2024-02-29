@@ -209,6 +209,6 @@ class TransactionController extends Controller
 
         // return view('front-office.transaction.transaction-pdf', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonExamination', 'dateTransaction'));
         $print = PDF::loadview('front-office.transaction.transaction-pdf', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonExamination', 'dateTransaction'));
-        return $print->download('transaction-pdf');
+        return $print->download('transaction-print.pdf');
     }
 }
