@@ -901,11 +901,7 @@
         <script>
             Pusher.logToConsole = true;
             const app_key = "{{ config('broadcasting.connections.pusher.key') }}"
-            $('#reservationsTable').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Maaf data belum tersedia."
-                },
-            });
+            getDataTable();
             if (app_key) {
                 var pusher = new Pusher(app_key, {
                     cluster: 'ap1'
