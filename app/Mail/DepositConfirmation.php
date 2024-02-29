@@ -35,7 +35,7 @@ class DepositConfirmation extends Mailable
             $cta = '<p>
                         Reservasi anda telah berhasil dan akan berakhir setelah tanggal kunjungan anda. Anda dapat melihat kembali detail reservasi dengan mengakses tombol dibawah ini
                     </p>
-                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential?creds=' . $reservation->customers->email . '">Lihat Detail</a>
+                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential?creds=' . urlencode(base64_encode($reservation->customers->email)) . '">Lihat Detail</a>
                 ';
         } else {
             $title = 'Pembayaran Dibatalkan';
@@ -54,7 +54,7 @@ class DepositConfirmation extends Mailable
             'identity_number' => $reservation->customers->identity_number,
             'customer' => $reservation->customers->name,
             'email' => $reservation->customers->email,
-            'phone' => $reservation->customers->phone_number,
+            'phone' => '+62 ' . $reservation->customers->phone_number,
             'address' => $reservation->customers->address,
             'branch' => $reservation->branches->name,
             'count' => rupiahFormat($reservation->deposit),
