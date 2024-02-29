@@ -987,7 +987,7 @@
             });
         </script>
         <!-- Column Chart -->
-        {{-- <script>
+        <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const options = {
@@ -1139,10 +1139,10 @@
                     chart.render();
                 }
             });
-        </script> --}}
+        </script>
 
         <!-- Donut Chart -->
-        {{-- <script>
+        <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const getChartOptions = () => {
@@ -1265,10 +1265,10 @@
                     });
                 }
             });
-        </script> --}}
+        </script>
 
         <!-- Pie Chart -->
-        {{-- <script>
+        <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const getChartOptions = () => {
@@ -1334,7 +1334,7 @@
                     chart.render();
                 }
             });
-        </script> --}}
+        </script>
     @endpush
 
 
