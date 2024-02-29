@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\DiscountTreatmentController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\TreatmentReportController;
 use App\Http\Controllers\Admin\PatientVisitReportController;
+use App\Http\Controllers\ShiftReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -333,12 +334,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [DiscountItemController::class, 'delete'])->middleware('permission:delete_discount_item')->name('admin.discount_item.delete');
     });
 
-
     // patient visit report
     Route::group(['prefix' => 'patient_visit_report'], function () {
         // Admin Cabang
         Route::get('patient_visit_report/general', [PatientVisitReportController::class, 'getGeneral'])->middleware('permission:read_patient_visit_report_general')->name('admin.patient_visit_report.general');
         Route::get('patient_visit_report/general/export', [PatientVisitReportController::class, 'exportGeneral'])->middleware('permission:export_patient_visit_report_general')->name('admin.patient_visit_report.general.export');
+    });
+    // shift report
+    Route::group(['prefix' => 'shift_report'], function () {
+        // Admin Cabang
+        Route::get('shift_report/general', [ShiftReportController::class, 'getGeneral'])->middleware('permission:read_shift_report_general')->name('admin.shift_report.general');
+        Route::get('shift_report/general/export', [ShiftReportController::class, 'exportGeneral'])->middleware('permission:export_shift_report_general')->name('admin.shift_report.general.export');
     });
     // Income Report
     Route::group(['prefix' => 'income_report'], function () {

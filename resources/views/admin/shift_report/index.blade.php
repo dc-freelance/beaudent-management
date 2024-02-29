@@ -1,12 +1,12 @@
 <x-app-layout>
-    <x-breadcrumb :links="[['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Laporan Layanan']]" title="Laporan Layanan" />
+    <x-breadcrumb :links="[['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Laporan Shif']]" title="Laporan Shif" />
     <x-card-container>
-        <div class="grid grid-cols-4 lg:grid-cols-4 gap-4 items-end">
+        <div class="grid grid-cols-4 lg:grid-cols-2 gap-4 items-end">
             <x-input id="start_date" label="Tanggal Awal" type="date" name="start_date" />
             <x-input id="end_date" label="Tanggal Akhir" type="date" name="end_date" />
             @hasrole(['admin_pusat'])
                 <x-select id="branch_id" label="Cabang" name="branch_id">
-                    <option value="">Semua</option>
+                    <option value="all">Semua</option>
                     @foreach ($branches as $branch)
                         <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                     @endforeach
@@ -19,10 +19,10 @@
                         Filter Data
                     </button>
                 </div>
-                @can('export_treatment_report_general')
+                @can('export_shift_report_general')
                     <div>
                         <button type="button" id="buttonExport"
-                            class="focus:outline-none text-white bg-green-700 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
                             Export Data
                         </button>
                     </div>
@@ -31,13 +31,15 @@
         </div>
     </x-card-container>
     <x-card-container>
-        <table id="treatmentReportTable">
+        <table id="incomeReportTable">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Layanan</th>
-                    <th>Jumlah Transaksi</th>
-                    <th>Total Transaksi</th>
+                    <th>Tanggal</th>
+                    <th>Shift</th>
+                    <th>Cabang</th>
+                    <th>User</th>
+                    <th>Sub total</th>
                 </tr>
             </thead>
         </table>
@@ -46,29 +48,36 @@
     @push('js-internal')
         <script>
             $(function() {
-                $('#treatmentReportTable').DataTable({
+                $('#incomeReportTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('admin.treatment-report.general') }}',
+                    ajax: '{{ route('admin.shift_report.general') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'treatment',
-                            name: 'treatment'
+                            data: 'tanggal',
+                            name: 'tanggal'
                         },
                         {
-                            data: 'jumlah',
-                            name: 'jumlah'
+                            data: 'shift',
+                            name: 'shift'
                         },
                         {
-                            data: 'total',
-                            name: 'total'
+                            data: 'cabang',
+                            name: 'cabang'
                         },
-
+                        {
+                            data: 'user',
+                            name: 'user'
+                        },
+                        {
+                            data: 'sub_total',
+                            name: 'sub_total'
+                        },
                     ],
                 });
             });
@@ -99,8 +108,8 @@
                     }
                 }
 
-                $('#treatmentReportTable').DataTable().ajax.url(
-                    `{{ route('admin.treatment-report.general') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`
+                $('#incomeReportTable').DataTable().ajax.url(
+                    `{{ route('admin.shift_report.general') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`
                 ).load();
             });
 
@@ -109,6 +118,9 @@
                 startDate = $('#start_date').val();
                 endDate = $('#end_date').val();
                 branchId = $('#branch_id').val();
+                console.log(startDate);
+                console.log(endDate);
+                console.log(branchId);
 
                 @role('admin_cabang')
                     branchId = '{{ auth()->user()->branch_id }}';
@@ -127,7 +139,7 @@
                 }
 
                 window.location.href =
-                    `{{ route('admin.treatment-report.general.export') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`;
+                    `{{ route('admin.shift_report.general.export') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`;
             });
         </script>
     @endpush
