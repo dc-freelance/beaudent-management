@@ -9,8 +9,9 @@ use App\Interfaces\PaymentMethodsInterface;
 use App\Interfaces\AddonInterface;
 use App\Models\ExaminationTreatment;
 use App\Models\ExaminationItem;
-use App\Models\AddonTransaction;
+use App\Models\AddonExamination;
 use App\Models\Transaction;
+use App\Models\Addon;
 use Carbon\Carbon;
 use DB;
 use PDF;
@@ -66,12 +67,12 @@ class TransactionController extends Controller
         $detailTransaction = $this->transaction->detail_transaction($transaction);
         $detailExaminationTreatment = ExaminationTreatment::with('treatment')->where('examination_id', $detailTransaction->examination->id)->get();
         $detailExaminationItem = ExaminationItem::with('item')->where('examination_id', $detailTransaction->examination->id)->get();
-        $detailAddonTransaction = AddonTransaction::with('addon')->where('examination_id', $detailTransaction->examination->id)->get();
+        $detailAddonExamination = AddonExamination::with('addon')->where('examination_id', $detailTransaction->examination->id)->get();
 
         $listPaymentMethod = $this->paymentMethod->get();
         $listAddon = $this->addon->get();
 
-        return view('front-office.transaction.payment', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonTransaction', 'listPaymentMethod', 'listAddon'));
+        return view('front-office.transaction.payment', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonExamination', 'listPaymentMethod', 'listAddon'));
     }
 
     public function payment_confirm($transaction, Request $request)
@@ -118,21 +119,21 @@ class TransactionController extends Controller
     {
         $request->validate([
             'addon_id' => 'required',
-            'fee' => 'required',
-        ]);
-
-        $request->merge([
-            'fee' => str_replace(['Rp.', '.', ','], '', $request->input('fee'))
+            'qty' => 'required',
         ]);
 
         try {
+            $addon = Addon::find($request->addon_id);
+
             DB::beginTransaction();
-            $storeAddonTransaction = new AddonTransaction();
-            $storeAddonTransaction->examination_id = $examination;
-            $storeAddonTransaction->user_id = auth()->user()->id;
-            $storeAddonTransaction->fee = $request->fee;
-            $storeAddonTransaction->addon_id = $request->addon_id;
-            $storeAddonTransaction->save();
+            $storeAddonExamination = new AddonExamination();
+            $storeAddonExamination->examination_id = $examination;
+            $storeAddonExamination->user_id = auth()->user()->id;
+            $storeAddonExamination->addon_id = $request->addon_id;
+            $storeAddonExamination->qty = $request->qty;
+            $storeAddonExamination->sub_total = $addon->price*$request->qty;
+            $storeAddonExamination->fee = ($addon->price*$request->qty)*$addon->fee_percentage/100;
+            $storeAddonExamination->save();
 
             DB::commit();
             return redirect()->back()->with('success', 'Data Layanan Tambahan Berhasil ditambahkan');
@@ -142,10 +143,10 @@ class TransactionController extends Controller
         }
     }
 
-    public function remove_addon_transaction($addonTransaction)
+    public function remove_addon_transaction($addonExamination)
     {
         try {
-            AddonTransaction::find($addonTransaction)->delete();
+            AddonExamination::find($addonExamination)->delete();
             return redirect()->back()->with('success', 'Data Layanan Tambahan Berhasil dihapus');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -190,12 +191,12 @@ class TransactionController extends Controller
         $detailTransaction = $this->transaction->detail_transaction($transaction);
         $detailExaminationTreatment = ExaminationTreatment::with('treatment')->where('examination_id', $detailTransaction->examination->id)->get();
         $detailExaminationItem = ExaminationItem::with('item')->where('examination_id', $detailTransaction->examination->id)->get();
-        $detailAddonTransaction = AddonTransaction::with('addon')->where('examination_id', $detailTransaction->examination->id)->get();
+        $detailAddonExamination = AddonExamination::with('addon')->where('examination_id', $detailTransaction->examination->id)->get();
 
         $listPaymentMethod = $this->paymentMethod->get();
         $listAddon = $this->addon->get();
 
-        return view('front-office.transaction.transaction-detail', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonTransaction', 'listPaymentMethod', 'listAddon'));
+        return view('front-office.transaction.transaction-detail', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonExamination', 'listPaymentMethod', 'listAddon'));
     }
 
     public function print_transaction($transaction)
@@ -203,11 +204,11 @@ class TransactionController extends Controller
         $detailTransaction = $this->transaction->detail_transaction($transaction);
         $detailExaminationTreatment = ExaminationTreatment::with('treatment')->where('examination_id', $detailTransaction->examination->id)->get();
         $detailExaminationItem = ExaminationItem::with('item')->where('examination_id', $detailTransaction->examination->id)->get();
-        $detailAddonTransaction = AddonTransaction::with('addon')->where('examination_id', $detailTransaction->examination->id)->get();
+        $detailAddonExamination = AddonExamination::with('addon')->where('examination_id', $detailTransaction->examination->id)->get();
         $dateTransaction = Carbon::parse($detailTransaction->updated_at)->locale('id')->isoFormat('LL');
 
-        // return view('front-office.transaction.transaction-pdf', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonTransaction', 'dateTransaction'));
-        $print = PDF::loadview('front-office.transaction.transaction-pdf', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonTransaction', 'dateTransaction'));
+        // return view('front-office.transaction.transaction-pdf', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonExamination', 'dateTransaction'));
+        $print = PDF::loadview('front-office.transaction.transaction-pdf', compact('transaction', 'detailTransaction', 'detailExaminationTreatment', 'detailExaminationItem', 'detailAddonExamination', 'dateTransaction'));
         return $print->download('transaction-pdf');
     }
 }

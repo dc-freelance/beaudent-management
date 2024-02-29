@@ -18,21 +18,65 @@
                                 <th class="p-4 w-1/4">Nama Treatment</th>
                                 <th class="p-4 w-1/4">Qty</th>
                                 <th class="p-4 w-1/4">Harga</th>
-                                <th class="p-4 w-1/4">Sub Total</th>
+                                <th class="p-4 w-1/5">Jenis Diskon</th>
+                                <th class="p-4 w-1/5">Sub Total</th>
+                                <th class="p-4 w-1/5">Diskon</th>
+                                <th class="p-4 w-1/5">Harga Setelah Diskon</th>
                             </tr>
                         </thead>
                         <tbody class="bg-gray-100 flex flex-col items-center justify-between overflow-y-scroll w-full rounded" style="height: 20vh;">
+                            @php
+                                $totalDiscountTreatment = 0;
+                                $totalAfterDiscountTreatment = 0;
+                            @endphp
                             @foreach ($detailExaminationTreatment as $item)
                             <tr class="flex w-full mb-4">
                                 <td class="p-4 w-1/4">{{ $item->treatment->name }}</td>
                                 <td class="p-4 w-1/4">{{ $item->qty }}</td>
                                 <td class="p-4 w-1/4">{{ "Rp. ".number_format($item->treatment->price, 0, ',', '.') }}</td>
+                                <td class="p-4 w-1/5">{{ checkDiscountTreatment($item->treatment_id, $item->created_at) != null ? checkDiscountTreatment($item->treatment_id, $item->created_at)->discount_type : '-' }}</td>
                                 <td class="p-4 w-1/4">{{ "Rp. ".number_format($item->sub_total, 0, ',', '.') }}</td>
+                                <td class="p-4 w-1/5">
+                                    @if (checkDiscountTreatment($item->treatment_id, $item->created_at) != null)
+                                        @if (checkDiscountTreatment($item->treatment_id, $item->created_at)->discount_type == 'Percentage')
+                                            {{ checkDiscountTreatment($item->treatment_id, $item->created_at)->discount.'%' }}
+                                            ( {{ "Rp. ".number_format( $item->treatment ? $item->sub_total * checkDiscountTreatment($item->treatment_id, $item->created_at)->discount / 100 : 0, 0, ',', '.') }} )
+                                            @php
+                                                $totalDiscountTreatment += ($item->sub_total * checkDiscountTreatment($item->treatment_id, $item->created_at)->discount / 100);
+                                                $totalAfterDiscountTreatment += $item->sub_total - ($item->sub_total * checkDiscountTreatment($item->treatment_id, $item->created_at)->discount / 100);
+                                            @endphp
+                                        @else
+                                            {{ "Rp. ".number_format(checkDiscountTreatment($item->treatment_id, $item->created_at)->discount, 0, ',', '.') }}
+                                            @php
+                                                $totalDiscountTreatment += checkDiscountTreatment($item->treatment_id, $item->created_at)->discount;
+                                                $totalAfterDiscountTreatment += $item->sub_total - checkDiscountTreatment($item->treatment_id, $item->created_at)->discount;
+                                            @endphp
+                                        @endif
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="p-4 w-1/5">
+                                    @if (checkDiscountTreatment($item->treatment_id, $item->created_at) != null)
+                                        @if (checkDiscountTreatment($item->treatment_id, $item->created_at)->discount_type == 'Percentage')
+                                            {{ "Rp. ".number_format( $item->treatment ? $item->sub_total - ($item->sub_total * checkDiscountTreatment($item->treatment_id, $item->created_at)->discount / 100) : 0, 0, ',', '.') }}
+                                        @else
+                                            {{ "Rp. ".number_format( $item->treatment ? $item->sub_total - checkDiscountTreatment($item->treatment_id, $item->created_at)->discount : 0, 0, ',', '.') }}
+                                        @endif
+                                    @else
+                                        {{ "Rp. ".number_format( $item->treatment ? $item->sub_total : 0, 0, ',', '.') }}
+                                        @php
+                                            $totalAfterDiscountTreatment += $item->sub_total
+                                        @endphp
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                     <p class="px-5 pb-2 pt-5 text-right font-bold">Total Treatment : {{ "Rp. ".number_format($detailExaminationTreatment->sum('sub_total'), 0, ',', '.') }}</p>
+                    <p class="px-5 pb-2 pt-5 text-right font-bold">Total Harga Diskon Treatment : {{ "Rp. ".number_format($totalDiscountTreatment, 0, ',', '.') }}</p>
+                    <p class="px-5 pb-2 pt-5 text-right font-bold">Total Setelah Diskon Treatment : {{ "Rp. ".number_format($totalAfterDiscountTreatment, 0, ',', '.') }}</p>
                 </div>
             </x-card-container>
             <x-card-container>
@@ -43,24 +87,68 @@
                     <table class="text-left w-full">
                         <thead class="bg-primary flex text-white w-full rounded">
                             <tr class="flex w-full">
-                                <th class="p-4 w-1/4">Nama Treatment</th>
-                                <th class="p-4 w-1/4">Qty</th>
-                                <th class="p-4 w-1/4">Harga</th>
-                                <th class="p-4 w-1/4">Sub Total</th>
+                                <th class="p-4 w-1/5">Nama Treatment</th>
+                                <th class="p-4 w-1/5">Qty</th>
+                                <th class="p-4 w-1/5">Harga</th>
+                                <th class="p-4 w-1/5">Jenis Diskon</th>
+                                <th class="p-4 w-1/5">Sub Total</th>
+                                <th class="p-4 w-1/5">Diskon</th>
+                                <th class="p-4 w-1/5">Harga Setelah Diskon</th>
                             </tr>
                         </thead>
                         <tbody class="bg-gray-100 flex flex-col items-center justify-between overflow-y-scroll w-full rounded" style="height: 20vh;">
+                            @php
+                                $totalDiscountItem = 0;
+                                $totalAfterDiscountItem = 0;
+                            @endphp
                             @foreach ($detailExaminationItem as $item)
                             <tr class="flex w-full mb-4">
-                                <td class="p-4 w-1/4">{{ $item->item ? $item->item->name : 'Item not found' }}</td>
-                                <td class="p-4 w-1/4">{{ $item->qty }}</td>
-                                <td class="p-4 w-1/4">{{ "Rp. ".number_format( $item->item ? $item->item->hpp : 0, 0, ',', '.') }}</td>
-                                <td class="p-4 w-1/4">{{ "Rp. ".number_format( $item->item ? $item->sub_total : 0, 0, ',', '.') }}</td>
+                                <td class="p-4 w-1/5">{{ $item->item ? $item->item->name : 'Item not found' }}</td>
+                                <td class="p-4 w-1/5">{{ $item->qty }}</td>
+                                <td class="p-4 w-1/5">{{ "Rp. ".number_format( $item->item ? $item->item->price : 0, 0, ',', '.') }}</td>
+                                <td class="p-4 w-1/5">{{ checkDiscountItem($item->item_id, $item->created_at) != null ? checkDiscountItem($item->item_id, $item->created_at)->discount_type : '-' }}</td>
+                                <td class="p-4 w-1/5">{{ "Rp. ".number_format( $item->item ? $item->sub_total : 0, 0, ',', '.') }}</td>
+                                <td class="p-4 w-1/5">
+                                    @if (checkDiscountItem($item->item_id, $item->created_at) != null)
+                                        @if (checkDiscountItem($item->item_id, $item->created_at)->discount_type == 'Percentage')
+                                            {{ checkDiscountItem($item->item_id, $item->created_at)->discount.'%' }}
+                                            ( {{ "Rp. ".number_format( $item->item ? $item->sub_total * checkDiscountItem($item->item_id, $item->created_at)->discount / 100 : 0, 0, ',', '.') }} )
+                                            @php
+                                                $totalDiscountItem += ($item->sub_total * checkDiscountItem($item->item_id, $item->created_at)->discount / 100);
+                                                $totalAfterDiscountItem += $item->sub_total - ($item->sub_total * checkDiscountItem($item->item_id, $item->created_at)->discount / 100);
+                                            @endphp
+                                        @else
+                                            {{ "Rp. ".number_format(checkDiscountItem($item->item_id, $item->created_at)->discount, 0, ',', '.') }}
+                                            @php
+                                                $totalDiscountItem += checkDiscountItem($item->item_id, $item->created_at)->discount;
+                                                $totalAfterDiscountItem += $item->sub_total - checkDiscountItem($item->item_id, $item->created_at)->discount;
+                                            @endphp
+                                        @endif
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="p-4 w-1/5">
+                                    @if (checkDiscountItem($item->item_id, $item->created_at) != null)
+                                        @if (checkDiscountItem($item->item_id, $item->created_at)->discount_type == 'Percentage')
+                                            {{ "Rp. ".number_format( $item->item ? $item->sub_total - ($item->sub_total * checkDiscountItem($item->item_id, $item->created_at)->discount / 100) : 0, 0, ',', '.') }}
+                                        @else
+                                            {{ "Rp. ".number_format( $item->item ? $item->sub_total - checkDiscountItem($item->item_id, $item->created_at)->discount : 0, 0, ',', '.') }}
+                                        @endif
+                                    @else
+                                        {{ "Rp. ".number_format( $item->item ? $item->sub_total : 0, 0, ',', '.') }}
+                                        @php
+                                            $totalAfterDiscountItem += $item->sub_total
+                                        @endphp
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                     <p class="px-5 pb-2 pt-5 text-right font-bold">Total Barang / Obat : {{ "Rp. ".number_format($detailExaminationItem->sum('sub_total'), 0, ',', '.') }}</p>
+                    <p class="px-5 pb-2 pt-5 text-right font-bold">Total Harga Diskon Barang / Obat : {{ "Rp. ".number_format($totalDiscountItem, 0, ',', '.') }}</p>
+                    <p class="px-5 pb-2 pt-5 text-right font-bold">Total Setelah Diskon Barang / Obat : {{ "Rp. ".number_format($totalAfterDiscountItem, 0, ',', '.') }}</p>
                 </div>
             </x-card-container>
             <x-card-container>
@@ -80,7 +168,7 @@
                                 </select>
                             </div>
                             <div class=" mt-2">
-                                <x-input id="fee" label="Fee" name="fee" type="text" placeholder="Rp." required />
+                                <x-input id="qty" label="Qty" name="qty" type="text" placeholder="Rp." required />
                             </div>
                             <div class="mt-6 text-right">
                                 <x-button type="submit">Tambah Layanan</x-button>
@@ -94,16 +182,20 @@
                             <tr class="flex w-full">
                                 <th class="p-4 w-1/4">Nama Layanan</th>
                                 <th class="p-4 w-1/4">Ditambahkan Oleh</th>
+                                <th class="p-4 w-1/4">Qty</th>
                                 <th class="p-4 w-1/4">Harga</th>
+                                <th class="p-4 w-1/4">Subtotal</th>
                                 <th class="p-4 w-1/4">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-gray-100 flex flex-col items-center justify-between overflow-y-scroll w-full rounded" style="height: 20vh;">
-                            @foreach ($detailAddonTransaction as $item)
+                            @foreach ($detailAddonExamination as $item)
                             <tr class="flex w-full mb-4">
                                 <td class="p-4 w-1/4">{{ $item->addon ? $item->addon->name : 'Item not found' }}</td>
                                 <td class="p-4 w-1/4">{{ $item->user ? $item->user->name : $item->doctor->name }}</td>
+                                <td class="p-4 w-1/4">{{ $item->qty }}</td>
                                 <td class="p-4 w-1/4">{{ "Rp. ".number_format( $item->addon ? $item->addon->price : 0, 0, ',', '.') }}</td>
+                                <td class="p-4 w-1/4">{{ "Rp. ".number_format( $item->sub_total, 0, ',', '.') }}</td>
                                 <td class="p-2 w-1/4">
                                     @if ($item->user_id == auth()->user()->id)
                                     <form action="{{ route('front-office.transaction.remove_addon-transaction', $item->id) }}" method="POST">
@@ -120,7 +212,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <p class="px-5 pb-2 pt-5 text-right font-bold">Total Layanan Tambahan : {{ "Rp. ".number_format($detailAddonTransaction->sum('addon.price'), 0, ',', '.') }}</p>
+                    <p class="px-5 pb-2 pt-5 text-right font-bold">Total Layanan Tambahan : {{ "Rp. ".number_format($detailAddonExamination->sum('sub_total'), 0, ',', '.') }}</p>
                 </div>
             </x-card-container>
         </div>
@@ -182,16 +274,16 @@
                         </select>
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_total" label="Total" name="transaction_total" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonTransaction->sum('addon.price'), 0, ',', '.') }}" required />
+                        <x-input id="transaction_total" label="Total" name="transaction_total" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('addon.price'), 0, ',', '.') }}" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_discount" label="Diskon" name="transaction_discount" type="text" placeholder="Rp." required />
+                        <x-input id="transaction_discount" label="Diskon" name="transaction_discount" type="text" placeholder="Rp." value="Rp. {{ number_format($totalDiscountTreatment+$totalDiscountItem, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_total_ppn" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." readonly="readonly" required />
+                        <x-input id="transaction_total_ppn" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." value="Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('addon.price') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100)), 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_grand_total" label="Grand Total" name="transaction_grand_total" type="text" placeholder="Rp." readonly="readonly" required />
+                        <x-input id="transaction_grand_total" label="Grand Total" name="transaction_grand_total" type="text" placeholder="Rp." value="Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('addon.price') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('addon.price') - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="mt-6 text-right">
                         <x-button type="submit">Proses Pembayaran</x-button>
@@ -239,29 +331,29 @@
                     this.value = formattedVal;
                 });
 
-                var inputDiscount = document.getElementById('transaction_discount');
-                var inputTotalPPN = document.getElementById('transaction_total_ppn');
-                var inputGrandTotal = document.getElementById('transaction_grand_total');
-                var inputTotal = document.getElementById('transaction_total');
+                // var inputDiscount = document.getElementById('transaction_discount');
+                // var inputTotalPPN = document.getElementById('transaction_total_ppn');
+                // var inputGrandTotal = document.getElementById('transaction_grand_total');
+                // var inputTotal = document.getElementById('transaction_total');
                 
-                inputDiscount.addEventListener('keyup', function() {
-                    var convertInputTotal = parseFloat(inputTotal.value.replace(/[^\d]/g, '').replace(',', '.'));
-                    var convertInputDiscount = parseFloat(inputDiscount.value.replace(/[^\d]/g, '').replace(',', '.'));
-                    var convertInputTotalPPN = parseFloat(inputTotalPPN.value.replace(/[^\d]/g, '').replace(',', '.'));
-                    var convertInputGrandTotal = parseFloat(inputGrandTotal.value.replace(/[^\d]/g, '').replace(',', '.'));
+                // inputDiscount.addEventListener('keyup', function() {
+                //     var convertInputTotal = parseFloat(inputTotal.value.replace(/[^\d]/g, '').replace(',', '.'));
+                //     var convertInputDiscount = parseFloat(inputDiscount.value.replace(/[^\d]/g, '').replace(',', '.'));
+                //     var convertInputTotalPPN = parseFloat(inputTotalPPN.value.replace(/[^\d]/g, '').replace(',', '.'));
+                //     var convertInputGrandTotal = parseFloat(inputGrandTotal.value.replace(/[^\d]/g, '').replace(',', '.'));
 
-                    var discount = convertInputDiscount;
-                    var total = convertInputTotal;
-                    var ppn = (total - discount) * 0.1;
-                    var grandTotal = total - discount + ppn;
+                //     var discount = convertInputDiscount;
+                //     var total = convertInputTotal;
+                //     var ppn = (total - discount) * 0.1;
+                //     var grandTotal = total - discount + ppn;
 
-                    inputTotalPPN.value = formatCurrency(ppn);
-                    inputGrandTotal.value = formatCurrency(grandTotal);
-                });
+                //     inputTotalPPN.value = formatCurrency(ppn);
+                //     inputGrandTotal.value = formatCurrency(grandTotal);
+                // });
 
-                function formatCurrency(amount) {
-                    return 'Rp. ' + amount.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-                }
+                // function formatCurrency(amount) {
+                //     return 'Rp. ' + amount.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                // }
             });
         </script>    
     @endpush

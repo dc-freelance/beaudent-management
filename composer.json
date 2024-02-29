@@ -32,7 +32,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/check-discount.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
