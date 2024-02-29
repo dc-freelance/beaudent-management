@@ -37,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\TreatmentCategoriesInterface::class, \App\Repositories\TreatmentCategoriesRepository::class);
         $this->app->bind(\App\Interfaces\DiscountItemInterface::class, \App\Repositories\DiscountItemRepository::class);
         $this->app->bind(\App\Interfaces\DiscountTreatmentInterface::class, \App\Repositories\DiscountTreatmentRepository::class);
+        $this->app->bind(\App\Interfaces\IncomeReportInterface::class, \App\Repositories\IncomeReportRepository::class);
+
         $this->loadHelpers();
     }
 
