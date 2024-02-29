@@ -217,7 +217,7 @@
 
     <div class="flex gap-6 max-md:flex-col">
         <!-- Orders Chart -->
-        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        {{-- <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center">
                     <div
@@ -316,11 +316,11 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Orders Chart -->
 
         {{-- trafic --}}
-        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        {{-- <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between mb-3">
                 <div class="flex justify-center items-center">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Trafic
@@ -399,7 +399,7 @@
 
             <!-- Donut Chart -->
             <div class="py-6" id="donut-chart"></div>
-        </div>
+        </div> --}}
         {{-- end --}}
 
     </div>
@@ -409,7 +409,7 @@
     </div>
 
     {{-- Chart 3 Column 3-6-3 --}}
-    <div class="flex max-md:flex-col gap-6">
+    {{-- <div class="flex max-md:flex-col gap-6">
 
         <!-- Traffic Chart -->
         <div class="w-full lg:w-2/3 xl:w-2/3 rounded-lg relative overflow-y-auto overflow-x-auto shadow-md col-span-6">
@@ -871,7 +871,7 @@
         </div>
         <!-- End Orders Chart -->
 
-    </div>
+    </div> --}}
 
     @push('js-internal')
         <!-- ApexCharts -->
