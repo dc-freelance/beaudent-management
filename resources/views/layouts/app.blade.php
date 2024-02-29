@@ -14,6 +14,7 @@
     <style>
         input[type="search"] {
             font-size: 0.75rem;
+            width: 200px;
         }
 
         .dataTables_length label select option {
@@ -71,6 +72,12 @@
         </div>
     </div>
 
+    <div id="loadingIndicator"
+        class="fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-800 flex items-center justify-center z-50">
+        <div id="loading" class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4">
+        </div>
+    </div>
+
     <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
@@ -122,6 +129,15 @@
                 width: '100%',
             });
         });
+    </script>
+
+    <script>
+        window.addEventListener('beforeunload', () => {
+            document.getElementById('loadingIndicator').style.display = 'flex';
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('loadingIndicator').style.display = 'none'
+        })
     </script>
 
     @stack('js-internal')

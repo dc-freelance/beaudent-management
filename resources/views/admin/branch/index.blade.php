@@ -7,7 +7,7 @@
     <x-card-container>
         <div class="text-end mb-4">
             @can('create_branch')
-                <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
+                <x-link-button route="{{ route('admin.branch.create') }}" class="tombol hover:opacity-80">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Cabang
                 </x-link-button>
