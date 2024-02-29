@@ -39,10 +39,10 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-input id="total_stock" label="Total Stok" name="total_stock"
-                        value="{{ old('total_stock', $data->total_stock) }}" type="number" required />
-                    <x-input id="hpp" label="HPP" name="hpp" type="text"
-                        value="Rp. {{ number_format(old('hpp', $data->hpp), 0, ',', '.') }}" placeholder="Rp."
+                    {{-- <x-input id="total_stock" label="Total Stok" name="total_stock"
+                        value="{{ old('total_stock', $data->total_stock) }}" type="number" required /> --}}
+                    <x-input id="price" label="Harga" name="price" type="text"
+                        value="Rp. {{ number_format(old('price', $data->price), 0, ',', '.') }}" placeholder="Rp."
                         required />
                     <div>
                         <p>Tipe Barang :</p>
@@ -67,8 +67,8 @@
     @push('js-internal')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var hppInput = document.getElementById('hpp');
-                hppInput.addEventListener('input', function(event) {
+                var priceInput = document.getElementById('price');
+                priceInput.addEventListener('input', function(event) {
                     var inputVal = this.value.replace(/\D/g, '');
                     var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
                     this.value = formattedVal;
