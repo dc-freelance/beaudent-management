@@ -14,7 +14,8 @@
                                     class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                                     @foreach ($configShift as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }} -
-                                            ({{ $item->start_time }} - {{ $item->end_time }})</option>
+                                            ({{ $item->start_time }} - {{ $item->end_time }})
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -24,7 +25,7 @@
                             readonly="readonly" />
 
                     </div>
-                    <div class="max-md:w-full md:w-1/2 lg:w-1/3 pt-5">
+                    <div class="max-md:w-2/3 max-md:mx-auto md:w-1/4 lg:w-1/4 xl:1/4 pt-5">
                         <x-button type="submit">Buka Sesi</x-button>
                     </div>
                 </form>
