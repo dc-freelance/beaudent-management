@@ -78,8 +78,11 @@ class ShiftLogController extends Controller
             'total_cash_payment' => 'required',
             'total_cash_received' => 'required',
         ]);
-        
+
         try {
+            $request->merge([
+                'total_cash_received' => str_replace(['Rp.', '.', ','], '', $request->input('total_cash_received'))
+            ]);
             $this->shiftLog->update($id, $request->all());
 
             return redirect()->route('front-office.shift-log.open-shift')->with('success', 'Shift Berhasil Ditutup!');
@@ -134,6 +137,6 @@ class ShiftLogController extends Controller
         // return view('front-office.shift-log.recap-shift-pdf', compact('pdf', 'cash', 'transfer', 'card'));
 
         $print = PDF::loadview('front-office.shift-log.recap-shift-pdf', compact('pdf', 'cash', 'transfer', 'card'));
-        return $print->download('shift-recap-pdf');
+        return $print->download('shift-recap.pdf');
     }
 }

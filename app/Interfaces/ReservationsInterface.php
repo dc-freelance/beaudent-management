@@ -4,6 +4,12 @@ namespace App\Interfaces;
 
 interface ReservationsInterface
 {
+    public function reservation_confirmation($num, $status, $reservation);
+
+    public function deposit_confirmation($num, $reservation);
+
+    public function reschedule_confirmation($num, $reservation, $request);
+
     public function datatable_reservations($date, $status);
 
     public function getById($id);

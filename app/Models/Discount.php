@@ -13,8 +13,8 @@ class Discount extends Model
 
     protected $fillable = [
         'name',
-        'discount_type',
-        'discount',
+        // 'discount_type',
+        // 'discount',
         'start_date',
         'end_date',
         'is_active',

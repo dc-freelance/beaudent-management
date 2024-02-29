@@ -1,15 +1,17 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Cabang', 'url' => route('admin.branch.index')],
-    ]" title="Manajemen Cabang" />
+        ['name' => 'Manajemen Sesi', 'url' => route('admin.branch.index')],
+    ]" title="Rekap Sesi" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Cabang
-            </x-link-button>
+            {{-- @can('create_branch')
+                <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Cabang
+                </x-link-button>
+            @endcan --}}
         </div>
         <table id="shiftLogTable">
             <thead>

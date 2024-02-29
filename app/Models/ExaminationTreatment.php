@@ -26,4 +26,9 @@ class ExaminationTreatment extends Model
     {
         return $this->belongsTo(Treatment::class);
     }
+
+    public function doctorBonus()
+    {
+        return $this->hasMany(DoctorBonus::class);
+    }
 }

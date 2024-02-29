@@ -15,10 +15,12 @@
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </x-select>
-                <x-input id="email" label="Email" name="email" type="email" required />
-                <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required />
+                <div class="grid grid-cols-2 gap-3">
+                    <x-input id="email" label="Email" name="email" type="email" required />
+                    <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required />
+                </div>
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required />
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Tambah Dokter</x-button>
                 </div>
             </form>

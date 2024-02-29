@@ -6,10 +6,13 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.item.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Barang
-            </x-link-button>
+            @can('create_item')
+                <x-link-button route="{{ route('admin.item.create') }}"
+                    class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Barang
+                </x-link-button>
+            @endcan
         </div>
         <table id="itemTable">
             <thead>
@@ -82,8 +85,7 @@
                     autoWidth: false,
                     responsive: true,
                     ajax: '{{ route('admin.item.index') }}',
-                    columns: [
-                        {
+                    columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },

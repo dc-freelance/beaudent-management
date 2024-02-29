@@ -26,6 +26,8 @@ class User extends Authenticatable
 
     const OWNER_ROLE = 'owner';
 
+    const TELEMARKETING_ROLE = 'telemarketing';
+
     protected $fillable = [
         'name',
         'email',

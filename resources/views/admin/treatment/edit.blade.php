@@ -57,7 +57,8 @@
                         </select>
                     </div>
                     <div>
-                        <label for="treatment_categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label for="treatment_categories"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Pilih Kategori Layanan
                         </label>
                         <select id="treatment_categories"
@@ -66,7 +67,7 @@
                             @foreach ($treatment_categories as $category)
                                 <option value="{{ $category->id }}"
                                     {{ $data->treatment_category_id == $category->id ? 'selected' : '' }}>
-                                    {{ $category->category}}
+                                    {{ $category->category }}
                                 </option>
                             @endforeach
                         </select>
@@ -74,7 +75,7 @@
                     <x-input format="nominal" id="price" label="Harga" name="price" type="text" required
                         value="{{ number_format($data->price, 0, ',', '.') }}" />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

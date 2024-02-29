@@ -281,6 +281,8 @@ class ReservationsController extends Controller
 
             $this->reservations->reschedule($id, $request->all());
 
+            $this->reservations->reschedule_confirmation($reservation->customers->phone_number, $reservation, $new);
+
             return redirect()->route('front-office.reservations.confirm.index')->with('success', 'Penjadwalan Ulang Berhasil');
         } catch (\Throwable $th) {
             return redirect()->route('front-office.reservations.confirm.index')->with('error', $th->getMessage());
@@ -312,6 +314,8 @@ class ReservationsController extends Controller
 
             $this->reservations->confirm($id);
 
+            $this->reservations->reservation_confirmation($reservation->customers->phone_number, true, $reservation);
+
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dikonfirmasi');
         } catch (\Throwable $th) {
             return redirect()->route('front-office.reservations.wait.index')->with('error', $th->getMessage());
@@ -327,6 +331,9 @@ class ReservationsController extends Controller
 
             $this->reservations->deposit_confirm($id);
 
+            $this->reservations->deposit_confirmation($reservation->customers->phone_number, $reservation);
+
+
             return redirect()->route('front-office.deposit.wait.index')->with('success', 'Deposit telah dikonfirmasi');
         } catch (\Throwable $th) {
             return redirect()->route('front-office.deposit.wait.index')->with('error', $th->getMessage());
@@ -341,6 +348,8 @@ class ReservationsController extends Controller
             // Mail::to($reservation->customers->email)->send(new ReservationConfirmation($reservation, false));
 
             $this->reservations->cancel($id);
+
+            $this->reservations->reservation_confirmation($reservation->customers->phone_number, false, $reservation);
 
             return redirect()->route('front-office.reservations.wait.index')->with('success', 'Reservasi telah dibatalkan');
         } catch (\Throwable $th) {

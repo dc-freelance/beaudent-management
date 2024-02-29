@@ -18,12 +18,14 @@
                         </option>
                     @endforeach
                 </x-select>
-                <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
-                <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
-                    :value="$data->phone_number" />
+                <div class="grid grid-cols-2 gap-3">
+                    <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
+                    <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
+                        :value="$data->phone_number" />
+                </div>
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required
                     :value="$data->join_date" />
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

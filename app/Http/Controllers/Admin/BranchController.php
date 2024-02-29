@@ -61,17 +61,17 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique:branches,code',
             'phone_number' => 'required',
             'address' => 'required',
             'deposit_minimum' => 'required',
         ]);
-    
+
         try {
             $request->merge([
                 'deposit_minimum' => str_replace(['Rp.', '.', ','], '', $request->input('deposit_minimum'))
             ]);
-    
+
             $this->branch->store($request->all());
 
             return redirect()->route('admin.branch.index')->with('success', 'Data berhasil disimpan');
@@ -91,7 +91,7 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique:branches,code,' . $id,
             'phone_number' => 'required',
             'address' => 'required',
             'deposit_minimum' =>'required',
@@ -101,7 +101,7 @@ class BranchController extends Controller
             $request->merge([
                 'deposit_minimum' => str_replace(['Rp.', '.', ','], '', $request->input('deposit_minimum'))
             ]);
-    
+
             $this->branch->update($id, $request->all());
 
             return redirect()->route('admin.branch.index')->with('success', 'Data berhasil diubah');

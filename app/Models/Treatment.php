@@ -60,4 +60,9 @@ class Treatment extends Model
     {
         return $this->hasMany(ExaminationTreatment::class, 'treatment_id', 'id');
     }
+    
+    public function examinationTreatment()
+    {
+        return $this->hasMany(ExaminationTreatment::class);
+    }
 }

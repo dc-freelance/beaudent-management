@@ -29,6 +29,16 @@ class RoleRepository implements RoleInterface
         return $this->role->find($id);
     }
 
+    public function getByName($name)
+    {
+        return $this->role->where('name', $name)->first();
+    }
+
+    public function getWhich($place)
+    {
+        return $this->role->where('is_for', 'like', '%' . $place . '%')->get();
+    }
+
     public function store($data)
     {
         DB::beginTransaction();

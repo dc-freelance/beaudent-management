@@ -6,11 +6,14 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.role.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Hak Akses
-            </x-link-button>
+            @can('create_role')
+                <x-link-button route="{{ route('admin.role.create') }}" class="tombol hover:opacity-80">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Hak Akses
+                </x-link-button>
+            @endcan
         </div>
+
         <table id="roleTable">
             <thead>
                 <tr>

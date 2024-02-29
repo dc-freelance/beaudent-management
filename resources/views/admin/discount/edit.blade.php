@@ -12,7 +12,7 @@
                 @method('PUT')
                 <div class="space-y-6">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
-                    <div>
+                    {{-- <div>
                         <label for="discount_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tipe Diskon
                         </label>
@@ -29,7 +29,7 @@
                         value="{{ $data->discount_type == 'Percentage'
                             ? number_format($data->discount, 1)
                             : // remove decimal after comma if it's 0, and remove .
-                            number_format($data->discount, 0, ',', '') }}" />
+                            number_format($data->discount, 0, ',', '') }}" /> --}}
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required
                         :value="$data->start_date" />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required
@@ -47,14 +47,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>
         </x-card-container>
     </div>
 
-    @push('js-internal')
+    {{-- @push('js-internal')
         <script>
             function percentageInput() {
                 $('#discount').on('input', function() {
@@ -122,6 +122,6 @@
                 });
             });
         </script>
-    @endpush
+    @endpush --}}
 
 </x-app-layout>

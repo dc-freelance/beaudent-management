@@ -6,10 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.treatment-bonus.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Bonus Layanan
-            </x-link-button>
+            @can('create_treatment_bonus')
+                <x-link-button route="{{ route('admin.treatment-bonus.create') }}" class="tombol hover:opacity-80">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Bonus Layanan
+                </x-link-button>
+            @endcan
         </div>
         <table id="treatmentBonusTable">
             <thead>

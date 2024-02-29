@@ -12,7 +12,7 @@
                 <div class="space-y-6">
                     <x-input id="name" label="Nama" name="name" required />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-2/3 xl:w-2/3 pt-5">
                     <x-button type="submit">Tambah Metode Pembayaran</x-button>
                 </div>
             </form>

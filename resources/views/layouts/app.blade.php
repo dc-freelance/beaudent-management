@@ -14,6 +14,7 @@
     <style>
         input[type="search"] {
             font-size: 0.75rem;
+            width: 200px;
         }
 
         .dataTables_length label select option {
@@ -26,11 +27,11 @@
         }
     </style>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"> --}}
 
     <!-- Datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
@@ -68,6 +69,12 @@
             <div class="p-4">
                 {{ $slot }}
             </div>
+        </div>
+    </div>
+
+    <div id="loadingIndicator"
+        class="fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-800 flex items-center justify-center z-50">
+        <div id="loading" class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4">
         </div>
     </div>
 
@@ -118,10 +125,19 @@
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
 
-            $('select').select2({
+            $('select.select-input').select2({
                 width: '100%',
             });
         });
+    </script>
+
+    <script>
+        window.addEventListener('beforeunload', () => {
+            document.getElementById('loadingIndicator').style.display = 'flex';
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('loadingIndicator').style.display = 'none'
+        })
     </script>
 
     @stack('js-internal')

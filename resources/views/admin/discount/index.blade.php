@@ -6,18 +6,18 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.discount.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Diskon
-            </x-link-button>
+            @can('create_discount')
+                <x-link-button route="{{ route('admin.discount.create') }}" class="tombol hover:opacity-80">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Diskon
+                </x-link-button>
+            @endcan
         </div>
         <table id="discountTable">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Tipe Diskon</th>
-                    <th>Diskon</th>
                     <th>Awal Periode Diskon</th>
                     <th>Akhir Periode Diskon</th>
                     <th>Status</th>
@@ -89,14 +89,6 @@
                         {
                             data: 'name',
                             name: 'name'
-                        },
-                        {
-                            data: 'discount_type',
-                            name: 'discount_type'
-                        },
-                        {
-                            data: 'discount',
-                            name: 'discount'
                         },
                         {
                             data: 'start_date',
