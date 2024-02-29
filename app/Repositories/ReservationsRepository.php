@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\ReservationsInterface;
 use App\Models\Reservations;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 use function App\Helpers\rupiahFormat;
 
@@ -200,10 +201,18 @@ class ReservationsRepository implements ReservationsInterface
 
     public function datatable_reservations($date = null, $status = null)
     {
-        $query = $this->reservations->where('status', $status)
+        $query = null;
+        Auth::user()->branch_id == null ?
+            $query = $this->reservations->where('status', $status)
             ->whereDate('request_date', $date)
             ->orderBy('request_date', 'asc')
-            ->orderBy('request_time', 'asc')->get();
+            ->orderBy('request_time', 'asc')->get()
+            :
+            $query = $this->reservations->where('branch_id', Auth::user()->branch_id)
+            ->where('status', $status)
+            ->whereDate('request_date', $date)
+            ->orderBy('request_date', 'asc')
+            ->orderBy('request_time', 'asc')->get();;
 
         if ($query) {
             foreach ($query as $reservation) {
