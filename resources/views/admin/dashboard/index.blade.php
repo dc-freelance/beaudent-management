@@ -196,7 +196,7 @@
                 </div> --}}
             </div>
             <div id="line-chart"></div>
-            <div
+            {{-- <div
                 class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2.5">
                 <div class="pt-5">
                     <a href="#"
@@ -210,7 +210,7 @@
                         View full report
                     </a>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- End Sales Chart -->
 
@@ -411,7 +411,7 @@
     <div class="flex max-md:flex-col gap-6">
 
         <!-- Traffic Chart -->
-        <div class="w-full lg:w-2/3 rounded-lg relative overflow-x-auto shadow-md col-span-6">
+        <div class="w-full lg:w-2/3 xl:w-2/3 rounded-lg relative overflow-x-auto shadow-md col-span-6">
             <div
                 class="w-full flex items-center justify-between p-10 flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 dark:bg-gray-900">
                 <div>
@@ -721,7 +721,7 @@
         <!-- End Revenue Chart -->
 
         <!-- Orders Chart -->
-        <div class="w-full lg:w-1/3 bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 h-fit">
+        <div class="w-full lg:w-1/3 xl:w-1/3 bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 h-fit">
 
             <div class="flex justify-between items-start w-full">
                 <div class="flex-col items-center">
