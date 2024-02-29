@@ -69,17 +69,12 @@ class DiscountController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            // 'discount_type' => 'required',
-            // 'discount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'is_active' => 'required',
         ]);
 
         try {
-            // $request->merge([
-            //     'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
-            // ]);
             $this->discount->create($request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil ditambahkan');

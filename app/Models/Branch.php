@@ -24,7 +24,7 @@ class Branch extends Model
             $code_branch = 'CBG-1';
         } else {
             $get_last_code_branch = $last_code_branch->code;
-            $last_number = substr($get_last_code_branch, 4);
+            $last_number = (int)substr($get_last_code_branch, 4);
             $new_number = $last_number + 1;
             $code_branch = 'CBG-' . $new_number;
         }

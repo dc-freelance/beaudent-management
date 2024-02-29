@@ -87,7 +87,7 @@ class UserManagementController extends Controller
             'join_date' => 'required',
         ]);
 
-        if (! $request->has('branch_id')) {
+        if (!$request->has('branch_id')) {
             $request['branch_id'] = $this->branch->getById(1)->id;
         }
 
@@ -102,10 +102,14 @@ class UserManagementController extends Controller
 
     public function edit($id)
     {
+        $user = $this->userManagement->getById($id);
+        $role = $user->roles()->pluck('name');
+
         return view('admin.user-management.edit', [
-            'data' => $this->userManagement->getById($id),
+            'data' => $user,
             'roles' => $this->role->get(),
             'branches' => $this->branch->get()->where('id', '!=', 1),
+            'this_role' => $this->role->getByName($role)
         ]);
     }
 
@@ -113,14 +117,14 @@ class UserManagementController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'role' => 'required',
             'phone_number' => 'required',
             'branch_id' => 'nullable|exists:branches,id',
             'join_date' => 'required',
         ]);
 
-        if (! $request->has('branch_id')) {
+        if (!$request->has('branch_id')) {
             $request['branch_id'] = $this->branch->getById(1)->id;
         }
 
