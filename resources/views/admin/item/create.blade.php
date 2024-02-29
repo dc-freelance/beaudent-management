@@ -36,7 +36,7 @@
                         </select>
                     </div>
                     {{-- <x-input id="total_stock" label="Total Stok" name="total_stock" type="number" required /> --}}
-                    <x-input id="harga" label="Harga" name="harga" type="text" placeholder="Rp." required />
+                    <x-input id="price" label="Harga" name="price" type="text" placeholder="Rp." required />
                     <div>
                         <p>Tipe Barang :</p>
                         <div class="mt-2">
@@ -58,8 +58,8 @@
     @push('js-internal')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var hargaInput = document.getElementById('harga');
-                hargaInput.addEventListener('input', function(event) {
+                var priceInput = document.getElementById('price');
+                priceInput.addEventListener('input', function(event) {
                     var inputVal = this.value.replace(/\D/g, '');
                     var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
                     this.value = formattedVal;

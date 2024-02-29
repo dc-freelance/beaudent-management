@@ -106,8 +106,8 @@
                         //     name: 'total_stock'
                         // },
                         {
-                            data: 'harga',
-                            name: 'harga'
+                            data: 'price',
+                            name: 'price'
                         },
                         {
                             data: 'type',

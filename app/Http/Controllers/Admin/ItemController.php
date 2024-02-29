@@ -37,8 +37,8 @@ class ItemController extends Controller
                 // ->addColumn('total_stock', function ($data) {
                 //     return $data->name;
                 // })
-                ->addColumn('harga', function ($data) {
-                    return 'Rp '.number_format($data->harga, 0, ',', '.');
+                ->addColumn('price', function ($data) {
+                    return 'Rp '.number_format($data->price, 0, ',', '.');
                 })
                 ->addColumn('type', function ($data) {
                     $type = $data->type == 'Medicine' ? 'Obat' : 'BMHP';
@@ -72,20 +72,18 @@ class ItemController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'unit_id' => 'required',
-            'total_stock' => 'nullable|numeric',
-            'hpp' => 'nullable|numeric',
-            'harga' => 'required',
+            // 'total_stock' => 'required',
+            // 'hpp' => 'required',
+            'price' => 'required',
             'type' => 'required',
         ]);
 
         try {
             $request->merge([
-                'harga' => str_replace(['Rp.', '.', ','], '', $request->input('harga'))
+                'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
             ]);
             
             $data = $request->all();
-            $data['total_stock'] = 0;
-            $data['hpp'] = 0;
     
             $this->item->store($data);
 
@@ -110,20 +108,20 @@ class ItemController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'unit_id' => 'required',
-            'total_stock' => 'nullable|numeric', // nullable agar bisa diisi null
-            'hpp' => 'nullable|numeric',
-            'harga' => 'required',
+            // 'total_stock' => 'required',
+            // 'hpp' => 'required',
+            'price' => 'required',
             'type' => 'required',
         ]);
 
         try {
             $request->merge([
-                'harga' => str_replace(['Rp.', '.', ','], '', $request->input('harga'))
+                'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
             ]);
 
             $data = $request->all();
-            $data['total_stock'] = 0;
-            $data['hpp'] = 0;
+            // $data['total_stock'] = 0.0;
+            // $data['hpp'] = 0.0;
             
             // $this->item->store($request->all());
             $this->item->update($id, $request->all());
