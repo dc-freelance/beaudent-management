@@ -20,7 +20,7 @@ class RoleSeeder extends Seeder
         //     User::OWNER_ROLE,
         // ];
         // Role::insert(array_map(fn ($role) => ['name' => $role, 'guard_name' => 'web'], $roles));
-        
+ 
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Role::truncate();
         $role_admin_pusat = Role::create(['name' => User::ADMIN_PUSAT_ROLE, 'guard_name' => 'web']);
@@ -40,7 +40,7 @@ class RoleSeeder extends Seeder
 
             // Menu Manajemen Dokter
             'create_doctor_category', 'update_doctor_category', 'delete_doctor_category', 'read_doctor_category',
-            'create_doctor', 'update_doctor', 'delete_doctor','read_doctor',
+            'create_doctor', 'update_doctor', 'delete_doctor', 'read_doctor',
 
             // Menu Manajemen Layanan
             'create_treatment_category', 'update_treatment_category', 'delete_treatment_category', 'delete_treatment_category',
@@ -55,23 +55,23 @@ class RoleSeeder extends Seeder
 
             // Menu Manajemen Cabang
             'create_branch', 'update_branch', 'delete_branch', 'read_branch',
-            
+
             // Menu Manajemen Pasien
             'create_customer', 'update_customer', 'delete_customer', 'read_customer',
 
             // Menu Manajemen Barang
-            'create_item', 'update_item', 'delete_item','read_item',
-            'create_item_category', 'update_item_category', 'delete_item_category','read_item_category',
-            'create_item_unit', 'update_item_unit', 'delete_item_unit','read_item_unit',
+            'create_item', 'update_item', 'delete_item', 'read_item',
+            'create_item_category', 'update_item_category', 'delete_item_category', 'read_item_category',
+            'create_item_unit', 'update_item_unit', 'delete_item_unit', 'read_item_unit',
 
             // Menu Manajemen pemasok
             'create_supplier', 'update_supplier', 'delete_supplier', 'read_supplier',
 
             // Menu Konfigurasi Shift
-            'create_config_shift', 'update_config_shift', 'delete_config_shift','read_config_shift',
+            'create_config_shift', 'update_config_shift', 'delete_config_shift', 'read_config_shift',
 
             // Menu Pembayaran
-            'create_payment_method', 'update_payment_method', 'delete_payment_method','read_payment_method',
+            'create_payment_method', 'update_payment_method', 'delete_payment_method', 'read_payment_method',
 
             // Menu Manajemen Reservasi
             'read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation', 'read_cancel_reservation',
