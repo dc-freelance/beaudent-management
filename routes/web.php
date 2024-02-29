@@ -368,13 +368,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     })->middleware('permission:read_income_report_general|export_income_report_general');
     // Treatment Report
     Route::prefix('treatment_report')->group(function () {
-        Route::get('treatment-report/general',[TreatmentReportController::class,'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
-        Route::get('treatment-report/general/export',[TreatmentReportController::class,'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
+        Route::get('treatment-report/general', [TreatmentReportController::class, 'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
+        Route::get('treatment-report/general/export', [TreatmentReportController::class, 'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
     });
 });
 
 Route::get('/', function () {
     return view('auth.login');
+});
+
+Route::get('konz', function () {
+    return view('/forbiddenPage');
 });
 
 require __DIR__ . '/auth.php';
