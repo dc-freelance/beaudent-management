@@ -387,8 +387,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('treatment-report/general', [TreatmentReportController::class, 'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
         Route::get('treatment-report/general/export', [TreatmentReportController::class, 'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
     });
-
-
 });
 
 // Get Notifikasi Reservation
@@ -401,6 +399,8 @@ Route::get('/', function () {
 Route::get('konz', function () {
     return view('/forbiddenPage');
 });
+Route::get('konzz', function () {
+    return view('/errorPage');
+});
 
 require __DIR__ . '/auth.php';
-
