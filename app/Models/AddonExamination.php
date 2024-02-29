@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AddonTransaction extends Model
+class AddonExamination extends Model
 {
     use HasFactory, SoftDeletes;
 
