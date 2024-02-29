@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\PaymentMethodsController;
 use App\Http\Controllers\Admin\TreatmentCategoriesController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
 use App\Http\Controllers\FrontOffice\ShiftLogController;
+use App\Http\Controllers\FrontOffice\TransactionController;
 use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
 use App\Http\Controllers\Admin\IncomeReportController;
@@ -311,6 +312,21 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->middleware('permission:delete_treatment_category')->name('admin.treatment-categories.delete');
     });
 
+    // Payments / Transaction
+    Route::group(['prefix' => 'transaction', 'middleware' => ['role:frontoffice']], function () {
+        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->name('front-office.transaction.list-billing');
+
+        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->name('front-office.transaction.payment');
+        Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->name('front-office.transaction.payment.confirm');
+
+        Route::post('/addon-transaction/{transaction}/{examination}', [TransactionController::class, 'addon_transaction'])->name('front-office.transaction.addon-transaction');
+        Route::delete('/addon-transaction/{addonTransaction}', [TransactionController::class, 'remove_addon_transaction'])->name('front-office.transaction.remove_addon-transaction');
+
+        Route::get('/list-transaction', [TransactionController::class, 'list_transaction'])->name('front-office.transaction.list-transaction');
+        Route::get('/detail-transaction/{transaction}', [TransactionController::class, 'detail_transaction'])->name('front-office.transaction.detail-transaction');
+
+        Route::get('/pdf/{transaction}', [TransactionController::class, 'print_transaction'])->name('front-office.transaction.print-transaction');
+    });
     // Diskon Treatment
     Route::group(['prefix' => 'discount_treatment'], function () {
         Route::get('/', [DiscountTreatmentController::class, 'index'])->middleware('permission:read_discount_treatment')->name('admin.discount_treatment.index');
