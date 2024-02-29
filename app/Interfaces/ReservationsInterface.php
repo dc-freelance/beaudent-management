@@ -19,4 +19,8 @@ interface ReservationsInterface
     public function deposit_confirm($id);
 
     public function delete($id);
+
+    public function list_billing($branch);
+
+    public function detail_reservation($id);
 }

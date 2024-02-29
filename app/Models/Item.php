@@ -23,4 +23,9 @@ class Item extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
+
+    public function examination_item()
+    {
+        return $this->hasMany(ExaminationItem::class);
+    }
 }

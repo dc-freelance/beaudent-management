@@ -95,4 +95,18 @@ class ReservationsRepository implements ReservationsInterface
     {
         return $this->reservations->find($id)->delete();
     }
+
+    public function list_billing($branch)
+    {
+        return $this->reservations->with('branches', 'customers', 'treatments')
+                                  ->where('status', 'Billing')
+                                  ->where('branch_id', $branch)
+                                  ->orderBy('updated_at', 'desc')
+                                  ->get();
+    }
+
+    public function detail_reservation($id)
+    {
+        return $this->reservations->with('branches', 'customers', 'treatments')->find($id);
+    }
 }

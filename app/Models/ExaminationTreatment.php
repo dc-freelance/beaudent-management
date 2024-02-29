@@ -17,4 +17,13 @@ class ExaminationTreatment extends Model
     ];
 
     // add relation
+    public function examination()
+    {
+        return $this->belongsTo(Examination::class);
+    }
+
+    public function treatment()
+    {
+        return $this->belongsTo(Treatment::class);
+    }
 }

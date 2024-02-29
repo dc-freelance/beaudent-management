@@ -55,4 +55,9 @@ class Treatment extends Model
     {
         return $this->where('id', $id)->first();
     }
+
+    public function examination_treatment()
+    {
+        return $this->hasMany(ExaminationTreatment::class, 'treatment_id', 'id');
+    }
 }
