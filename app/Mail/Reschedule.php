@@ -23,11 +23,11 @@ class Reschedule extends Mailable
     {
         $cta = '';
 
-        if ($reservation->is_control === 0 && $reservation->deposit_status == null) {
+        if ($reservation->is_control === 0 && $reservation->status == 'Waiting Deposit') {
             $cta = '<p>
                          Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tombol dibawah ini
                     </p>
-                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential?creds=' . $reservation->customers->email . '">Lakukan Pembayaran</a>
+                    <a class="as-btn" href="https://dev-beaudent.baratech.co.id/credential?creds=' . urlencode(base64_encode($reservation->customers->email)) . '">Lakukan Pembayaran</a>
                 ';
         };
 
@@ -41,7 +41,7 @@ class Reschedule extends Mailable
             'identity_number' => $reservation->customers->identity_number,
             'customer' => $reservation->customers->name,
             'email' => $reservation->customers->email,
-            'phone' => $reservation->customers->phone_number,
+            'phone' => '+62 ' . $reservation->customers->phone_number,
             'address' => $reservation->customers->address,
             'branch' => $reservation->branches->name,
             'date' => Carbon::parse($new['request_date'])->isoFormat('D MMMM YYYY'),
