@@ -20,33 +20,13 @@
                     <div>
                         <p>Jenis Kelamin :</p>
                         <div class="mt-2">
-                            <<<<<<< HEAD <<<<<<< HEAD <<<<<<< HEAD <select id="gender" name="gender"
+                            <select id="gender" name="gender"
                                 class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                =======
-                                <select id="gender" name="gender"
-                                    class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    >>>>>>> parent of 8247ca0 (form-component.)
-                                    <option value="Male">Laki-laki</option>
-                                    <option value="Female">Perempuan</option>
-                                    =======
-                                    <select id="gender" name="gender"
-                                        class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                        <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
-                                        </option>
-                                        <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">
-                                            Perempuan
-                                        </option>
-                                        >>>>>>> b5a6323c11ad8ce612e426074de1e44e1ec8d082
-                                    </select>
-                                    =======
-                                    <select id="gender" name="gender"
-                                        class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                        <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
-                                        </option>
-                                        <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">
-                                            Perempuan</option>
-                                    </select>
-                                    >>>>>>> 699eb1c34718587b69af4de3b02c241dfc2a56db
+                                <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
+                                </option>
+                                <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">Perempuan
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <x-input id="occupation" label="Pekerjaan" name="occupation" type="text" required />
@@ -61,8 +41,7 @@
                                 <option {{ old('religion') == 'Islam' ? 'selected' : '' }} value="Islam">Islam</option>
                                 <option {{ old('religion') == 'Kristen' ? 'selected' : '' }} value="Kristen">Kristen
                                 </option>
-                                <option {{ old('religion') == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu
-                                </option>
+                                <option {{ old('religion') == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu</option>
                                 <option {{ old('religion') == 'Budha' ? 'selected' : '' }} value="Budha">Budha
                                 </option>
                                 <option {{ old('religion') == 'Katolik' ? 'selected' : '' }} value="Katolik">Katolik
@@ -98,7 +77,7 @@
                     <x-input id="source_of_information" label="Informasi Lainnya" name="source_of_information"
                         value="{{ old('source_of_information') }}" type="text" required />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 ml-auto pt-5">
                     <x-button type="submit">Tambah Pasien</x-button>
                 </div>
             </form>

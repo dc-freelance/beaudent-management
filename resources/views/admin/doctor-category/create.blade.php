@@ -10,7 +10,7 @@
             <form action="{{ route('admin.doctor-category.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <x-input id="name" label="Nama" name="name" required />
-                <div class="max-md:w-full md:w-1/2 lg:w-1/2">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                     <x-button type="submit">Tambah Kategori</x-button>
                 </div>
             </form>

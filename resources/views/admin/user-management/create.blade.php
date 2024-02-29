@@ -41,7 +41,7 @@
                             Daftar Cabang
                         </label>
                         <select id="branch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block w-full p-2.5"
                             name="branch_id">
                             <option value="" selected disabled>Pilih Cabang</option>
                             @foreach ($branches as $branch)
@@ -66,13 +66,15 @@
                         <p>Hak Akses</p>
                         <div class="flex flex-wrap gap-6 mt-6">
                             <select id="roles"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block w-full p-2.5"
                                 name="role">
                             </select>
                         </div>
                     </div>
                 </div>
-                <x-button type="submit" class="mt-6">Tambah Pengguna</x-button>
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
+                    <x-button type="submit" class="mt-6">Tambah Pengguna</x-button>
+                </div>
             </form>
         </x-card-container>
     </div>

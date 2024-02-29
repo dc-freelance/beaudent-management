@@ -51,7 +51,8 @@
                         </select>
                     </div>
                     <div>
-                        <label for="treatment_categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label for="treatment_categories"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Pilih Kategori Layanan
                         </label>
                         <select id="treatment_categories"
@@ -64,7 +65,7 @@
                     </div>
                     <x-input format="nominal" id="price" label="Harga" name="price" type="text" required />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
                     <x-button type="submit">Tambah Layanan</x-button>
                 </div>
             </form>

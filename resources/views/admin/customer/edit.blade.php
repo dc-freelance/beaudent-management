@@ -37,9 +37,7 @@
                         required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number"
                         value="{{ old('phone_number', $data->phone_number) }}" required />
-                    <<<<<<< HEAD <x-input id="religion" label="Agama" name="religion" type="text"
-                        value="{{ old('religion', $data->religion) }}" required />
-                    =======
+                    {{-- <x-input id="religion" label="Agama" name="religion" type="text" value="{{ old('religion', $data->religion) }}" required /> --}}
                     <div>
                         <p>Agama <span class="text-red-600">*</span></p>
                         <div class="mt-2">
@@ -62,7 +60,6 @@
                             </select>
                         </div>
                     </div>
-                    >>>>>>> 699eb1c34718587b69af4de3b02c241dfc2a56db
                     <x-input type="email" id="email" label="Surel" name="email" type="text"
                         value="{{ old('email', $data->email) }}" required />
                     <div>
@@ -89,7 +86,7 @@
                         type="text" value="{{ old('source_of_information', $data->source_of_information) }}"
                         required />
                 </div>
-                <div class="max-md:w-full md:w-1/2 lg:w-1/3 pt-5">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 ml-auto pt-5">
                     <x-button type="submit">Edit Pasien</x-button>
                 </div>
             </form>

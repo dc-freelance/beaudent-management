@@ -13,7 +13,7 @@
                 <div class="space-y-6">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
                 </div>
-                <div class="max-md:w-full md:w-1/2 lg:w-1/2 pt-5">
+                <div class="max-md:w-full md:w-1/2 lg:w-2/3 xl:w-2/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

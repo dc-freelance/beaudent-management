@@ -13,7 +13,8 @@
                 <div class="space-y-6">
                     <x-select id="discount_id" label="Nama Diskon" name="discount_id" required>
                         @foreach ($data_discount as $discount)
-                            <option value="{{ $discount->id }}" {{ $discount->id == $data->discount_id ? 'selected' : '' }}>
+                            <option value="{{ $discount->id }}"
+                                {{ $discount->id == $data->discount_id ? 'selected' : '' }}>
                                 {{ $discount->name }}
                             </option>
                         @endforeach
@@ -42,9 +43,9 @@
                         value="{{ $data->discount_type == 'Percentage'
                             ? number_format($data->discount, 1)
                             : // remove decimal after comma if it's 0, and remove .
-                            'Rp. ' . number_format(old('discount', $data->discount), 0, ',', '.') }}" />
+                                'Rp. ' . number_format(old('discount', $data->discount), 0, ',', '.') }}" />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>
