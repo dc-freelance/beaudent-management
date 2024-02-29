@@ -64,19 +64,19 @@
 
     <div class="bg-[#F7FAFC]">
         @include('admin.layouts.sidebar')
-
-        <div class="p-4 sm:ml-64 h-screen overflow-y-auto">
+        <div class="sm:ml-64 h-screen overflow-y-auto">
+            @include('admin.layouts.header')
             <div class="p-4">
                 {{ $slot }}
             </div>
         </div>
     </div>
 
-    <div id="loadingIndicator"
+    {{-- <div id="loadingIndicator"
         class="fixed top-0 left-0 w-full h-full bg-opacity-60 bg-gray-800 flex items-center justify-center z-50">
         <div id="loading" class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4">
         </div>
-    </div>
+    </div> --}}
 
     <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
