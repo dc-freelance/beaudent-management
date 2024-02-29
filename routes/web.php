@@ -25,6 +25,7 @@ use App\Http\Controllers\FrontOffice\ShiftLogController;
 use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
 use App\Http\Controllers\Admin\IncomeReportController;
+use App\Http\Controllers\Admin\TreatmentReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -336,6 +337,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->middleware('permission:read_income_report_general')->name('admin.income-report.general');
         Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->middleware('permission:export_income_report_general')->name('admin.income-report.general.export');
     });
+    // Treatment Report
+    Route::prefix('treatment_report')->group(function () {
+        Route::get('treatment-report/general',[TreatmentReportController::class,'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
+        Route::get('treatment-report/general/export',[TreatmentReportController::class,'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
+    });
+
 });
 
 Route::get('/', function () {

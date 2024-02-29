@@ -175,6 +175,12 @@
                     route="{{ route('admin.income-report.general') }}"
                     active="{{ request()->routeIs('admin.income-report.general') }}" />
             @endcan
+
+            @can(['read_treatment_report_general', 'export_treatment_report_general'])
+                <x-sidebar-item name="Laporan Layanan" icon="fas fa-file-invoice-dollar"
+                    route="{{ route('admin.treatment-report.general') }}"
+                    active="{{ request()->routeIs('admin.treatment-report.general') }}" />
+            @endcan
             <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

@@ -16,5 +16,11 @@ class ExaminationTreatment extends Model
         'sub_total'
     ];
 
-    // add relation
+    public function examination() {
+        return $this->belongsTo(Examination::class,'examination_id','id');
+    }
+
+    public function treatment() {
+        return $this->belongsTo(Treatment::class,'treatment_id','id');
+    }
 }
