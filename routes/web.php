@@ -326,7 +326,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->name('front-office.transaction.payment.confirm');
 
         Route::post('/addon-transaction/{transaction}/{examination}', [TransactionController::class, 'addon_transaction'])->name('front-office.transaction.addon-transaction');
-        Route::delete('/addon-transaction/{addonTransaction}', [TransactionController::class, 'remove_addon_transaction'])->name('front-office.transaction.remove_addon-transaction');
+        Route::delete('/addon-transaction/{addonExamination}', [TransactionController::class, 'remove_addon_transaction'])->name('front-office.transaction.remove_addon-transaction');
 
         // list transaction
         // list
