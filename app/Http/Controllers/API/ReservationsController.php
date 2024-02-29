@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\NotifUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Reservation\CustomerRequest;
 use App\Http\Requests\API\Reservation\StoreDepositRequest;
@@ -54,7 +55,7 @@ class ReservationsController extends Controller
             $data['status'] = 'Pending';
 
             $reservation = $this->reservation_model->create($data);
-
+            event(new NotifUpdated('data-table'));
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil melakukan reservasi',

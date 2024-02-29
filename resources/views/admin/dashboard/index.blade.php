@@ -324,7 +324,34 @@
         </div> --}}
         <!-- End Orders Chart -->
     </div>
-
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-4 mb-4">
+        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+            <div class="flex justify-between mb-5">
+                <h4 class="font-bold text-lg mb-5">Menunggu Konfirmasi</h4>
+                @canany(['read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation',
+                'read_cancel_reservation', 'read_wait_deposit', 'read_confirm_deposit'])
+                <x-link-button route="{{ route('front-office.reservations.confirm.index') }}" class="tombol hover:opacity-80">
+                    Selengkapnya
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </x-link-button>
+                @endcanany
+            </div>
+            <hr>
+            <table id="reservationsTable" class="mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>No Reservasi</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Cabang</th>
+                        <th>Tanggal Kunjungan</th>
+                        <th>Waktu Kunjungan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
     {{-- Chart 3 Column 3-6-3 --}}
     {{-- <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
@@ -870,6 +897,71 @@
     </div> --}}
 
     @push('js-internal')
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script>
+            Pusher.logToConsole = true;
+            const app_key = "{{ config('broadcasting.connections.pusher.key') }}"
+            $('#reservationsTable').DataTable({
+                "oLanguage": {
+                    "sEmptyTable": "Maaf data belum tersedia."
+                },
+            });
+            if (app_key) {
+                var pusher = new Pusher(app_key, {
+                    cluster: 'ap1'
+                });
+                var channel = pusher.subscribe('reservation');
+                channel.bind('data-table', function(data) {
+                    getDataTable();
+                });
+            } else {
+                console.log(`Pusher app key isn't have value`)
+            }
+
+            function getDataTable() {
+                $('#reservationsTable').DataTable({
+                    destroy: true,
+                    processing: true,
+                    serverSide: false,
+                    orderCellsTop: true,
+                    paging:true,
+                    ajax: {
+                        url: '{{ route('reservation.get') }}',
+                    },
+                    columns: [{
+                            data: 'id',
+                            name: 'id'
+                        }, {
+                            data: 'no',
+                            name: 'no'
+                        },
+                        {
+                            data: 'customer_name',
+                            name: 'customer_name'
+                        },
+                        {
+                            data: 'branch_name',
+                            name: 'branch_name'
+                        },
+                        {
+                            data: 'request_date',
+                            name: 'request_date'
+                        },
+                        {
+                            data: 'request_time',
+                            name: 'request_time'
+                        },
+                        {
+                            data: 'is_control',
+                            name: 'is_control'
+                        },
+                    ],
+                    // createdRow: function(row, data, index) {
+                    //     $('td', row).eq(0).html(index + 1);
+                    // }
+                });
+            }
+        </script>
         <!-- ApexCharts -->
         <script>
             // ApexCharts options and config
