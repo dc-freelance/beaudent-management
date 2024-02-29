@@ -1,29 +1,26 @@
 <x-app-layout>
     <x-breadcrumb :links="[
         ['name' => 'Dashboard', 'url' => route('admin.dashboard.index')],
-        ['name' => 'Manajemen Sesi', 'url' => route('admin.branch.index')],
-    ]" title="Rekap Sesi" />
+        ['name' => 'Manajemen Diskon Barang', 'url' => route('admin.discount_item.index')],
+    ]" title="Manajemen Diskon Barang" />
 
     <x-card-container>
         <div class="text-end mb-4">
-            {{-- @can('create_branch')
-                <x-link-button route="{{ route('admin.branch.create') }}" color="gray">
+            @can('create_discount_treatment')
+                <x-link-button route="{{ route('admin.discount_item.create') }}" color="gray">
                     <i class="fas fa-plus mr-2"></i>
-                    Tambah Cabang
+                    Tambah Diskon Barang
                 </x-link-button>
-            @endcan --}}
+            @endcan
         </div>
-        <table id="shiftLogTable">
+        <table id="discountItemTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Sesi</th>
-                    <th>Sesi Dibuka Pada</th>
-                    <th>Sesi Ditutup Pada</th>
-                    <th>Pengguna</th>
-                    <th>Cabang</th>
-                    <th>Total Uang Yang Harus Dibayarkan</th>
-                    <th>Total Uang Yang Diterima</th>
+                    <th>Nama Diskon</th>
+                    <th>Barang</th>
+                    <th>Tipe Diskon</th>
+                    <th>Diskon</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -33,10 +30,10 @@
     @push('js-internal')
         <script>
             function btnDelete(_id, _name) {
-                let url = "{{ route('admin.branch.delete', ':id') }}".replace(':id', _id);
+                let url = "{{ route('admin.discount_item.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: `Layanan ${_name} akan dihapus!`,
+                    text: `Diskon Barang ${_name} akan dihapus!`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, hapus!',
@@ -79,49 +76,35 @@
             }
 
             $(function() {
-                $('#shiftLogTable').DataTable({
+                $('#discountItemTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: '{{ route('front-office.shift-log.recap-shift') }}',
+                    ajax: '{{ route('admin.discount_item.index') }}',
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'config_shift',
-                            name: 'config_shift'
+                            data: 'discount_id',
+                            name: 'discount_id'
                         },
                         {
-                            data: 'start_time',
-                            name: 'start_time'
+                            data: 'item_id',
+                            name: 'item_id'
                         },
                         {
-                            data: 'end_time',
-                            name: 'end_time'
+                            data: 'discount_type',
+                            name: 'discount_type'
                         },
                         {
-                            data: 'user',
-                            name: 'user'
-                        },
-                        {
-                            data: 'branch',
-                            name: 'branch'
-                        },
-                        {
-                            data: 'total_cash_payment',
-                            name: 'total_cash_payment'
-                        },
-                        {
-                            data: 'total_cash_received',
-                            name: 'total_cash_received'
+                            data: 'discount',
+                            name: 'discount'
                         },
                         {
                             data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
+                            name: 'action'
                         },
                     ]
                 });

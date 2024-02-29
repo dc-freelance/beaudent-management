@@ -17,11 +17,9 @@ class TransactionSeeder extends Seeder
         //     [
         //         'code' => 'BEU-INV-CBG-1-24-02-001',
         //         'branch_id' => 2,
-        //         'reservation_id' => 1,
         //         'date_time' => now(),
         //         'doctor_id' => 1,
         //         'customer_id' => 1,
-        //         'status' => 'Billing',
         //         'note' => 'Catatan Transaksi',
         //         'is_paid' => 0,
         //         'payment_method_id' => 1,
@@ -37,11 +35,9 @@ class TransactionSeeder extends Seeder
         //     [
         //         'code' => 'BEU-INV-CBG-1-24-02-002',
         //         'branch_id' => 2,
-        //         'reservation_id' => 1,
         //         'date_time' => now(),
         //         'doctor_id' => 1,
         //         'customer_id' => 1,
-        //         'status' => 'Billing',
         //         'note' => 'Catatan Transaksi',
         //         'is_paid' => 1,
         //         'payment_method_id' => 1,

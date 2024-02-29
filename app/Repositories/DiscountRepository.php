@@ -24,24 +24,13 @@ class DiscountRepository implements DiscountInterface
         return $this->discount->find($id);
     }
 
-    private function setDiscountRate($discountType, $DiscountRate)
-    {
-        if ($discountType == 'nominal') {
-            return str_replace('.', '', $DiscountRate);
-        }
-
-        return $DiscountRate;
-    }
-
     public function create($data)
     {
-        $data['discount'] = $this->setDiscountRate($data['discount_type'], $data['discount']);
         return $this->discount->create($data);
     }
 
     public function update($id, $data)
     {
-        $data['discount'] = $this->setDiscountRate($data['discount_type'], $data['discount']);
         return $this->discount->find($id)->update($data);
     }
 

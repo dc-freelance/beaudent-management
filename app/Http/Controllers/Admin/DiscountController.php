@@ -24,16 +24,16 @@ class DiscountController extends Controller
                 ->addColumn('name', function ($data) {
                     return $data->name;
                 })
-                ->addColumn('discount_type', function ($data) {
-                    return $data->discount_type === 'Percentage' ? 'Percentage' : 'Nominal';
-                })
-                ->addColumn('discount', function ($data) {
-                    if ($data->discount_type == 'Percentage') {
-                        return number_format($data->discount, 0, ',', '.') . '%';
-                    } else {
-                        return 'Rp ' . number_format($data->discount, 0, ',', '.');
-                    }
-                })
+                // ->addColumn('discount_type', function ($data) {
+                //     return $data->discount_type === 'Percentage' ? 'Percentage' : 'Nominal';
+                // })
+                // ->addColumn('discount', function ($data) {
+                //     if ($data->discount_type == 'Percentage') {
+                //         return number_format($data->discount, 0, ',', '.') . '%';
+                //     } else {
+                //         return 'Rp ' . number_format($data->discount, 0, ',', '.');
+                //     }
+                // })
                 ->addColumn('start_date', function ($data) {
                     return Carbon::parse($data->start_date)->locale('id')->isoFormat('LL');
                 })
@@ -69,17 +69,12 @@ class DiscountController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'discount_type' => 'required',
-            'discount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'is_active' => 'required',
         ]);
 
         try {
-            $request->merge([
-                'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
-            ]);
             $this->discount->create($request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil ditambahkan');
@@ -100,17 +95,17 @@ class DiscountController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'discount_type' => 'required',
-            'discount' => 'required',
+            // 'discount_type' => 'required',
+            // 'discount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'is_active' => 'required',
         ]);
 
         try {
-            $request->merge([
-                'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
-            ]);
+            // $request->merge([
+            //     'discount' => str_replace(['Rp.', '.', ','], '', $request->input('discount'))
+            // ]);
             $this->discount->update($id, $request->all());
 
             return redirect()->route('admin.discount.index')->with('success', 'Diskon berhasil diubah');

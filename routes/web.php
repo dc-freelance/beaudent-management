@@ -22,11 +22,13 @@ use App\Http\Controllers\Admin\PaymentMethodsController;
 use App\Http\Controllers\Admin\TreatmentCategoriesController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
 use App\Http\Controllers\FrontOffice\ShiftLogController;
+use App\Http\Controllers\Admin\DiscountItemController;
+use App\Http\Controllers\Admin\DiscountTreatmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
-    Route::get('/', DashboardController::class)->name('admin.dashboard.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
     // Permission
     Route::group(['prefix' => 'permission'], function () {
@@ -42,6 +44,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Role
     Route::group(['prefix' => 'role'], function () {
         Route::get('/', [RoleController::class, 'index'])->middleware('permission:read_role')->name('admin.role.index');
+        Route::get('get-by-place/{place}', [RoleController::class, 'getWhich'])->middleware('permission:read_role')->name('admin.role.get-by-place');
         Route::get('get-by-id/{id}', [RoleController::class, 'getById'])->name('admin.role.get-by-id');
         Route::get('create', [RoleController::class, 'create'])->middleware('permission:create_role')->name('admin.role.create');
         Route::post('store', [RoleController::class, 'store'])->middleware('permission:create_role')->name('admin.role.store');
@@ -231,7 +234,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::group(['prefix' => 'confirm'], function () {
             Route::get('/', [ReservationsController::class, 'confirm_reservations'])->middleware('permission:read_confirm_reservation')->name('front-office.reservations.confirm.index');
             Route::get('detail/{id}', [ReservationsController::class, 'detail'])->middleware('permission:detail_reservation')->name('front-office.reservations.confirm.detail');
-            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->middleware('permission:update_reservation')->name('front-office.reservations.confirm.reschedule.update');
+            Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule.update');
             Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule');
         });
 
@@ -302,6 +305,28 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [TreatmentCategoriesController::class, 'edit'])->middleware('permission:update_treatment_category')->name('admin.treatment-categories.edit');
         Route::put('update/{id}', [TreatmentCategoriesController::class, 'update'])->middleware('permission:update_treatment_category')->name('admin.treatment-categories.update');
         Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->middleware('permission:delete_treatment_category')->name('admin.treatment-categories.delete');
+    });
+
+    // Diskon Treatment
+    Route::group(['prefix' => 'discount_treatment'], function () {
+        Route::get('/', [DiscountTreatmentController::class, 'index'])->middleware('permission:read_discount_treatment')->name('admin.discount_treatment.index');
+        Route::get('get-by-id/{id}', [DiscountTreatmentController::class, 'getById'])->name('admin.discount_treatment.get-by-id');
+        Route::get('create', [DiscountTreatmentController::class, 'create'])->middleware('permission:create_discount_treatment')->name('admin.discount_treatment.create');
+        Route::post('store', [DiscountTreatmentController::class, 'store'])->middleware('permission:create_discount_treatment')->name('admin.discount_treatment.store');
+        Route::get('edit/{id}', [DiscountTreatmentController::class, 'edit'])->middleware('permission:update_discount_treatment')->name('admin.discount_treatment.edit');
+        Route::put('update/{id}', [DiscountTreatmentController::class, 'update'])->middleware('permission:update_discount_treatment')->name('admin.discount_treatment.update');
+        Route::delete('delete/{id}', [DiscountTreatmentController::class, 'delete'])->middleware('permission:delete_discount_treatment')->name('admin.discount_treatment.delete');
+    });
+
+    // Diskon Item
+    Route::group(['prefix' => 'discount_item'], function () {
+        Route::get('/', [DiscountItemController::class, 'index'])->middleware('permission:read_discount_item')->name('admin.discount_item.index');
+        Route::get('get-by-id/{id}', [DiscountItemController::class, 'getById'])->name('admin.discount_item.get-by-id');
+        Route::get('create', [DiscountItemController::class, 'create'])->middleware('permission:create_discount_item')->name('admin.discount_item.create');
+        Route::post('store', [DiscountItemController::class, 'store'])->middleware('permission:create_discount_item')->name('admin.discount_item.store');
+        Route::get('edit/{id}', [DiscountItemController::class, 'edit'])->middleware('permission:update_discount_item')->name('admin.discount_item.edit');
+        Route::put('update/{id}', [DiscountItemController::class, 'update'])->middleware('permission:update_discount_item')->name('admin.discount_item.update');
+        Route::delete('delete/{id}', [DiscountItemController::class, 'delete'])->middleware('permission:delete_discount_item')->name('admin.discount_item.delete');
     });
 });
 

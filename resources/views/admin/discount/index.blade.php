@@ -17,8 +17,6 @@
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Tipe Diskon</th>
-                    <th>Diskon</th>
                     <th>Awal Periode Diskon</th>
                     <th>Akhir Periode Diskon</th>
                     <th>Status</th>
@@ -90,14 +88,6 @@
                         {
                             data: 'name',
                             name: 'name'
-                        },
-                        {
-                            data: 'discount_type',
-                            name: 'discount_type'
-                        },
-                        {
-                            data: 'discount',
-                            name: 'discount'
                         },
                         {
                             data: 'start_date',

@@ -2,17 +2,13 @@
 
 namespace App\Interfaces;
 
-interface RoleInterface
+interface DiscountItemInterface
 {
     public function get();
 
     public function getById($id);
 
-    public function getByName($name);
-
-    public function getWich($place);
-
-    public function store($data);
+    public function create($data);
 
     public function update($id, $data);
 
