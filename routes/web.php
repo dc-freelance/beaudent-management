@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::get('get-chart/{year}', [DashboardController::class, 'chart'])->name('admin.dashboard.chart');
 
     // Permission
     Route::group(['prefix' => 'permission'], function () {
@@ -333,9 +334,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Income Report
     Route::group(['prefix' => 'income_report'], function () {
         // Admin Cabang
-        Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->middleware('permission:read_income_report_general')->name('admin.income-report.general');
-        Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->middleware('permission:export_income_report_general')->name('admin.income-report.general.export');
-    });
+        Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->name('admin.income-report.general');
+        Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->name('admin.income-report.general.export');
+
+        // Dokter
+        Route::get('income-report/doctor', [IncomeReportController::class, 'getDoctor'])->name('admin.income-report.doctor');
+        Route::get('income-report/doctor/export', [IncomeReportController::class, 'exportDoctor'])->name('admin.income-report.doctor.export');
+    })->middleware('permission:read_income_report_general|export_income_report_general');
 });
 
 Route::get('/', function () {
