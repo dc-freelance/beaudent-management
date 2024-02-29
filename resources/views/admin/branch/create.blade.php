@@ -18,7 +18,7 @@
                     <x-input id="deposit_minimum" label="Deposit Minimum" name="deposit_minimum" type="text"
                         placeholder="Rp." required />
                 </div>
-                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
+                <div class="max-md:w-1/2 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Tambah Cabang</x-button>
                 </div>
             </form>
