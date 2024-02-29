@@ -64,8 +64,8 @@
 
     <div class="bg-[#F7FAFC]">
         @include('admin.layouts.sidebar')
-
-        <div class="p-4 sm:ml-64 h-screen overflow-y-auto">
+        <div class="sm:ml-64 h-screen overflow-y-auto">
+            @include('admin.layouts.header')
             <div class="p-4">
                 {{ $slot }}
             </div>
