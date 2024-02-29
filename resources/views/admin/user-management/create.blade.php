@@ -29,11 +29,6 @@
                                     class="radio radio-primary">
                                 <label for="cabang">Cabang</label>
                             </div>
-                            <div class="flex items-center space-x-2">
-                                <input type="radio" name="branch_type" id="cabang" value="P;C"
-                                    class="radio radio-primary">
-                                <label for="cabang">Pusat dan Cabang</label>
-                            </div>
                         </div>
                     </div>
                     <div class="hidden">
@@ -129,7 +124,7 @@
                         branchSelect.val('');
                         branchSelect.parent().removeClass('hidden');
 
-                    } else if (selectedBranchType === 'P' || selectedBranchType === 'P;C') {
+                    } else if (selectedBranchType === 'P') {
                         branchSelect.val('');
                         branchSelect.parent().addClass('hidden');
                     };

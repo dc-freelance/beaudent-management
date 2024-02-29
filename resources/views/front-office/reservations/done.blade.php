@@ -6,9 +6,11 @@
 
     <x-tab-container>
         <div class="flex justify-between items-center mb-4">
-            <div>
-                <label for="datepicker" class="text-sm font-medium text-gray-500 mr-2">Pilih Tanggal Kunjungan:</label>
-                <input type="date" id="datepicker" name="date" class="border border-gray-200 rounded px-2 py-1">
+            <div class="flex items-center gap-2 mb-4">
+                <x-input-label for="datepicker" class="text-sm font-medium text-gray-500 mr-2">Pilih Tanggal
+                    Kunjungan:</x-input-label>
+                <x-input type="date" id="datepicker" name="date"
+                    class="border border-gray-200 rounded px-2 py-1"></x-input>
             </div>
         </div>
 

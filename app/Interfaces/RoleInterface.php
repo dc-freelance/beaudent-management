@@ -10,7 +10,7 @@ interface RoleInterface
 
     public function getByName($name);
 
-    public function getWich($place);
+    public function getWhich($place);
 
     public function store($data);
 

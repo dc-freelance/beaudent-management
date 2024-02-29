@@ -98,7 +98,7 @@ class RoleController extends Controller
     public function getWhich($place)
     {
         try {
-            return $this->role->getWich($place);
+            return $this->role->getWhich($place);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
