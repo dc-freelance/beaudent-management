@@ -31,6 +31,20 @@ class DashboardRepository implements DashboardInterface
         $this->branch = $branch;
     }
 
+    public function getAvailableYear()
+    {
+        $transaction = $this->transaction->select('date_time')->get();
+        $dump_years = [];
+
+        foreach ($transaction as $data) {
+            if (!in_array(Carbon::parse($data->date_time)->format('Y'), $dump_years)) {
+                array_push($dump_years, Carbon::parse($data->date_time)->format('Y'));
+            };
+        };
+
+        return $dump_years;
+    }
+
     public function earnings()
     {
         $data = null;
@@ -56,7 +70,7 @@ class DashboardRepository implements DashboardInterface
         Auth::user()->branch_id == null ?
             $data = $this->transaction
             ->select('id', 'date_time', 'grand_total')
-            ->whereYear('date_time', Carbon::now()->format('Y'))
+            ->whereYear('date_time', $year)
             ->where('is_paid', 1)
             ->get()
             ->groupBy(function ($date) {
@@ -69,7 +83,7 @@ class DashboardRepository implements DashboardInterface
             $data = $this->transaction
             ->select('id', 'date_time', 'grand_total')
             ->where('branch_id', Auth::user()->branch_id)
-            ->whereYear('date_time', Carbon::now()->format('Y'))
+            ->whereYear('date_time', $year)
             ->where('is_paid', 1)
             ->get()
             ->groupBy(function ($date) {

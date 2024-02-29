@@ -25,7 +25,8 @@ class DashboardController extends Controller
             'layanan' => $this->dashboard_data->treatments(),
             'pasien' => $this->dashboard_data->patient(),
             'dokter' => $this->dashboard_data->doctor(),
-            'cabang' => $this->dashboard_data->branch()
+            'cabang' => $this->dashboard_data->branch(),
+            'years' => $this->dashboard_data->getAvailableYear()
         );
 
         return view('admin.dashboard.index', compact('data'));
@@ -35,7 +36,8 @@ class DashboardController extends Controller
     {
         $data = array(
             'pemasukan_bulan' => $this->dashboard_data->year_earnings($year)->toArray(),
-            'pemasukan_tahun' => rupiahFormat(array_sum($this->dashboard_data->year_earnings($year)->toArray()))
+            'pemasukan_tahun' => rupiahFormat(array_sum($this->dashboard_data->year_earnings($year)->toArray())),
+            'year' => $year
         );
 
         return $data;
