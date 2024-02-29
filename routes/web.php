@@ -396,11 +396,4 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('konz', function () {
-    return view('/forbiddenPage');
-});
-Route::get('konzz', function () {
-    return view('/errorPage');
-});
-
 require __DIR__ . '/auth.php';
