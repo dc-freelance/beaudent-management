@@ -172,12 +172,12 @@
 
             @can(['read_income_report_general', 'export_income_report_general'])
                 <x-sidebar-dropdown title="Laporan" icon="fas fa-file-alt" toggle="report"
-                    active="{{ request()->routeIs('admin.income-report.general') }}">
+                    active="{{ request()->routeIs('admin.income-report.general') || request()->routeIs('admin.income-report.doctor') }}">
                     <x-sidebar-submenu name="Pemasukan" route="{{ route('admin.income-report.general') }}"
-                        active="{{ request()->routeIs('admin.income-report.general.*') }}"
+                        active="{{ request()->routeIs('admin.income-report.general') }}"
                         icon="fas fa-file-invoice-dollar" />
                     <x-sidebar-submenu name="Presentase Dokter" route="{{ route('admin.income-report.doctor') }}"
-                        active="{{ request()->routeIs('admin.income-report.doctor.*') }}"
+                        active="{{ request()->routeIs('admin.income-report.doctor') }}"
                         icon="fas fa-file-invoice-dollar" />
                 </x-sidebar-dropdown>
             @endcan
