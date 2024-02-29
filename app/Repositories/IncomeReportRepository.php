@@ -24,13 +24,13 @@ class IncomeReportRepository implements IncomeReportInterface
     {
         $results = $this->transaction->where('is_paid', 1)->with(['branch', 'customer', 'payment_method'])
             ->when(request()->filled('start_date') && request()->filled('end_date'), function ($query) {
-                $query->where('created_at', '>=', request('start_date'))
-                    ->where('created_at', '<=', request('end_date') . ' 23:59:59');
+                $query->where('date_time', '>=', request('start_date'))
+                    ->where('date_time', '<=', request('end_date') . ' 23:59:59');
             })
             ->when(request()->filled('branch_id'), function ($query) {
                 $query->where('branch_id', request('branch_id'));
             })
-            ->orderBy('created_at', 'desc')
+            ->orderBy('date_time', 'desc')
             ->get();
 
         return $results;
@@ -40,26 +40,26 @@ class IncomeReportRepository implements IncomeReportInterface
     {
         $results = $this->transaction->where('is_paid', 1)->with(['branch', 'customer', 'payment_method'])
             ->when(request()->filled('start_date') && request()->filled('end_date'), function ($query) {
-                $query->where('created_at', '>=', request('start_date'))
-                    ->where('created_at', '<=', request('end_date') . ' 23:59:59');
+                $query->where('date_time', '>=', request('start_date'))
+                    ->where('date_time', '<=', request('end_date') . ' 23:59:59');
             })
             ->when(request()->filled('branch_id'), function ($query) {
                 $query->where('branch_id', request('branch_id'));
             })
-            ->orderBy('created_at', 'desc')
+            ->orderBy('date_time', 'desc')
             ->get();
 
         return $results->map(function ($data) {
             return [
                 'transaction_code' => $data->code,
-                'transaction_date' => date('d/m/Y', strtotime($data->created_at)),
+                'transaction_date' => date('Y-m-d', strtotime($data->date_time)),
                 'branch'           => $data->branch->name,
                 'patient'          => $data->customer->name,
                 'payment_method'   => $data->payment_method->name,
-                'total'            => number_format($data->total, 0, ',', '.'),
-                'discount'         => number_format($data->discount, 0, ',', '.') . '%',
-                'total_ppn'        => number_format($data->total_ppn, 0, ',', '.'),
-                'grand_total'      => number_format($data->grand_total, 0, ',', '.')
+                'total'            => $data->total,
+                'discount'         => $data->discount,
+                'total_ppn'        => $data->total_ppn,
+                'grand_total'      => $data->grand_total,
             ];
         });
     }
