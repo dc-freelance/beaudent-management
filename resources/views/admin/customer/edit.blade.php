@@ -37,8 +37,32 @@
                         required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number"
                         value="{{ old('phone_number', $data->phone_number) }}" required />
-                    <x-input id="religion" label="Agama" name="religion" type="text"
+                    <<<<<<< HEAD <x-input id="religion" label="Agama" name="religion" type="text"
                         value="{{ old('religion', $data->religion) }}" required />
+                    =======
+                    <div>
+                        <p>Agama <span class="text-red-600">*</span></p>
+                        <div class="mt-2">
+                            <select id="religion" name="religion"
+                                class="py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option {{ $data->religion == 'Islam' ? 'selected' : '' }} value="Islam">Islam
+                                </option>
+                                <option {{ $data->religion == 'Kristen' ? 'selected' : '' }} value="Kristen">Kristen
+                                </option>
+                                <option {{ $data->religion == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu
+                                </option>
+                                <option {{ $data->religion == 'Budha' ? 'selected' : '' }} value="Budha">Budha
+                                </option>
+                                <option {{ $data->religion == 'Katolik' ? 'selected' : '' }} value="Katolik">Katolik
+                                </option>
+                                <option {{ $data->religion == 'Protestan' ? 'selected' : '' }} value="Protestan">
+                                    Protestan</option>
+                                <option {{ $data->religion == 'Konghucu' ? 'selected' : '' }} value="Konghucu">Konghucu
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    >>>>>>> 699eb1c34718587b69af4de3b02c241dfc2a56db
                     <x-input type="email" id="email" label="Surel" name="email" type="text"
                         value="{{ old('email', $data->email) }}" required />
                     <div>
