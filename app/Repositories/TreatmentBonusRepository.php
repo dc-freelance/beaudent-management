@@ -35,13 +35,13 @@ class TreatmentBonusRepository implements TreatmentBonusInterface
 
     public function store($data)
     {
-        $data['bonus_rate'] = $this->setBonusRate($data['bonus_type'], $data['bonus_rate']);
+        // $data['bonus_rate'] = $this->setBonusRate($data['bonus_type'], $data['bonus_rate']);
         return $this->treatmentBonus->create($data);
     }
 
     public function update($id, $data)
     {
-        $data['bonus_rate'] = $this->setBonusRate($data['bonus_type'], $data['bonus_rate']);
+        // $data['bonus_rate'] = $this->setBonusRate($data['bonus_type'], $data['bonus_rate']);
         return $this->treatmentBonus->find($id)->update($data);
     }
 

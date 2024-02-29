@@ -51,7 +51,7 @@ class ReservationsRepository implements ReservationsInterface
         $post = array(
             'appkey' => 'a099da47-8105-4cd5-8862-a98a083b5685',
             'authkey' => '2GuoDijnXxzS52ahvkDzCAKUkFGlL2uYEsirRJ2VHbG2K4D5xs',
-            'to' => $num,
+            'to' => '62' . $num,
             'template_id' => '222c63ab-1b89-45f6-80f5-867150488c97',
             'variables' => array(
                 '{title}' => $data['title'],
@@ -81,10 +81,9 @@ class ReservationsRepository implements ReservationsInterface
             CURLOPT_POSTFIELDS => $post_to_send
         ));
 
-        $response = curl_exec($curl);
+        curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
     }
 
     public function deposit_confirmation($num, $reservation)
@@ -109,7 +108,7 @@ class ReservationsRepository implements ReservationsInterface
         $post = array(
             'appkey' => 'a099da47-8105-4cd5-8862-a98a083b5685',
             'authkey' => '2GuoDijnXxzS52ahvkDzCAKUkFGlL2uYEsirRJ2VHbG2K4D5xs',
-            'to' => $num,
+            'to' => '62' . $num,
             'template_id' => '3e923658-9740-4738-946d-813c3901a82a',
             'variables' => array(
                 '{title}' => $data['title'],
@@ -139,10 +138,9 @@ class ReservationsRepository implements ReservationsInterface
             CURLOPT_POSTFIELDS => $post_to_send
         ));
 
-        $response = curl_exec($curl);
+        curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
     }
 
     public function reschedule_confirmation($num, $reservation, $request)
@@ -165,7 +163,7 @@ class ReservationsRepository implements ReservationsInterface
         $post = array(
             'appkey' => 'a099da47-8105-4cd5-8862-a98a083b5685',
             'authkey' => '2GuoDijnXxzS52ahvkDzCAKUkFGlL2uYEsirRJ2VHbG2K4D5xs',
-            'to' => $num,
+            'to' => '62' . $num,
             'template_id' => '022c0758-998c-46c2-900f-89316a9a2011',
             'variables' => array(
                 '{title}' => $data['title'],
@@ -195,10 +193,9 @@ class ReservationsRepository implements ReservationsInterface
             CURLOPT_POSTFIELDS => $post_to_send
         ));
 
-        $response = curl_exec($curl);
+        curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
     }
 
     public function datatable_reservations($date = null, $status = null)

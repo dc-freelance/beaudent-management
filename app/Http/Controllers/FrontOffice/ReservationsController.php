@@ -329,9 +329,10 @@ class ReservationsController extends Controller
 
             // Mail::to($reservation->customers->email)->send(new DepositConfirmation($reservation, true));
 
+            $this->reservations->deposit_confirm($id);
+
             $this->reservations->deposit_confirmation($reservation->customers->phone_number, $reservation);
 
-            $this->reservations->deposit_confirm($id);
 
             return redirect()->route('front-office.deposit.wait.index')->with('success', 'Deposit telah dikonfirmasi');
         } catch (\Throwable $th) {
