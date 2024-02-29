@@ -36,7 +36,7 @@ class IncomeReportController extends Controller
                     return $data->code;
                 })
                 ->addColumn('created_at', function ($data) {
-                    return date('Y-m-d', strtotime($data->created_at));
+                    return date('Y-m-d', strtotime($data->date_time));
                 })
                 ->addColumn('branch', function ($data) {
                     return $data->branch->name;
