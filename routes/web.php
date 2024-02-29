@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\DiscountTreatmentController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\TreatmentReportController;
 use App\Http\Controllers\Admin\PatientVisitReportController;
+use App\Http\Controllers\ShiftReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -314,18 +315,27 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     // Payments / Transaction
     Route::group(['prefix' => 'transaction', 'middleware' => ['role:frontoffice']], function () {
-        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->name('front-office.transaction.list-billing');
 
-        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->name('front-office.transaction.payment');
+        // payment transaction
+        // list
+        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->middleware('permission:read_antrian_pembayaran')->name('front-office.transaction.list-billing');
+        // payment
+        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->middleware('permission:pay_antiran_pembayaran')->name('front-office.transaction.payment');
+        // end payment transaction
+
         Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->name('front-office.transaction.payment.confirm');
 
         Route::post('/addon-transaction/{transaction}/{examination}', [TransactionController::class, 'addon_transaction'])->name('front-office.transaction.addon-transaction');
         Route::delete('/addon-transaction/{addonExamination}', [TransactionController::class, 'remove_addon_transaction'])->name('front-office.transaction.remove_addon-transaction');
 
-        Route::get('/list-transaction', [TransactionController::class, 'list_transaction'])->name('front-office.transaction.list-transaction');
-        Route::get('/detail-transaction/{transaction}', [TransactionController::class, 'detail_transaction'])->name('front-office.transaction.detail-transaction');
-
-        Route::get('/pdf/{transaction}', [TransactionController::class, 'print_transaction'])->name('front-office.transaction.print-transaction');
+        // list transaction
+        // list
+        Route::get('/list-transaction', [TransactionController::class, 'list_transaction'])->middleware('permission:read_list_transaction')->name('front-office.transaction.list-transaction');
+        // ubah
+        Route::get('/detail-transaction/{transaction}', [TransactionController::class, 'detail_transaction'])->middleware('permission:update_transaction')->name('front-office.transaction.detail-transaction');
+        // print
+        Route::get('/pdf/{transaction}', [TransactionController::class, 'print_transaction'])->middleware('permission:print_transaction')->name('front-office.transaction.print-transaction');
+        // end list transaction
     });
     // Diskon Treatment
     Route::group(['prefix' => 'discount_treatment'], function () {
@@ -349,12 +359,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [DiscountItemController::class, 'delete'])->middleware('permission:delete_discount_item')->name('admin.discount_item.delete');
     });
 
-
     // patient visit report
     Route::group(['prefix' => 'patient_visit_report'], function () {
         // Admin Cabang
         Route::get('patient_visit_report/general', [PatientVisitReportController::class, 'getGeneral'])->middleware('permission:read_patient_visit_report_general')->name('admin.patient_visit_report.general');
         Route::get('patient_visit_report/general/export', [PatientVisitReportController::class, 'exportGeneral'])->middleware('permission:export_patient_visit_report_general')->name('admin.patient_visit_report.general.export');
+    });
+    // shift report
+    Route::group(['prefix' => 'shift_report'], function () {
+        // Admin Cabang
+        Route::get('shift_report/general', [ShiftReportController::class, 'getGeneral'])->middleware('permission:read_shift_report_general')->name('admin.shift_report.general');
+        Route::get('shift_report/general/export', [ShiftReportController::class, 'exportGeneral'])->middleware('permission:export_shift_report_general')->name('admin.shift_report.general.export');
     });
     // Income Report
     Route::group(['prefix' => 'income_report'], function () {
