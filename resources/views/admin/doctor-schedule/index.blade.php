@@ -88,8 +88,8 @@
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'doctor',
+                            name: 'doctor'
                         },
                         {
                             data: 'branch',
