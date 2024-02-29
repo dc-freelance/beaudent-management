@@ -158,6 +158,11 @@
                     <select id="select-year"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block p-2.5"
                         name="year">
+                        @foreach ($data['years'] as $year)
+                            <option value="{{ $year }}"
+                                {{ \Carbon\Carbon::now()->format('Y') == $year ? 'selected' : '' }}>Tahun
+                                {{ $year }}</option>
+                        @endforeach
                     </select>
                     {{-- <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
                         data-dropdown-placement="bottom" type="button"
@@ -869,11 +874,7 @@
         <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
-                let date = new Date();
-                let url = "{{ route('admin.dashboard.chart', ':year') }}".replace(':year', date.getFullYear());
-
                 let chart_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
                 let options = {
                     pan: {
                         enabled: true,
@@ -955,25 +956,38 @@
                     const chart = new ApexCharts(document.getElementById("line-chart"), options);
                     chart.render();
 
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#year-earnings').text(data.pemasukan_tahun);
+                    function getData(date) {
+                        let url = "{{ route('admin.dashboard.chart', ':year') }}".replace(':year', date);
 
-                            let obj = data.pemasukan_bulan;
-                            for (const key in obj) {
-                                if (obj.hasOwnProperty(key)) {
-                                    chart_data[parseInt(key.replace('0', '')) - 1] = obj[key];
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                chart_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+                                $('#year-earnings').text(data.pemasukan_tahun);
+
+                                let obj = data.pemasukan_bulan;
+                                for (const key in obj) {
+                                    if (obj.hasOwnProperty(key)) {
+                                        chart_data[parseInt(key.replace('0', '')) - 1] = obj[key];
+                                    };
                                 };
-                            };
 
-                            chart.updateSeries([{
-                                data: chart_data
-                            }]);
-                        }
+                                chart.updateSeries([{
+                                    data: chart_data
+                                }]);
+                            }
+                        });
+                    };
+                    getData($('#select-year').val());
+
+                    $('#select-year').on('change', function() {
+                        getData($('#select-year').val());
                     });
+
+                    $('#select-year').select2();
                 };
             });
         </script>
