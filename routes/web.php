@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\TreatmentReportController;
+use App\Http\Controllers\Admin\PatientVisitReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -331,6 +332,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [DiscountItemController::class, 'delete'])->middleware('permission:delete_discount_item')->name('admin.discount_item.delete');
     });
 
+
+    // patient visit report
+    Route::group(['prefix' => 'patient_visit_report'], function () {
+        // Admin Cabang
+        Route::get('patient_visit_report/general', [PatientVisitReportController::class, 'getGeneral'])->name('admin.patient_visit_report.general');
+        Route::get('patient_visit_report/general/export', [PatientVisitReportController::class, 'exportGeneral'])->name('admin.patient_visit_report.general.export');
+    });
     // Income Report
     Route::group(['prefix' => 'income_report'], function () {
         // Admin Cabang
