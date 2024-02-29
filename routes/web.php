@@ -333,9 +333,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Income Report
     Route::group(['prefix' => 'income_report'], function () {
         // Admin Cabang
-        Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->middleware('permission:read_income_report_general')->name('admin.income-report.general');
-        Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->middleware('permission:export_income_report_general')->name('admin.income-report.general.export');
-    });
+        Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->name('admin.income-report.general');
+        Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->name('admin.income-report.general.export');
+
+        // Dokter
+        Route::get('income-report/doctor', [IncomeReportController::class, 'getDoctor'])->name('admin.income-report.doctor');
+        Route::get('income-report/doctor/export', [IncomeReportController::class, 'exportDoctor'])->name('admin.income-report.doctor.export');
+    })->middleware('permission:read_income_report_general|export_income_report_general');
 });
 
 Route::get('/', function () {

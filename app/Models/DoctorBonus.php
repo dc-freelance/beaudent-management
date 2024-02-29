@@ -16,5 +16,13 @@ class DoctorBonus extends Model
         'branch_id',
     ];
 
-    // add relation
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    public function examinationTreatment()
+    {
+        return $this->belongsTo(ExaminationTreatment::class);
+    }
 }
