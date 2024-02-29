@@ -175,7 +175,11 @@
 
             @canany(['read_income_report_general', 'export_income_report_general', 'read_patient_visit_report_general'])
                 <x-sidebar-dropdown title="Laporan" icon="fas fa-file-alt" toggle="report"
-                    active="{{ request()->routeIs('admin.income-report.general') || request()->routeIs('admin.income-report.doctor') || request()->routeIs('admin.treatment-report.general') || request()->routeIs('admin.treatment-report.general') }}">
+                    active="{{ request()->routeIs('admin.income-report.general') ||
+                                request()->routeIs('admin.income-report.doctor') ||
+                                request()->routeIs('admin.treatment-report.general') ||
+                                request()->routeIs('admin.patient_visit_report.general') ||
+                                request()->routeIs('admin.shift_report.general') }}">
                     @can('read_income_report_general',)
                         <x-sidebar-submenu name="Pemasukan" route="{{ route('admin.income-report.general') }}"
                             active="{{ request()->routeIs('admin.income-report.general') }}"
@@ -193,32 +197,32 @@
                     @endcan
                     @can(['read_patient_visit_report_general'])
                         <x-sidebar-submenu name="Laporan Kunjungan Pasien" icon="fas fa-file"
-                            route="{{ route('admin.treatment-report.general') }}"
+                            route="{{ route('admin.patient_visit_report.general') }}"
                             active="{{ request()->routeIs('admin.patient_visit_report.general') }}" />
+                    @endcan
+                    @can('read_shift_report_general')
+                    <x-sidebar-submenu name="Laporan Shift" icon="fas fa-file"
+                            route="{{ route('admin.shift_report.general') }}"
+                            active="{{ request()->routeIs('admin.shift_report.general') }}" />
                     @endcan
                 </x-sidebar-dropdown>
             @endcanany
             @role('frontoffice')
-                <x-sidebar-dropdown title="Pembayaran" icon="fas fa-money-bill-wave" toggle="transaction"
-                    active="{{ request()->routeIs('front-office.transaction.*') }}">
-                    <x-sidebar-submenu name="Antrian Pembayaran" route="{{ route('front-office.transaction.list-billing') }}"
-                        active="{{ request()->routeIs('front-office.transaction.list-billing') || request()->routeIs('front-office.transaction.payment') }}" icon="fas fa-list-ol" />
-                    <x-sidebar-submenu name="Riwayat Transaksi" route="{{ route('front-office.transaction.list-transaction') }}"
-                        active="{{ request()->routeIs('front-office.transaction.list-transaction') || request()->routeIs('front-office.transaction.detail-transaction') }}" icon="fas fa-list-ul" />
-                </x-sidebar-dropdown>
+                @canany(['read_antrian_pembayaran', 'read_list_transaction'])
+                    <x-sidebar-dropdown title="Pembayaran" icon="fas fa-money-bill-wave" toggle="transaction"
+                        active="{{ request()->routeIs('front-office.transaction.*') }}">
+                        @can('read_antrian_pembayaran')
+                            <x-sidebar-submenu name="Antrian Pembayaran" route="{{ route('front-office.transaction.list-billing') }}"
+                                active="{{ request()->routeIs('front-office.transaction.list-billing') || request()->routeIs('front-office.transaction.payment') }}" icon="fas fa-list-ol" />
+                        @endcan
+                        @can('read_list_transaction')
+                            <x-sidebar-submenu name="Riwayat Transaksi" route="{{ route('front-office.transaction.list-transaction') }}"
+                                active="{{ request()->routeIs('front-office.transaction.list-transaction') || request()->routeIs('front-office.transaction.detail-transaction') }}" icon="fas fa-list-ul" />
+                        @endcan
+                    </x-sidebar-dropdown>
+                @endcanany
             @endrole
 
-            <li>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit"
-                        class="flex w-full items-center p-3 font-normal text-gray-900 rounded-md dark:text-white hover:bg-gray-100">
-                        <i
-                            class="fas fa-sign-out-alt w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ml-3">Keluar</span>
-                    </button>
-                </form>
-            </li>
         </ul>
     </div>
 </aside>
