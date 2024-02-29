@@ -82,21 +82,21 @@ class DiscountTreatmentController extends Controller
 
         try {
             $discount_treatment = $request->input('discount');
-    
-            // Menghilangkan simbol mata uang dan karakter tidak valid
-            $discount_treatment = str_replace(['Rp.', '.', ','], '', $discount_treatment);
-    
-            // Mengonversi nilai discount ke tipe data numerik jika discount_type adalah 'nominal'
+
             if ($request->input('discount_type') === 'nominal') {
+                // Menghilangkan simbol mata uang dan karakter tidak valid
+                $discount_treatment = str_replace(['Rp.', '.', ','], '', $discount_treatment);
+            } else {
+                // Mengonversi nilai discount ke tipe data numerik jika discount_type adalah 'nominal'
                 $discount_treatment = (float) $discount_treatment;
             }
-    
+
             $request->merge([
                 'discount' => $discount_treatment
             ]);
-    
+
             $this->discount_treatment->create($request->all());
-    
+
             return redirect()->route('admin.discount_treatment.index')->with('success', 'Diskon Layanan berhasil ditambahkan');
         } catch (\Throwable $th) {
             return redirect()->route('admin.discount_treatment.index')->with('error', $th->getMessage());
@@ -124,21 +124,22 @@ class DiscountTreatmentController extends Controller
 
         try {
             $discount_treatment = $request->input('discount');
-    
-            // Menghilangkan simbol mata uang dan karakter tidak valid
-            $discount_treatment = str_replace(['Rp.', '.', ','], '', $discount_treatment);
-    
-            // Mengonversi nilai discount ke tipe data numerik jika discount_type adalah 'nominal'
-            if ($request->input('discount_type') === 'nominal') {
+
+
+            if ($request->input('discount_type') === 'Nominal') {
+                // Menghilangkan simbol mata uang dan karakter tidak valid
+                $discount_treatment = str_replace(['Rp.', '.', ','], '', $discount_treatment);
+            } else {
+                // Mengonversi nilai discount ke tipe data numerik jika discount_type adalah 'nominal'
                 $discount_treatment = (float) $discount_treatment;
             }
-    
+
             $request->merge([
                 'discount' => $discount_treatment
             ]);
-    
+
             $this->discount_treatment->update($id, $request->all());
-    
+
             return redirect()->route('admin.discount_treatment.index')->with('success', 'Diskon Layanan berhasil diubah');
         } catch (\Throwable $th) {
             return redirect()->route('admin.discount_treatment.index')->with('error', $th->getMessage());
