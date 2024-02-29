@@ -12,15 +12,16 @@
                 <div class="space-y-6">
                     <x-input id="name" label="Nama Layanan Tambahan" name="name" required />
                     <x-input id="price" label="Harga" name="price" type="text" placeholder="Rp." required />
-                    <x-input id="fee_percentage" label="Persentase Biaya (%)" type="number" name="fee_percentage" required />
+                    <x-input id="fee_percentage" label="Persentase Biaya (%)" type="number" name="fee_percentage"
+                        required />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
                     <x-button type="submit">Tambah Layanan Tambahan</x-button>
                 </div>
             </form>
         </x-card-container>
     </div>
-    
+
     @push('js-internal')
         <script>
             document.addEventListener('DOMContentLoaded', function() {

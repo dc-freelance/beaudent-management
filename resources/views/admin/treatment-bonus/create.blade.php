@@ -27,7 +27,7 @@
                     <option value="nominal">Nominal</option>
                 </x-select>
                 <x-input id="bonus_rate" name="bonus_rate" type="text" label="Bonus" />
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
                     <x-button type="submit">Tambah Bonus Layanan</x-button>
                 </div>
             </form>

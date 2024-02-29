@@ -14,7 +14,7 @@
                 <x-input id="start_time" label="Jam Mulai" type="time" name="start_time" required :value="$data->start_time" />
                 <x-input id="end_time" label="Jam Berakhir" type="time" name="end_time" required
                     :value="$data->end_time" />
-                <div class="mt-6">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit" class="mt-6">Simpan Perubahan</x-button>
                 </div>
             </form>

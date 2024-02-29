@@ -17,21 +17,27 @@ class DashboardController extends Controller
         $this->dashboard_data = $data;
     }
 
-    public function index($year = null)
+    public function index()
     {
-        $year === null && $year = Carbon::now()->format('Y');
-
         $data = array(
             'pemasukan' => rupiahFormat($this->dashboard_data->earnings()),
             'reservasi' => $this->dashboard_data->reservation(),
             'layanan' => $this->dashboard_data->treatments(),
             'pasien' => $this->dashboard_data->patient(),
             'dokter' => $this->dashboard_data->doctor(),
-            'cabang' => $this->dashboard_data->branch(),
+            'cabang' => $this->dashboard_data->branch()
+        );
+
+        return view('admin.dashboard.index', compact('data'));
+    }
+
+    public function chart($year)
+    {
+        $data = array(
             'pemasukan_bulan' => $this->dashboard_data->year_earnings($year)->toArray(),
             'pemasukan_tahun' => rupiahFormat(array_sum($this->dashboard_data->year_earnings($year)->toArray()))
         );
 
-        return view('admin.dashboard.index', compact('data'));
+        return $data;
     }
 }
