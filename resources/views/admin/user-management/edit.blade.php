@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="max-md:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 pt-5">
+                <div class="max-md:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit" class="mt-6">Simpan Perubahan</x-button>
                 </div>
             </form>
