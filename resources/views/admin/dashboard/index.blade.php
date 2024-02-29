@@ -161,8 +161,8 @@
                         class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Last
                         week <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 1 4 4 4-4" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
                         </svg></button>
                     <div id="earningTime"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -212,10 +212,12 @@
                 </div>
             </div> --}}
         </div>
-        <!-- End Sales Chart -->
+    </div>
+    {{-- </section> --}}
 
+    <div class="flex gap-6 max-md:flex-col">
         <!-- Orders Chart -->
-        {{-- <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center">
                     <div
@@ -230,7 +232,8 @@
                     </div>
                     <div>
                         <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">3.4k</h5>
-                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated per week</p>
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated per week
+                        </p>
                     </div>
                 </div>
                 <div>
@@ -313,34 +316,33 @@
                     </a>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <!-- End Orders Chart -->
-    </div>
 
-    {{-- Chart 3 Column 3-6-3 --}}
-    {{-- <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-
-        <!-- Traffic Chart -->
-        <div class="col-span-3 w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 h-fit">
-
+        {{-- trafic --}}
+        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between mb-3">
                 <div class="flex justify-center items-center">
-                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Website traffic</h5>
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Trafic
+                    </h5>
                     <svg data-popover-target="chart-info" data-popover-placement="bottom"
                         class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20">
                         <path
                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
                     </svg>
                     <div data-popover id="chart-info" role="tooltip"
                         class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
                         <div class="p-3 space-y-2">
-                            <h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental</h3>
+                            <h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental
+                            </h3>
                             <p>Report helps navigate cumulative growth of community activities. Ideally, the chart
                                 should have a growing trend, as stagnating chart signifies a significant decrease of
                                 community activity.</p>
                             <h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
-                            <p>For each date bucket, the all-time volume of activities is calculated. This means that
+                            <p>For each date bucket, the all-time volume of activities is calculated. This means
+                                that
                                 activities in period n contain all activities up to period n, plus the activities
                                 generated by your community in period.</p>
                             <a href="#"
@@ -359,7 +361,8 @@
                         class="hidden sm:inline-flex items-center justify-center text-gray-500 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg
                             class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 16 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
                                 d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
                         </svg><span class="sr-only">Download data</span>
                     </button>
@@ -397,12 +400,21 @@
             <!-- Donut Chart -->
             <div class="py-6" id="donut-chart"></div>
         </div>
-        <!-- End Traffic Chart -->
+        {{-- end --}}
 
-        <!-- Revenue Chart -->
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg col-span-6 h-fit">
+    </div>
+
+
+
+    </div>
+
+    {{-- Chart 3 Column 3-6-3 --}}
+    <div class="flex max-md:flex-col gap-6">
+
+        <!-- Traffic Chart -->
+        <div class="w-full lg:w-2/3 xl:w-2/3 rounded-lg relative overflow-y-auto overflow-x-auto shadow-md col-span-6">
             <div
-                class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
+                class="w-full flex items-center justify-between p-10 flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 dark:bg-gray-900">
                 <div>
                     <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction"
                         class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -455,7 +467,7 @@
                         placeholder="Search for users">
                 </div>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="w-full min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="p-4">
@@ -508,7 +520,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Modal toggle -->
-                            <a href="#" type="button" data-modal-show="editUserModal"
+                            <a href="#" type="button" data-modal-show="#editUserModal"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
                         </td>
                     </tr>
@@ -539,7 +551,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Modal toggle -->
-                            <a href="#" type="button" data-modal-show="editUserModal"
+                            <a href="#" type="button" data-modal-show="#editUserModal"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
                         </td>
                     </tr>
@@ -571,7 +583,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Modal toggle -->
-                            <a href="#" type="button" data-modal-show="editUserModal"
+                            <a href="#" type="button" data-modal-show="#editUserModal"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
                         </td>
                     </tr>
@@ -602,7 +614,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <!-- Modal toggle -->
-                            <a href="#" type="button" data-modal-show="editUserModal"
+                            <a href="#" type="button" data-modal-show="#editUserModal"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
                         </td>
                     </tr>
@@ -710,7 +722,7 @@
         <!-- End Revenue Chart -->
 
         <!-- Orders Chart -->
-        <div class="col-span-3 w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 h-fit">
+        <div class="w-full lg:w-1/3 xl:w-1/3 bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 h-fit">
 
             <div class="flex justify-between items-start w-full">
                 <div class="flex-col items-center">
@@ -859,7 +871,7 @@
         </div>
         <!-- End Orders Chart -->
 
-    </div> --}}
+    </div>
 
     @push('js-internal')
         <!-- ApexCharts -->
@@ -951,16 +963,15 @@
 
             });
         </script>
-
         <!-- Column Chart -->
         <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const options = {
-                    colors: ["#1A56DB", "#FDBA8C"],
+                    colors: ["#FF9999", "#9999FF"],
                     series: [{
                             name: "Organic",
-                            color: "#1A56DB",
+                            color: "#FF9999",
                             data: [{
                                     x: "Mon",
                                     y: 231
@@ -993,7 +1004,7 @@
                         },
                         {
                             name: "Social media",
-                            color: "#FDBA8C",
+                            color: "#9999FF",
                             data: [{
                                     x: "Mon",
                                     y: 232
@@ -1123,6 +1134,7 @@
                         stroke: {
                             colors: ["transparent"],
                             lineCap: "",
+                            width: 15,
                         },
                         plotOptions: {
                             pie: {
@@ -1155,7 +1167,7 @@
                                             },
                                         },
                                     },
-                                    size: "80%",
+                                    size: "97%",
                                 },
                             },
                         },
@@ -1225,7 +1237,6 @@
                         }
                     }
 
-                    // Attach the event listener to each checkbox
                     checkboxes.forEach((checkbox) => {
                         checkbox.addEventListener('change', (event) => handleCheckboxChange(event, chart));
                     });
