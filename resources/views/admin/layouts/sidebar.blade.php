@@ -179,20 +179,20 @@
                     @can('read_income_report_general',)
                         <x-sidebar-submenu name="Pemasukan" route="{{ route('admin.income-report.general') }}"
                             active="{{ request()->routeIs('admin.income-report.general') }}"
-                            icon="fas fa-file-pdf-o" />
+                            icon="fas fa-file" />
                     @endcan
                     @can('export_income_report_general')
                         <x-sidebar-submenu name="Presentase Dokter" route="{{ route('admin.income-report.doctor') }}"
                             active="{{ request()->routeIs('admin.income-report.doctor') }}"
-                            icon="fas fa-file-pdf-o" />
+                            icon="fas fa-file" />
                     @endcan
                     @can(['read_treatment_report_general'])
-                        <x-sidebar-item name="Laporan Layanan" icon="fas fa-file-pdf-o"
+                        <x-sidebar-item name="Laporan Layanan" icon="fas fa-file"
                             route="{{ route('admin.treatment-report.general') }}"
                             active="{{ request()->routeIs('admin.treatment-report.general') }}" />
                     @endcan
                     @can(['read_patient_visit_report_general'])
-                        <x-sidebar-item name="Laporan Kunjungan Pasien" icon="fas fa-file-pdf-o"
+                        <x-sidebar-item name="Laporan Kunjungan Pasien" icon="fas fa-file"
                             route="{{ route('admin.treatment-report.general') }}"
                             active="{{ request()->routeIs('admin.patient_visit_report.general') }}" />
                     @endcan
