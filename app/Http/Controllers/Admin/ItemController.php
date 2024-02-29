@@ -34,11 +34,11 @@ class ItemController extends Controller
                 ->addColumn('unit', function ($data) {
                     return $data->unit->name;
                 })
-                ->addColumn('total_stock', function ($data) {
-                    return $data->name;
-                })
-                ->addColumn('hpp', function ($data) {
-                    return 'Rp '.number_format($data->hpp, 0, ',', '.');
+                // ->addColumn('total_stock', function ($data) {
+                //     return $data->name;
+                // })
+                ->addColumn('harga', function ($data) {
+                    return 'Rp '.number_format($data->harga, 0, ',', '.');
                 })
                 ->addColumn('type', function ($data) {
                     $type = $data->type == 'Medicine' ? 'Obat' : 'BMHP';
@@ -72,16 +72,22 @@ class ItemController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'unit_id' => 'required',
-            'total_stock' => 'required',
-            'hpp' => 'required',
+            'total_stock' => 'nullable|numeric',
+            'hpp' => 'nullable|numeric',
+            'harga' => 'required',
             'type' => 'required',
         ]);
 
         try {
             $request->merge([
-                'hpp' => str_replace(['Rp.', '.', ','], '', $request->input('hpp'))
+                'harga' => str_replace(['Rp.', '.', ','], '', $request->input('harga'))
             ]);
-            $this->item->store($request->all());
+            
+            $data = $request->all();
+            $data['total_stock'] = 0;
+            $data['hpp'] = 0;
+    
+            $this->item->store($data);
 
             return redirect()->route('admin.item.index')->with('success', 'Data berhasil disimpan');
         } catch (\Throwable $th) {
@@ -104,16 +110,22 @@ class ItemController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'unit_id' => 'required',
-            'total_stock' => 'required',
-            'hpp' => 'required',
+            'total_stock' => 'nullable|numeric', // nullable agar bisa diisi null
+            'hpp' => 'nullable|numeric',
+            'harga' => 'required',
             'type' => 'required',
         ]);
 
         try {
             $request->merge([
-                'hpp' => str_replace(['Rp.', '.', ','], '', $request->input('hpp'))
+                'harga' => str_replace(['Rp.', '.', ','], '', $request->input('harga'))
             ]);
-            $this->item->store($request->all());
+
+            $data = $request->all();
+            $data['total_stock'] = 0;
+            $data['hpp'] = 0;
+            
+            // $this->item->store($request->all());
             $this->item->update($id, $request->all());
 
             return redirect()->route('admin.item.index')->with('success', 'Data berhasil diubah');

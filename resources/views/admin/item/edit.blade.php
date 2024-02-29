@@ -39,10 +39,10 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-input id="total_stock" label="Total Stok" name="total_stock"
-                        value="{{ old('total_stock', $data->total_stock) }}" type="number" required />
-                    <x-input id="hpp" label="HPP" name="hpp" type="text"
-                        value="Rp. {{ number_format(old('hpp', $data->hpp), 0, ',', '.') }}" placeholder="Rp."
+                    {{-- <x-input id="total_stock" label="Total Stok" name="total_stock"
+                        value="{{ old('total_stock', $data->total_stock) }}" type="number" required /> --}}
+                    <x-input id="harga" label="Harga" name="harga" type="text"
+                        value="Rp. {{ number_format(old('harga', $data->harga), 0, ',', '.') }}" placeholder="Rp."
                         required />
                     <div>
                         <p>Tipe Barang :</p>

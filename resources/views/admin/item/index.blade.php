@@ -21,8 +21,8 @@
                     <th>Nama Barang</th>
                     <th>Kategori</th>
                     <th>Satuan</th>
-                    <th>Total Stok</th>
-                    <th>HPP</th>
+                    {{-- <th>Total Stok</th> --}}
+                    <th>Harga</th>
                     <th>Jenis Barang</th>
                     <th>Aksi</th>
                 </tr>
@@ -101,13 +101,13 @@
                             data: 'unit',
                             name: 'unit'
                         },
+                        // {
+                        //     data: 'total_stock',
+                        //     name: 'total_stock'
+                        // },
                         {
-                            data: 'total_stock',
-                            name: 'total_stock'
-                        },
-                        {
-                            data: 'hpp',
-                            name: 'hpp'
+                            data: 'harga',
+                            name: 'harga'
                         },
                         {
                             data: 'type',
