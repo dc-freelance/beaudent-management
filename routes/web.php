@@ -22,13 +22,18 @@ use App\Http\Controllers\Admin\PaymentMethodsController;
 use App\Http\Controllers\Admin\TreatmentCategoriesController;
 use App\Http\Controllers\FrontOffice\ReservationsController;
 use App\Http\Controllers\FrontOffice\ShiftLogController;
+use App\Http\Controllers\FrontOffice\TransactionController;
 use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
+use App\Http\Controllers\Admin\IncomeReportController;
+use App\Http\Controllers\Admin\TreatmentReportController;
+use App\Http\Controllers\Admin\PatientVisitReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::get('get-chart/{year}', [DashboardController::class, 'chart'])->name('admin.dashboard.chart');
 
     // Permission
     Route::group(['prefix' => 'permission'], function () {
@@ -44,6 +49,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Role
     Route::group(['prefix' => 'role'], function () {
         Route::get('/', [RoleController::class, 'index'])->middleware('permission:read_role')->name('admin.role.index');
+        Route::get('get-by-place/{place}', [RoleController::class, 'getWhich'])->middleware('permission:read_role')->name('admin.role.get-by-place');
         Route::get('get-by-id/{id}', [RoleController::class, 'getById'])->name('admin.role.get-by-id');
         Route::get('create', [RoleController::class, 'create'])->middleware('permission:create_role')->name('admin.role.create');
         Route::post('store', [RoleController::class, 'store'])->middleware('permission:create_role')->name('admin.role.store');
@@ -306,6 +312,21 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('delete/{id}', [TreatmentCategoriesController::class, 'delete'])->middleware('permission:delete_treatment_category')->name('admin.treatment-categories.delete');
     });
 
+    // Payments / Transaction
+    Route::group(['prefix' => 'transaction', 'middleware' => ['role:frontoffice']], function () {
+        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->name('front-office.transaction.list-billing');
+
+        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->name('front-office.transaction.payment');
+        Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->name('front-office.transaction.payment.confirm');
+
+        Route::post('/addon-transaction/{transaction}/{examination}', [TransactionController::class, 'addon_transaction'])->name('front-office.transaction.addon-transaction');
+        Route::delete('/addon-transaction/{addonTransaction}', [TransactionController::class, 'remove_addon_transaction'])->name('front-office.transaction.remove_addon-transaction');
+
+        Route::get('/list-transaction', [TransactionController::class, 'list_transaction'])->name('front-office.transaction.list-transaction');
+        Route::get('/detail-transaction/{transaction}', [TransactionController::class, 'detail_transaction'])->name('front-office.transaction.detail-transaction');
+
+        Route::get('/pdf/{transaction}', [TransactionController::class, 'print_transaction'])->name('front-office.transaction.print-transaction');
+    });
     // Diskon Treatment
     Route::group(['prefix' => 'discount_treatment'], function () {
         Route::get('/', [DiscountTreatmentController::class, 'index'])->middleware('permission:read_discount_treatment')->name('admin.discount_treatment.index');
@@ -326,6 +347,29 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DiscountItemController::class, 'edit'])->middleware('permission:update_discount_item')->name('admin.discount_item.edit');
         Route::put('update/{id}', [DiscountItemController::class, 'update'])->middleware('permission:update_discount_item')->name('admin.discount_item.update');
         Route::delete('delete/{id}', [DiscountItemController::class, 'delete'])->middleware('permission:delete_discount_item')->name('admin.discount_item.delete');
+    });
+
+
+    // patient visit report
+    Route::group(['prefix' => 'patient_visit_report'], function () {
+        // Admin Cabang
+        Route::get('patient_visit_report/general', [PatientVisitReportController::class, 'getGeneral'])->middleware('permission:read_patient_visit_report_general')->name('admin.patient_visit_report.general');
+        Route::get('patient_visit_report/general/export', [PatientVisitReportController::class, 'exportGeneral'])->middleware('permission:export_patient_visit_report_general')->name('admin.patient_visit_report.general.export');
+    });
+    // Income Report
+    Route::group(['prefix' => 'income_report'], function () {
+        // Admin Cabang
+        Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->middleware('permission:read_income_report_general')->name('admin.income-report.general');
+        Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->middleware('permission:export_income_report_general')->name('admin.income-report.general.export');
+
+        // Dokter
+        Route::get('income-report/doctor', [IncomeReportController::class, 'getDoctor'])->name('admin.income-report.doctor');
+        Route::get('income-report/doctor/export', [IncomeReportController::class, 'exportDoctor'])->name('admin.income-report.doctor.export');
+    })->middleware('permission:read_income_report_general|export_income_report_general');
+    // Treatment Report
+    Route::prefix('treatment_report')->group(function () {
+        Route::get('treatment-report/general',[TreatmentReportController::class,'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
+        Route::get('treatment-report/general/export',[TreatmentReportController::class,'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
     });
 });
 

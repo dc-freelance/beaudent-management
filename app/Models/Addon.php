@@ -18,6 +18,6 @@ class Addon extends Model
 
     public function addonTransaction()
     {
-        return $this->hasMany(AddonTransaction::class);
+        return $this->hasMany(AddonExamination::class);
     }
 }

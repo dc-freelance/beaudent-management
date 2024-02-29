@@ -9,12 +9,18 @@ class ExaminationItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'examination_id',
-        'item_id',
-        'qty',
-        'sub_total'
-    ];
+    protected $table = 'examination_items';
+    protected $guarded = [];
 
     // add relation
+
+    public function examination()
+    {
+        return $this->belongsTo(Examination::class, 'examination_id', 'id');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

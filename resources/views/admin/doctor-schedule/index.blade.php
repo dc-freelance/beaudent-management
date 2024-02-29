@@ -6,11 +6,13 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.doctor-schedule.create') }}"
-                class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Jadwal Dokter
-            </x-link-button>
+            @can('create_doctor_schedule')
+                <x-link-button route="{{ route('admin.doctor-schedule.create') }}"
+                    class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Jadwal Dokter
+                </x-link-button>
+            @endcan
         </div>
         <table id="doctorScheduleTable">
             <thead>

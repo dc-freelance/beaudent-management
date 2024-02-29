@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -18,8 +19,10 @@ class RoleSeeder extends Seeder
         //     User::BILLING_ROLE,
         //     User::OWNER_ROLE,
         // ];
-
         // Role::insert(array_map(fn ($role) => ['name' => $role, 'guard_name' => 'web'], $roles));
+        
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Role::truncate();
         $role_admin_pusat = Role::create(['name' => User::ADMIN_PUSAT_ROLE, 'guard_name' => 'web']);
         $role_admin_cabang = Role::create(['name' => User::ADMIN_CABANG_ROLE, 'guard_name' => 'web']);
         $role_front_office = Role::create(['name' => User::FRONT_OFFICE_ROLE, 'guard_name' => 'web']);
@@ -27,6 +30,7 @@ class RoleSeeder extends Seeder
         $role_billing = Role::create(['name' => User::BILLING_ROLE, 'guard_name' => 'web']);
         $role_owner = Role::create(['name' => User::OWNER_ROLE, 'guard_name' => 'web']);
         $role_telemarketing = Role::create(['name' => User::TELEMARKETING_ROLE, 'guard_name' => 'web']);
+
 
         $permission_admin_pusat = [
             // Menu Manajemen Pengguna
@@ -39,6 +43,7 @@ class RoleSeeder extends Seeder
             'create_doctor', 'update_doctor', 'delete_doctor','read_doctor',
 
             // Menu Manajemen Layanan
+            'create_treatment_category', 'update_treatment_category', 'delete_treatment_category', 'delete_treatment_category',
             'create_treatment', 'update_treatment', 'delete_treatment', 'read_treatment',
             'create_treatment_bonus', 'update_treatment_bonus', 'delete_treatment_bonus', 'read_treatment_bonus',
             'create_addon', 'update_addon', 'delete_addon', 'read_addon',
@@ -106,5 +111,7 @@ class RoleSeeder extends Seeder
         $role_admin_pusat->givePermissionTo($permission_admin_pusat);
         $role_front_office->givePermissionTo($permission_front_office);
         $role_telemarketing->givePermissionTo($permission_telemarketing);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

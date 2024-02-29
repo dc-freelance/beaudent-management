@@ -21,7 +21,7 @@
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Reservasi</p>
-                <h3 class="text-xl font-bold">{{ $data['reservasi'] }}</h3>
+                <h3 class="text-xl font-bold">{{ $data['reservasi'] ? $data['reservasi'] : '0' }}</h3>
             </div>
         </div>
         <!-- End Orders -->
@@ -33,7 +33,7 @@
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Layanan</p>
-                <h3 class="text-xl font-bold">{{ $data['layanan'] }}</h3>
+                <h3 class="text-xl font-bold">{{ $data['layanan'] ? $data['layanan'] : '0' }}</h3>
             </div>
         </div>
         <!-- End Products -->
@@ -45,7 +45,7 @@
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Pasien</p>
-                <h3 class="text-xl font-bold">{{ $data['pasien'] }}</h3>
+                <h3 class="text-xl font-bold">{{ $data['pasien'] ? $data['pasien'] : '0' }}</h3>
             </div>
         </div>
         <!-- End Customers -->
@@ -57,7 +57,7 @@
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Dokter</p>
-                <h3 class="text-xl font-bold">{{ $data['dokter'] }}</h3>
+                <h3 class="text-xl font-bold">{{ $data['dokter'] ? $data['dokter'] : '0' }}</h3>
             </div>
         </div>
         <!-- End Categories -->
@@ -69,7 +69,7 @@
             </div>
             <div>
                 <p class="text-gray-400 text-sm">Cabang</p>
-                <h3 class="text-xl font-bold">{{ $data['cabang'] }}</h3>
+                <h3 class="text-xl font-bold">{{ $data['cabang'] ? $data['cabang'] : '0' }}</h3>
             </div>
         </div>
         <!-- End Brands -->
@@ -115,8 +115,7 @@
                                 <div data-popper-arrow></div>
                             </div> --}}
                         </h5>
-                        <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold">
-                            {{ $data['pemasukan_tahun'] }}</p>
+                        <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold" id="year-earnings"></p>
                     </div>
                     {{-- <div>
                         <h5
@@ -155,8 +154,9 @@
                         <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold">$5.40</p>
                     </div> --}}
                 </div>
-                {{-- <div>
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
+                <div>
+
+                    {{-- <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
                         data-dropdown-placement="bottom" type="button"
                         class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Last
                         week <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -192,8 +192,8 @@
                                     90 days</a>
                             </li>
                         </ul>
-                    </div>
-                </div> --}}
+                    </div> --}}
+                </div>
             </div>
             <div id="line-chart"></div>
             {{-- <div
@@ -878,6 +878,11 @@
         <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
+                let date = new Date();
+                let url = "{{ route('admin.dashboard.chart', ':year') }}".replace(':year', date.getFullYear());
+
+                let chart_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
                 let options = {
                     pan: {
                         enabled: true,
@@ -924,7 +929,7 @@
                     },
                     series: [{
                         name: "Pemasukan",
-                        data: [6500, 6418, 6456, 6526, 6356, 6456],
+                        data: chart_data,
                     }],
                     legend: {
                         show: false
@@ -958,13 +963,31 @@
                 if (document.getElementById("line-chart") && typeof ApexCharts !== 'undefined') {
                     const chart = new ApexCharts(document.getElementById("line-chart"), options);
                     chart.render();
-                }
 
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#year-earnings').text(data.pemasukan_tahun);
 
+                            let obj = data.pemasukan_bulan;
+                            for (const key in obj) {
+                                if (obj.hasOwnProperty(key)) {
+                                    chart_data[parseInt(key.replace('0', '')) - 1] = obj[key];
+                                };
+                            };
+
+                            chart.updateSeries([{
+                                data: chart_data
+                            }]);
+                        }
+                    });
+                };
             });
         </script>
         <!-- Column Chart -->
-        <script>
+        {{-- <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const options = {
@@ -1116,10 +1139,10 @@
                     chart.render();
                 }
             });
-        </script>
+        </script> --}}
 
         <!-- Donut Chart -->
-        <script>
+        {{-- <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const getChartOptions = () => {
@@ -1242,10 +1265,10 @@
                     });
                 }
             });
-        </script>
+        </script> --}}
 
         <!-- Pie Chart -->
-        <script>
+        {{-- <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
                 const getChartOptions = () => {
@@ -1311,7 +1334,7 @@
                     chart.render();
                 }
             });
-        </script>
+        </script> --}}
     @endpush
 
 

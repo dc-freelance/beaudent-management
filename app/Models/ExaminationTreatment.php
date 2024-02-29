@@ -17,4 +17,21 @@ class ExaminationTreatment extends Model
     ];
 
     // add relation
+    // public function examination()
+    // {
+    //     return $this->belongsTo(Examination::class);
+    // }
+
+    public function examination() {
+        return $this->belongsTo(Examination::class,'examination_id','id');
+    }
+
+    public function treatment() {
+        return $this->belongsTo(Treatment::class,'treatment_id','id');
+    }
+
+    public function doctorBonus()
+    {
+        return $this->hasMany(DoctorBonus::class);
+    }
 }

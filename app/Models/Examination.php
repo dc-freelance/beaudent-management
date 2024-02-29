@@ -59,4 +59,23 @@ class Examination extends Model
     {
         return $this->hasMany(AddonTransaction::class);
     }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
+
+    public function examination_treatment()
+    {
+        return $this->hasMany(ExaminationTreatment::class);
+    }
+
+    public function examination_item()
+    {
+        return $this->hasMany(ExaminationItem::class);
+    }
+    public function examinationTreatments()
+    {
+        return $this->hasMany(ExaminationTreatment::class);
+    }
 }

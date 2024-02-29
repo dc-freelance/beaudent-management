@@ -10,7 +10,7 @@
             <form action="{{ route('admin.permission.store') }}" method="POST">
                 @csrf
                 <x-input id="name" label="Nama" name="name" required />
-                <div class="max-md:w-full md:w-1/2 lg:w-1/3 pt-5">
+                <div class="max-md:w-full md:w-1/2 lg:w-1/4 xl:w-1/4 pt-5">
                     <x-button type="submit">Simpan</x-button>
                 </div>
         </x-card-container>

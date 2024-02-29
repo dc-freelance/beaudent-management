@@ -11,12 +11,12 @@
             <div class="grid grid-cols-1 gap-6">
                 <h3 class=" font-medium text-base">Informasi Hak Akses</h3>
                 <div class="space-y-6">
-                    <div class="lg:w-1/3">
+                    <div class="lg:w-1/3 xl:w-1/3">
                         <x-input id="name" label="Nama" name="name" required />
                     </div>
                     <div>
                         <p>Permission</p>
-                        <div class="grid max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                        <div class="grid max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 xl:grid-cols-4">
                             @foreach ($permissions as $permission)
                                 {{-- checkbox --}}
                                 <div class="flex items-center space-x-2">
@@ -28,7 +28,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="max-md:w-full md:w-1/2 lg:w-1/3 mx-auto pt-5">
+                    <div class="max-md:w-1/2 md:w-1/2 lg:w-1/6 xl:w-1/6 pt-5 ml-auto">
                         <x-button type="submit" class="mt-6">Tambah Hak Akses</x-button>
                     </div>
                 </div>

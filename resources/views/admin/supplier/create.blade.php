@@ -12,7 +12,7 @@
                 <x-input id="name" label="Nama" name="name" required />
                 <x-input id="phone_number" label="No. Telepon" name="phone_number" type="number" required />
                 <x-textarea id="address" label="Alamat" name="address" required />
-                <div class="mt-6">
+                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Tambah Pemasok</x-button>
                 </div>
             </form>
