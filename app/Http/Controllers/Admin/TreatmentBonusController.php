@@ -41,7 +41,7 @@ class TreatmentBonusController extends Controller
                     if ($data->bonus_type != 'percentage') {
                         return 'Rp ' . number_format($data->bonus_rate, 0, ',', '.');
                     } else {
-                        return floatval($data->bonus_rate) .'%';
+                        return number_format($data->bonus_rate, 1, ',', '.') . '%';
                     }
                 })
                 ->addColumn('action', function ($data) {

@@ -71,8 +71,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-input format="nominal" id="price" label="Harga" name="price" type="text" required
-                        value="{{ number_format($data->price, 0, ',', '.') }}" />
+                    <x-input id="price" label="Harga" name="price" type="text" required
+                            value="Rp. {{ number_format(old('price', $data->price), 0, ',', '.') }}"/>
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Simpan Perubahan</x-button>
@@ -99,6 +99,15 @@
                         $('#parent_list').parent().addClass('hidden');
                         $('#control_list').parent().addClass('hidden');
                     }
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var priceInput = document.getElementById('price');
+                priceInput.addEventListener('input', function(event) {
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
                 });
             });
         </script>

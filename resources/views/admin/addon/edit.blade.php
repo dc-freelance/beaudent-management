@@ -13,7 +13,7 @@
                 <div class="space-y-6">
                     <x-input id="name" label="Nama Layanan Tambahan" name="name" value="{{ old('name', $data->name) }}" required />
                     <x-input id="price" label="Harga" name="price" type="text" value="Rp. {{ number_format(old('price', $data->price), 0, ',', '.') }}" required />
-                    <x-input id="fee_percentage" label="Persentase Biaya" name="fee_percentage" type="number" value="{{ old('fee_percentage', $data->fee_percentage) }}" required />
+                    <x-input id="fee_percentage" label="Persentase Biaya" name="fee_percentage" type="text" value="{{ old('fee_percentage', $data->fee_percentage) }}" required />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Simpan</x-button>
@@ -34,7 +34,16 @@
 
                 var fee_percentageInput = document.getElementById('fee_percentage');
                 fee_percentageInput.addEventListener('input', function(event) {
-                    handleChange(this);
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                    let value = $(this).val();
+                    if (parseFloat(value) > 100) {
+                        $(this).val('');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Nilai tidak boleh lebih dari 100',
+                        });
+                    }
                 });
             });
         </script>

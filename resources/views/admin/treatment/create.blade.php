@@ -62,7 +62,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-input format="nominal" id="price" label="Harga" name="price" type="text" required />
+                    <x-input id="price" label="Harga" name="price" type="text" required />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Tambah Layanan</x-button>
@@ -84,6 +84,15 @@
                         $('#control_list').parent().addClass('hidden');
                         $('#control_list').val('0');
                     }
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var priceInput = document.getElementById('price');
+                priceInput.addEventListener('input', function(event) {
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
                 });
             });
         </script>

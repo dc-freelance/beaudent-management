@@ -70,7 +70,7 @@
                             <x-sidebar-submenu name="Bonus Layanan" route="{{ route('admin.treatment-bonus.index') }}"
                                 active="{{ request()->routeIs('admin.treatment-bonus.*') }}" icon="fas fa-gift" class=" ms-4" />
                         @endcan
-                        @can('read_tretment_category')
+                        @can('read_treatment_category')
                             <x-sidebar-submenu name="Kategori" route="{{ route('admin.treatment-categories.index') }}"
                             active="{{ request()->routeIs('admin.treatment-categories.*') }}" icon="fas fa-th-list" />
                     @endcan

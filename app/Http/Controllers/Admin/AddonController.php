@@ -27,7 +27,7 @@ class AddonController extends Controller
                     return 'Rp ' . number_format($data->price, 0, ',', '.');
                 })
                 ->addColumn('fee_percentage', function ($data) {
-                    return number_format($data->fee_percentage, 0, ',', '.') . '%';
+                    return number_format($data->fee_percentage, 1, ',', '.') . '%';
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.addon.column.action', compact('data'));

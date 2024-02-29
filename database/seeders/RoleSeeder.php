@@ -39,6 +39,7 @@ class RoleSeeder extends Seeder
             'create_doctor', 'update_doctor', 'delete_doctor','read_doctor',
 
             // Menu Manajemen Layanan
+            'create_treatment_category', 'update_treatment_category', 'delete_treatment_category', 'delete_treatment_category',
             'create_treatment', 'update_treatment', 'delete_treatment', 'read_treatment',
             'create_treatment_bonus', 'update_treatment_bonus', 'delete_treatment_bonus', 'read_treatment_bonus',
             'create_addon', 'update_addon', 'delete_addon', 'read_addon',

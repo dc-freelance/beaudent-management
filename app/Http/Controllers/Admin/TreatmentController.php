@@ -60,6 +60,10 @@ class TreatmentController extends Controller
         $parents = $this->treatment->get()->where('parent_id', null);
         $treatment_categories = $this->treatment->getTreatmentCategories();
 
+        if($treatment_categories->isEmpty()) {
+            return redirect()->route('admin.treatment.index')->with('error', 'Silahkan tambahkan kategori layanan terlebih dahulu');
+        }
+
         return view('admin.treatment.create', compact('parents', 'treatment_categories'));
     }
 
@@ -80,6 +84,9 @@ class TreatmentController extends Controller
         }
 
         try {
+            $request->merge([
+                'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
+            ]);
             $this->treatment->create($request->all());
 
             return redirect()->route('admin.treatment.index')->with('success', 'Data berhasil disimpan');
@@ -114,6 +121,9 @@ class TreatmentController extends Controller
         }
 
         try {
+            $request->merge([
+                'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
+            ]);
             $this->treatment->update($id, $request->all());
 
             return redirect()->route('admin.treatment.index')->with('success', 'Data berhasil diubah');
