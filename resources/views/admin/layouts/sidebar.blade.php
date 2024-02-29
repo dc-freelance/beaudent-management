@@ -175,7 +175,11 @@
 
             @canany(['read_income_report_general', 'export_income_report_general', 'read_patient_visit_report_general'])
                 <x-sidebar-dropdown title="Laporan" icon="fas fa-file-alt" toggle="report"
-                    active="{{ request()->routeIs('admin.income-report.general') || request()->routeIs('admin.income-report.doctor') || request()->routeIs('admin.treatment-report.general') || request()->routeIs('admin.treatment-report.general') }}">
+                    active="{{ request()->routeIs('admin.income-report.general') ||
+                                request()->routeIs('admin.income-report.doctor') ||
+                                request()->routeIs('admin.treatment-report.general') ||
+                                request()->routeIs('admin.patient_visit_report.general') ||
+                                request()->routeIs('admin.shift_report.general') }}">
                     @can('read_income_report_general',)
                         <x-sidebar-submenu name="Pemasukan" route="{{ route('admin.income-report.general') }}"
                             active="{{ request()->routeIs('admin.income-report.general') }}"
@@ -193,8 +197,13 @@
                     @endcan
                     @can(['read_patient_visit_report_general'])
                         <x-sidebar-submenu name="Laporan Kunjungan Pasien" icon="fas fa-file"
-                            route="{{ route('admin.treatment-report.general') }}"
+                            route="{{ route('admin.patient_visit_report.general') }}"
                             active="{{ request()->routeIs('admin.patient_visit_report.general') }}" />
+                    @endcan
+                    @can('read_shift_report_general')
+                    <x-sidebar-submenu name="Laporan Shift" icon="fas fa-file"
+                            route="{{ route('admin.shift_report.general') }}"
+                            active="{{ request()->routeIs('admin.shift_report.general') }}" />
                     @endcan
                 </x-sidebar-dropdown>
             @endcanany

@@ -23,11 +23,6 @@ class PatientVisitReportController extends Controller
     public function getGeneral(Request $request)
     {
         $results = $this->patientVisitReport->getGeneral();
-        if (auth()->user()->hasRole('admin_cabang')) {
-            $results = $results->where('branch_id', auth()->user()->branch_id);
-        } else {
-            $results = $results->where('branch_id', $request->filled('branch_id'));
-        }
         if ($request->ajax()) {
             return datatables()
                 ->of($results)
@@ -54,15 +49,12 @@ class PatientVisitReportController extends Controller
     public function exportGeneral(Request $request)
     {
         $results = $this->patientVisitReport->getGeneral();
-        if (auth()->user()->hasRole('admin_cabang')) {
-            $results = $results->where('branch_id', auth()->user()->branch_id);
-        } else {
-            $results = $results->where('branch_id', $request->filled('branch_id'));
-        }
         $prefix = 'Laporan Kunjungan Pasien';
-        if ($request->branch_id) {
+        if ($request->branch_id != 'all') {
             $branch = $this->branch->getById($request->branch_id);
             $prefix = 'Laporan Kunjungan Pasien ' . $branch->name;
+        } else {
+            $prefix = 'Laporan Kunjungan Pasien Semua Cabang';
         }
         $filename = $prefix . ' ' . date('d-m-Y') . '.xlsx';
         return \Maatwebsite\Excel\Facades\Excel::download(new PatientVisitReportGeneralExport($results), $filename);
