@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
         // ];
 
         // Role::insert(array_map(fn ($role) => ['name' => $role, 'guard_name' => 'web'], $roles));
+
         $role_admin_pusat = Role::create(['name' => User::ADMIN_PUSAT_ROLE, 'is_for' => 'P', 'guard_name' => 'web']);
         $role_admin_cabang = Role::create(['name' => User::ADMIN_CABANG_ROLE, 'is_for' => 'C', 'guard_name' => 'web']);
         $role_front_office = Role::create(['name' => User::FRONT_OFFICE_ROLE, 'is_for' => 'P;C', 'guard_name' => 'web']);
@@ -27,6 +28,7 @@ class RoleSeeder extends Seeder
         $role_billing = Role::create(['name' => User::BILLING_ROLE, 'is_for' => 'P', 'guard_name' => 'web']);
         $role_owner = Role::create(['name' => User::OWNER_ROLE, 'is_for' => 'P', 'guard_name' => 'web']);
         $role_telemarketing = Role::create(['name' => User::TELEMARKETING_ROLE, 'is_for' => 'P;C', 'guard_name' => 'web']);
+
 
         $permission_admin_pusat = [
             // Menu Manajemen Pengguna

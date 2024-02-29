@@ -118,7 +118,7 @@
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
 
-            $('select').select2({
+            $('select.select-input').select2({
                 width: '100%',
             });
         });

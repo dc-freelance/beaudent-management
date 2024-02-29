@@ -24,6 +24,7 @@ use App\Http\Controllers\FrontOffice\ReservationsController;
 use App\Http\Controllers\FrontOffice\ShiftLogController;
 use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
+use App\Http\Controllers\Admin\IncomeReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
@@ -327,6 +328,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DiscountItemController::class, 'edit'])->middleware('permission:update_discount_item')->name('admin.discount_item.edit');
         Route::put('update/{id}', [DiscountItemController::class, 'update'])->middleware('permission:update_discount_item')->name('admin.discount_item.update');
         Route::delete('delete/{id}', [DiscountItemController::class, 'delete'])->middleware('permission:delete_discount_item')->name('admin.discount_item.delete');
+    });
+
+    // Income Report
+    Route::group(['prefix' => 'income_report'], function () {
+        // Admin Cabang
+        Route::get('income-report/general', [IncomeReportController::class, 'getGeneral'])->middleware('permission:read_income_report_general')->name('admin.income-report.general');
+        Route::get('income-report/general/export', [IncomeReportController::class, 'exportGeneral'])->middleware('permission:export_income_report_general')->name('admin.income-report.general.export');
     });
 });
 
