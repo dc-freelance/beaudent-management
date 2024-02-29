@@ -198,6 +198,15 @@
                     @endcan
                 </x-sidebar-dropdown>
             @endcanany
+            @role('frontoffice')
+                <x-sidebar-dropdown title="Pembayaran" icon="fas fa-money-bill-wave" toggle="transaction"
+                    active="{{ request()->routeIs('front-office.transaction.*') }}">
+                    <x-sidebar-submenu name="Antrian Pembayaran" route="{{ route('front-office.transaction.list-billing') }}"
+                        active="{{ request()->routeIs('front-office.transaction.list-billing') || request()->routeIs('front-office.transaction.payment') }}" icon="fas fa-list-ol" />
+                    <x-sidebar-submenu name="Riwayat Transaksi" route="{{ route('front-office.transaction.list-transaction') }}"
+                        active="{{ request()->routeIs('front-office.transaction.list-transaction') || request()->routeIs('front-office.transaction.detail-transaction') }}" icon="fas fa-list-ul" />
+                </x-sidebar-dropdown>
+            @endrole
 
             <li>
                 <form action="{{ route('logout') }}" method="POST">
