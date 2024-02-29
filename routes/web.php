@@ -337,8 +337,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // patient visit report
     Route::group(['prefix' => 'patient_visit_report'], function () {
         // Admin Cabang
-        Route::get('patient_visit_report/general', [PatientVisitReportController::class, 'getGeneral'])->name('admin.patient_visit_report.general');
-        Route::get('patient_visit_report/general/export', [PatientVisitReportController::class, 'exportGeneral'])->name('admin.patient_visit_report.general.export');
+        Route::get('patient_visit_report/general', [PatientVisitReportController::class, 'getGeneral'])->middleware('permission:read_patient_visit_report_general')->name('admin.patient_visit_report.general');
+        Route::get('patient_visit_report/general/export', [PatientVisitReportController::class, 'exportGeneral'])->middleware('permission:export_patient_visit_report_general')->name('admin.patient_visit_report.general.export');
     });
     // Income Report
     Route::group(['prefix' => 'income_report'], function () {
