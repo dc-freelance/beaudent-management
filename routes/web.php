@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::get('get-chart/{year}', [DashboardController::class, 'chart'])->name('admin.dashboard.chart');
 
     // Permission
     Route::group(['prefix' => 'permission'], function () {
