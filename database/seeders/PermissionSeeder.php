@@ -4,11 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Permission::truncate();
         // User
         Permission::create(['name' => 'create_user']);
         Permission::create(['name' => 'read_user']);
@@ -166,5 +169,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' =>'read_discount_item']);
         Permission::create(['name' => 'update_discount_item']);
         Permission::create(['name' => 'delete_discount_item']);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
