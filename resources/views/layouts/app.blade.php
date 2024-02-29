@@ -139,6 +139,7 @@
             document.getElementById('loadingIndicator').style.display = 'none'
         })
     </script>
+
     @stack('js-internal')
 </body>
 

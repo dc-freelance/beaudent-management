@@ -10,13 +10,11 @@
             <form action="{{ route('admin.branch.store') }}" method="POST">
                 @csrf
                 <div class="space-y-6">
-                    <x-input id="code" label="Kode Cabang" name="code" value="{{ $generate_code }}"
-                        readonly="readonly" required />
+                    <x-input id="code" label="Kode Cabang" name="code" value="{{ $generate_code }}" readonly="readonly" required/>
                     <x-input id="name" label="Nama Cabang" name="name" required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     <x-input id="address" label="Alamat" name="address" required />
-                    <x-input id="deposit_minimum" label="Deposit Minimum" name="deposit_minimum" type="text"
-                        placeholder="Rp." required />
+                    <x-input id="deposit_minimum" label="Deposit Minimum" name="deposit_minimum" type="text" placeholder="Rp." required />
                 </div>
                 <div class="mt-6">
                     <x-button type="submit">Tambah Cabang</x-button>
@@ -35,6 +33,6 @@
                     this.value = formattedVal;
                 });
             });
-        </script>
+        </script>    
     @endpush
 </x-app-layout>

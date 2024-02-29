@@ -6,14 +6,8 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.item-unit.create') }}" class="tombol class="tombol hover:opacity-80
-                ring-0 focus:border-none focus:ring-0"">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Satuan Barang
-            </x-link-button>
             @can('create_item_unit')
-                <x-link-button route="{{ route('admin.item-unit.create') }}"
-                    class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+                <x-link-button route="{{ route('admin.item-unit.create') }}" class="tombol hover:opacity-80">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Satuan Barang
                 </x-link-button>

@@ -6,11 +6,20 @@
 
     <x-card-container>
         <div class="text-end mb-4">
+<<<<<<< HEAD
             <x-link-button route="{{ route('admin.discount.create') }}"
                 class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Diskon
             </x-link-button>
+=======
+            @can('create_discount')
+                <x-link-button route="{{ route('admin.discount.create') }}" color="gray">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Diskon
+                </x-link-button>
+            @endcan
+>>>>>>> parent of 8247ca0 (form-component.)
         </div>
         <table id="discountTable">
             <thead>

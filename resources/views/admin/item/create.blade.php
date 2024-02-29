@@ -40,8 +40,7 @@
                     <div>
                         <p>Tipe Barang :</p>
                         <div class="mt-2">
-                            <select id="type" name="type"
-                                class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <select id="type" name="type" class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                                 <option value="Medicine">Obat</option>
                                 <option value="BMHP">Barang Medis Habis Pakai (BMHP)</option>
                             </select>
@@ -65,6 +64,6 @@
                     this.value = formattedVal;
                 });
             });
-        </script>
+        </script>    
     @endpush
 </x-app-layout>

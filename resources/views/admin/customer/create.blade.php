@@ -20,19 +20,24 @@
                     <div>
                         <p>Jenis Kelamin :</p>
                         <div class="mt-2">
-                            <<<<<<< HEAD <select id="gender" name="gender"
+                            <<<<<<< HEAD <<<<<<< HEAD <select id="gender" name="gender"
                                 class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                <option value="Male">Laki-laki</option>
-                                <option value="Female">Perempuan</option>
                                 =======
                                 <select id="gender" name="gender"
                                     class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                    <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
-                                    </option>
-                                    <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">Perempuan
-                                    </option>
-                                    >>>>>>> b5a6323c11ad8ce612e426074de1e44e1ec8d082
-                                </select>
+                                    >>>>>>> parent of 8247ca0 (form-component.)
+                                    <option value="Male">Laki-laki</option>
+                                    <option value="Female">Perempuan</option>
+                                    =======
+                                    <select id="gender" name="gender"
+                                        class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                        <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
+                                        </option>
+                                        <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">
+                                            Perempuan
+                                        </option>
+                                        >>>>>>> b5a6323c11ad8ce612e426074de1e44e1ec8d082
+                                    </select>
                         </div>
                     </div>
                     <x-input id="occupation" label="Pekerjaan" name="occupation" type="text" required />
@@ -65,25 +70,19 @@
                         <div class="mt-2">
                             <select id="marrital_status" name="marrital_status"
                                 class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                <option {{ old('marrital_status') == 'Single' ? 'selected' : '' }} value="Single">
-                                    Lajang</option>
-                                <option {{ old('marrital_status') == 'Married' ? 'selected' : '' }} value="Married">
-                                    Menikah</option>
-                                <option {{ old('marrital_status') == 'Divorved' ? 'selected' : '' }} value="Divorved">
-                                    Cerai</option>
+                                <option value="Single">Lajang</option>
+                                <option value="Married">Menikah</option>
+                                <option value="Divorved">Cerai</option>
                             </select>
                         </div>
                     </div>
-                    <x-input id="instagram" label="Tautan Instagram" name="instagram" value="{{ old('instagram') }}"
-                        type="text" required />
-                    <x-input id="youtube" label="Tautan YouTube" name="youtube" value="{{ old('youtube') }}"
-                        type="text" required />
-                    <x-input id="facebook" label="Tautan Facebook" name="facebook" value="{{ old('facebook') }}"
-                        type="text" required />
+                    <x-input id="instagram" label="Tautan Instagram" name="instagram" type="text" required />
+                    <x-input id="youtube" label="Tautan YouTube" name="youtube" type="text" required />
+                    <x-input id="facebook" label="Tautan Facebook" name="facebook" type="text" required />
                     <x-input id="source_of_information" label="Informasi Lainnya" name="source_of_information"
-                        value="{{ old('source_of_information') }}" type="text" required />
+                        type="text" required />
                 </div>
-                <div class="max-md:w-full md:w-1/2 lg:w-1/3 pt-5">
+                <div class="mt-6">
                     <x-button type="submit">Tambah Pasien</x-button>
                 </div>
             </form>

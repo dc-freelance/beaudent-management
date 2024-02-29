@@ -145,11 +145,6 @@ div:where(.swal2-container) .swal2-html-container {
     background-color: #22c55e;
 }
 
-.tombol::hover {
-    background-color: #22c55e;
-    opacity: 0.7;
-}
-
 #loading {
     border-top: 4px solid #3498db;
     border-right: 4px solid #e74c3c;

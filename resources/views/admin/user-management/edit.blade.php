@@ -12,11 +12,17 @@
                 @method('PUT')
                 <div class="space-y-6 mb-6">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
+<<<<<<< HEAD
                     <div class="grid grid-cols-2 gap-6">
                         <x-input id="email" label="Email" name="email" required value="{{ $data->email }}" />
                         <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required
                             value="{{ $data->phone_number }}" />
                     </div>
+=======
+                    <x-input id="email" label="Email" name="email" required value="{{ $data->email }}" />
+                    <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required
+                        value="{{ $data->phone_number }}" />
+>>>>>>> parent of 8247ca0 (form-component.)
                     <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required
                         value="{{ $data->join_date }}" />
                     <div>
@@ -25,12 +31,17 @@
                             <div class="flex items-center space-x-2">
 <<<<<<< HEAD
                                 <input type="radio" name="branch_type" id="pusat" value="pusat"
+<<<<<<< HEAD
                                     {{ $data->branch_id === 1 ? 'checked' : '' }}
                                     class="radio text-blue-500 hover:cursor-pointer">
+=======
+                                    {{ $data->branch_id === 1 ? 'checked' : '' }} class="radio radio-primary">
+>>>>>>> parent of 8247ca0 (form-component.)
                                 <label for="pusat">Pusat</label>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="cabang" value="cabang"
+<<<<<<< HEAD
                                     {{ $data->branch_id !== 1 ? 'checked' : '' }}
                                     class="radio text-blue-500 hover:cursor-pointer">
 =======
@@ -42,6 +53,9 @@
                                 <input type="radio" name="branch_type" id="cabang" value="C"
                                     {{ $this_role->is_for === 'C' ? 'checked' : '' }} class="radio radio-primary">
 >>>>>>> b5a6323c11ad8ce612e426074de1e44e1ec8d082
+=======
+                                    {{ $data->branch_id !== 1 ? 'checked' : '' }} class="radio radio-primary">
+>>>>>>> parent of 8247ca0 (form-component.)
                                 <label for="cabang">Cabang</label>
                             </div>
                             <div class="flex items-center space-x-2">
@@ -56,7 +70,7 @@
                             Daftar Cabang
                         </label>
                         <select id="branch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                             name="branch_id">
                             <option value="" selected disabled>Pilih Cabang</option>
                             @foreach ($branches as $branch)
