@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             ReservationSeeder::class,
             PaymentMethodsSeeder::class,
-            TransactionSeeder::class,
+            // TransactionSeeder::class,
             OdontogramSeeder::class,
         ]);
 
