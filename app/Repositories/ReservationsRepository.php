@@ -212,7 +212,7 @@ class ReservationsRepository implements ReservationsInterface
             ->where('status', $status)
             ->whereDate('request_date', $date)
             ->orderBy('request_date', 'asc')
-            ->orderBy('request_time', 'asc')->get();;
+            ->orderBy('request_time', 'asc')->get();
 
         if ($query) {
             foreach ($query as $reservation) {

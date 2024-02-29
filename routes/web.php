@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\NotifUpdated;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -371,10 +372,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('treatment-report/general',[TreatmentReportController::class,'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
         Route::get('treatment-report/general/export',[TreatmentReportController::class,'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
     });
+
+
 });
+
+// Get Notifikasi Reservation
+Route::get('get-reservation', [DashboardController::class, 'getReservation'])->name('reservation.get');
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
 require __DIR__ . '/auth.php';
+
