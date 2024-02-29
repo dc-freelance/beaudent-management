@@ -99,7 +99,7 @@
             class="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
             <div class="w-full md:w-1/2">
                 <div class="mb-10 md:mb-20 text-gray-600 font-light">
-                    <h1 class="font-black uppercase text-3xl lg:text-5xl text-red-400 mb-10">anda sepertinya tersesat!
+                    <h1 class="font-black uppercase text-3xl lg:text-5xl text-red-400 mb-10">halaman tidak di temukan!
                     </h1>
                     <p>Halaman yang Anda cari tidak tersedia.</p>
                     <p>Coba telusuri lagi atau gunakan tombol Kembali di bawah.</p>
@@ -111,7 +111,6 @@
                 </div>
             </div>
             <div class="w-full md:w-1/2 text-center">
-                {{-- <img src="{{ asset('assets/images/error-403.svg') }}" alt="img" class=""> --}}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 441.85 285.44"
                     class="w-full max-w-lg lg:max-w-full mx-auto">
                     <path class="st0" d="M0 0h500v500H0z" id="BACKGROUND" />
