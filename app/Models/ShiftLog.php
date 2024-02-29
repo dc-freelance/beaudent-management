@@ -14,6 +14,13 @@ class ShiftLog extends Model
     protected $table = 'shift_logs';
     protected $primaryKey = 'id';
     protected $guarded = [];
+    protected $fillable = [
+        'config_shift_id',
+        'user_id',
+        'total_cash_received',
+        'deleted_at',
+        'start_time'
+    ];
 
     public function config_shift()
     {

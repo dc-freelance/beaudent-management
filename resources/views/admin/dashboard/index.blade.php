@@ -158,6 +158,11 @@
                     <select id="select-year"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block p-2.5"
                         name="year">
+                        @foreach ($data['years'] as $year)
+                            <option value="{{ $year }}"
+                                {{ \Carbon\Carbon::now()->format('Y') == $year ? 'selected' : '' }}>Tahun
+                                {{ $year }}</option>
+                        @endforeach
                     </select>
                     {{-- <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
                         data-dropdown-placement="bottom" type="button"
@@ -319,7 +324,34 @@
         </div> --}}
         <!-- End Orders Chart -->
     </div>
-
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-4 mb-4">
+        <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+            <div class="flex justify-between mb-5">
+                <h4 class="font-bold text-lg mb-5">Menunggu Konfirmasi</h4>
+                @canany(['read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation',
+                'read_cancel_reservation', 'read_wait_deposit', 'read_confirm_deposit'])
+                <x-link-button route="{{ route('front-office.reservations.confirm.index') }}" class="tombol hover:opacity-80">
+                    Selengkapnya
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </x-link-button>
+                @endcanany
+            </div>
+            <hr>
+            <table id="reservationsTable" class="mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>No Reservasi</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Cabang</th>
+                        <th>Tanggal Kunjungan</th>
+                        <th>Waktu Kunjungan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
     {{-- Chart 3 Column 3-6-3 --}}
     {{-- <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
@@ -865,15 +897,76 @@
     </div> --}}
 
     @push('js-internal')
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script>
+            Pusher.logToConsole = true;
+            const app_key = "{{ config('broadcasting.connections.pusher.key') }}"
+            $('#reservationsTable').DataTable({
+                "oLanguage": {
+                    "sEmptyTable": "Maaf data belum tersedia."
+                },
+            });
+            if (app_key) {
+                var pusher = new Pusher(app_key, {
+                    cluster: 'ap1'
+                });
+                var channel = pusher.subscribe('reservation');
+                channel.bind('data-table', function(data) {
+                    getDataTable();
+                });
+            } else {
+                console.log(`Pusher app key isn't have value`)
+            }
+
+            function getDataTable() {
+                $('#reservationsTable').DataTable({
+                    destroy: true,
+                    processing: true,
+                    serverSide: false,
+                    orderCellsTop: true,
+                    paging:true,
+                    ajax: {
+                        url: '{{ route('reservation.get') }}',
+                    },
+                    columns: [{
+                            data: 'id',
+                            name: 'id'
+                        }, {
+                            data: 'no',
+                            name: 'no'
+                        },
+                        {
+                            data: 'customer_name',
+                            name: 'customer_name'
+                        },
+                        {
+                            data: 'branch_name',
+                            name: 'branch_name'
+                        },
+                        {
+                            data: 'request_date',
+                            name: 'request_date'
+                        },
+                        {
+                            data: 'request_time',
+                            name: 'request_time'
+                        },
+                        {
+                            data: 'is_control',
+                            name: 'is_control'
+                        },
+                    ],
+                    // createdRow: function(row, data, index) {
+                    //     $('td', row).eq(0).html(index + 1);
+                    // }
+                });
+            }
+        </script>
         <!-- ApexCharts -->
         <script>
             // ApexCharts options and config
             window.addEventListener("load", function() {
-                let date = new Date();
-                let url = "{{ route('admin.dashboard.chart', ':year') }}".replace(':year', date.getFullYear());
-
                 let chart_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
                 let options = {
                     pan: {
                         enabled: true,
@@ -955,25 +1048,38 @@
                     const chart = new ApexCharts(document.getElementById("line-chart"), options);
                     chart.render();
 
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#year-earnings').text(data.pemasukan_tahun);
+                    function getData(date) {
+                        let url = "{{ route('admin.dashboard.chart', ':year') }}".replace(':year', date);
 
-                            let obj = data.pemasukan_bulan;
-                            for (const key in obj) {
-                                if (obj.hasOwnProperty(key)) {
-                                    chart_data[parseInt(key.replace('0', '')) - 1] = obj[key];
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                chart_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+                                $('#year-earnings').text(data.pemasukan_tahun);
+
+                                let obj = data.pemasukan_bulan;
+                                for (const key in obj) {
+                                    if (obj.hasOwnProperty(key)) {
+                                        chart_data[parseInt(key.replace('0', '')) - 1] = obj[key];
+                                    };
                                 };
-                            };
 
-                            chart.updateSeries([{
-                                data: chart_data
-                            }]);
-                        }
+                                chart.updateSeries([{
+                                    data: chart_data
+                                }]);
+                            }
+                        });
+                    };
+                    getData($('#select-year').val());
+
+                    $('#select-year').on('change', function() {
+                        getData($('#select-year').val());
                     });
+
+                    $('#select-year').select2();
                 };
             });
         </script>

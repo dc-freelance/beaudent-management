@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 interface DashboardInterface
 {
+    public function getAvailableYear();
     public function earnings();
     public function year_earnings($year);
     public function reservation();
