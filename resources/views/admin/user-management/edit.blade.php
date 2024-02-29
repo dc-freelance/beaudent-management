@@ -22,22 +22,17 @@
                         <div class="flex flex-wrap gap-6 mt-6">
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="pusat" value="P"
-                                    {{ $this_role->is_for === 'P' ? 'checked' : '' }} class="radio radio-primary">
+                                    {{ $data->branch_id == null ? 'checked' : '' }} class="radio radio-primary">
                                 <label for="pusat">Pusat</label>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="cabang" value="C"
-                                    {{ $this_role->is_for === 'C' ? 'checked' : '' }} class="radio radio-primary">
+                                    {{ $data->branch_id !== null ? 'checked' : '' }} class="radio radio-primary">
                                 <label for="cabang">Cabang</label>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <input type="radio" name="branch_type" id="cabang" value="P;C"
-                                    {{ $this_role->is_for === 'P;C' ? 'checked' : '' }} class="radio radio-primary">
-                                <label for="cabang">Pusat dan Cabang</label>
                             </div>
                         </div>
                     </div>
-                    <div class="{{ $this_role->is_for !== 'C' ? 'hidden' : '' }}">
+                    <div class="{{ $data->branch_id == null ? 'hidden' : '' }}">
                         <label for="branch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Daftar Cabang
                         </label>
@@ -131,7 +126,7 @@
                         branchSelect.val('');
                         branchSelect.parent().removeClass('hidden');
 
-                    } else if (selectedBranchType === 'P' || selectedBranchType === 'P;C') {
+                    } else if (selectedBranchType === 'P') {
                         branchSelect.val('');
                         branchSelect.parent().addClass('hidden');
                     };
