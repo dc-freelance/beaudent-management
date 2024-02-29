@@ -79,14 +79,40 @@ class PermissionController extends Controller
         }
     }
 
-    public function delete($id)
+    // public function delete($id)
+    // {
+    //     try {
+    //         $this->permission->delete($id);
+
+    //         return redirect()->route('admin.permission.index')->with('success', 'Permission berhasil dihapus');
+    //     } catch (\Throwable $th) {
+    //         return redirect()->route('admin.permission.index')->with('error', $th->getMessage());
+    //     }
+    // }
+
+    public function delete(Request $request, $id)
     {
         try {
             $this->permission->delete($id);
 
-            return redirect()->route('admin.permission.index')->with('success', 'Permission berhasil dihapus');
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Permission berhasil dihapus'
+                ]);
+            } else {
+                return redirect()->route('admin.permission.index')->with('success', 'Permission berhasil dihapus');
+            }
         } catch (\Throwable $th) {
-            return redirect()->route('admin.permission.index')->with('error', $th->getMessage());
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $th->getMessage()
+                ]);
+            } else {
+                return redirect()->route('admin.permission.index')->with('error', $th->getMessage());
+            }
         }
     }
+
 }

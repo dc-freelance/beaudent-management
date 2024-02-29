@@ -38,7 +38,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::post('store', [PermissionController::class, 'store'])->middleware('permission:create_permission')->name('admin.permission.store');
         Route::get('edit/{id}', [PermissionController::class, 'edit'])->middleware('permission:update_permission')->name('admin.permission.edit');
         Route::put('update/{id}', [PermissionController::class, 'update'])->middleware('permission:update_permission')->name('admin.permission.update');
-        Route::delete('delete/{id}', [PermissionController::class, 'delete'])->middleware('permission:delete_permission')->name('admin.permission.delete');
+        Route::post('delete/{id}', [PermissionController::class, 'delete'])->middleware('permission:delete_permission')->name('admin.permission.delete');
     });
 
     // Role
