@@ -178,7 +178,7 @@
                         Swal.fire('Error', 'Tanggal akhir harus diisi', 'error');
                         return false;
                     } else {
-                        if (startDate > endDate) {
+                        if (Date.parse(startDate) > Date.parse(endDate)) {
                             Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
                             return false;
                         }

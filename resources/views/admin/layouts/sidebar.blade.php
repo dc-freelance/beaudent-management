@@ -160,15 +160,18 @@
                     active="{{ request()->routeIs('front-office.shift-log.*') }}">
                     @can('read_open_shift_log')
                         <x-sidebar-submenu name="Buka Sesi" route="{{ route('front-office.shift-log.open-shift') }}"
-                            active="{{ request()->routeIs('front-office.shift-log.open-shift') }}" icon="fas fa-user-clock" />
+                            active="{{ request()->routeIs('front-office.shift-log.open-shift') }}"
+                            icon="fas fa-user-clock" />
                     @endcan
                     @can('read_close_shift_log')
                         <x-sidebar-submenu name="Tutup Sesi" route="{{ route('front-office.shift-log.close-shift') }}"
-                            active="{{ request()->routeIs('front-office.shift-log.close-shift') }}" icon="fas fa-user-clock" />
+                            active="{{ request()->routeIs('front-office.shift-log.close-shift') }}"
+                            icon="fas fa-user-clock" />
                     @endcan
                     @can('read_recap_shift_log')
                         <x-sidebar-submenu name="Rekap Sesi" route="{{ route('front-office.shift-log.recap-shift') }}"
-                            active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}" icon="fas fa-clipboard-list" />
+                            active="{{ request()->routeIs('front-office.shift-log.recap-shift') }}"
+                            icon="fas fa-clipboard-list" />
                     @endcan
                 </x-sidebar-dropdown>
             @endcanany
@@ -176,19 +179,17 @@
             @canany(['read_income_report_general', 'export_income_report_general', 'read_patient_visit_report_general'])
                 <x-sidebar-dropdown title="Laporan" icon="fas fa-file-alt" toggle="report"
                     active="{{ request()->routeIs('admin.income-report.general') ||
-                                request()->routeIs('admin.income-report.doctor') ||
-                                request()->routeIs('admin.treatment-report.general') ||
-                                request()->routeIs('admin.patient_visit_report.general') ||
-                                request()->routeIs('admin.shift_report.general') }}">
-                    @can('read_income_report_general',)
+                        request()->routeIs('admin.income-report.doctor') ||
+                        request()->routeIs('admin.treatment-report.general') ||
+                        request()->routeIs('admin.patient_visit_report.general') ||
+                        request()->routeIs('admin.shift_report.general') }}">
+                    @can('read_income_report_general')
                         <x-sidebar-submenu name="Pemasukan" route="{{ route('admin.income-report.general') }}"
-                            active="{{ request()->routeIs('admin.income-report.general') }}"
-                            icon="fas fa-file" />
+                            active="{{ request()->routeIs('admin.income-report.general') }}" icon="fas fa-file" />
                     @endcan
                     @can('export_income_report_general')
                         <x-sidebar-submenu name="Presentase Dokter" route="{{ route('admin.income-report.doctor') }}"
-                            active="{{ request()->routeIs('admin.income-report.doctor') }}"
-                            icon="fas fa-file" />
+                            active="{{ request()->routeIs('admin.income-report.doctor') }}" icon="fas fa-file" />
                     @endcan
                     @can(['read_treatment_report_general'])
                         <x-sidebar-submenu name="Laporan Layanan" icon="fas fa-file"
@@ -201,28 +202,38 @@
                             active="{{ request()->routeIs('admin.patient_visit_report.general') }}" />
                     @endcan
                     @can('read_shift_report_general')
-                    <x-sidebar-submenu name="Laporan Shift" icon="fas fa-file"
+                        <x-sidebar-submenu name="Laporan Shift" icon="fas fa-file"
                             route="{{ route('admin.shift_report.general') }}"
                             active="{{ request()->routeIs('admin.shift_report.general') }}" />
                     @endcan
                 </x-sidebar-dropdown>
             @endcanany
+
+            @can('read_examination_history')
+                <x-sidebar-item name="Daftar Pemeriksaan" icon="fas fa-file-medical"
+                    route="{{ route('admin.examination-history.index') }}"
+                    active="{{ request()->routeIs('admin.examination-history.*') }}" />
+            @endcan
+
             @role('frontoffice')
                 @canany(['read_antrian_pembayaran', 'read_list_transaction'])
                     <x-sidebar-dropdown title="Pembayaran" icon="fas fa-money-bill-wave" toggle="transaction"
                         active="{{ request()->routeIs('front-office.transaction.*') }}">
                         @can('read_antrian_pembayaran')
-                            <x-sidebar-submenu name="Antrian Pembayaran" route="{{ route('front-office.transaction.list-billing') }}"
-                                active="{{ request()->routeIs('front-office.transaction.list-billing') || request()->routeIs('front-office.transaction.payment') }}" icon="fas fa-list-ol" />
+                            <x-sidebar-submenu name="Antrian Pembayaran"
+                                route="{{ route('front-office.transaction.list-billing') }}"
+                                active="{{ request()->routeIs('front-office.transaction.list-billing') || request()->routeIs('front-office.transaction.payment') }}"
+                                icon="fas fa-list-ol" />
                         @endcan
                         @can('read_list_transaction')
-                            <x-sidebar-submenu name="Riwayat Transaksi" route="{{ route('front-office.transaction.list-transaction') }}"
-                                active="{{ request()->routeIs('front-office.transaction.list-transaction') || request()->routeIs('front-office.transaction.detail-transaction') }}" icon="fas fa-list-ul" />
+                            <x-sidebar-submenu name="Riwayat Transaksi"
+                                route="{{ route('front-office.transaction.list-transaction') }}"
+                                active="{{ request()->routeIs('front-office.transaction.list-transaction') || request()->routeIs('front-office.transaction.detail-transaction') }}"
+                                icon="fas fa-list-ul" />
                         @endcan
                     </x-sidebar-dropdown>
                 @endcanany
             @endrole
-
         </ul>
     </div>
 </aside>

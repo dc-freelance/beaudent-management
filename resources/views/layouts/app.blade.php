@@ -132,12 +132,12 @@
     </script>
 
     <script>
-        window.addEventListener('beforeunload', () => {
-            document.getElementById('loadingIndicator').style.display = 'flex';
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('loadingIndicator').style.display = 'none'
-        })
+        // window.addEventListener('beforeunload', () => {
+        //     document.getElementById('loadingIndicator').style.display = 'flex';
+        // });
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     document.getElementById('loadingIndicator').style.display = 'none'
+        // })
     </script>
 
     @stack('js-internal')
