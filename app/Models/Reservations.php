@@ -54,4 +54,9 @@ class Reservations extends Model
     {
         return $this->hasMany(Examination::class, 'reservation_id', 'id');
     }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
 }

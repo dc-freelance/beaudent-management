@@ -23,7 +23,9 @@ class IncomeReportDoctorExport implements FromCollection, WithHeadings
             'Pasien',
             'Dokter',
             'Layanan',
-            'Bonus Dokter',
+            'Total Fee Layanan',
+            'Total Fee Addon',
+            'Total Fee'
         ];
     }
 

@@ -36,7 +36,7 @@ class IncomeReportController extends Controller
                     return $data->code;
                 })
                 ->addColumn('created_at', function ($data) {
-                    return date('Y-m-d', strtotime($data->created_at));
+                    return date('Y-m-d', strtotime($data->date_time));
                 })
                 ->addColumn('branch', function ($data) {
                     return $data->branch->name;
@@ -107,6 +107,12 @@ class IncomeReportController extends Controller
                 })
                 ->addColumn('treatment', function ($data) {
                     return $data['treatments'];
+                })
+                ->addColumn('total_fee_treatment', function ($data) {
+                    return number_format($data['total_fee_treatment'], 0, ',', '.');
+                })
+                ->addColumn('total_fee_addon', function ($data) {
+                    return number_format($data['total_fee_addon'], 0, ',', '.');
                 })
                 ->addColumn('total_fee', function ($data) {
                     return number_format($data['total_fee'], 0, ',', '.');

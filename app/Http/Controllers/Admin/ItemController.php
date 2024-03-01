@@ -12,6 +12,7 @@ class ItemController extends Controller
 {
     private $item;
     private $itemCategory;
+    private $itemUnit;
 
     public function __construct(ItemInterface $item, ItemCategoryInterface $itemCategory, ItemUnitInterface $itemUnit)
     {
@@ -22,7 +23,7 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return datatables()
                 ->of($this->item->get())
                 ->addColumn('name', function ($data) {
@@ -34,11 +35,14 @@ class ItemController extends Controller
                 ->addColumn('unit', function ($data) {
                     return $data->unit->name;
                 })
-                // ->addColumn('total_stock', function ($data) {
-                //     return $data->name;
-                // })
+                ->addColumn('total_stock', function ($data) {
+                    return $data->name;
+                })
+                ->addColumn('hpp', function ($data) {
+                    return 'Rp ' . number_format($data->hpp, 0, ',', '.');
+                })
                 ->addColumn('price', function ($data) {
-                    return 'Rp '.number_format($data->price, 0, ',', '.');
+                    return 'Rp ' . number_format($data->price, 0, ',', '.');
                 })
                 ->addColumn('type', function ($data) {
                     $type = $data->type == 'Medicine' ? 'Obat' : 'BMHP';
@@ -82,9 +86,9 @@ class ItemController extends Controller
             $request->merge([
                 'price' => str_replace(['Rp.', '.', ','], '', $request->input('price'))
             ]);
-            
+
             $data = $request->all();
-    
+
             $this->item->store($data);
 
             return redirect()->route('admin.item.index')->with('success', 'Data berhasil disimpan');
@@ -122,7 +126,7 @@ class ItemController extends Controller
             $data = $request->all();
             // $data['total_stock'] = 0.0;
             // $data['hpp'] = 0.0;
-            
+
             // $this->item->store($request->all());
             $this->item->update($id, $request->all());
 

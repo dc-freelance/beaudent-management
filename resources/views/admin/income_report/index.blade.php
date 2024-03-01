@@ -112,7 +112,7 @@
                         // Remove the formatting to get integer data for summation
                         var intVal = function(i) {
                             return typeof i === 'string' ?
-                                i.replace(/[\$,]/g, '') * 1 :
+                                i.replace(/[\$.]/g, '') * 1 :
                                 typeof i === 'number' ?
                                 i : 0;
                         };
@@ -179,7 +179,7 @@
                         Swal.fire('Error', 'Tanggal akhir harus diisi', 'error');
                         return false;
                     } else {
-                        if (startDate > endDate) {
+                        if (Date.parse(startDate) > Date.parse(endDate)) {
                             Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
                             return false;
                         }

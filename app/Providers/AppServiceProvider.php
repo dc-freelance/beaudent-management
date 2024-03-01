@@ -42,6 +42,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\TreatmentReportInterface::class, \App\Repositories\TreatmentReportRepository::class);
         $this->app->bind(\App\Interfaces\PatientVisitReportInterface::class, \App\Repositories\PatientVisitReportRepository::class);
         $this->app->bind(\App\Interfaces\ShiftReportInterface::class, \App\Repositories\ShiftReportRepository::class);
+        $this->app->bind(\App\Interfaces\ExaminationInterface::class, \App\Repositories\ExaminationRepository::class);
+        $this->app->bind(\App\Interfaces\OdontogramInterface::class, \App\Repositories\OdontogramRepository::class);
+        $this->app->bind(\App\Interfaces\OdontogramResultInterface::class, \App\Repositories\OdontogramResultRepository::class);
+        $this->app->bind(\App\Interfaces\MedicalRecordInterface::class, \App\Repositories\MedicalRecordRepository::class);
+
 
         $this->loadHelpers();
     }

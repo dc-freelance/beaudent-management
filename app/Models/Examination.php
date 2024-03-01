@@ -57,7 +57,7 @@ class Examination extends Model
 
     public function addonTransactions()
     {
-        return $this->hasMany(AddonTransaction::class);
+        return $this->hasMany(AddonExamination::class);
     }
 
     public function transaction()

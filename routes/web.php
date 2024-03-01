@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\NotifUpdated;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\FrontOffice\ShiftLogController;
 use App\Http\Controllers\FrontOffice\TransactionController;
 use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
+use App\Http\Controllers\Admin\ExaminationHistoryController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\TreatmentReportController;
 use App\Http\Controllers\Admin\PatientVisitReportController;
@@ -381,12 +383,23 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('income-report/doctor', [IncomeReportController::class, 'getDoctor'])->name('admin.income-report.doctor');
         Route::get('income-report/doctor/export', [IncomeReportController::class, 'exportDoctor'])->name('admin.income-report.doctor.export');
     })->middleware('permission:read_income_report_general|export_income_report_general');
+
     // Treatment Report
     Route::prefix('treatment_report')->group(function () {
-        Route::get('treatment-report/general',[TreatmentReportController::class,'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
-        Route::get('treatment-report/general/export',[TreatmentReportController::class,'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
+        Route::get('treatment-report/general', [TreatmentReportController::class, 'getGeneral'])->middleware('permission:read_treatment_report_general')->name('admin.treatment-report.general');
+        Route::get('treatment-report/general/export', [TreatmentReportController::class, 'exportGeneral'])->middleware('permission:export_treatment_report_general')->name('admin.treatment-report.general.export');
+    });
+
+    // Examination History
+    Route::prefix('examination-history')->group(function () {
+        Route::get('/', [ExaminationHistoryController::class, 'index'])->middleware('permission:read_examination_history')->name('admin.examination-history.index');
+        Route::get('{id}/show', [ExaminationHistoryController::class, 'show'])->middleware('permission:read_examination_history')->name('admin.examination-history.show');
+        Route::get('{id}/examination', [ExaminationHistoryController::class, 'examination'])->middleware('permission:read_examination_history')->name('admin.examination-history.examination');
     });
 });
+
+// Get Notifikasi Reservation
+Route::get('get-reservation', [DashboardController::class, 'getReservation'])->name('reservation.get');
 
 Route::get('/', function () {
     return view('auth.login');
