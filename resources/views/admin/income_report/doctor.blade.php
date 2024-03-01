@@ -67,14 +67,16 @@
                     <th>Cabang</th>
                     <th>Pasien</th>
                     <th>Dokter</th>
+                    <th>Total Fee Layanan</th>
+                    <th>Total Fee Addon</th>
                     <th>Total Fee</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="6" style="text-align:left">
-                        Total
-                    </th>
+                    <th colspan="6" style="text-align:right">Total:</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                 </tr>
             </tfoot>
@@ -115,6 +117,14 @@
                             name: 'doctor'
                         },
                         {
+                            data: 'total_fee_treatment',
+                            name: 'total_fee_treatment'
+                        },
+                        {
+                            data: 'total_fee_addon',
+                            name: 'total_fee_addon'
+                        },
+                        {
                             data: 'total_fee',
                             name: 'total_fee'
                         },
@@ -139,11 +149,17 @@
                                 return intVal(a) + intVal(b);
                             }, 0);
 
-                        // Total over this page
-                        pageTotal = api
-                            .column(6, {
-                                page: 'current'
-                            })
+                        // Total over all pages
+                        total2 = api
+                            .column(7)
+                            .data()
+                            .reduce(function(a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Total over all pages
+                        total3 = api
+                            .column(8)
                             .data()
                             .reduce(function(a, b) {
                                 return intVal(a) + intVal(b);
@@ -151,7 +167,13 @@
 
                         // Update footer
                         $(api.column(6).footer()).html(
-                            new Intl.NumberFormat(['ban', 'id']).format(pageTotal)
+                            new Intl.NumberFormat('id-ID').format(total)
+                        );
+                        $(api.column(7).footer()).html(
+                            new Intl.NumberFormat('id-ID').format(total2)
+                        );
+                        $(api.column(8).footer()).html(
+                            new Intl.NumberFormat('id-ID').format(total3)
                         );
                     }
                 });
