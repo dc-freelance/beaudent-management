@@ -38,20 +38,12 @@ class TreatmentReportRepository implements TreatmentReportInterface
         });
         $collection = collect($results);
         if (request()->has('branch_id') || request()->filled('branch_id')) {
-           return $collection->where('branch_id',request('branch_id'));
+            if ( request()->get('branch_id') == null) {
+                return $collection;
+            }
+            return $collection->where('branch_id',request('branch_id'));
         }
-        return $collection;
 
-        // $results = $this->transaction->where('is_paid', 1)->with(['branch', 'customer', 'payment_method'])
-        //     ->when(request()->filled('start_date') && request()->filled('end_date'), function ($query) {
-        //         $query->where('created_at', '>=', request('start_date'))
-        //             ->where('created_at', '<=', request('end_date') . ' 23:59:59');
-        //     })
-        //     ->when(request()->filled('branch_id'), function ($query) {
-        //         $query->where('branch_id', request('branch_id'));
-        //     })
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
 
     }
 
@@ -85,7 +77,7 @@ class TreatmentReportRepository implements TreatmentReportInterface
             return [
                 'nama_layanan' => $data->treatment->name,
                 'jumlah_transaksi' => $data->total_qty,
-                'total_transaksi' => number_format($data->total_sub_total, 0, ',', '.'),
+                'total_transaksi' => $data->total_sub_total,
             ];
         });
     }

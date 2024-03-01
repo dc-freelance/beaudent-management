@@ -18,9 +18,9 @@
         @foreach ($data as $item)
         <tr>
             <td align="center">{{$loop->iteration}}</td>
-            <td align="center">{{$item->treatment->name}}</td>
-            <td align="center">{{$item->total_qty}}</td>
-            <td align="center">{{$item->total_sub_total}}</td>
+            <td align="center">{{$item['nama_layanan']}}</td>
+            <td align="center">{{$item['jumlah_transaksi']}}</td>
+            <td align="right">{{$item['total_transaksi']}}</td>
         </tr>
         @endforeach
     </tbody>
