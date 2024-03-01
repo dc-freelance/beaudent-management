@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\IncomeReportGeneralExport;
+use App\Exports\TreatmentReportGeneralExport;
 use App\Http\Controllers\Controller;
 use App\Interfaces\BranchInterface;
 use App\Interfaces\TreatmentReportInterface;
@@ -47,13 +48,12 @@ class TreatmentReportController extends Controller
     public function exportGeneral(Request $request)
     {
         $results = $this->treatmentReport->exportGeneral();
-
         $prefix = 'Laporan Layanan';
         if ($request->branch_id) {
             $branch = $this->branch->getById($request->branch_id);
             $prefix = 'Laporan Layanan ' . $branch->name;
         }
         $filename = $prefix . ' ' . date('d-m-Y') . '.xlsx';
-        return \Maatwebsite\Excel\Facades\Excel::download(new IncomeReportGeneralExport($results), $filename);
+        return \Maatwebsite\Excel\Facades\Excel::download(new TreatmentReportGeneralExport($results), $filename);
     }
 }
