@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\IncomeReportInterface;
+use App\Models\AddonExamination;
 use App\Models\DoctorBonus;
 use App\Models\ExaminationTreatment;
 use App\Models\Transaction;
@@ -12,12 +13,14 @@ class IncomeReportRepository implements IncomeReportInterface
     private $transaction;
     private $doctorBonus;
     private $examinationTreatment;
+    private $addonExamination;
 
-    public function __construct(Transaction $transaction, DoctorBonus $doctorBonus, ExaminationTreatment $examinationTreatment)
+    public function __construct(Transaction $transaction, DoctorBonus $doctorBonus, ExaminationTreatment $examinationTreatment, AddonExamination $addonExamination)
     {
         $this->transaction          = $transaction;
         $this->doctorBonus          = $doctorBonus;
         $this->examinationTreatment = $examinationTreatment;
+        $this->addonExamination     = $addonExamination;
     }
 
     public function getGeneral()
@@ -83,7 +86,7 @@ class IncomeReportRepository implements IncomeReportInterface
         foreach ($transactions as $transaction) {
             $examinationTreatments = $this->examinationTreatment->where('examination_id', $transaction->examination_id)->get();
             foreach ($examinationTreatments as $examinationTreatment) {
-                $doctorBonus = $this->doctorBonus->where('examination_treatment_id', $examinationTreatment->id)->sum('bonus');
+                $doctorBonus                        = $this->doctorBonus->where('examination_treatment_id', $examinationTreatment->id)->sum('bonus');
                 $examinationTreatment->doctor_bonus = $doctorBonus;
             }
             $transaction->examination_treatments = $examinationTreatments;
@@ -100,7 +103,8 @@ class IncomeReportRepository implements IncomeReportInterface
                 'treatments'       => $data->examination_treatments->map(function ($treatment) {
                     return $treatment->treatment->name;
                 })->implode(', '),
-                'total_fee'        => $data->examination_treatments->sum('doctor_bonus')
+                'total_fee_treatment' => $data->examination_treatments->sum('doctor_bonus'),
+                'total_fee_addon'     => $data->examination->addonTransactions->sum('fee'),
             ];
         });
 
@@ -126,10 +130,12 @@ class IncomeReportRepository implements IncomeReportInterface
         foreach ($transactions as $transaction) {
             $examinationTreatments = $this->examinationTreatment->where('examination_id', $transaction->examination_id)->get();
             foreach ($examinationTreatments as $examinationTreatment) {
-                $doctorBonus = $this->doctorBonus->where('examination_treatment_id', $examinationTreatment->id)->sum('bonus');
+                $doctorBonus                        = $this->doctorBonus->where('examination_treatment_id', $examinationTreatment->id)->sum('bonus');
                 $examinationTreatment->doctor_bonus = $doctorBonus;
             }
             $transaction->examination_treatments = $examinationTreatments;
+            $addonExamination                    = $this->addonExamination->where('examination_id', $transaction->examination_id)->get();
+            $transaction->addonTransactions      = $addonExamination;
         }
 
         $transactions = $transactions->map(function ($data) {
@@ -142,7 +148,8 @@ class IncomeReportRepository implements IncomeReportInterface
                 'treatments'       => $data->examination_treatments->map(function ($treatment) {
                     return $treatment->treatment->name;
                 })->implode(', '),
-                'total_fee'        => $data->examination_treatments->sum('doctor_bonus')
+                'total_fee_treatment' => $data->examination_treatments->sum('doctor_bonus'),
+                'total_fee_addon'     => $data->addonTransactions->sum('fee'),
             ];
         });
 

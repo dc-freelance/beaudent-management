@@ -108,8 +108,11 @@ class IncomeReportController extends Controller
                 ->addColumn('treatment', function ($data) {
                     return $data['treatments'];
                 })
-                ->addColumn('total_fee', function ($data) {
-                    return number_format($data['total_fee'], 0, ',', '.');
+                ->addColumn('total_fee_treatment', function ($data) {
+                    return number_format($data['total_fee_treatment'], 0, ',', '.');
+                })
+                ->addColumn('total_fee_addon', function ($data) {
+                    return number_format($data['total_fee_addon'], 0, ',', '.');
                 })
                 ->addIndexColumn()
                 ->make(true);
