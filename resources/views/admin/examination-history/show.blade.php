@@ -378,7 +378,7 @@
                                         <p class="text-gray-500">Jumlah: {{ $data->qty }}</p>
                                     </div>
                                     <div class="text-center">
-                                        <a href="{{ asset('storage/exmtreatment-proof/' . $data->proof) }}"
+                                        <a href="{{ env('ASSET_DOCTOR_URL') . 'storage/exmtreatment-proof/' . $data->proof }}"
                                             target="_blank" class="text-gray-500 hover:underline inline-block">
                                             <i class="fas fa-file"></i> Lihat Dokumentasi Pemeriksaan
                                         </a>
