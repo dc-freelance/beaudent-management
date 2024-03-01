@@ -69,11 +69,13 @@
                     <th>Dokter</th>
                     <th>Total Fee Layanan</th>
                     <th>Total Fee Addon</th>
+                    <th>Total Fee</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th colspan="6" style="text-align:right">Total:</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -122,6 +124,10 @@
                             data: 'total_fee_addon',
                             name: 'total_fee_addon'
                         },
+                        {
+                            data: 'total_fee',
+                            name: 'total_fee'
+                        },
                     ],
                     footerCallback: function(row, data, start, end, display) {
                         var api = this.api(),
@@ -151,12 +157,23 @@
                                 return intVal(a) + intVal(b);
                             }, 0);
 
+                        // Total over all pages
+                        total3 = api
+                            .column(8)
+                            .data()
+                            .reduce(function(a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
                         // Update footer
                         $(api.column(6).footer()).html(
                             new Intl.NumberFormat('id-ID').format(total)
                         );
                         $(api.column(7).footer()).html(
                             new Intl.NumberFormat('id-ID').format(total2)
+                        );
+                        $(api.column(8).footer()).html(
+                            new Intl.NumberFormat('id-ID').format(total3)
                         );
                     }
                 });

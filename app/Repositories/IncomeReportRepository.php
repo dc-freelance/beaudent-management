@@ -105,6 +105,7 @@ class IncomeReportRepository implements IncomeReportInterface
                 })->implode(', '),
                 'total_fee_treatment' => $data->examination_treatments->sum('doctor_bonus'),
                 'total_fee_addon'     => $data->examination->addonTransactions->sum('fee'),
+                'total_fee'           => $data->examination_treatments->sum('doctor_bonus') + $data->examination->addonTransactions->sum('fee'),
             ];
         });
 
@@ -150,6 +151,7 @@ class IncomeReportRepository implements IncomeReportInterface
                 })->implode(', '),
                 'total_fee_treatment' => $data->examination_treatments->sum('doctor_bonus'),
                 'total_fee_addon'     => $data->addonTransactions->sum('fee'),
+                'total_fee'           => $data->examination_treatments->sum('doctor_bonus') + $data->addonTransactions->sum('fee'),
             ];
         });
 
