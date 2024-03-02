@@ -321,9 +321,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
         // payment transaction
         // list
-        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->name('front-office.transaction.list-billing');
+        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->middleware('permission:read_antrian_pembayaran')->name('front-office.transaction.list-billing');
         // payment
-        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->name('front-office.transaction.payment');
+        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->middleware('permission:pay_antiran_pembayaran')->name('front-office.transaction.payment');
         // end payment transaction
 
         Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->name('front-office.transaction.payment.confirm');
@@ -333,11 +333,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
         // list transaction
         // list
-        Route::get('/list-transaction', [TransactionController::class, 'list_transaction'])->name('front-office.transaction.list-transaction');
+        Route::get('/list-transaction', [TransactionController::class, 'list_transaction'])->middleware('permission:read_list_transaction')->name('front-office.transaction.list-transaction');
         // ubah
-        Route::get('/detail-transaction/{transaction}', [TransactionController::class, 'detail_transaction'])->name('front-office.transaction.detail-transaction');
+        Route::get('/detail-transaction/{transaction}', [TransactionController::class, 'detail_transaction'])->middleware('permission:update_transaction')->name('front-office.transaction.detail-transaction');
         // print
-        Route::get('/pdf/{transaction}', [TransactionController::class, 'print_transaction'])->name('front-office.transaction.print-transaction');
+        Route::get('/pdf/{transaction}', [TransactionController::class, 'print_transaction'])->middleware('permission:print_transaction')->name('front-office.transaction.print-transaction');
         // end list transaction
     });
     // Diskon Treatment
