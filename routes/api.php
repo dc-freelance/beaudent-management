@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\GetKategoriController;
 use App\Http\Controllers\API\RegistrationController;
 use App\Http\Controllers\API\ReservationsController;
 use Illuminate\Http\Request;
@@ -32,3 +33,6 @@ Route::post('customer', [ReservationsController::class, 'customer']);
 
 // API DEPOSIT
 Route::post('deposit', [ReservationsController::class, 'deposit']);
+
+// API Get Kategori Dokter
+Route::post('get-kategori',[GetKategoriController::class,'getKategori'])->name('kategori.get');

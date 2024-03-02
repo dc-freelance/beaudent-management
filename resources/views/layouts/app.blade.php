@@ -120,6 +120,7 @@
 
             $('select.select-input').select2({
                 width: '100%',
+                placeholder: " -- Pilih Data -- ",
             });
         });
     </script>

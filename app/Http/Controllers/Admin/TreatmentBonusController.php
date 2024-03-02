@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\DoctorCategoryInterface;
 use App\Interfaces\TreatmentBonusInterface;
 use App\Interfaces\TreatmentInterface;
+use App\Models\TreatmentBonus;
 use Illuminate\Http\Request;
 
 class TreatmentBonusController extends Controller
@@ -67,24 +68,23 @@ class TreatmentBonusController extends Controller
         $request->validate([
             'treatment_id' => 'required|exists:treatments,id',
             'doctor_category_id' => 'required|exists:doctor_categories,id',
-            'bonus_type' => 'required|in:percentage,nominal',
-            'bonus_rate' => 'required',
+            'bonus_type.*' => 'required|in:percentage,nominal',
+            'bonus_rate.*' => 'required',
         ]);
 
         try {
-            if ($request->bonus_type == 'nominal') {
-                $request->merge([
-                    'bonus_rate' => str_replace(['Rp.', '.', ','], '', $request->input('bonus_rate'))
-                ]);
-            } else {
-                $request->merge([
-                    'bonus_rate' => (float) $request->input('bonus_rate')
-                ]);
+            for ($i=0; $i < count($request->get('bonus_type')) ; $i++) {
+                $tambah = new TreatmentBonus();
+                $tambah->treatment_id = $request->get('treatment_id');
+                $tambah->doctor_category_id = $_POST['id'][$i];
+                $tambah->bonus_type =$_POST['bonus_type'][$i];
+                $tambah->bonus_rate = $request->get('bonus_type')[$i] == 'nominal' ? str_replace(['Rp.', '.', ','], '', $_POST['bonus_rate'][$i]) : (float) $_POST['bonus_rate'][$i];
+                $tambah->save();
             }
-            $this->treatmentBonus->store($request->all());
 
             return redirect()->route('admin.treatment-bonus.index')->with('success', 'Bonus layanan berhasil dibuat');
         } catch (\Throwable $th) {
+            return $th;
             return redirect()->route('admin.treatment-bonus.index')->with('error', $th->getMessage());
         }
     }
