@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\ExaminationHistoryController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\TreatmentReportController;
 use App\Http\Controllers\Admin\PatientVisitReportController;
-use App\Http\Controllers\Api\GetKategoriController;
+use App\Http\Controllers\API\GetKategoriController;
 use App\Http\Controllers\ShiftReportController;
 use Illuminate\Support\Facades\Route;
 
