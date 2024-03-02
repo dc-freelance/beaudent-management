@@ -87,7 +87,6 @@
 
                             },
                             success: function (res) {
-                                console.log(res);
                                 $('.table-detail-layanan').removeClass('hidden');
                                 var new_body_tr = ``
                                 let no = 1;
