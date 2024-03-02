@@ -33,59 +33,11 @@
         </div>
     </x-card-container>
 
-    <x-card-container>
-        <table id="examinationHistoryTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Pasien</th>
-                    <th>Dokter</th>
-                    <th>Cabang</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-        </table>
-    </x-card-container>
+    <div id="container"></div>
 
     @push('js-internal')
         <script>
             $(function() {
-                $('#examinationHistoryTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    autoWidth: false,
-                    responsive: true,
-                    ajax: '{{ route('admin.examination-history.index') }}',
-                    columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
-                            data: 'date',
-                            name: 'date'
-                        },
-                        {
-                            data: 'patient',
-                            name: 'patient'
-                        },
-                        {
-                            data: 'doctor',
-                            name: 'doctor'
-                        },
-                        {
-                            data: 'branch',
-                            name: 'branch'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
-                        },
-                    ],
-                });
-
                 let startDate = null;
                 let endDate = null;
                 let branchId = null;
@@ -100,22 +52,43 @@
                         branchId = '{{ auth()->user()->branch_id }}';
                     @endrole
 
-                    if (startDate != '') {
-                        if (endDate == '') {
-                            Swal.fire('Error', 'Tanggal akhir harus diisi', 'error');
-                            return false;
-                        } else {
-                            if (Date.parse(startDate) > Date.parse(endDate)) {
-                                Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir',
-                                    'error');
-                                return false;
-                            }
-                        }
+                    if (startDate === '' || endDate === '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Tanggal awal dan tanggal akhir harus diisi!',
+                        });
+                        return;
+                    } else if (Date.parse(startDate) > Date.parse(endDate)) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Tanggal awal tidak boleh lebih besar dari tanggal akhir!',
+                        });
+                        return;
                     }
 
-                    $('#examinationHistoryTable').DataTable().ajax.url(
-                        `{{ route('admin.examination-history.index') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`
-                    ).load();
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('admin.examination-history.index') }}",
+                        data: {
+                            start_date: startDate,
+                            end_date: endDate,
+                            branch_id: branchId
+                        },
+                        success: function(response) {
+                            $('#container').html(response);
+                            $('#examinationHistoryTable').DataTable({
+                                responsive: true,
+                                autoWidth: false,
+                                processing: true,
+                            });
+                            return false;
+                        },
+                        complete: function() {
+                            return false;
+                        }
+                    });
                 });
             });
         </script>

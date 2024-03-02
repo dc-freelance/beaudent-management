@@ -57,128 +57,11 @@
             </div>
         @endhasrole
     </x-card-container>
-    <x-card-container>
-        <table id="incomeReportTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Kode</th>
-                    <th>Tanggal</th>
-                    <th>Cabang</th>
-                    <th>Pasien</th>
-                    <th>Dokter</th>
-                    <th>Total Fee Layanan</th>
-                    <th>Total Fee Addon</th>
-                    <th>Total Fee</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th colspan="6" style="text-align:right">Total:</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-    </x-card-container>
+
+    <div id="container"></div>
 
     @push('js-internal')
         <script>
-            $(function() {
-                $('#incomeReportTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    autoWidth: false,
-                    responsive: true,
-                    ajax: '{{ route('admin.income-report.doctor') }}',
-                    columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
-                            data: 'transaction_code',
-                            name: 'transaction_code'
-                        },
-                        {
-                            data: 'transaction_date',
-                            name: 'transaction_date'
-                        },
-                        {
-                            data: 'branch',
-                            name: 'branch'
-                        },
-                        {
-                            data: 'patient',
-                            name: 'patient'
-                        },
-                        {
-                            data: 'doctor',
-                            name: 'doctor'
-                        },
-                        {
-                            data: 'total_fee_treatment',
-                            name: 'total_fee_treatment'
-                        },
-                        {
-                            data: 'total_fee_addon',
-                            name: 'total_fee_addon'
-                        },
-                        {
-                            data: 'total_fee',
-                            name: 'total_fee'
-                        },
-                    ],
-                    footerCallback: function(row, data, start, end, display) {
-                        var api = this.api(),
-                            data;
-
-                        // Remove the formatting to get integer data for summation
-                        var intVal = function(i) {
-                            return typeof i === 'string' ?
-                                i.replace(/[\$.]/g, '') * 1 :
-                                typeof i === 'number' ?
-                                i : 0;
-                        };
-
-                        // Total over all pages
-                        total = api
-                            .column(6)
-                            .data()
-                            .reduce(function(a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0);
-
-                        // Total over all pages
-                        total2 = api
-                            .column(7)
-                            .data()
-                            .reduce(function(a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0);
-
-                        // Total over all pages
-                        total3 = api
-                            .column(8)
-                            .data()
-                            .reduce(function(a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0);
-
-                        // Update footer
-                        $(api.column(6).footer()).html(
-                            new Intl.NumberFormat('id-ID').format(total)
-                        );
-                        $(api.column(7).footer()).html(
-                            new Intl.NumberFormat('id-ID').format(total2)
-                        );
-                        $(api.column(8).footer()).html(
-                            new Intl.NumberFormat('id-ID').format(total3)
-                        );
-                    }
-                });
-            });
-
             let startDate = null;
             let endDate = null;
             let branchId = null;
@@ -195,21 +78,38 @@
                     console.log(branchId);
                 @endrole
 
-                if (startDate != '') {
-                    if (endDate == '') {
-                        Swal.fire('Error', 'Tanggal akhir harus diisi', 'error');
+                if (startDate == '' || endDate == '') {
+                    Swal.fire('Error', 'Tanggal awal dan tanggal akhir harus diisi', 'error');
+                    return false;
+                } else {
+                    if (Date.parse(startDate) > Date.parse(endDate)) {
+                        Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
                         return false;
-                    } else {
-                        if (Date.parse(startDate) > Date.parse(endDate)) {
-                            Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
-                            return false;
-                        }
                     }
                 }
 
-                $('#incomeReportTable').DataTable().ajax.url(
-                    `{{ route('admin.income-report.doctor') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}&doctor_id=${doctorId}`
-                ).load();
+                $.ajax({
+                    url: `{{ route('admin.income-report.doctor') }}`,
+                    type: 'GET',
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+                        branch_id: branchId,
+                        doctor_id: doctorId
+                    },
+                    success: function(response) {
+                        $('#container').html(response);
+                        $('#incomeReportTable').DataTable({
+                            responsive: true,
+                            processing: true,
+                            autoWidth: false,
+                        });
+                        return false;
+                    },
+                    complete: function() {
+                        return false;
+                    }
+                });
             });
 
             $('#buttonExport').on('click', function(e) {

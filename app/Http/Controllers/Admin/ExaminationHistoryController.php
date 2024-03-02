@@ -33,25 +33,7 @@ class ExaminationHistoryController extends Controller
         }
 
         if ($request->ajax()) {
-            return datatables()
-                ->of($results)
-                ->addColumn('date', function ($data) {
-                    return date('Y-m-d', strtotime($data->created_at));
-                })
-                ->addColumn('patient', function ($data) {
-                    return $data->customer->name;
-                })
-                ->addColumn('doctor', function ($data) {
-                    return $data->doctor->name;
-                })
-                ->addColumn('branch', function ($data) {
-                    return $data->reservation->branch->name;
-                })
-                ->addColumn('action', function ($data) {
-                    return view('admin.examination-history.column.action', compact('data'));
-                })
-                ->addIndexColumn()
-                ->make(true);
+            return view('admin.examination-history.tables.examination', compact('results'))->render();
         }
 
         $branches = $this->branch->get()->where('name', '!=', 'Pusat');
