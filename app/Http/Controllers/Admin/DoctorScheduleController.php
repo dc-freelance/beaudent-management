@@ -8,6 +8,7 @@ use App\Interfaces\DoctorInterface;
 use App\Interfaces\BranchInterface;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DoctorScheduleController extends Controller
 {
@@ -24,10 +25,11 @@ class DoctorScheduleController extends Controller
 
     public function index(Request $request)
     {
+        $datas = $this->doctorSchedule->get();
         if ($request->ajax()) {
             return datatables()
-                ->of($this->doctorSchedule->get())
-                ->addColumn('name', function ($data) {
+                ->of($datas)
+                ->addColumn('doctor', function ($data) {
                     return $data->doctor->name;
                 })
                 ->addColumn('branch', function ($data) {
