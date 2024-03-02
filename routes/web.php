@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\ExaminationHistoryController;
 use App\Http\Controllers\Admin\IncomeReportController;
 use App\Http\Controllers\Admin\TreatmentReportController;
 use App\Http\Controllers\Admin\PatientVisitReportController;
+use App\Http\Controllers\Api\GetKategoriController;
 use App\Http\Controllers\ShiftReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -400,6 +401,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
 // Get Notifikasi Reservation
 Route::get('get-reservation', [DashboardController::class, 'getReservation'])->name('reservation.get');
+
+// API Get Kategori Dokter
+Route::post('get-kategori',[GetKategoriController::class,'getKategori'])->name('kategori.get');
 
 Route::get('/', function () {
     return view('auth.login');

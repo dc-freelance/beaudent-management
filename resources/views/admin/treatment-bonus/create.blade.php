@@ -77,6 +77,11 @@
                         $('.table-detail-layanan tbody').append(new_body_tr);
                         $('#submit-button').addClass('hidden')
                     }
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
                     $.ajax({
                             type: "POST",
                             url: url,
