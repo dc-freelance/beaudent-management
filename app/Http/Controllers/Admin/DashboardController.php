@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\BranchInterface;
 use App\Interfaces\DashboardInterface;
 use App\Models\Reservations;
 use Carbon\Carbon;
@@ -16,10 +17,13 @@ class DashboardController extends Controller
 
     private $reservation_model;
 
-    public function __construct(DashboardInterface $data)
+    private $branch;
+
+    public function __construct(DashboardInterface $data, BranchInterface $branch)
     {
         $this->dashboard_data = $data;
         $this->reservation_model = new Reservations();
+        $this->branch = $branch;
     }
 
     public function index(Request $request)
@@ -33,8 +37,11 @@ class DashboardController extends Controller
             'cabang' => $this->dashboard_data->branch(),
             'years' => $this->dashboard_data->getAvailableYear()
         );
+
+        Auth::user()->branch_id == 1 && $data['branches'] = $this->branch->get();
+
         $query = null;
-        if (Auth::user()->branch_id == null) {
+        if (Auth::user()->branch_id == 1) {
             $query = $this->reservation_model->with('customers', 'branches')
                 ->where('status', 'Pending')
                 ->orderBy('request_date', 'asc')
@@ -89,20 +96,21 @@ class DashboardController extends Controller
         return view('admin.dashboard.index', compact('data'));
     }
 
-    public function chart($year)
+    public function chart($branch = null, $year)
     {
         $data = array(
-            'pemasukan_bulan' => $this->dashboard_data->year_earnings($year)->toArray(),
-            'pemasukan_tahun' => rupiahFormat(array_sum($this->dashboard_data->year_earnings($year)->toArray())),
+            'pemasukan_bulan' => $this->dashboard_data->year_earnings($branch, $year)->toArray(),
+            'pemasukan_tahun' => rupiahFormat(array_sum($this->dashboard_data->year_earnings($branch, $year)->toArray())),
             'year' => $year
         );
 
         return $data;
     }
 
-    public function getReservation() {
+    public function getReservation()
+    {
         $query = null;
-        if (Auth::user()->branch_id == null) {
+        if (Auth::user()->branch_id == 1) {
             $query = $this->reservation_model->with('customers', 'branches')
                 ->where('status', 'Pending')
                 ->orderBy('request_date', 'asc')
