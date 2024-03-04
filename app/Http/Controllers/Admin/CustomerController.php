@@ -79,10 +79,6 @@ class CustomerController extends Controller
             'religion' => 'required',
             'email' => 'required',
             'marrital_status' => 'required',
-            'instagram' => 'required',
-            'youtube' => 'required',
-            'facebook' => 'required',
-            'source_of_information' => 'required',
         ]);
 
         try {
@@ -122,10 +118,6 @@ class CustomerController extends Controller
             'religion' => 'required',
             'email' => 'required',
             'marrital_status' => 'required',
-            'instagram' => 'required',
-            'youtube' => 'required',
-            'facebook' => 'required',
-            'source_of_information' => 'required',
         ]);
 
         try {
