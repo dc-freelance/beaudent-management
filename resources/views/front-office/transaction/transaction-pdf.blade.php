@@ -146,7 +146,7 @@
         <div style="text-align: right;">
             <span> {{ $detailTransaction->branch->name }}, {{ \Carbon\Carbon::parse($detailTransaction->updated_at)->locale('id')->isoFormat('LL') }} </span> <br>
             <img src="{{ public_path('assets/images/logo.png') }}" style="width: 100px;"> <br>
-            <span> {{ $detailTransaction->customer->name }} </span>
+            <span> {{ $detailTransaction->cashier->name }} </span>
         </div>
     </div>
 </body>

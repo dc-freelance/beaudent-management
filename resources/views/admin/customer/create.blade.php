@@ -69,13 +69,13 @@
                         </div>
                     </div>
                     <x-input id="instagram" label="Tautan Instagram" name="instagram" value="{{ old('instagram') }}"
-                        type="text" required />
+                        type="text" />
                     <x-input id="youtube" label="Tautan YouTube" name="youtube" value="{{ old('youtube') }}"
-                        type="text" required />
+                        type="text" />
                     <x-input id="facebook" label="Tautan Facebook" name="facebook" value="{{ old('facebook') }}"
-                        type="text" required />
+                        type="text" />
                     <x-input id="source_of_information" label="Informasi Lainnya" name="source_of_information"
-                        value="{{ old('source_of_information') }}" type="text" required />
+                        value="{{ old('source_of_information') }}" type="text" />
                 </div>
                 <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/6 xl:w-1/6 ml-auto pt-5">
                     <x-button type="submit">Tambah Pasien</x-button>
