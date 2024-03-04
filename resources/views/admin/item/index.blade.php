@@ -8,7 +8,7 @@
         <div class="text-end mb-4">
             @can('create_item')
                 <x-link-button route="{{ route('admin.item.create') }}"
-                    class="tombol hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+                    class="tombol btn btn-success">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Barang
                 </x-link-button>

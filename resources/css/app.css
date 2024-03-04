@@ -45,6 +45,30 @@ div:where(.swal2-container) .swal2-html-container {
     font-size: 0.875rem;
 }
 
+/* BUTTON CUSTOM STANDART */
+
+.btn {
+    @apply px-5 py-2 rounded font-medium border-none text-center text-sm cursor-pointer;
+}
+.btn-filled {
+    @apply px-5 py-2 w-full box-border rounded font-medium border-none text-center text-sm;
+}
+.btn-edit {
+    @apply bg-yellow-400 text-white hover:bg-yellow-500 focus:bg-yellow-500;
+}
+.btn-delete {
+    @apply bg-red-500 text-white hover:bg-red-700 focus:bg-red-700;
+}
+.btn-success {
+    @apply bg-[#22C55E]  text-white hover:bg-green-700 focus:bg-green-700;
+}
+.btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-700 focus:bg-blue-700;
+}
+.btn-light {
+    @apply bg-white text-gray-500 hover:bg-gray-50 focus:bg-gray-50;
+}
+
 /* SELECT 2 */
 
 .select2-container--default .select2-selection--single {
@@ -80,6 +104,15 @@ div:where(.swal2-container) .swal2-html-container {
     @apply bg-primary text-white;
 }
 
+.dt-container :where(.dt-length) select.dt-input {
+    width: 4rem;
+    margin: 0 0.5rem;
+    font-size: 0.875rem;
+    appearance: none !important;
+}
+.dt-container :where(.row) th.dt-orderable-asc {
+    background-color: #f2f2f2 !important;
+}
 /* CSS untuk indikator loading */
 .dataTables_paginate {
     background-color: whitesmoke;

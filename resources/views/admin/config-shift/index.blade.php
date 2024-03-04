@@ -8,7 +8,7 @@
         <div class="text-end mb-4">
             @can('create_config_shift')
                 <x-link-button route="{{ route('admin.config-shift.create') }}"
-                    class="hover:opacity-80 ring-0 focus:border-none focus:ring-0">
+                    class="btn btn-success">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Konfigurasi Shift
                 </x-link-button>

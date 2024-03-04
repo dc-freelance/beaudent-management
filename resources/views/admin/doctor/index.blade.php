@@ -7,7 +7,7 @@
     <x-card-container>
         <div class="text-end mb-4">
             @can('create_doctor')
-                <x-link-button route="{{ route('admin.doctor.create') }}" class="tombol hover:opacity-80">
+                <x-link-button route="{{ route('admin.doctor.create') }}" class="tombol btn btn-success">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Dokter
                 </x-link-button>

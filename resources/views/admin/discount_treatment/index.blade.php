@@ -7,7 +7,7 @@
     <x-card-container>
         <div class="text-end mb-4">
             @can('create_discount_treatment')
-                <x-link-button route="{{ route('admin.discount_treatment.create') }}" color="gray">
+                <x-link-button route="{{ route('admin.discount_treatment.create') }}" class="btn btn-success">
                     <i class="fas fa-plus mr-2"></i>
                     Tambah Diskon Layanan
                 </x-link-button>
