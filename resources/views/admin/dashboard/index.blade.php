@@ -154,7 +154,17 @@
                         <p class="text-gray-900 dark:text-white text-2xl leading-none font-bold">$5.40</p>
                     </div> --}}
                 </div>
-                <div>
+                <div class="flex gap-4">
+                    @if (isset($data['branches']))
+                        <select id="select-branch"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block p-2.5"
+                            name="year">
+                            <option value="0" selected>Semua Cabang</option>
+                            @foreach ($data['branches'] as $branch)
+                                <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
                     <select id="select-year"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block p-2.5"
                         name="year">
@@ -329,11 +339,12 @@
             <div class="flex justify-between mb-5">
                 <h4 class="font-bold text-lg mb-5">Menunggu Konfirmasi</h4>
                 @canany(['read_wait_reservation', 'read_confirm_reservation', 'read_done_reservation',
-                'read_cancel_reservation', 'read_wait_deposit', 'read_confirm_deposit'])
-                <x-link-button route="{{ route('front-office.reservations.confirm.index') }}" class="tombol hover:opacity-80">
-                    Selengkapnya
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </x-link-button>
+                    'read_cancel_reservation', 'read_wait_deposit', 'read_confirm_deposit'])
+                    <x-link-button route="{{ route('front-office.reservations.confirm.index') }}"
+                        class="tombol hover:opacity-80">
+                        Selengkapnya
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </x-link-button>
                 @endcanany
             </div>
             <hr>
@@ -920,7 +931,7 @@
                     processing: true,
                     serverSide: false,
                     orderCellsTop: true,
-                    paging:true,
+                    paging: true,
                     ajax: {
                         url: '{{ route('reservation.get') }}',
                     },
@@ -1044,8 +1055,9 @@
                     const chart = new ApexCharts(document.getElementById("line-chart"), options);
                     chart.render();
 
-                    function getData(date) {
-                        let url = "{{ route('admin.dashboard.chart', ':year') }}".replace(':year', date);
+                    function getData(branch, date) {
+                        let url = "{{ route('admin.dashboard.chart', ['branch' => ':branch', 'year' => ':year']) }}"
+                            .replace(':year', date).replace(':branch', branch);
 
                         $.ajax({
                             url: url,
@@ -1069,12 +1081,17 @@
                             }
                         });
                     };
-                    getData($('#select-year').val());
+                    getData($('#select-branch').val(), $('#select-year').val());
 
-                    $('#select-year').on('change', function() {
-                        getData($('#select-year').val());
+                    $('#select-branch').on('change', function() {
+                        getData($('#select-branch').val(), $('#select-year').val());
                     });
 
+                    $('#select-year').on('change', function() {
+                        getData($('#select-branch').val(), $('#select-year').val());
+                    });
+
+                    $('#select-branch') != undefined && $('#select-branch').select2();
                     $('#select-year').select2();
                 };
             });

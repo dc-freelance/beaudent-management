@@ -33,12 +33,19 @@ class DashboardRepository implements DashboardInterface
 
     public function getAvailableYear()
     {
-        $transaction = $this->transaction->select('date_time')->get();
+        $transaction = null;
+        Auth::user()->branch_id == 1 ?
+            $transaction = $this->transaction->select('date_time')->where('is_paid', 1)->orderBy('date_time', 'desc')->get()
+            :
+            $transaction = $this->transaction->select('date_time')->where('branch_id', Auth::user()->branch_id)->where('is_paid', 1)->orderBy('date_time', 'desc')->get();
+
         $dump_years = [];
 
-        foreach ($transaction as $data) {
-            if (!in_array(Carbon::parse($data->date_time)->format('Y'), $dump_years)) {
-                array_push($dump_years, Carbon::parse($data->date_time)->format('Y'));
+        if (isset($transaction)) {
+            foreach ($transaction as $data) {
+                if (!in_array(Carbon::parse($data->date_time)->format('Y'), $dump_years)) {
+                    array_push($dump_years, Carbon::parse($data->date_time)->format('Y'));
+                };
             };
         };
 
@@ -48,7 +55,7 @@ class DashboardRepository implements DashboardInterface
     public function earnings()
     {
         $data = null;
-        Auth::user()->branch_id == null ?
+        Auth::user()->branch_id == 1 ?
             $data = $this->transaction
             ->whereYear('date_time', Carbon::now()->format('Y'))
             ->whereMonth('date_time', Carbon::now()->format('m'))
@@ -61,47 +68,65 @@ class DashboardRepository implements DashboardInterface
             ->whereMonth('date_time', Carbon::now()->format('m'))
             ->where('is_paid', 1)
             ->sum('grand_total');
+
         return $data;
     }
 
-    public function year_earnings($year)
+    public function year_earnings($branch = null, $year)
     {
         $data = null;
-        Auth::user()->branch_id == null ?
+        if (Auth::user()->branch_id == 1) {
+            if ($branch == null || $branch == 0) {
+                $data = $this->transaction
+                    ->select('id', 'date_time', 'grand_total')
+                    ->whereYear('date_time', $year)
+                    ->where('is_paid', 1)
+                    ->get()
+                    ->groupBy(function ($date) {
+                        return Carbon::parse($date->date_time)->format('m');
+                    })
+                    ->map(function ($item) {
+                        return $item->sum('grand_total');
+                    });
+            } else {
+                $data = $this->transaction
+                    ->select('id', 'date_time', 'grand_total')
+                    ->where('branch_id', $branch)
+                    ->whereYear('date_time', $year)
+                    ->where('is_paid', 1)
+                    ->get()
+                    ->groupBy(function ($date) {
+                        return Carbon::parse($date->date_time)->format('m');
+                    })
+                    ->map(function ($item) {
+                        return $item->sum('grand_total');
+                    });
+            };
+        } else {
             $data = $this->transaction
-            ->select('id', 'date_time', 'grand_total')
-            ->whereYear('date_time', $year)
-            ->where('is_paid', 1)
-            ->get()
-            ->groupBy(function ($date) {
-                return Carbon::parse($date->date_time)->format('m');
-            })
-            ->map(function ($item) {
-                return $item->sum('grand_total');
-            })
-            :
-            $data = $this->transaction
-            ->select('id', 'date_time', 'grand_total')
-            ->where('branch_id', Auth::user()->branch_id)
-            ->whereYear('date_time', $year)
-            ->where('is_paid', 1)
-            ->get()
-            ->groupBy(function ($date) {
-                return Carbon::parse($date->date_time)->format('m');
-            })
-            ->map(function ($item) {
-                return $item->sum('grand_total');
-            });
+                ->select('id', 'date_time', 'grand_total')
+                ->where('branch_id', Auth::user()->branch_id)
+                ->whereYear('date_time', $year)
+                ->where('is_paid', 1)
+                ->get()
+                ->groupBy(function ($date) {
+                    return Carbon::parse($date->date_time)->format('m');
+                })
+                ->map(function ($item) {
+                    return $item->sum('grand_total');
+                });
+        };
+
         return $data;
     }
 
     public function reservation()
     {
         $data = null;
-        Auth::user()->branch_id == null ?
-            $data = $this->reservation->whereYear('created_at', Carbon::now()->format('Y'))->whereMonth('created_at', Carbon::now()->format('m'))->count()
+        Auth::user()->branch_id == 1 ?
+            $data = $this->reservation->whereYear('request_date', Carbon::now()->format('Y'))->whereMonth('request_date', Carbon::now()->format('m'))->count()
             :
-            null;
+            $data = $this->reservation->where('branch_id', Auth::user()->branch_id)->whereYear('request_date', Carbon::now()->format('Y'))->whereMonth('request_date', Carbon::now()->format('m'))->count();
         return $data;
     }
 

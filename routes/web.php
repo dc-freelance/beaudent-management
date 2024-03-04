@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
-    Route::get('get-chart/{year}', [DashboardController::class, 'chart'])->name('admin.dashboard.chart');
+    Route::get('get-chart/{branch}/{year}', [DashboardController::class, 'chart'])->name('admin.dashboard.chart');
 
     // Permission
     Route::group(['prefix' => 'permission'], function () {
@@ -403,7 +403,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 Route::get('get-reservation', [DashboardController::class, 'getReservation'])->name('reservation.get');
 
 // API Get Kategori Dokter
-Route::post('get-kategori',[GetKategoriController::class,'getKategori'])->name('kategori.get');
+Route::post('get-kategori', [GetKategoriController::class, 'getKategori'])->name('kategori.get');
 
 Route::get('/', function () {
     return view('auth.login');
