@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Interfaces\TransactionInterface;
 use App\Interfaces\PaymentMethodsInterface;
+use App\Interfaces\ShiftLogInterface;
 use App\Interfaces\AddonInterface;
 use App\Models\ExaminationTreatment;
 use App\Models\ExaminationItem;
 use App\Models\AddonExamination;
 use App\Models\Transaction;
+use App\Models\Reservations;
 use App\Models\Addon;
 use Carbon\Carbon;
 use DB;
@@ -21,16 +23,20 @@ class TransactionController extends Controller
     private $transaction;
     private $paymentMethod;
     private $addon;
+    private $shiftLog;
 
-    public function __construct(TransactionInterface $transaction, PaymentMethodsInterface $paymentMethod, AddonInterface $addon)
+    public function __construct(TransactionInterface $transaction, PaymentMethodsInterface $paymentMethod, AddonInterface $addon, ShiftLogInterface $shiftLog)
     {
         $this->transaction = $transaction;
         $this->paymentMethod = $paymentMethod;
         $this->addon = $addon;
+        $this->shiftLog = $shiftLog;
     }
 
     public function list_billing(Request $request)
     {
+        $checking = $this->shiftLog->validation_open_shift();
+
         if ($request->ajax()) {
             return datatables()
                     ->of($this->transaction->list_billing())
@@ -59,7 +65,11 @@ class TransactionController extends Controller
                     ->make(true);
         }
 
-        return view('front-office.transaction.index');
+        if ($checking != null) {
+            return view('front-office.transaction.index');
+        } else {
+            return redirect()->route('front-office.shift-log.open-shift')->with('error', "Anda Harus Buka Sesi Terlebih Dahulu!");
+        }
     }
 
     public function payment($transaction)
@@ -101,11 +111,16 @@ class TransactionController extends Controller
             $updateTransaction->payment_method_id = $request->transaction_payment_method_id;
             $updateTransaction->cashier_id = auth()->user()->id;
             $updateTransaction->ppn_status = $request->transaction_ppn_status;
+            $updateTransaction->deposit = $request->transaction_deposit;
             $updateTransaction->total = $request->transaction_total;
             $updateTransaction->discount = $request->transaction_discount;
             $updateTransaction->total_ppn = $request->transaction_total_ppn;
             $updateTransaction->grand_total = $request->transaction_grand_total;
             $updateTransaction->save();
+
+            $updateReservation = Reservations::find($updateTransaction->examination->reservation->id);
+            $updateReservation->status = "Done";
+            $updateReservation->save();
             DB::commit();
 
             return redirect()->route('front-office.transaction.list-transaction')->with('success', 'Berhasil melakukan transaksi');
@@ -155,6 +170,8 @@ class TransactionController extends Controller
 
     public function list_transaction(Request $request)
     {
+        $checking = $this->shiftLog->validation_open_shift();
+
         if ($request->ajax()) {
             return datatables()
                     ->of($this->transaction->list_transaction())
@@ -183,7 +200,11 @@ class TransactionController extends Controller
                     ->make(true);
         }
 
-        return view('front-office.transaction.transaction');
+        if ($checking != null) {
+            return view('front-office.transaction.transaction');
+        } else {
+            return redirect()->route('front-office.shift-log.open-shift')->with('error', "Anda Harus Buka Sesi Terlebih Dahulu!");
+        }
     }
 
     public function detail_transaction($transaction)

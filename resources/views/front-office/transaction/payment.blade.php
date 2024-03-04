@@ -274,18 +274,21 @@
                         </select>
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_total" label="Total" name="transaction_total" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total'), 0, ',', '.') }}" required />
+                        <x-input id="deposit" label="Deposit" name="transaction_deposit" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailTransaction->examination->reservation->deposit, 0, ',', '.') }}" required />
+                    </div>
+                    <div class="pt-3">
+                        <x-input id="transaction_total" label="Total" name="transaction_total" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total')+$detailTransaction->examination->reservation->deposit, 0, ',', '.') }}" required />
                     </div>
                     <div class="pt-3">
                         <x-input id="transaction_discount" label="Diskon" name="transaction_discount" type="text" placeholder="Rp." value="Rp. {{ number_format($totalDiscountTreatment+$totalDiscountItem, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
                         {{-- <x-input id="transaction_total_ppn" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." value="Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100)), 0, ',', '.') }}" readonly="readonly" required /> --}}
-                        <x-input id="transaction_total_ppn" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." readonly="readonly" required />
+                        <x-input id="transaction_total_ppn" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." value="Rp. 0" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
                         {{-- <x-input id="transaction_grand_total" label="Grand Total" name="transaction_grand_total" type="text" placeholder="Rp." value="Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}" readonly="readonly" required /> --}}
-                        <x-input id="transaction_grand_total" label="Grand Total" name="transaction_grand_total" type="text" placeholder="Rp." readonly="readonly" required />
+                        <x-input id="transaction_grand_total" label="Grand Total" name="transaction_grand_total" type="text" placeholder="Rp." value="Rp. {{ number_format((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total')+$detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="mt-6 text-right">
                         <x-button type="submit">Proses Pembayaran</x-button>
@@ -340,10 +343,10 @@
                     var selectedValue = statusPpnSelect.value;
                     if (selectedValue === 'Without') {
                         transactionTotalPpnInput.value = 'Rp. 0';
-                        transactionGrandTotalInput.value = 'Rp. {{ number_format((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
+                        transactionGrandTotalInput.value = 'Rp. {{ number_format((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total')+$detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
                     } else {
-                        transactionTotalPpnInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100)), 0, ',', '.') }}';
-                        transactionGrandTotalInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
+                        transactionTotalPpnInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total')+$detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100)), 0, ',', '.') }}';
+                        transactionGrandTotalInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total')+$detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total')+$detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
                     }
                 });
 

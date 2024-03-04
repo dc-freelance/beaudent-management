@@ -81,7 +81,8 @@ class ShiftLogController extends Controller
 
         try {
             $request->merge([
-                'total_cash_received' => str_replace(['Rp.', '.', ','], '', $request->input('total_cash_received'))
+                'total_cash_received' => str_replace(['Rp.', '.', ','], '', $request->input('total_cash_received')),
+                'total_cash_payment' => str_replace(['Rp.', '.', ','], '', $request->input('total_cash_payment'))
             ]);
             $this->shiftLog->update($id, $request->all());
 
