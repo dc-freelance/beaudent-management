@@ -18,7 +18,6 @@
                                 id="doctor_id"
                                 name="doctor_id[]"
                                 class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-                                multiple
                                 >
                                 @foreach ($doctor as $item)
                                     <option value="{{ $item->id }}"
