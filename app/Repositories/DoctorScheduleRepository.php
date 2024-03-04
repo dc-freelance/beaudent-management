@@ -16,7 +16,7 @@ class DoctorScheduleRepository implements DoctorScheduleInterface
 
     public function get()
     {
-        return $this->doctorSchedule->with('doctor', 'branch')->get();
+        return $this->doctorSchedule->with('doctor', 'branch')->orderBy('created_at','desc')->get();
     }
 
     public function getById($id)
@@ -39,14 +39,16 @@ class DoctorScheduleRepository implements DoctorScheduleInterface
         $insertData   = [];
 
         for ($i = 0; $i < $lengthDoctor; $i++) {
-            $insertData[] = [
-                'doctor_id'  => $data['doctor_id'][$i],
-                'branch_id'  => $data['branch_id'],
-                'date'       => $data['date'],
-                'shift'      => $data['shift'],
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
+            if ($data['doctor_id'][$i] != 'all') {
+                $insertData[] = [
+                    'doctor_id'  => $data['doctor_id'][$i],
+                    'branch_id'  => $data['branch_id'],
+                    'date'       => $data['date'],
+                    'shift'      => $data['shift'],
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
         }
         return $this->doctorSchedule->insert($insertData);
     }

@@ -13,7 +13,9 @@
                     <div>
                         <p>Pilih Dokter</p>
                         <div class="mt-1">
-                            <x-select id="doctor_id" name="doctor_id[]"
+                            <x-select
+                                id="doctor_id"
+                                name="doctor_id[]"
                                 class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                                 multiple>
                                 @foreach ($doctor as $item)
@@ -44,9 +46,10 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
-                    <x-button type="submit">Tambah Jadwal Dokter</x-button>
+
+                    <div class="max-md:w-full md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
+                        <x-button type="submit">Tambah Jadwal Dokter</x-button>
+                    </div>
                 </div>
             </form>
         </x-card-container>
