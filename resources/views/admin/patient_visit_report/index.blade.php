@@ -79,6 +79,10 @@
                             autoWidth: false,
                             responsive: true,
                         });
+                        return false;
+                    },
+                    complete: function() {
+                        return false;
                     }
                 });
             });
