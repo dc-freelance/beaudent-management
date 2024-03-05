@@ -28,111 +28,12 @@
             </div>
         </div>
     </x-card-container>
-    <x-card-container>
-        <table id="incomeReportTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Kode</th>
-                    <th>Tanggal</th>
-                    <th>Cabang</th>
-                    <th>Pasien</th>
-                    <th>Metode Pembayaran</th>
-                    <th>Total</th>
-                    <th>Diskon</th>
-                    <th>Total PPN</th>
-                    <th>Grand Total</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th colspan="9" class="text-right">
-                        Total Pemasukan
-                    </th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-    </x-card-container>
+
+    <div id="container">
+    </div>
 
     @push('js-internal')
         <script>
-            $(function() {
-                $('#incomeReportTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    autoWidth: false,
-                    responsive: true,
-                    ajax: '{{ route('admin.income-report.general') }}',
-                    columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
-                            data: 'code',
-                            name: 'code'
-                        },
-                        {
-                            data: 'created_at',
-                            name: 'created_at'
-                        },
-                        {
-                            data: 'branch',
-                            name: 'branch'
-                        },
-                        {
-                            data: 'patient',
-                            name: 'patient'
-                        },
-                        {
-                            data: 'payment_method',
-                            name: 'payment_method'
-                        },
-                        {
-                            data: 'total',
-                            name: 'total'
-                        },
-                        {
-                            data: 'discount',
-                            name: 'discount'
-                        },
-                        {
-                            data: 'total_ppn',
-                            name: 'total_ppn'
-                        },
-                        {
-                            data: 'grand_total',
-                            name: 'grand_total'
-                        },
-                    ],
-                    footerCallback: function(row, data, start, end, display) {
-                        var api = this.api(),
-                            data;
-
-                        // Remove the formatting to get integer data for summation
-                        var intVal = function(i) {
-                            return typeof i === 'string' ?
-                                i.replace(/[\$.]/g, '') * 1 :
-                                typeof i === 'number' ?
-                                i : 0;
-                        };
-
-                        // Total over all pages
-                        total = api
-                            .column(9)
-                            .data()
-                            .reduce(function(a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0);
-
-                        // Update footer
-                        $(api.column(9).footer()).html(
-                            new Intl.NumberFormat(['ban', 'id']).format(total)
-                        );
-                    }
-                });
-            });
-
             let startDate = null;
             let endDate = null;
             let branchId = null;
@@ -147,21 +48,37 @@
                     branchId = '{{ auth()->user()->branch_id }}';
                 @endrole
 
-                if (startDate != '') {
-                    if (endDate == '') {
-                        Swal.fire('Error', 'Tanggal akhir harus diisi', 'error');
+                if (startDate == '' || endDate == '') {
+                    Swal.fire('Error', 'Tanggal awal dan tanggal akhir harus diisi', 'error');
+                    return false;
+                } else {
+                    if (Date.parse(startDate) > Date.parse(endDate)) {
+                        Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
                         return false;
-                    } else {
-                        if (startDate > endDate) {
-                            Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
-                            return false;
-                        }
                     }
                 }
 
-                $('#incomeReportTable').DataTable().ajax.url(
-                    `{{ route('admin.income-report.general') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`
-                ).load();
+                $.ajax({
+                    url: `{{ route('admin.income-report.general') }}`,
+                    type: 'GET',
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+                        branch_id: branchId
+                    },
+                    success: function(response) {
+                        $('#container').html(response);
+                        $('#incomeReportTable').DataTable({
+                            responsive: true,
+                            processing: true,
+                            autoWidth: false,
+                        });
+                        return false;
+                    },
+                    complete: function() {
+                        return false;
+                    }
+                });
             });
 
             $('#buttonExport').on('click', function(e) {
@@ -169,20 +86,19 @@
                 startDate = $('#start_date').val();
                 endDate = $('#end_date').val();
                 branchId = $('#branch_id').val();
+                console.log(startDate, endDate, branchId);
 
                 @role('admin_cabang')
                     branchId = '{{ auth()->user()->branch_id }}';
                 @endrole
 
-                if (startDate != '') {
-                    if (endDate == '') {
-                        Swal.fire('Error', 'Tanggal akhir harus diisi', 'error');
+                if (startDate == '' || endDate == '') {
+                    Swal.fire('Error', 'Tanggal awal dan tanggal akhir harus diisi', 'error');
+                    return false;
+                } else {
+                    if (Date.parse(startDate) > Date.parse(endDate)) {
+                        Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
                         return false;
-                    } else {
-                        if (Date.parse(startDate) > Date.parse(endDate)) {
-                            Swal.fire('Error', 'Tanggal awal harus lebih kecil dari tanggal akhir', 'error');
-                            return false;
-                        }
                     }
                 }
 

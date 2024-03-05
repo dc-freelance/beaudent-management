@@ -29,38 +29,9 @@ class IncomeReportController extends Controller
         if (auth()->user()->hasRole('admin_cabang')) {
             $results = $results->where('branch_id', auth()->user()->branch_id);
         }
+
         if ($request->ajax()) {
-            return datatables()
-                ->of($results)
-                ->addColumn('code', function ($data) {
-                    return $data->code;
-                })
-                ->addColumn('created_at', function ($data) {
-                    return date('Y-m-d', strtotime($data->date_time));
-                })
-                ->addColumn('branch', function ($data) {
-                    return $data->branch->name;
-                })
-                ->addColumn('patient', function ($data) {
-                    return $data->customer->name;
-                })
-                ->addColumn('payment_method', function ($data) {
-                    return $data->payment_method->name;
-                })
-                ->addColumn('total', function ($data) {
-                    return number_format($data->total, 0, ',', '.');
-                })
-                ->addColumn('discount', function ($data) {
-                    return number_format($data->discount, 0, ',', '.');
-                })
-                ->addColumn('total_ppn', function ($data) {
-                    return number_format($data->total_ppn, 0, ',', '.');
-                })
-                ->addColumn('grand_total', function ($data) {
-                    return number_format($data->grand_total, 0, ',', '.');
-                })
-                ->addIndexColumn()
-                ->make(true);
+            return view('admin.income_report.tables.general', compact('results'))->render();
         }
 
         $branches = $this->branch->get();
@@ -88,37 +59,7 @@ class IncomeReportController extends Controller
         }
 
         if ($request->ajax()) {
-            return datatables()
-                ->of($results)
-                ->addColumn('transaction_code', function ($data) {
-                    return $data['transaction_code'];
-                })
-                ->addColumn('transaction_date', function ($data) {
-                    return $data['transaction_date'];
-                })
-                ->addColumn('branch', function ($data) {
-                    return $data['branch'];
-                })
-                ->addColumn('patient', function ($data) {
-                    return $data['patient'];
-                })
-                ->addColumn('doctor', function ($data) {
-                    return $data['doctor'];
-                })
-                ->addColumn('treatment', function ($data) {
-                    return $data['treatments'];
-                })
-                ->addColumn('total_fee_treatment', function ($data) {
-                    return number_format($data['total_fee_treatment'], 0, ',', '.');
-                })
-                ->addColumn('total_fee_addon', function ($data) {
-                    return number_format($data['total_fee_addon'], 0, ',', '.');
-                })
-                ->addColumn('total_fee', function ($data) {
-                    return number_format($data['total_fee'], 0, ',', '.');
-                })
-                ->addIndexColumn()
-                ->make(true);
+            return view('admin.income_report.tables.doctor', compact('results'))->render();
         }
 
         $branches = $this->branch->get();

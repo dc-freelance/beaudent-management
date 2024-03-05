@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-breadcrumb :links="[['name' => 'Dashboard', 'url' => route('admin.dashboard.index')], ['name' => 'Laporan Shift']]" title="Laporan Shift" />
     <x-card-container>
-        <div class="grid grid-cols-4 lg:grid-cols-2 gap-4 items-end">
+        <div class="grid grid-cols-4 lg:grid-cols-4 gap-4 items-end">
             <x-input id="start_date" label="Tanggal Awal" type="date" name="start_date" />
             <x-input id="end_date" label="Tanggal Akhir" type="date" name="end_date" />
             @hasrole(['admin_pusat'])
@@ -30,58 +30,10 @@
             </div>
         </div>
     </x-card-container>
-    <x-card-container>
-        <table id="incomeReportTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Shift</th>
-                    <th>Cabang</th>
-                    <th>User</th>
-                    <th>Uang cash yang diterima</th>
-                </tr>
-            </thead>
-        </table>
-    </x-card-container>
+    <div id="container"></div>
 
     @push('js-internal')
         <script>
-            $(function() {
-                $('#incomeReportTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    autoWidth: false,
-                    responsive: true,
-                    ajax: '{{ route('admin.shift_report.general') }}',
-                    columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
-                            data: 'tanggal',
-                            name: 'tanggal'
-                        },
-                        {
-                            data: 'shift',
-                            name: 'shift'
-                        },
-                        {
-                            data: 'cabang',
-                            name: 'cabang'
-                        },
-                        {
-                            data: 'user',
-                            name: 'user'
-                        },
-                        {
-                            data: 'sub_total',
-                            name: 'sub_total'
-                        },
-                    ],
-                });
-            });
-
             let startDate = null;
             let endDate = null;
             let branchId = null;
@@ -108,9 +60,23 @@
                     }
                 }
 
-                $('#incomeReportTable').DataTable().ajax.url(
-                    `{{ route('admin.shift_report.general') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`
-                ).load();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.shift_report.general') }}",
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+                        branch_id: branchId
+                    },
+                    success: function(response) {
+                        $('#container').html(response);
+                        $('#shiftReportTable').DataTable({
+                            processing: true,
+                            responsive: true,
+                            autoWidth: false,
+                        });
+                    }
+                });
             });
 
             $('#buttonExport').on('click', function(e) {

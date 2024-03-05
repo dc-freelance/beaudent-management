@@ -91,10 +91,12 @@
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Nama Akun Bank</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->customer_bank_account_name }}</td>
                 </tr>
-                <tr>
-                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Transfer</th>
-                    <td class="border px-8 py-4 w-3/4">{{ $data->tanggal_transfer_text }}</td>
-                </tr>
+                @if ($data->status !== 'Pending')
+                    <tr>
+                        <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Tanggal Transfer</th>
+                        <td class="border px-8 py-4 w-3/4">{{ $data->tanggal_transfer_text }}</td>
+                    </tr>
+                @endif
                 @if ($data->reasons !== null)
                     <tr>
                         <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Alasan Penjadwalan Ulang</th>

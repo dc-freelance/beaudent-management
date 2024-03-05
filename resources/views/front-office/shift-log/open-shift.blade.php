@@ -10,16 +10,17 @@
                         <div>
                             <p>Sesi :</p>
                             <div class="mt-2">
-                                <select id="shift_id" name="shift_id"
+                                <select id="shifts" name="shifts" disabled
                                     class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                                     @foreach ($configShift as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} -
+                                        <option value="{{ $item->id }}" {{ checkSession()->id == $item->id ? 'selected' : '' }} >{{ $item->name }} -
                                             ({{ $item->start_time }} - {{ $item->end_time }})
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        <x-input id="shift_id" type="hidden" name="shift_id" value="{{ checkSession()->id }}" readonly="readonly" />
                         <x-input id="user" label="Pengguna Aktif" name="user"
                             value="{{ auth()->user()->name }} - {{ auth()->user()->branch ? '(' . auth()->user()->branch->code . ' - ' . auth()->user()->branch->name . ')' : ' (Cabang Tidak Ditemukan)' }}"
                             readonly="readonly" />

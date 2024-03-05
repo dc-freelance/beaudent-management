@@ -30,13 +30,13 @@ class DoctorScheduleController extends Controller
             return datatables()
                 ->of($datas)
                 ->addColumn('doctor', function ($data) {
-                    return $data->doctor->name;
+                    return $data->doctor ? $data->doctor->name : '-';
                 })
                 ->addColumn('branch', function ($data) {
-                    return $data->branch->name;
+                    return $data->branch ? $data->branch->name : '-';
                 })
                 ->addColumn('date', function ($data) {
-                    return Carbon::parse($data->date)->locale('id')->isoFormat('LL');
+                    return Carbon::parse($data->date)->format('Y-m-d');
                 })
                 ->addColumn('shift', function ($data) {
                     return $data->shift;

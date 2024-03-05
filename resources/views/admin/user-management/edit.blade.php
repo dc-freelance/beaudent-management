@@ -24,17 +24,17 @@
                         <div class="flex flex-wrap gap-6 mt-6">
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="pusat" value="P"
-                                    {{ $data->branch_id == null ? 'checked' : '' }} class="radio radio-primary">
+                                    {{ $data->branch_id == 1 ? 'checked' : '' }} class="radio radio-primary">
                                 <label for="pusat">Pusat</label>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <input type="radio" name="branch_type" id="cabang" value="C"
-                                    {{ $data->branch_id !== null ? 'checked' : '' }} class="radio radio-primary">
+                                    {{ $data->branch_id !== 1 ? 'checked' : '' }} class="radio radio-primary">
                                 <label for="cabang">Cabang</label>
                             </div>
                         </div>
                     </div>
-                    <div class="{{ $data->branch_id == null ? 'hidden' : '' }}">
+                    <div class="{{ $data->branch_id == 1 ? 'hidden' : '' }}">
                         <label for="branch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Daftar Cabang
                         </label>
