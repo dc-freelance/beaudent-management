@@ -18,23 +18,23 @@ class PatientVisitReportRepository implements PatientVisitReportInterface
     public function getGeneral()
     {
         $results = $this->transaction
-                    ->with('branch','customer')
-                    ->select(
-                        'transactions.customer_id',
-                        DB::raw('COUNT(transactions.id) as total_data'),
-                    )
-                    ->when(request()->filled('start_date') && request()->filled('end_date'), function ($query) {
-                        $query->whereBetween('date_time', [request('start_date'), request('end_date')]);
-                    })
-                    ->when(request()->filled('branch_id'), function ($query) {
-                        if (request('branch_id') != 'all') {
-                            $query->whereRelation('branch', 'id', request('branch_id'));
-                        }
-                    })
-                    ->where('is_paid', 1)
-                    ->groupBy('transactions.customer_id')
-                    ->orderBy('total_data', 'DESC')
-                    ->get();
+            ->with('branch', 'customer')
+            ->when(request()->filled('start_date') && request()->filled('end_date'), function ($query) {
+                $query->whereBetween('date_time', [request('start_date'), request('end_date')]);
+            })
+            ->when(request()->filled('branch_id'), function ($query) {
+                if (request('branch_id') != 'all') {
+                    $query->whereRelation('branch', 'id', request('branch_id'));
+                }
+            })
+            ->where('is_paid', 1)
+            ->groupBy('transactions.customer_id')
+            ->get();
+
+        $results->map(function ($item) {
+            $item->total_data = $item->where('customer_id', $item->customer_id)->count();
+            return $item;
+        });
         return $results;
     }
 

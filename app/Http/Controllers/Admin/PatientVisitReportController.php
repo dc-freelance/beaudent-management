@@ -9,6 +9,8 @@ use App\Interfaces\BranchInterface;
 use App\Interfaces\PatientVisitReportInterface;
 use Illuminate\Http\Request;
 
+use function Ramsey\Uuid\v1;
+
 class PatientVisitReportController extends Controller
 {
     private $patientVisitReport;
@@ -24,25 +26,10 @@ class PatientVisitReportController extends Controller
     {
         $results = $this->patientVisitReport->getGeneral();
         if ($request->ajax()) {
-            return datatables()
-                ->of($results)
-                ->addColumn('name', function ($data) {
-                    return $data->customer->name;
-                })
-                ->addColumn('phone_number', function ($data) {
-                    return $data->customer->phone_number;
-                })
-                ->addColumn('email', function ($data) {
-                    return $data->customer->email;
-                })
-                ->addColumn('total_data', function ($data) {
-                    return $data->total_data;
-                })
-                ->addIndexColumn()
-                ->make(true);
+            return view('admin.patient_visit_report.table.patient-visit', compact('results'));
         }
 
-        $branches = $this->branch->get();
+        $branches = $this->branch->get()->where('code', '!=', 'PST');
         return view('admin.patient_visit_report.index', compact('branches'));
     }
 
