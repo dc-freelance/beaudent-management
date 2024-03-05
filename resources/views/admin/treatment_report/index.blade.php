@@ -30,49 +30,11 @@
             </div>
         </div>
     </x-card-container>
-    <x-card-container>
-        <table id="treatmentReportTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Layanan</th>
-                    <th>Jumlah Transaksi</th>
-                    <th>Total Transaksi</th>
-                </tr>
-            </thead>
-        </table>
-    </x-card-container>
+
+    <div id="container"></div>
 
     @push('js-internal')
         <script>
-            $(function() {
-                $('#treatmentReportTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    autoWidth: false,
-                    responsive: true,
-                    ajax: '{{ route('admin.treatment-report.general') }}',
-                    columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        },
-                        {
-                            data: 'treatment',
-                            name: 'treatment'
-                        },
-                        {
-                            data: 'jumlah',
-                            name: 'jumlah'
-                        },
-                        {
-                            data: 'total',
-                            name: 'total'
-                        },
-
-                    ],
-                });
-            });
-
             let startDate = null;
             let endDate = null;
             let branchId = null;
@@ -99,9 +61,23 @@
                     }
                 }
 
-                $('#treatmentReportTable').DataTable().ajax.url(
-                    `{{ route('admin.treatment-report.general') }}?start_date=${startDate}&end_date=${endDate}&branch_id=${branchId}`
-                ).load();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.treatment-report.general') }}",
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+                        branch_id: branchId
+                    },
+                    success: function(response) {
+                        $('#container').html(response);
+                        $('#treatmentReportTable').DataTable({
+                            responsive: true,
+                            autoWidth: false,
+                            processing: true,
+                        });
+                    }
+                });
             });
 
             $('#buttonExport').on('click', function(e) {

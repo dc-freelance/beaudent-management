@@ -22,25 +22,7 @@ class ShiftReportController extends Controller
     {
         $results = $this->shiftReport->getGeneral();
         if ($request->ajax()) {
-            return datatables()
-                ->of($results)
-                ->addColumn('tanggal', function ($data) {
-                    return date('Y-m-d', strtotime($data->tanggal));
-                })
-                ->addColumn('shift', function ($data) {
-                    return $data->config_shift->name;
-                })
-                ->addColumn('user', function ($data) {
-                    return $data->user->name;
-                })
-                ->addColumn('cabang', function ($data) {
-                    return $data->branch->name;
-                })
-                ->addColumn('sub_total', function ($data) {
-                    return number_format($data->sub_total, 0, ',', '.');
-                })
-                ->addIndexColumn()
-                ->make(true);
+            return view('admin.shift_report.table.shift_report', compact('results'))->render();
         }
 
         $branches = $this->branch->get();
