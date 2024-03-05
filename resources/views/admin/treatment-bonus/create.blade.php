@@ -5,29 +5,31 @@
         ['name' => 'Tambah', 'url' => ''],
     ]" title="Tambah" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
-            <form action="{{ route('admin.treatment-bonus.store') }}" method="POST" class="space-y-6">
+            <form action="{{ route('admin.treatment-bonus.store') }}" method="POST" class="">
                 @csrf
-                <x-select id="treatment_id" label="Layanan" name="treatment_id" required>
-                    <option value="" selected disabled>Pilih Layanan</option>
-                    @foreach ($treatments as $treatment)
-                        <option value="{{ $treatment->id }}">{{ $treatment->name }}</option>
-                    @endforeach
-                </x-select>
-                <x-select id="doctor_category_id" name="doctor_category_id" label="Kategori Dokter" required>
-                    <option value="" selected disabled>Pilih Kategori Dokter</option>
-                    @foreach ($doctorCategories as $doctorCategory)
-                        <option value="{{ $doctorCategory->id }}">{{ $doctorCategory->name }}</option>
-                    @endforeach
-                </x-select>
-                <x-select id="bonus_type" name="bonus_type" label="Tipe Bonus" required>
-                    <option value="" selected disabled>Pilih Tipe Bonus</option>
-                    <option value="percentage">Persentase</option>
-                    <option value="nominal">Nominal</option>
-                </x-select>
-                <x-input id="bonus_rate" name="bonus_rate" type="text" label="Bonus" />
-                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/2 xl:w-1/2 pt-5">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
+                    <x-select id="treatment_id" label="Layanan" name="treatment_id" required>
+                        <option value="" selected disabled>Pilih Layanan</option>
+                        @foreach ($treatments as $treatment)
+                            <option value="{{ $treatment->id }}">{{ $treatment->name }}</option>
+                        @endforeach
+                    </x-select>
+                    <x-select id="doctor_category_id" name="doctor_category_id" label="Kategori Dokter" required>
+                        <option value="" selected disabled>Pilih Kategori Dokter</option>
+                        @foreach ($doctorCategories as $doctorCategory)
+                            <option value="{{ $doctorCategory->id }}">{{ $doctorCategory->name }}</option>
+                        @endforeach
+                    </x-select>
+                    <x-select id="bonus_type" name="bonus_type" label="Tipe Bonus" required>
+                        <option value="" selected disabled>Pilih Tipe Bonus</option>
+                        <option value="percentage">Persentase</option>
+                        <option value="nominal">Nominal</option>
+                    </x-select>
+                    <x-input id="bonus_rate" name="bonus_rate" type="text" label="Bonus" />
+                </div>
+                <div class="mt-5">
                     <x-button type="submit">Tambah Bonus Layanan</x-button>
                 </div>
             </form>

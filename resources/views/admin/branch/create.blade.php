@@ -5,11 +5,11 @@
         ['name' => 'Tambah Cabang', 'url' => ''],
     ]" title="Tambah Cabang" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.branch.store') }}" method="POST">
                 @csrf
-                <div class="space-y-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="code" label="Kode Cabang" name="code" value="{{ $generate_code }}"
                         readonly="readonly" required />
                     <x-input id="name" label="Nama Cabang" name="name" required />

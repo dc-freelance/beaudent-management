@@ -5,12 +5,12 @@
         ['name' => 'Ubah Cabang', 'url' => ''],
     ]" title="Ubah Cabang" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.branch.update', $data->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="space-y-6">
+                <<div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="code" label="Kode Cabang" name="code" value="{{ $data->code }}"
                         readonly="readonly" required />
                     <x-input id="name" label="Nama Cabang" name="name" value="{{ $data->name }}" required />

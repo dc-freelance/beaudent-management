@@ -5,11 +5,11 @@
         ['name' => 'Tambah Barang', 'url' => ''],
     ]" title="Tambah Barang" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.item.store') }}" method="POST">
                 @csrf
-                <div class="space-y-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="name" label="Nama Barang" name="name" required />
                     <div>
                         <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

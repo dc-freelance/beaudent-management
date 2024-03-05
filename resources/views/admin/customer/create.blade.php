@@ -77,7 +77,7 @@
                     <x-input id="source_of_information" label="Informasi Lainnya" name="source_of_information"
                         value="{{ old('source_of_information') }}" type="text" required />
                 </div>
-                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/6 xl:w-1/6 ml-auto pt-5">
+                <div class="mt-5">
                     <x-button type="submit">Tambah Pasien</x-button>
                 </div>
             </form>

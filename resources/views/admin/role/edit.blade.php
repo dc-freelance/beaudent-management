@@ -29,7 +29,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="max-md:w-1/2 md:w-1/2 lg:w-1/6 xl:w-1/6 pt-5 ml-auto">
+                    <div class="">
                         <x-button type="submit" class="mt-6">Ubah Hak Akses</x-button>
                     </div>
                 </div>

@@ -5,11 +5,11 @@
         ['name' => 'Tambah Layanan Tambahan', 'url' => ''],
     ]" title="Tambah Layanan Tambahan" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.addon.store') }}" method="POST">
                 @csrf
-                <div class="space-y-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="name" label="Nama Layanan Tambahan" name="name" required />
                     <x-input id="price" label="Harga" name="price" type="text" placeholder="Rp." required />
                     <x-input id="fee_percentage" label="Persentase Biaya (%)" type="number" name="fee_percentage"

@@ -71,6 +71,10 @@ div:where(.swal2-container) .swal2-html-container {
 
 /* SELECT 2 */
 
+.select2:where(.select2-container) {
+    @apply w-full;
+}
+
 .select2-container--default .select2-selection--single {
     @apply bg-gray-50 border border-gray-300 rounded-md shadow-none;
 }

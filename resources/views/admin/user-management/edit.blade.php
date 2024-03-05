@@ -5,18 +5,18 @@
         ['name' => 'Ubah', 'url' => '#'],
     ]" title="Ubah Pengguna" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.user-management.update', $data->id) }}" method="post">
                 @csrf
                 @method('PUT')
-                <div class="space-y-6 mb-6">
+                <div class="gap-5 mb-8 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
-                    <div class="grid grid-cols-2 gap-3">
+                    
                         <x-input id="email" label="Email" name="email" required value="{{ $data->email }}" />
                         <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required
                             value="{{ $data->phone_number }}" />
-                    </div>
+              
                     <x-input id="join_date" label="Tanggal Bergabung" name="join_date" type="date" required
                         value="{{ $data->join_date }}" />
                     <div>
@@ -63,7 +63,7 @@
                             @endforeach
                         </div>
                     </div> --}}
-                    <div>
+                    <div class="col-span-2">
                         <p>Hak Akses</p>
                         <div class="flex flex-wrap gap-6 mt-6">
                             <select id="roles"
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="max-md:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 pt-5">
+                <div class="">
                     <x-button type="submit" class="mt-6">Simpan Perubahan</x-button>
                 </div>
             </form>

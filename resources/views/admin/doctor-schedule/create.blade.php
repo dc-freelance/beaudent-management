@@ -5,11 +5,11 @@
         ['name' => 'Tambah Jadwal Dokter', 'url' => ''],
     ]" title="Tambah Jadwal Dokter" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.doctor-schedule.store') }}" method="POST">
                 @csrf
-                <div class="space-y-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <div>
                         <p>Pilih Dokter</p>
                         <div class="mt-1">

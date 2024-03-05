@@ -5,11 +5,11 @@
         ['name' => 'Tambah Diskon Layanan', 'url' => ''],
     ]" title="Tambah Diskon" />
 
-    <div class="lg:w-1/2">
+    <div class="">
         <x-card-container>
             <form action="{{ route('admin.discount_treatment.store') }}" method="POST">
                 @csrf
-                <div class="space-y-6">
+                <div class=" grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-select id="discount_id" label="Nama Diskon" name="discount_id" required>
                         @foreach ($data_discount as $discount)
                             <option value="{{ $discount->id }}">{{ $discount->name }}</option>

@@ -5,12 +5,12 @@
         ['name' => 'Ubah Diskon', 'url' => ''],
     ]" title="Ubah Diskon" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.discount.update', $data->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="space-y-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
                     {{-- <div>
                         <label for="discount_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

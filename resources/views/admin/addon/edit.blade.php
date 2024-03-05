@@ -5,12 +5,12 @@
         ['name' => 'Ubah Layanan Tambahan', 'url' => ''],
     ]" title="Ubah Layanan Tambahan" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.addon.update', $data->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="space-y-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="name" label="Nama Layanan Tambahan" name="name"
                         value="{{ old('name', $data->name) }}" required />
                     <x-input id="price" label="Harga" name="price" type="text"

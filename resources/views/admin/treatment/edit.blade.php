@@ -5,12 +5,13 @@
         ['name' => 'Ubah Layanan', 'url' => ''],
     ]" title="Ubah Layanan" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.treatment.update', $data->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="space-y-6">
+                <div class="space-y-5">
+                    <div class=" grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
                     <x-input id="code" label="Kode" name="code" required value="{{ $data->code }}" />
                     <div>
@@ -28,6 +29,24 @@
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <label for="treatment_categories"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Pilih Kategori Layanan
+                        </label>
+                        <select id="treatment_categories"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            name="treatment_category_id">
+                            @foreach ($treatment_categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $data->treatment_category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->category }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    </div>
+                    <div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
                     <div class="hidden">
                         <label for="parent_list" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Pilih Layanan Utama
@@ -56,28 +75,15 @@
                             <option value="0" {{ $data->is_control == false ? 'selected' : '' }}>Tidak</option>
                         </select>
                     </div>
-                    <div>
-                        <label for="treatment_categories"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Pilih Kategori Layanan
-                        </label>
-                        <select id="treatment_categories"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                            name="treatment_category_id">
-                            @foreach ($treatment_categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ $data->treatment_category_id == $category->id ? 'selected' : '' }}>
-                                    {{ $category->category }}
-                                </option>
-                            @endforeach
-                        </select>
                     </div>
                     <x-input format="nominal" id="price" label="Harga" name="price" type="text" required
                         value="{{ number_format($data->price, 0, ',', '.') }}" />
+                    </div>
+                    <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
+                        <x-button type="submit">Simpan Perubahan</x-button>
+                    </div>
                 </div>
-                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
-                    <x-button type="submit">Simpan Perubahan</x-button>
-                </div>
+          
             </form>
         </x-card-container>
     </div>

@@ -5,26 +5,26 @@
         ['name' => 'Ubah Dokter', 'url' => ''],
     ]" title="Ubah" />
 
-    <div class="lg:w-1/2">
+    <div class="lg:w-full">
         <x-card-container>
             <form action="{{ route('admin.doctor.update', $data->id) }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
-                <x-input id="name" label="Nama Lengkap" name="name" required :value="$data->name" />
-                <x-select id="category_id" label="Kategori" name="category_id" required>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $category->id == $data->category_id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </x-select>
-                <div class="grid grid-cols-2 gap-3">
-                    <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
-                    <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
-                        :value="$data->phone_number" />
+                <div class="grid gap-5 items-center lg:grid-cols-2 grid-cols-1">
+                    <x-input id="name" label="Nama Lengkap" name="name" required :value="$data->name" />
+                    <x-select id="category_id" label="Kategori" name="category_id" required>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ $category->id == $data->category_id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </x-select>
+                        <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
+                        <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
+                            :value="$data->phone_number" />
+                    <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required
+                        :value="$data->join_date" />
                 </div>
-                <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required
-                    :value="$data->join_date" />
                 <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
