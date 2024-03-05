@@ -20,7 +20,7 @@
                             <option value="{{ $treatment->id }}">{{ $treatment->name }}</option>
                         @endforeach
                     </x-select>
-                    <div>
+                    {{-- <div>
                         <label for="discount_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tipe Diskon
                         </label>
@@ -30,7 +30,11 @@
                             <option value="percentage">Persentase</option>
                             <option value="nominal">Nominal</option>
                         </select>
-                    </div>
+                    </div> --}}
+                    <x-select id="discount_type" label="Tipe Diskon" name="discount_type" required>
+                        <option value="percentage">Persentase</option>
+                        <option value="nominal">Nominal</option>
+                    </x-select>
                     <x-input id="discount" label="Diskon" name="discount" type="text" required />
                 </div>
                 <div class="mt-6">

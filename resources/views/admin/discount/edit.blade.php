@@ -34,7 +34,7 @@
                         :value="$data->start_date" />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required
                         :value="$data->end_date" />
-                    <div>
+                    {{-- <div>
                         <label for="control_list" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Kontrol
                         </label>
@@ -45,7 +45,11 @@
                             <option value="0" {{ $data->is_active == false ? 'selected' : '' }}>Tidak Aktif
                             </option>
                         </select>
-                    </div>
+                    </div> --}}
+                    <x-select id="control_list" label="Status" name="is_active" required>
+                        <option value="1" {{ $data->is_active == true ? 'selected' : '' }}>Aktif</option>
+                        <option value="0" {{ $data->is_active == false ? 'selected' : '' }}>Tidak Aktif</option>
+                    </x-select>
                 </div>
                 <div class="max-md:w-1/2 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>

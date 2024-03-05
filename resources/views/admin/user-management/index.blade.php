@@ -69,6 +69,44 @@
                 });
             }
 
+            function btnReset(_id, _name) {
+                let url = '{{ route('admin.user-management.reset-password', ':id') }}'.replace(':id', _id);
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: `Password ${_name} akan direset ulang!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Reset Ulang!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Password berhasil direset.',
+                                    'success'
+                                ).then(() => {
+                                    $('#userTable').DataTable().ajax.reload(null, false);
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Password gagal direset.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            }
+
             $(function() {
                 $('#userTable').DataTable({
                     processing: true,

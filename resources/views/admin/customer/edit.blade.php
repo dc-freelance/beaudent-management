@@ -19,7 +19,7 @@
                         value="{{ old('place_of_birth', $data->place_of_birth) }}" required />
                     <x-input id="identity_number" label="Nomor Identitas" name="identity_number"
                         value="{{ old('identity_number', $data->identity_number) }}" required />
-                    <div>
+                    {{-- <div>
                         <p>Jenis Kelamin :</p>
                         <div class="mt-2">
                             <select id="gender" name="gender"
@@ -30,7 +30,13 @@
                                 </option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <x-select id="gender" label="Jenis Kelamin" name="gender" required>
+                        <option value="Male" {{ $data->gender == 'Male' ? 'selected' : '' }}>Laki-laki
+                        </option>
+                        <option value="Female" {{ $data->gender == 'Female' ? 'selected' : '' }}>Perempuan
+                        </option>
+                    </x-select>
                     <x-input id="occupation" label="Pekerjaan" name="occupation" type="text"
                         value="{{ old('occupation', $data->occupation) }}" required />
                     <x-input id="address" label="Alamat" name="address" value="{{ old('address', $data->address) }}"
@@ -38,7 +44,7 @@
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number"
                         value="{{ old('phone_number', $data->phone_number) }}" required />
                     {{-- <x-input id="religion" label="Agama" name="religion" type="text" value="{{ old('religion', $data->religion) }}" required /> --}}
-                    <div>
+                    {{-- <div>
                         <p>Agama <span class="text-red-600">*</span></p>
                         <div class="mt-2">
                             <select id="religion" name="religion"
@@ -59,10 +65,26 @@
                                 </option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <x-select id="religion" label="Agama" name="religion" required>
+                        <option {{ $data->religion == 'Islam' ? 'selected' : '' }} value="Islam">Islam
+                        </option>
+                        <option {{ $data->religion == 'Kristen' ? 'selected' : '' }} value="Kristen">Kristen
+                        </option>
+                        <option {{ $data->religion == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu
+                        </option>
+                        <option {{ $data->religion == 'Budha' ? 'selected' : '' }} value="Budha">Budha
+                        </option>
+                        <option {{ $data->religion == 'Katolik' ? 'selected' : '' }} value="Katolik">Katolik
+                        </option>
+                        <option {{ $data->religion == 'Protestan' ? 'selected' : '' }} value="Protestan">
+                            Protestan</option>
+                        <option {{ $data->religion == 'Konghucu' ? 'selected' : '' }} value="Konghucu">Konghucu
+                        </option>
+                    </x-select>
                     <x-input type="email" id="email" label="Surel" name="email" type="text"
                         value="{{ old('email', $data->email) }}" required />
-                    <div>
+                    {{-- <div>
                         <p>Status Pernikahan :</p>
                         <div class="mt-2">
                             <select id="marrital_status" name="marrital_status"
@@ -75,7 +97,15 @@
                                     Cerai</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <x-select id="marrital_status" label="Status Pernikahan" name="marrital_status" required>
+                        <option value="Single" {{ $data->marrital_status == 'Single' ? 'selected' : '' }}>
+                            Lajang</option>
+                        <option value="Married" {{ $data->marrital_status == 'Married' ? 'selected' : '' }}>
+                            Menikah</option>
+                        <option value="Divorved" {{ $data->marrital_status == 'Divorved' ? 'selected' : '' }}>
+                            Cerai</option>
+                    </x-select>
                     <x-input id="instagram" label="Tautan Instagram" name="instagram" type="text"
                         value="{{ old('instagram', $data->instagram) }}" />
                     <x-input id="youtube" label="Tautan YouTube" name="youtube" type="text"

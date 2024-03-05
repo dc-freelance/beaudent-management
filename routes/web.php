@@ -72,6 +72,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('update/{id}', [UserManagementController::class, 'update'])->middleware('permission:update_user')->name('admin.user-management.update');
         Route::delete('delete/{id}', [UserManagementController::class, 'delete'])->middleware('permission:delete_user')->name('admin.user-management.delete');
         Route::put('update-permission/{id}', [UserManagementController::class, 'updatePermission'])->name('admin.user-management.update-permission');
+        Route::get('reset-password/{id}', [UserManagementController::class, 'resetUserPassword'])->name('admin.user-management.reset-password');
     });
 
     // Doctor Category

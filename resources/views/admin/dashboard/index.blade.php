@@ -1095,6 +1095,8 @@
                     $('#select-year').select2();
                 };
             });
+
+            @include('components.flash-message')
         </script>
 
         <!-- Column Chart -->
