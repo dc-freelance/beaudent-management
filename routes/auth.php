@@ -47,7 +47,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::group(['prefix' => 'password'], function () {
+        Route::get('password-update', [PasswordController::class, 'index'])->name('admin.password.index');
+
+        Route::put('password', [PasswordController::class, 'update'])->name('admin.password.update');
+    });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');

@@ -25,17 +25,21 @@
                     <x-input id="discount" label="Diskon" name="discount" type="text" required /> --}}
                     <x-input id="start_date" label="Awal Periode Diskon" name="start_date" type="date" required />
                     <x-input id="end_date" label="Akhir Periode Diskon" name="end_date" type="date" required />
-                    <div>
+                    {{-- <div>
                         <label for="control_list" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Status
                         </label>
                         <select id="control_list"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select"
                             name="is_active">
                             <option value="1">Aktif</option>
                             <option value="0">Tidak Aktif</option>
                         </select>
-                    </div>
+                    </div> --}}
+                    <x-select id="control_list" label="Status" name="is_active" required>
+                        <option value="1">Aktif</option>
+                        <option value="0">Tidak Aktif</option>
+                    </x-select>
                 </div>
                 <div class="max-md:w-1/2 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Tambah Diskon</x-button>

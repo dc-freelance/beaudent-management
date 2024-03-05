@@ -17,27 +17,33 @@
                         value="{{ old('place_of_birth') }}" required />
                     <x-input id="identity_number" label="Nomor Identitas" name="identity_number"
                         value="{{ old('identity_number') }}" required />
-                    <div>
+                    {{-- <div>
                         <p>Jenis Kelamin :</p>
                         <div class="mt-2">
                             <select id="gender" name="gender"
-                                class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md select-input">
                                 <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
                                 </option>
                                 <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">Perempuan
                                 </option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <x-select id="gender" label="Jenis Kelamin" name="gender" required>
+                        <option {{ old('gender') == 'Male' ? 'selected' : '' }} value="Male">Laki-laki
+                        </option>
+                        <option {{ old('gender') == 'Female' ? 'selected' : '' }} value="Female">Perempuan
+                        </option>
+                    </x-select>
                     <x-input id="occupation" label="Pekerjaan" name="occupation" type="text" required />
                     <x-input id="address" label="Alamat" name="address" required />
                     <x-input id="phone_number" label="Nomor Telepon" name="phone_number" type="number" required />
                     {{-- <x-input id="religion" label="Agama" name="religion" type="text" required /> --}}
-                    <div>
+                    {{-- <div>
                         <p>Agama <span class="text-red-600">*</span></p>
                         <div class="mt-2">
                             <select id="religion" name="religion"
-                                class="py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                class="py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md select-input">
                                 <option {{ old('religion') == 'Islam' ? 'selected' : '' }} value="Islam">Islam</option>
                                 <option {{ old('religion') == 'Kristen' ? 'selected' : '' }} value="Kristen">Kristen
                                 </option>
@@ -52,13 +58,27 @@
                                 </option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <x-select id="religion" label="Agama" name="religion" required>
+                        <option {{ old('religion') == 'Islam' ? 'selected' : '' }} value="Islam">Islam</option>
+                        <option {{ old('religion') == 'Kristen' ? 'selected' : '' }} value="Kristen">Kristen
+                        </option>
+                        <option {{ old('religion') == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu</option>
+                        <option {{ old('religion') == 'Budha' ? 'selected' : '' }} value="Budha">Budha
+                        </option>
+                        <option {{ old('religion') == 'Katolik' ? 'selected' : '' }} value="Katolik">Katolik
+                        </option>
+                        <option {{ old('religion') == 'Protestan' ? 'selected' : '' }} value="Protestan">
+                            Protestan</option>
+                        <option {{ old('religion') == 'Konghucu' ? 'selected' : '' }} value="Konghucu">Konghucu
+                        </option>
+                    </x-select>
                     <x-input type="email" id="email" label="Surel" name="email" type="text" required />
-                    <div>
+                    {{-- <div>
                         <p>Status Pernikahan :</p>
                         <div class="mt-2">
                             <select id="marrital_status" name="marrital_status"
-                                class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md select-input">
                                 <option {{ old('marrital_status') == 'Single' ? 'selected' : '' }} value="Single">
                                     Lajang</option>
                                 <option {{ old('marrital_status') == 'Married' ? 'selected' : '' }} value="Married">
@@ -67,7 +87,15 @@
                                     Cerai</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <x-select id="marrital_status" label="Status Pernikahan" name="marrital_status" required>
+                        <option {{ old('marrital_status') == 'Single' ? 'selected' : '' }} value="Single">
+                            Lajang</option>
+                        <option {{ old('marrital_status') == 'Married' ? 'selected' : '' }} value="Married">
+                            Menikah</option>
+                        <option {{ old('marrital_status') == 'Divorved' ? 'selected' : '' }} value="Divorved">
+                            Cerai</option>
+                    </x-select>
                     <x-input id="instagram" label="Tautan Instagram" name="instagram" value="{{ old('instagram') }}"
                         type="text" />
                     <x-input id="youtube" label="Tautan YouTube" name="youtube" value="{{ old('youtube') }}"

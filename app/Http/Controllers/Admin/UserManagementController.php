@@ -9,6 +9,7 @@ use App\Interfaces\RoleInterface;
 use App\Interfaces\UserManagementInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserManagementController extends Controller
 {
@@ -159,6 +160,21 @@ class UserManagementController extends Controller
             return redirect()->route('admin.user-management.index')->with('success', 'Hak akses pengguna berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('admin.user-management.index')->with('error', $th->getMessage());
+        }
+    }
+
+
+    public function resetUserPassword($id)
+    {
+        $user = $this->userManagement->getById($id);
+
+        try {
+            $user->password = Hash::make('password');
+            $user->save();
+
+            return response()->json(['status' => 'success', 'message' => 'Password berhasil di reset']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
         }
     }
 }

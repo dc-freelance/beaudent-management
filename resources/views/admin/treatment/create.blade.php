@@ -32,7 +32,7 @@
                             Pilih Layanan Utama
                         </label>
                         <select id="parent_list"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select-input"
                             name="parent_id">
                             @foreach ($parents as $parent)
                                 <option value="{{ $parent->id }}">{{ $parent->name }}</option>
@@ -44,7 +44,7 @@
                             Kontrol
                         </label>
                         <select id="control_list"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select-input"
                             name="is_control">
                             <option value="1">Ya</option>
                             <option value="0">Tidak</option>
@@ -56,7 +56,7 @@
                             Pilih Kategori Layanan
                         </label>
                         <select id="treatment_categories"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select-input"
                             name="treatment_category_id">
                             @foreach ($treatment_categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->category }}</option>

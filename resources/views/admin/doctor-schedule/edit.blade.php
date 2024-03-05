@@ -31,7 +31,7 @@
                         <p>Pilih Cabang</p>
                         <div class="mt-1">
                             <x-select id="branch_id" name="branch_id"
-                                class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
+                                class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md select-input">
                                 @foreach ($branch as $item)
                                     <option value="{{ $item->id }}"
                                         {{ $data->branch_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
@@ -46,7 +46,7 @@
                         <p>Sesi</p>
                         <div class="mt-1">
                             <select id="shift" name="shift"
-                                class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
+                                class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md select-input">
                                 <option value="Pagi" {{ $data->shift == 'Pagi' ? 'selected' : '' }}>Pagi</option>
                                 <option value="Sore" {{ $data->shift == 'Sore' ? 'selected' : '' }}>Sore</option>
                             </select>

@@ -25,7 +25,7 @@
                             </option>
                         @endforeach
                     </x-select>
-                    <div>
+                    {{-- <div>
                         <label for="discount_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tipe Diskon
                         </label>
@@ -37,7 +37,13 @@
                             <option value="Nominal" {{ $data->discount_type == 'Nominal' ? 'selected' : '' }}>Nominal
                             </option>
                         </select>
-                    </div>
+                    </div> --}}
+                    <x-select id="discount_type" label="Tipe Diskon" name="discount_type" required>
+                        <option value="Percentage" {{ $data->discount_type == 'Percentage' ? 'selected' : '' }}>
+                            Persentase</option>
+                        <option value="Nominal" {{ $data->discount_type == 'Nominal' ? 'selected' : '' }}>Nominal
+                        </option>
+                    </x-select>
                     <x-input id="discount" label="Diskon" name="discount" type="text" required
                         value="{{ $data->discount_type == 'Percentage'
                             ? number_format($data->discount, 1)
