@@ -46,11 +46,11 @@
                 let url = "{{ route('front-office.reservations.delete', ':id') }}".replace(':id', _id);
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: `Reservasi ${_name} akan dihapus!`,
+                    text: `Reservasi ${_name} akan dibatalkan!`,
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal'
+                    confirmButtonText: 'Ya, batalkan!',
+                    cancelButtonText: 'Kembali'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({

@@ -14,11 +14,15 @@
         </a>
     @endcan
     @if ($data->status !== 'Waiting Deposit')
-        @can('delete_deposit')
-            <label onclick="btnDelete('{{ $data->id }}', '{{ $data->name }}')"
-                class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-600 transition duration-300 ease-in-out font-medium rounded-md text-sm p-2 text-center inline-flex items-center cursor-pointer">
-                Batal
-            </label>
-        @endcan
+        @role('frontoffice')
+            <div></div>
+        @else
+            @can('delete_deposit')
+                <label onclick="btnDelete('{{ $data->id }}', '{{ $data->name }}')"
+                    class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-600 transition duration-300 ease-in-out font-medium rounded-md text-sm p-2 text-center inline-flex items-center cursor-pointer">
+                    Batal
+                </label>
+            @endcan
+        @endrole
     @endif
 </div>
