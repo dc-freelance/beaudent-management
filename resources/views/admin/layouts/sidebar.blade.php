@@ -216,10 +216,10 @@
             @endcan
 
             @role('frontoffice')
-                @canany(['read_antrian_pembayaran', 'read_list_transaction'])
+                @canany(['read_queue_transaction', 'read_list_transaction'])
                     <x-sidebar-dropdown title="Pembayaran" icon="fas fa-money-bill-wave" toggle="transaction"
                         active="{{ request()->routeIs('front-office.transaction.*') }}">
-                        @can('read_antrian_pembayaran')
+                        @can('read_queue_transaction')
                             <x-sidebar-submenu name="Antrian Pembayaran"
                                 route="{{ route('front-office.transaction.list-billing') }}"
                                 active="{{ request()->routeIs('front-office.transaction.list-billing') || request()->routeIs('front-office.transaction.payment') }}"
