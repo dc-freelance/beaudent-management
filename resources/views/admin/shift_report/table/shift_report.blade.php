@@ -13,9 +13,11 @@
         <tbody>
             @foreach ($results as $data)
                 <tr>
-                    <td>{{ date('d-m-Y', strtotime($data->tanggal)) }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ date('Y-m-d', strtotime($data->tanggal)) }}</td>
                     <td>{{ $data->config_shift->name }}</td>
                     <td>{{ $data->branch->name }}</td>
+                    <td>{{ $data->user->name }}</td>
                     <td>{{ number_format($data->sub_total, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
