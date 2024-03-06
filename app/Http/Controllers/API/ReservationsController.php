@@ -55,7 +55,7 @@ class ReservationsController extends Controller
             $data['status'] = 'Pending';
 
             $reservation = $this->reservation_model->create($data);
-            event(new NotifUpdated('data-table'));
+            // event(new NotifUpdated('data-table'));
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil melakukan reservasi',
@@ -65,7 +65,7 @@ class ReservationsController extends Controller
             return response()->json([
                 'code' => 200,
                 'dump' => $th,
-                // 'error' => array('creds' => array('Kesalahan Server')),
+                'error' => array('creds' => array('Kesalahan Server')),
             ]);
         }
     }
