@@ -65,7 +65,7 @@ class ReservationsController extends Controller
             return response()->json([
                 'code' => 200,
                 'dump' => $th,
-                'error' => array('creds' => array('Kesalahan Server')),
+                // 'error' => array('creds' => array('Kesalahan Server')),
             ]);
         }
     }
