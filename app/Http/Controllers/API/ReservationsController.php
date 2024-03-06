@@ -63,8 +63,9 @@ class ReservationsController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'code' => 500,
-                'error' => 'Gagal melakukan reservasi',
+                'code' => 200,
+                'dump' => $th,
+                'error' => array('creds' => array('Kesalahan Server')),
             ]);
         }
     }
@@ -91,8 +92,8 @@ class ReservationsController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'code' => 500,
-                'error' => 'Gagal melakukan pembayaran deposit',
+                'code' => 200,
+                'error' => array('creds' => array('Kesalahan Server')),
             ]);
         }
     }
@@ -173,7 +174,7 @@ class ReservationsController extends Controller
                         }
                     ]);
                 }
-            ])->where('email', $request->creds)->orWhere('phone_number', $request->creds)->first();
+            ])->where('email', $request->creds)->where('deleted_at', null)->orWhere('phone_number', $request->creds)->where('deleted_at', null)->first();
 
             if (isset($customer)) {
                 if (isset($customer->reservations[count($customer->reservations) - 1])) {
@@ -188,8 +189,8 @@ class ReservationsController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'code' => 500,
-                'error' => 'Gagal Mencari Customer',
+                'code' => 200,
+                'error' => 'Kesalahan Server',
             ]);
         }
     }
