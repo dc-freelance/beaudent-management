@@ -69,7 +69,25 @@
                 });
             });
 
-            @include('components.flash-message')
+            @if (Session::has('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ Session::get('success') }}',
+                    showCancelButton: true,
+                    confirmButtonText: 'Oke',
+                    cancelButtonText: 'Cetak',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonColor: '#d33',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('front-office.transaction.list-transaction') }}";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        window.location.href = "{{ route('front-office.transaction.print-transaction', Session::has('transaction')) }}";
+                    }
+                });
+            @endif
         </script>
     @endpush
 </x-app-layout>
