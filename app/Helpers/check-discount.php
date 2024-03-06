@@ -3,7 +3,6 @@
 use App\Models\Discount;
 use App\Models\Discount_Items;
 use App\Models\Discount_Treatments;
-use App\Models\ConfigShift;
 
 function checkDiscountItem($itemId, $createdAt)
 {
@@ -27,12 +26,4 @@ function checkDiscountTreatment($treatmentId, $createdAt)
 
     // dd($checkDiscount);
     return $checkDiscount;
-}
-
-function checkSession(){
-    // checkshiftnow where start time more than now and end time less than now
-    $checkShiftNow = ConfigShift::where('start_time', '<=', now())
-                                ->where('end_time', '>=', now())
-                                ->first();
-    return $checkShiftNow;
 }
