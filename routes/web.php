@@ -322,12 +322,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
         // payment transaction
         // list
-        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->middleware('permission:read_antrian_pembayaran')->name('front-office.transaction.list-billing');
+        Route::get('/list-billing', [TransactionController::class, 'list_billing'])->middleware('permission:read_queue_transaction')->name('front-office.transaction.list-billing');
         // payment
-        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->middleware('permission:pay_antiran_pembayaran')->name('front-office.transaction.payment');
+        Route::get('/payment/{transaction}', [TransactionController::class, 'payment'])->middleware('permission:pay_queue_transaction')->name('front-office.transaction.payment');
         // end payment transaction
 
-        Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->name('front-office.transaction.payment.confirm');
+        Route::put('/payment/{transaction}/confirm', [TransactionController::class, 'payment_confirm'])->middleware('permission:confirm_pay_transaction')->name('front-office.transaction.payment.confirm');
 
         Route::post('/addon-transaction/{transaction}/{examination}', [TransactionController::class, 'addon_transaction'])->name('front-office.transaction.addon-transaction');
         Route::delete('/addon-transaction/{addonExamination}', [TransactionController::class, 'remove_addon_transaction'])->name('front-office.transaction.remove_addon-transaction');
