@@ -17,17 +17,17 @@ class Reservations extends Model
 
     public function branches()
     {
-        return $this->belongsTo(Branch::class, 'branch_id', 'id')->withTrased();
+        return $this->belongsTo(Branch::class, 'branch_id', 'id')->withTrashed();
     }
 
     public function customers()
     {
-        return $this->belongsTo(Customers::class, 'customer_id', 'id')->withTrased();
+        return $this->belongsTo(Customers::class, 'customer_id', 'id')->withTrashed();
     }
 
     public function treatments()
     {
-        return $this->belongsTo(Treatment::class, 'treatment_id', 'id')->withTrased();
+        return $this->belongsTo(Treatment::class, 'treatment_id', 'id')->withTrashed();
     }
 
     public function getTanggalReservasiTextAttribute()
@@ -57,6 +57,6 @@ class Reservations extends Model
 
     public function branch()
     {
-        return $this->belongsTo(Branch::class, 'branch_id', 'id')->withTrased();
+        return $this->belongsTo(Branch::class, 'branch_id', 'id')->withTrashed();
     }
 }
