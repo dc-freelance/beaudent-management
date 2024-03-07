@@ -38,7 +38,7 @@
                 <p>
                     <span style="font-size: 18pt;"><b>{{ $detailTransaction->branch->name }}</b></span>         <br>
                     <span>{{ $detailTransaction->branch->address }}</span>      <br>
-                    <span>+{{ $detailTransaction->branch->phone_number }}</span>
+                    <span>{{ Str::startsWith($detailTransaction->branch->phone_number, '62') ? '+'.$detailTransaction->branch->phone_number : '+62'.$detailTransaction->branch->phone_number }}</span>
                 </p>
             </div>
         </div>
@@ -76,7 +76,7 @@
                 <tr>
                     <td style="width: 10%;">No. Hp</td>
                     <td style="width: 5%; text-align: center;">:</td>
-                    <td style="width: 85%;">{{ $detailTransaction->customer->phone_number }}</td>
+                    <td style="width: 85%;">{{ Str::startsWith($detailTransaction->customer->phone_number, '62') ? '+'.$detailTransaction->customer->phone_number : '+62'.$detailTransaction->customer->phone_number }}</td>
                 </tr>
             </table>
         </div>
@@ -124,6 +124,10 @@
                     <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->total, 0, ',', '.') }}</b></td>
                 </tr>
                 <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Deposit</b></td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->deposit, 0, ',', '.') }}</b></td>
+                </tr>
+                <tr>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Diskon</b></td>
                     <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->discount, 0, ',', '.') }}</b></td>
                 </tr>
@@ -132,8 +136,20 @@
                     <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->total_ppn, 0, ',', '.') }}</b></td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Grand Total</b></td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Total (Setelah diskon & PPN)</b></td>
                     <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->grand_total, 0, ',', '.') }}</b></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Total yang seharusnya dibayarkan (Setelah dipotong deposit)</b></td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->grand_total - $detailTransaction->deposit, 0, ',', '.') }}</b></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Nominal yang dibayarkan</b></td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->nominal_paid, 0, ',', '.') }}</b></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;" colspan="2"><b>Kembalian</b></td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: right;" colspan="3"><b>{{ "Rp. ".number_format( $detailTransaction->nominal_return, 0, ',', '.') }}</b></td>
                 </tr>
             </table>
         </div>
@@ -144,7 +160,7 @@
             </p>
         </div>
         <div style="text-align: right;">
-            <span> {{ $detailTransaction->branch->name }}, {{ \Carbon\Carbon::parse($detailTransaction->updated_at)->locale('id')->isoFormat('LL') }} </span> <br>
+            <span> {{ $detailTransaction->branch->city }}, {{ \Carbon\Carbon::parse($detailTransaction->updated_at)->locale('id')->isoFormat('LL') }} </span> <br>
             <img src="{{ public_path('assets/images/logo.png') }}" style="width: 100px;"> <br>
             <span> {{ $detailTransaction->cashier->name }} </span>
         </div>
