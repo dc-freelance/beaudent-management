@@ -20,7 +20,7 @@
         <tr>
             <td align="center">{{$loop->iteration}}</td>
             <td align="center">{{$item->customer->name}}</td>
-            <td align="center">+62{{$item->customer->phone_number}}</td>
+            <td align="center">{{"'+62" . $item->customer->phone_number}}</td>
             <td align="center">{{$item->customer->email}}</td>
             <td align="center">{{$item->total_data}}</td>
         </tr>
