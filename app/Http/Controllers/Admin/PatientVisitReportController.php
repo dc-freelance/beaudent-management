@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\BranchInterface;
 use App\Interfaces\PatientVisitReportInterface;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 use function Ramsey\Uuid\v1;
 
@@ -35,7 +36,7 @@ class PatientVisitReportController extends Controller
 
     public function exportGeneral(Request $request)
     {
-        $results = $this->patientVisitReport->getGeneral();
+        $data = $this->patientVisitReport->getGeneral();
         $prefix = 'Laporan Kunjungan Pasien';
         if ($request->branch_id != 'all') {
             $branch = $this->branch->getById($request->branch_id);
@@ -44,6 +45,6 @@ class PatientVisitReportController extends Controller
             $prefix = 'Laporan Kunjungan Pasien Semua Cabang';
         }
         $filename = $prefix . ' ' . date('d-m-Y') . '.xlsx';
-        return \Maatwebsite\Excel\Facades\Excel::download(new PatientVisitReportGeneralExport($results), $filename);
+        return Excel::download(new PatientVisitReportGeneralExport($data), $filename);
     }
 }

@@ -89,12 +89,12 @@
 
             $('#buttonExport').on('click', function(e) {
                 e.preventDefault();
-                startDate = $('#start_date').val();
-                endDate = $('#end_date').val();
-                branchId = $('#branch_id').val();
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+                var branchId = $('#branch_id').val();
 
                 @role('admin_cabang')
-                    branchId = '{{ auth()->user()->branch_id }}';
+                    var branchId = '{{ auth()->user()->branch_id }}';
                 @endrole
 
                 if (startDate != '') {
