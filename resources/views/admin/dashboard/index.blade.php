@@ -168,11 +168,15 @@
                     <select id="select-year"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-300 block p-2.5"
                         name="year">
-                        @foreach ($data['years'] as $year)
-                            <option value="{{ $year }}"
-                                {{ \Carbon\Carbon::now()->format('Y') == $year ? 'selected' : '' }}>Tahun
-                                {{ $year }}</option>
-                        @endforeach
+                        @if ($data['years'] != null)
+                            @foreach ($data['years'] as $year)
+                                <option value="{{ $year }}"
+                                    {{ \Carbon\Carbon::now()->format('Y') == $year ? 'selected' : '' }}>Tahun
+                                    {{ $year }}</option>
+                            @endforeach
+                        @else
+                            <option selected hidden disabled>Belum Ada Tahun Transaksi</option>
+                        @endif
                     </select>
                     {{-- <button id="dropdownDefaultButton" data-dropdown-toggle="earningTime"
                         data-dropdown-placement="bottom" type="button"

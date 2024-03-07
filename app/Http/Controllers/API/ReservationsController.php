@@ -136,8 +136,8 @@ class ReservationsController extends Controller
     public function shift()
     {
         try {
-            $start = $this->shift->orderBy('start_time', 'asc')->first();
-            $end = $this->shift->orderBy('end_time', 'desc')->first();
+            $start = $this->shift->where('deleted_at', null)->orderBy('start_time', 'asc')->first();
+            $end = $this->shift->where('deleted_at', null)->orderBy('end_time', 'desc')->first();
 
             return response()->json([
                 'status' => 200,

@@ -124,9 +124,9 @@ class DashboardRepository implements DashboardInterface
     {
         $data = null;
         Auth::user()->branch_id == 1 ?
-            $data = $this->reservation->whereYear('request_date', Carbon::now()->format('Y'))->whereMonth('request_date', Carbon::now()->format('m'))->count()
+            $data = $this->reservation->whereYear('request_date', Carbon::now()->format('Y'))->whereMonth('request_date', Carbon::now()->format('m'))->where('deleted_at', null)->count()
             :
-            $data = $this->reservation->where('branch_id', Auth::user()->branch_id)->whereYear('request_date', Carbon::now()->format('Y'))->whereMonth('request_date', Carbon::now()->format('m'))->count();
+            $data = $this->reservation->where('branch_id', Auth::user()->branch_id)->whereYear('request_date', Carbon::now()->format('Y'))->whereMonth('request_date', Carbon::now()->format('m'))->where('deleted_at', null)->count();
         return $data;
     }
 
