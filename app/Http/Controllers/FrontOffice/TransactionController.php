@@ -88,25 +88,31 @@ class TransactionController extends Controller
     public function payment_confirm($transaction, Request $request)
     {
         $request->validate([
-            'transaction_note' => 'required',
             'transaction_payment_method_id' => 'required',
             'transaction_ppn_status' => 'required',
             'transaction_total' => 'required',
             'transaction_discount' => 'required',
             'transaction_total_ppn' => 'required',
             'transaction_grand_total' => 'required',
+            'transaction_total_paid' => 'required',
+            'transaction_nominal_paid' => 'required',
+            'transaction_nominal_return' => 'required',
         ]);
         
         $request->merge([
             'transaction_total' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_total')),
             'transaction_discount' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_discount')),
             'transaction_total_ppn' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_total_ppn')),
-            'transaction_grand_total' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_grand_total'))
+            'transaction_grand_total' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_grand_total')),
+            'transaction_total_paid' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_total_paid')),
+            'transaction_nominal_paid' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_nominal_paid')),
+            'transaction_nominal_return' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_nominal_return'))
         ]);
-        try {
+        // try {
             DB::beginTransaction();
             $updateTransaction = Transaction::find($transaction);
             $updateTransaction->note = $request->transaction_note;
+            $updateTransaction->date_time = now();
             $updateTransaction->is_paid = 1;
             $updateTransaction->payment_method_id = $request->transaction_payment_method_id;
             $updateTransaction->cashier_id = auth()->user()->id;
@@ -116,6 +122,9 @@ class TransactionController extends Controller
             $updateTransaction->discount = $request->transaction_discount;
             $updateTransaction->total_ppn = $request->transaction_total_ppn;
             $updateTransaction->grand_total = $request->transaction_grand_total;
+            $updateTransaction->total_paid = $request->transaction_total_paid;
+            $updateTransaction->nominal_paid = $request->transaction_nominal_paid;
+            $updateTransaction->nominal_return = $request->transaction_nominal_return;
             $updateTransaction->save();
 
             $updateReservation = Reservations::find($updateTransaction->examination->reservation->id);
@@ -123,11 +132,11 @@ class TransactionController extends Controller
             $updateReservation->save();
             DB::commit();
 
-            return redirect()->route('front-office.transaction.list-transaction')->with('success', 'Berhasil melakukan transaksi');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->back()->with('error', $th->getMessage());
-        }
+            return redirect()->route('front-office.transaction.list-transaction')->with('success', 'Pembayaran Berhasil')->with('transaction', $transaction);
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', $th->getMessage());
+        // }
     }
 
     public function addon_transaction($transaction, $examination, Request $request)
