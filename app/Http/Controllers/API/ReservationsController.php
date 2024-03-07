@@ -69,7 +69,7 @@ class ReservationsController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Berhasil melakukan reservasi',
-                'reservasi' => $reservation,
+                'reservasi' => $reservation
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -208,29 +208,30 @@ class ReservationsController extends Controller
     public function search($no)
     {
         try {
-            $customer = $this->customer->whereHas('reservations', function ($query) use ($no) {
-                $query->where('no', $no);
-                $query->with([
-                    'branches' => function ($query) {
-                        $query->select('id', 'name', 'deposit_minimum');
-                    }
-                ]);
-                $query->with([
-                    'treatments' => function ($query) {
-                        $query->select('id', 'name');
-                    }
-                ]);
-            })->first();
+            $reservation = $this->reservation_model->with([
+                'customers' => function ($query) {
+                    $query->select('id', 'phone_number');
+                },
+                'branches' => function ($query) {
+                    $query->select('id', 'name', 'deposit_minimum');
+                },
+                'treatments' => function ($query) {
+                    $query->select('id', 'name');
+                }
+            ])->where('no', $no)->where('deleted_at', null)->first();
 
-            if (isset($customer)) {
-                if (isset($customer->reservations[count($customer->reservations) - 1])) {
-                    $customer->reservations[count($customer->reservations) - 1]['request_time'] = Carbon::parse($customer->reservations[count($customer->reservations) - 1]['request_time'])->format('H:i');
+            if (isset($reservation)) {
+                $reservation->request_date = Carbon::parse($reservation->request_date)->isoFormat('D MMMM YYYY');
+                $reservation->request_time = Carbon::parse($reservation->request_time)->format('H:i');
+
+                if ($reservation->transfer_date != null) {
+                    $reservation->transfer_date = Carbon::parse($reservation->transfer_date)->isoFormat('D MMMM YYYY');
                 };
 
                 return response()->json([
                     'status' => 200,
                     'message' => 'Data Customer Ditemukan',
-                    'customer' => $customer,
+                    'reservation' => $reservation,
                 ]);
             };
 

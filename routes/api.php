@@ -29,7 +29,7 @@ Route::get('treatment', [ReservationsController::class, 'treatment']);
 Route::get('branch', [ReservationsController::class, 'branch']);
 Route::get('shift', [ReservationsController::class, 'shift']);
 Route::post('customer', [ReservationsController::class, 'customer']);
-Route::get('reservation/{no}', [ReservationsController::class, 'search']);
+Route::get('search-res/{no}', [ReservationsController::class, 'search']);
 
 // API DEPOSIT
 Route::post('deposit', [ReservationsController::class, 'deposit']);
