@@ -6,7 +6,7 @@
                 <th>Nama Pasien</th>
                 <th>No Wa / HP</th>
                 <th>Email</th>
-                <th>Total</th>
+                <th>Total Kunjungan</th>
             </tr>
         </thead>
         <tbody>
@@ -14,7 +14,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $result->customer->name }}</td>
-                    <td>{{ $result->customer->phone_number }}</td>
+                    <td>+62{{ $result->customer->phone_number }}</td>
                     <td>{{ $result->customer->email }}</td>
                     <td>{{ $result->total_data }}</td>
                 </tr>
