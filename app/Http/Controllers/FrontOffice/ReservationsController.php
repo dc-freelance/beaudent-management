@@ -34,6 +34,9 @@ class ReservationsController extends Controller
                 ->addColumn('no', function ($data) {
                     return $data->no;
                 })
+                ->addColumn('waktu_reservasi', function ($data) {
+                    return Carbon::parse($data->created_at)->isoFormat('D MMMM YYYY');
+                })
                 ->addColumn('customer_id', function ($data) {
                     return $data->customers->name;
                 })
@@ -73,6 +76,9 @@ class ReservationsController extends Controller
                 })
                 ->addColumn('no', function ($data) {
                     return $data->no;
+                })
+                ->addColumn('waktu_reservasi', function ($data) {
+                    return Carbon::parse($data->created_at)->isoFormat('D MMMM YYYY');
                 })
                 ->addColumn('customer_id', function ($data) {
                     return $data->customers->name;
@@ -114,6 +120,9 @@ class ReservationsController extends Controller
                 ->addColumn('no', function ($data) {
                     return $data->no;
                 })
+                ->addColumn('waktu_reservasi', function ($data) {
+                    return Carbon::parse($data->created_at)->isoFormat('D MMMM YYYY');
+                })
                 ->addColumn('customer_id', function ($data) {
                     return $data->customers->name;
                 })
@@ -150,6 +159,9 @@ class ReservationsController extends Controller
                 })
                 ->addColumn('no', function ($data) {
                     return $data->no;
+                })
+                ->addColumn('waktu_reservasi', function ($data) {
+                    return Carbon::parse($data->created_at)->isoFormat('D MMMM YYYY');
                 })
                 ->addColumn('customer_id', function ($data) {
                     return $data->customers->name;
@@ -191,6 +203,9 @@ class ReservationsController extends Controller
                 ->addColumn('no', function ($data) {
                     return $data->no;
                 })
+                ->addColumn('waktu_reservasi', function ($data) {
+                    return Carbon::parse($data->created_at)->isoFormat('D MMMM YYYY');
+                })
                 ->addColumn('customer_id', function ($data) {
                     return $data->customers->name;
                 })
@@ -230,6 +245,9 @@ class ReservationsController extends Controller
                 })
                 ->addColumn('no', function ($data) {
                     return $data->no;
+                })
+                ->addColumn('waktu_reservasi', function ($data) {
+                    return Carbon::parse($data->created_at)->isoFormat('D MMMM YYYY');
                 })
                 ->addColumn('customer_id', function ($data) {
                     return $data->customers->name;
