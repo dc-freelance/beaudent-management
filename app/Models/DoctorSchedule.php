@@ -17,11 +17,11 @@ class DoctorSchedule extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id')->withTrashed();
     }
 
     public function branch()
     {
-        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+        return $this->belongsTo(Branch::class, 'branch_id', 'id')->withTrashed();
     }
 }

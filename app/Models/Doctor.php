@@ -21,7 +21,7 @@ class Doctor extends Model
 
     public function doctorCategory()
     {
-        return $this->belongsTo(DoctorCategory::class, 'category_id');
+        return $this->belongsTo(DoctorCategory::class, 'category_id')->withTrashed();
     }
 
     public function doctorSchedule()
@@ -41,7 +41,7 @@ class Doctor extends Model
 
     public function addonTransaction()
     {
-        return $this->hasMany(AddonTransaction::class, 'doctor_id');
+        return $this->hasMany(addonTransaction::class, 'doctor_id');
     }
 
     public function doctorBonus()
