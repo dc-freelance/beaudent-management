@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->code }}</td>
-                    <td>{{ $data->date }}</td>
+                    <td>{{ date('Y-m-d', strtotime($data->date_time)) }}</td>
                     <td>{{ $data->branch->name }}</td>
                     <td>{{ $data->customer->name }}</td>
                     <td>{{ $data->payment_method->name ?? '-' }}</td>
