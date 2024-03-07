@@ -84,7 +84,7 @@
                     if (result.isConfirmed) {
                         window.location.href = "{{ route('front-office.transaction.list-transaction') }}";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        window.location.href = "{{ route('front-office.transaction.print-transaction', Session::has('transaction')) }}";
+                        window.location.href = "{{ route('front-office.transaction.print-transaction', session('transaction')) }}";
                     }
                 });
             @endif

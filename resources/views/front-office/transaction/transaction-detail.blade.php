@@ -229,16 +229,16 @@
                     <p class="font-semibold text-lg">Form Pemeriksaan</p>
                 </div>
                 <div class="pt-3">
-                    <x-input id="medical_record" label="Kode Rekam Medis" name="medical_record" readonly="readonly" value="{{ old('medical_record', $detailTransaction->examination->medicalRecord->medical_record_number) }}" required />
+                    <x-input id="medical_record" class="bg-gray-300 hover:cursor-not-allowed" label="Kode Rekam Medis" name="medical_record" readonly="readonly" value="{{ old('medical_record', $detailTransaction->examination->medicalRecord->medical_record_number) }}" required />
                 </div>
                 <div class="pt-3">
-                    <x-input id="examination_date" label="Tanggal Pemeriksaan" name="examination_date" readonly="readonly" value="{{ old('examination_date', $detailTransaction->examination->examination_date) }}" required />
+                    <x-input id="examination_date" class="bg-gray-300 hover:cursor-not-allowed" label="Tanggal Pemeriksaan" name="examination_date" readonly="readonly" value="{{ old('examination_date', $detailTransaction->examination->examination_date) }}" required />
                 </div>
                 <div class="pt-3">
-                    <x-input id="examination_systolic_blood_pressure" label="Tekanan Darah (Systolic)" name="examination_systolic_blood_pressure" readonly="readonly" value="{{ old('examination_systolic_blood_pressure', $detailTransaction->examination->systolic_blood_pressure) }}" required />
+                    <x-input id="examination_systolic_blood_pressure" class="bg-gray-300 hover:cursor-not-allowed" label="Tekanan Darah (Systolic)" name="examination_systolic_blood_pressure" readonly="readonly" value="{{ old('examination_systolic_blood_pressure', $detailTransaction->examination->systolic_blood_pressure) }}" required />
                 </div>
                 <div class="pt-3">
-                    <x-input id="examination_diastolic_blood_pressure" label="Tekanan Darah (diastolic)" name="examination_diastolic_blood_pressure" readonly="readonly" value="{{ old('examination_diastolic_blood_pressure', $detailTransaction->examination->diastolic_blood_pressure) }}" required />
+                    <x-input id="examination_diastolic_blood_pressure" class="bg-gray-300 hover:cursor-not-allowed" label="Tekanan Darah (diastolic)" name="examination_diastolic_blood_pressure" readonly="readonly" value="{{ old('examination_diastolic_blood_pressure', $detailTransaction->examination->diastolic_blood_pressure) }}" required />
                 </div>
             </x-card-container>
             <x-card-container>
@@ -249,16 +249,16 @@
                         <p class="font-semibold text-lg">Form Transaksi</p>
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_code" label="Kode Transaksi" name="transaction_code" readonly="readonly" value="{{ old('transaction_code', $detailTransaction->code) }}" required />
+                        <x-input id="transaction_code" class="bg-gray-300 hover:cursor-not-allowed" label="Kode Transaksi" name="transaction_code" readonly="readonly" value="{{ old('transaction_code', $detailTransaction->code) }}" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_branch_name" label="Cabang" name="transaction_branch_name" readonly="readonly" value="{{ old('transaction_branch_name', $detailTransaction->branch->name) }}" required />
+                        <x-input id="transaction_branch_name" class="bg-gray-300 hover:cursor-not-allowed" label="Cabang" name="transaction_branch_name" readonly="readonly" value="{{ old('transaction_branch_name', $detailTransaction->branch->name) }}" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_doctor_name" label="Nama Dokter" name="transaction_doctor_name" readonly="readonly" value="{{ old('transaction_doctor_name', $detailTransaction->doctor->name) }}" required />
+                        <x-input id="transaction_doctor_name" class="bg-gray-300 hover:cursor-not-allowed" label="Nama Dokter" name="transaction_doctor_name" readonly="readonly" value="{{ old('transaction_doctor_name', $detailTransaction->doctor->name) }}" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_customer_name" label="Nama Pasien" name="transaction_customer_name" readonly="readonly" value="{{ old('transaction_customer_name', $detailTransaction->customer->name) }}" required />
+                        <x-input id="transaction_customer_name" class="bg-gray-300 hover:cursor-not-allowed" label="Nama Pasien" name="transaction_customer_name" readonly="readonly" value="{{ old('transaction_customer_name', $detailTransaction->customer->name) }}" required />
                     </div>
                     <div class="pt-3">
                         <x-input id="transaction_note" label="Catatan" name="transaction_note" value="{{ old('transaction_note', $detailTransaction->note) }}" />
@@ -280,13 +280,13 @@
                         </select>
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_total" label="Total" name="transaction_total" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total'), 0, ',', '.') }}" required />
+                        <x-input id="transaction_total" class="bg-gray-300 hover:cursor-not-allowed" label="Total" name="transaction_total" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total'), 0, ',', '.') }}" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="deposit" label="Deposit" name="transaction_deposit" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailTransaction->examination->reservation->deposit, 0, ',', '.') }}" required />
+                        <x-input id="deposit" label="Deposit" class="bg-gray-300 hover:cursor-not-allowed" name="transaction_deposit" type="text" placeholder="Rp." readonly="readonly" value="Rp. {{ number_format($detailTransaction->examination->reservation->deposit, 0, ',', '.') }}" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_discount" label="Diskon" name="transaction_discount" type="text" placeholder="Rp." value="Rp. {{ number_format($totalDiscountTreatment+$totalDiscountItem, 0, ',', '.') }}" readonly="readonly" required />
+                        <x-input id="transaction_discount" class="bg-gray-300 hover:cursor-not-allowed" label="Diskon" name="transaction_discount" type="text" placeholder="Rp." value="Rp. {{ number_format($totalDiscountTreatment+$totalDiscountItem, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     @php
                         $tempTotalPpn = 0;
@@ -302,19 +302,19 @@
                         }
                     @endphp
                     <div class="pt-3">
-                        <x-input id="transaction_total_ppn" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." value="Rp. {{ number_format($tempTotalPpn, 0, ',', '.') }}" readonly="readonly" required />
+                        <x-input id="transaction_total_ppn" class="bg-gray-300 hover:cursor-not-allowed" label="Total PPN (10%)" name="transaction_total_ppn" type="text" placeholder="Rp." value="Rp. {{ number_format($tempTotalPpn, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_grand_total" label="Total (Setelah diskon & PPN)" name="transaction_grand_total" type="text" placeholder="Rp." value="Rp. {{ number_format($tempTotalAfterPpnDiscount, 0, ',', '.') }}" readonly="readonly" required />
+                        <x-input id="transaction_grand_total" class="bg-gray-300 hover:cursor-not-allowed" label="Total (Setelah diskon & PPN)" name="transaction_grand_total" type="text" placeholder="Rp." value="Rp. {{ number_format($tempTotalAfterPpnDiscount, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_total_paid" label="Total yang seharusnya dibayarkan (Setelah dipotong deposit)" name="transaction_total_paid" type="text" placeholder="Rp." value="Rp. {{ number_format($tempTotalPaid, 0, ',', '.') }}" readonly="readonly" required />
+                        <x-input id="transaction_total_paid" class="bg-gray-300 hover:cursor-not-allowed" label="Total yang seharusnya dibayarkan (Setelah dipotong deposit)" name="transaction_total_paid" type="text" placeholder="Rp." value="Rp. {{ number_format($tempTotalPaid, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
                     <div class="pt-3">
                         <x-input id="transaction_nominal_paid" label="Nominal yang dibayarkan" name="transaction_nominal_paid" type="text" placeholder="Rp." required />
                     </div>
                     <div class="pt-3">
-                        <x-input id="transaction_nominal_return" label="Kembalian" name="transaction_nominal_return" type="text" placeholder="Rp." value="Rp. 0" readonly="readonly" required />
+                        <x-input id="transaction_nominal_return" class="bg-gray-300 hover:cursor-not-allowed" label="Kembalian" name="transaction_nominal_return" type="text" placeholder="Rp." value="Rp. 0" readonly="readonly" required />
                     </div>
                     <div class="mt-6 text-right">
                         <x-button type="submit">Simpan</x-button>
@@ -423,6 +423,9 @@
                     return 'Rp. ' + amount.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
                 }
             });
-        </script>    
+        </script>
+        <script>
+            @include('components.flash-message')
+        </script>
     @endpush
 </x-app-layout>

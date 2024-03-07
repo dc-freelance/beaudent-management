@@ -87,6 +87,7 @@ class TransactionController extends Controller
 
     public function payment_confirm($transaction, Request $request)
     {
+        
         $request->validate([
             'transaction_payment_method_id' => 'required',
             'transaction_ppn_status' => 'required',
@@ -101,6 +102,7 @@ class TransactionController extends Controller
         
         $request->merge([
             'transaction_total' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_total')),
+            'transaction_deposit' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_deposit')),
             'transaction_discount' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_discount')),
             'transaction_total_ppn' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_total_ppn')),
             'transaction_grand_total' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_grand_total')),
@@ -108,7 +110,12 @@ class TransactionController extends Controller
             'transaction_nominal_paid' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_nominal_paid')),
             'transaction_nominal_return' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_nominal_return'))
         ]);
-        // try {
+
+        if($request->transaction_nominal_paid < $request->transaction_total_paid){
+            return redirect()->back()->with('error', 'Nominal Uang yang dibayarkan Tidak Cukup');
+        }
+
+        try {
             DB::beginTransaction();
             $updateTransaction = Transaction::find($transaction);
             $updateTransaction->note = $request->transaction_note;
@@ -133,10 +140,10 @@ class TransactionController extends Controller
             DB::commit();
 
             return redirect()->route('front-office.transaction.list-transaction')->with('success', 'Pembayaran Berhasil')->with('transaction', $transaction);
-        // } catch (\Throwable $th) {
-        //     DB::rollBack();
-        //     return redirect()->back()->with('error', $th->getMessage());
-        // }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     public function addon_transaction($transaction, $examination, Request $request)
