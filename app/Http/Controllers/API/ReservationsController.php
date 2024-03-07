@@ -54,6 +54,16 @@ class ReservationsController extends Controller
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
             $data['status'] = 'Pending';
 
+            $check_current = $this->reservation_model->where('customer_id', $data['customer_id'])->where('request_date', $data['request_date'])->where('deleted_at', null)->first();
+            if ($check_current != null) {
+                if ($check_current->status != 'Pending' && $check_current->status != 'Waiting Deposit' && $check_current->status != 'Pending Deposit' && $check_current->status != 'Cancel') {
+                    return response()->json([
+                        'status' => 200,
+                        'error' => array('time' => array('Tanggal Kunjungan Tidak Boleh Sama'))
+                    ]);
+                };
+            };
+
             $reservation = $this->reservation_model->create($data);
             // event(new NotifUpdated('data-table'));
             return response()->json([
@@ -160,8 +170,7 @@ class ReservationsController extends Controller
         try {
             $customer = $this->customer->with([
                 'reservations' => function ($query) {
-                    $query->whereDate('request_date', '>=', Carbon::now()->format('Y-m-d'));
-                    $query->where('status', '!=', 'Cancel');
+                    $query->where('deleted_at', null);
                     $query->with([
                         'branches' => function ($query) {
                             $query->select('id', 'name', 'deposit_minimum');
@@ -172,19 +181,62 @@ class ReservationsController extends Controller
                             $query->select('id', 'name');
                         }
                     ]);
+                    $query->orderBy('request_date', 'desc');
                 }
             ])->where('email', $request->creds)->where('deleted_at', null)->orWhere('phone_number', $request->creds)->where('deleted_at', null)->first();
 
             if (isset($customer)) {
-                if (isset($customer->reservations[count($customer->reservations) - 1])) {
-                    $customer->reservations[count($customer->reservations) - 1]['request_time'] = Carbon::parse($customer->reservations[count($customer->reservations) - 1]['request_time'])->format('H:i');
-                };
+                foreach ($customer->reservations as $reservation) {
+                    $reservation->request_date = Carbon::parse($reservation->request_date)->isoFormat('D MMMM YYYY');
+                    $reservation->request_time = Carbon::parse($reservation->request_time)->format('H:i');
+                }
             };
 
             return response()->json([
                 'status' => 200,
                 'message' => 'Data Customer Ditemukan',
                 'customer' => $customer,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 200,
+                'error' => 'Kesalahan Server',
+            ]);
+        }
+    }
+
+    public function search($no)
+    {
+        try {
+            $customer = $this->customer->whereHas('reservations', function ($query) use ($no) {
+                $query->where('no', $no);
+                $query->with([
+                    'branches' => function ($query) {
+                        $query->select('id', 'name', 'deposit_minimum');
+                    }
+                ]);
+                $query->with([
+                    'treatments' => function ($query) {
+                        $query->select('id', 'name');
+                    }
+                ]);
+            })->first();
+
+            if (isset($customer)) {
+                if (isset($customer->reservations[count($customer->reservations) - 1])) {
+                    $customer->reservations[count($customer->reservations) - 1]['request_time'] = Carbon::parse($customer->reservations[count($customer->reservations) - 1]['request_time'])->format('H:i');
+                };
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Data Customer Ditemukan',
+                    'customer' => $customer,
+                ]);
+            };
+
+            return response()->json([
+                'status' => 200,
+                'error' => array('data' => array('Reservasi Tidak Valid')),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
