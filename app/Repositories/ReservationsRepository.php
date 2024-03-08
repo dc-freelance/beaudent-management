@@ -61,7 +61,6 @@ class ReservationsRepository implements ReservationsInterface
                 '{branch}' => $reservation->branches->name,
                 '{date}' => $data['date'],
                 '{time}' => $data['time'],
-                '{treatment}' => $reservation->treatments->name,
                 '{note}' => $data['note'],
                 '{cta}' => $data['cta'],
                 '{branch_cs}' => str_split($data['cs'])[0] == '0' ? substr($data['cs'], 1) : $data['cs']
@@ -172,7 +171,6 @@ class ReservationsRepository implements ReservationsInterface
                 '{title}' => $data['title'],
                 '{no}' => $data['no'],
                 '{branch}' => $reservation->branches->name,
-                '{treatment}' => $reservation->treatments->name,
                 '{date}' => Carbon::parse($request['request_date'])->isoFormat('D MMMM YYYY'),
                 '{time}' => Carbon::parse($request['request_time'])->format('H:i'),
                 '{note}' => $data['note'],

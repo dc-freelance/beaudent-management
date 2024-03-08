@@ -54,14 +54,12 @@ class ReservationsController extends Controller
             $data['no'] = generateTransactionCode('RSV', date('Y'), date('m'), $data['branch_id']);
             $data['status'] = 'Pending';
 
-            $check_current = $this->reservation_model->where('customer_id', $data['customer_id'])->where('request_date', $data['request_date'])->where('deleted_at', null)->first();
+            $check_current = $this->reservation_model->where('customer_id', $data['customer_id'])->where('request_date', $data['request_date'])->where('status', '!=', 'Cancel')->where('deleted_at', null)->first();
             if ($check_current != null) {
-                if ($check_current->status != 'Pending' && $check_current->status != 'Waiting Deposit' && $check_current->status != 'Pending Deposit' && $check_current->status != 'Cancel') {
-                    return response()->json([
-                        'status' => 200,
-                        'error' => array('time' => array('Tanggal Kunjungan Tidak Boleh Sama'))
-                    ]);
-                };
+                return response()->json([
+                    'status' => 200,
+                    'error' => array('time' => array('Anda Telah Reservasi Untuk Tanggal ' . Carbon::parse($data['request_date'])->isoFormat('D MMMM YYYY')))
+                ]);
             };
 
             $reservation = $this->reservation_model->create($data);
@@ -176,12 +174,7 @@ class ReservationsController extends Controller
                             $query->select('id', 'name', 'deposit_minimum');
                         }
                     ]);
-                    $query->with([
-                        'treatments' => function ($query) {
-                            $query->select('id', 'name');
-                        }
-                    ]);
-                    $query->orderBy('request_date', 'desc');
+                    $query->orderBy('created_at', 'desc');
                 }
             ])->where('email', $request->creds)->where('deleted_at', null)->orWhere('phone_number', $request->creds)->where('deleted_at', null)->first();
 
@@ -215,9 +208,6 @@ class ReservationsController extends Controller
                 'branches' => function ($query) {
                     $query->select('id', 'name', 'deposit_minimum');
                 },
-                'treatments' => function ($query) {
-                    $query->select('id', 'name');
-                }
             ])->where('no', $no)->where('deleted_at', null)->first();
 
             if (isset($reservation)) {
