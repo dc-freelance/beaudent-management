@@ -39,9 +39,9 @@ class ReservationsRepository implements ReservationsInterface
             $data['note'] = 'Jika terdapat kesalahan data reservasi atau perubahan waktu kunjungan, harap menghubungi layanan pelanggan Beaudent melalui kontak tertera dibawah';
 
             if ($reservation->is_control === 0) {
-                $data['cta'] = 'Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tautan ini : https://beaudent.co.id/credential?creds=' . urlencode(base64_encode($reservation->customers->email));
+                $data['cta'] = 'Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tautan ini : https://beaudent.co.id/credential?no=' . urlencode(base64_encode($reservation->no));
             } else {
-                $data['cta'] = 'Reservasi anda telah berhasil dan akan berakhir setelah tanggal kunjungan anda. Anda dapat melihat kembali detail reservasi dengan mengakses tautan ini : https://beaudent.co.id/credential?creds=' . urlencode(base64_encode($reservation->customers->email));
+                $data['cta'] = 'Reservasi anda telah berhasil dan akan berakhir setelah tanggal kunjungan anda. Anda dapat melihat kembali detail reservasi dengan mengakses tautan ini : https://beaudent.co.id/credential?no=' . urlencode(base64_encode($reservation->no));
             };
         } else {
             $data['title'] = 'Reservasi Dibatalkan';
@@ -104,7 +104,7 @@ class ReservationsRepository implements ReservationsInterface
         $data['title'] = 'Pembayaran Dikonfirmasi';
         $data['action'] = 'mengonfirmasi';
         $data['note'] = 'Jika terdapat kesalahan dalam pembayaran deposit, harap menghubungi layanan pelanggan Beaudent melalui kontak tertera dibawah';
-        $data['cta'] = 'Reservasi anda telah berhasil dan akan berakhir setelah tanggal kunjungan anda. Anda dapat melihat kembali detail reservasi dengan mengakses tautan ini : https://beaudent.co.id/credential?creds=' . urlencode(base64_encode($reservation->customers->email));
+        $data['cta'] = 'Reservasi anda telah berhasil dan akan berakhir setelah tanggal kunjungan anda. Anda dapat melihat kembali detail reservasi dengan mengakses tautan ini : https://beaudent.co.id/credential?no=' . urlencode(base64_encode($reservation->no));
 
         $post = array(
             'appkey' => '00f40e8d-4f21-43b7-9705-fe6c4442aa64',
@@ -158,8 +158,10 @@ class ReservationsRepository implements ReservationsInterface
         ];
 
         if ($reservation->is_control === 0 && $reservation->status == 'Waiting Deposit') {
-            $data['cta'] = 'Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tautan dibawah ini : https://beaudent.co.id/credential?creds=' . urlencode(base64_encode($reservation->customers->email));
-        };
+            $data['cta'] = 'Berikutnya harap melakukan pembayaran deposit sebelum tanggal kunjungan anda dengan mengakses tautan dibawah ini : https://beaudent.co.id/credential?no=' . urlencode(base64_encode($reservation->no));
+        } else {
+            $data['cta'] = 'Anda dapat melihat kembali detail reservasi dengan mengakses tautan ini : https://beaudent.co.id/credential?no=' . urlencode(base64_encode($reservation->no));
+        }
 
         $post = array(
             'appkey' => '00f40e8d-4f21-43b7-9705-fe6c4442aa64',
