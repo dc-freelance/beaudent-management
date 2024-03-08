@@ -27,4 +27,8 @@ Route::post('registration', RegistrationController::class);
 Route::post('reservation', [ReservationsController::class, 'store']);
 Route::get('treatment', [ReservationsController::class, 'treatment']);
 Route::get('branch', [ReservationsController::class, 'branch']);
+Route::get('shift', [ReservationsController::class, 'shift']);
 Route::post('customer', [ReservationsController::class, 'customer']);
+
+// API DEPOSIT
+Route::post('deposit', [ReservationsController::class, 'deposit']);

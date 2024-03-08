@@ -4,14 +4,16 @@ namespace App\Repositories;
 
 use App\Interfaces\TreatmentInterface;
 use App\Models\Treatment;
+use App\Models\TreatmentCategories;
 
 class TreatmentRepository implements TreatmentInterface
 {
-    private $treatment;
+    private $treatment, $treatment_categories;
 
-    public function __construct(Treatment $treatment)
+    public function __construct(Treatment $treatment, TreatmentCategories $treatment_categories)
     {
         $this->treatment = $treatment;
+        $this->treatment_categories = $treatment_categories;
     }
 
     public function get()
@@ -24,6 +26,11 @@ class TreatmentRepository implements TreatmentInterface
         return $this->treatment->where('parent_id', null)->get();
     }
 
+    public function getTreatmentCategories()
+    {
+        return $this->treatment_categories->all();
+    }
+
     public function getById($id)
     {
         return $this->treatment->find($id);
@@ -31,11 +38,13 @@ class TreatmentRepository implements TreatmentInterface
 
     public function create($data)
     {
+        $data['price'] = str_replace('.', '', $data['price']);
         return $this->treatment->create($data);
     }
 
     public function update($id, $data)
     {
+        $data['price'] = str_replace('.', '', $data['price']);
         return $this->treatment->find($id)->update($data);
     }
 

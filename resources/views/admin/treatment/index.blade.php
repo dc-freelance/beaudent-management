@@ -6,18 +6,22 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.treatment.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Layanan
-            </x-link-button>
+            @can('create_treatment')
+                <x-link-button route="{{ route('admin.treatment.create') }}" class="tombol hover:opacity-80">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Layanan
+                </x-link-button>
+            @endcan
         </div>
         <table id="treatmentTable">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
+                    <th>Kode</th>
                     <th>Layanan Utama</th>
                     <th>Kontrol</th>
+                    <th>Kategori</th>
                     <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
@@ -89,12 +93,20 @@
                             name: 'name'
                         },
                         {
+                            data: 'code',
+                            name: 'code'
+                        },
+                        {
                             data: 'parent_id',
                             name: 'parent_id'
                         },
                         {
                             data: 'is_control',
                             name: 'is_control'
+                        },
+                        {
+                            data: 'treatment_category_id',
+                            name: 'treatment_category_id'
                         },
                         {
                             data: 'price',

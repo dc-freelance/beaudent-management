@@ -16,7 +16,7 @@ class BranchRepository implements BranchInterface
 
     public function get()
     {
-        return $this->branch->all()->sortBy('id');
+        return $this->branch->where('id', '!=', 1)->orderBy('id', 'asc')->get();
     }
 
     public function getById($id)
@@ -41,7 +41,8 @@ class BranchRepository implements BranchInterface
         $branch->delete();
     }
 
-    public function generateCode(){
+    public function generateCode()
+    {
         return $this->branch->generate_code_branch();
     }
 }

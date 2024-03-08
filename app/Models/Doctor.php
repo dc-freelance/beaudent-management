@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -20,6 +21,31 @@ class Doctor extends Model
 
     public function doctorCategory()
     {
-        return $this->belongsTo(DoctorCategory::class, 'category_id');
+        return $this->belongsTo(DoctorCategory::class, 'category_id')->withTrashed();
+    }
+
+    public function doctorSchedule()
+    {
+        return $this->hasMany(DoctorSchedule::class, 'doctor_id');
+    }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'doctor_id');
+    }
+
+    public function examination()
+    {
+        return $this->hasMany(Examination::class, 'doctor_id');
+    }
+
+    public function addonTransaction()
+    {
+        return $this->hasMany(addonTransaction::class, 'doctor_id');
+    }
+
+    public function doctorBonus()
+    {
+        return $this->hasMany(DoctorBonus::class, 'doctor_id');
     }
 }

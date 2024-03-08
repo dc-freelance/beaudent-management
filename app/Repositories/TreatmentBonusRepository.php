@@ -24,13 +24,24 @@ class TreatmentBonusRepository implements TreatmentBonusInterface
         return $this->treatmentBonus->with('treatment', 'doctorCategory')->find($id);
     }
 
+    private function setBonusRate($bonusType, $bonusRate)
+    {
+        if ($bonusType == 'nominal') {
+            return str_replace('.', '', $bonusRate);
+        }
+
+        return $bonusRate;
+    }
+
     public function store($data)
     {
+        // $data['bonus_rate'] = $this->setBonusRate($data['bonus_type'], $data['bonus_rate']);
         return $this->treatmentBonus->create($data);
     }
 
     public function update($id, $data)
     {
+        // $data['bonus_rate'] = $this->setBonusRate($data['bonus_type'], $data['bonus_rate']);
         return $this->treatmentBonus->find($id)->update($data);
     }
 

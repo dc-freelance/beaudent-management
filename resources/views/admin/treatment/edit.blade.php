@@ -12,6 +12,7 @@
                 @method('PUT')
                 <div class="space-y-6">
                     <x-input id="name" label="Nama" name="name" required value="{{ $data->name }}" />
+                    <x-input id="code" label="Kode" name="code" required value="{{ $data->code }}" />
                     <div>
                         <p>Jenis</p>
                         <div class="flex flex-wrap gap-6 mt-6">
@@ -32,7 +33,7 @@
                             Pilih Layanan Utama
                         </label>
                         <select id="parent_list"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select-input"
                             name="parent_id">
                             @foreach ($parents as $parent)
                                 @if ($parent->id == $data->id)
@@ -49,16 +50,32 @@
                             Kontrol
                         </label>
                         <select id="control_list"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select-input"
                             name="is_control">
                             <option value="1" {{ $data->is_control == true ? 'selected' : '' }}>Ya</option>
                             <option value="0" {{ $data->is_control == false ? 'selected' : '' }}>Tidak</option>
                         </select>
                     </div>
-                    <x-input id="price" label="Harga" name="price" type="number" required
-                        value="{{ $data->price }}" />
+                    <div>
+                        <label for="treatment_categories"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Pilih Kategori Layanan
+                        </label>
+                        <select id="treatment_categories"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 select-input"
+                            name="treatment_category_id">
+                            @foreach ($treatment_categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $data->treatment_category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->category }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <x-input format="nominal" id="price" label="Harga" name="price" type="text" required
+                        value="{{ number_format($data->price, 0, ',', '.') }}" />
                 </div>
-                <div class="mt-6">
+                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>

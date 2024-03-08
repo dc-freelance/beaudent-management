@@ -10,53 +10,36 @@
             <form action="{{ route('admin.treatment-bonus.update', $data->id) }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
-                <div>
-                    <p>Layanan</p>
-                    <div class="mt-1">
-                        <select id="treatment_id" name="treatment_id"
-                            class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
-                            <option value="" selected disabled>Pilih Layanan</option>
-                            @foreach ($treatments as $treatment)
-                                <option value="{{ $treatment->id }}"
-                                    {{ $treatment->id == $data->treatment_id ? 'selected' : '' }}>
-                                    {{ $treatment->name }}
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <p>Kategori Dokter</p>
-                    <div class="mt-1">
-                        <select id="doctor_category_id" name="doctor_category_id"
-                            class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
-                            <option value="" selected disabled>Pilih Kategori Dokter</option>
-                            @foreach ($doctorCategories as $doctorCategory)
-                                <option value="{{ $doctorCategory->id }}"
-                                    {{ $doctorCategory->id == $data->doctor_category_id ? 'selected' : '' }}>
-                                    {{ $doctorCategory->name }}
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <p>Tipe Bonus</p>
-                    <div class="mt-1">
-                        <select id="bonus_type" name="bonus_type"
-                            class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
-                            <option value="" selected disabled>Pilih Tipe Bonus</option>
-                            <option value="percentage" {{ $data->bonus_type == 'percentage' ? 'selected' : '' }}>
-                                Persentase</option>
-                            <option value="nominal" {{ $data->bonus_type == 'nominal' ? 'selected' : '' }}>
-                                Nominal</option>
-                        </select>
-                    </div>
-                </div>
+                <x-select id="treatment_id" label="Layanan" name="treatment_id" required>
+                    <option value="" selected disabled>Pilih Layanan</option>
+                    @foreach ($treatments as $treatment)
+                        <option value="{{ $treatment->id }}"
+                            {{ $treatment->id == $data->treatment_id ? 'selected' : '' }}>
+                            {{ $treatment->name }}
+                        </option>
+                    @endforeach
+                </x-select>
+                <x-select id="doctor_category_id" name="doctor_category_id" label="Kategori Dokter" required>
+                    <option value="" selected disabled>Pilih Kategori Dokter</option>
+                    @foreach ($doctorCategories as $doctorCategory)
+                        <option value="{{ $doctorCategory->id }}"
+                            {{ $doctorCategory->id == $data->doctor_category_id ? 'selected' : '' }}>
+                            {{ $doctorCategory->name }}
+                        </option>
+                    @endforeach
+                </x-select>
+                <x-select id="bonus_type" name="bonus_type" label="Tipe Bonus" required>
+                    <option value="" selected disabled>Pilih Tipe Bonus</option>
+                    <option value="percentage" {{ $data->bonus_type == 'percentage' ? 'selected' : '' }}>Persentase
+                    </option>
+                    <option value="nominal" {{ $data->bonus_type == 'nominal' ? 'selected' : '' }}>Nominal</option>
+                </x-select>
                 <x-input id="bonus_rate" name="bonus_rate" type="text" label="Bonus"
                     value="{{ $data->bonus_type == 'percentage'
-                        ? number_format($data->bonus_rate, 1, ',', '.')
+                        ? old('bonus_rate', $data->bonus_rate)
                         : // remove decimal after comma if it's 0, and remove .
-                        number_format($data->bonus_rate, 0, ',', '') }}" />
-                <div class="mt-6">
+                            'Rp. ' . number_format(old('bonus_rate', $data->bonus_rate), 0, ',', '.') }}" />
+                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>
@@ -65,6 +48,30 @@
 
     @push('js-internal')
         <script>
+            function percentageInput() {
+                $('#bonus_rate').on('input', function() {
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                    let value = $(this).val();
+                    if (parseFloat(value) > 100) {
+                        $(this).val('');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Nilai tidak boleh lebih dari 100',
+                        });
+                    }
+                });
+            }
+
+            function nominalInput() {
+                $('#bonus_rate').on('input', function() {
+                    var value = $(this).val();
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
+                });
+            }
+
             $(function() {
                 $('#bonus_rate').on('input', function() {
                     this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -76,17 +83,23 @@
                 let bonus_type = '{{ $data->bonus_type }}';
                 if (bonus_type == 'percentage') {
                     $('#bonus_rate').after(tipPercentageTag);
+                    percentageInput();
                 } else {
                     $('#bonus_rate').after(tipNominalTag);
+                    nominalInput();
                 }
 
                 $('#bonus_type').on('change', function() {
+                    $('#bonus_rate').val('');
+                    $('#bonus_rate').off('input');
                     if ($(this).val() == 'percentage') {
                         $('#bonus_rate').next().remove();
-                        $('#bonus_rate').after(tipTag);
+                        $('#bonus_rate').after(tipPercentageTag);
+                        percentageInput();
                     } else {
                         $('#bonus_rate').next().remove();
                         $('#bonus_rate').after(tipNominalTag);
+                        nominalInput();
                     }
                 });
             });

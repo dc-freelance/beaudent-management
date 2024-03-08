@@ -9,6 +9,7 @@ use App\Interfaces\RoleInterface;
 use App\Interfaces\UserManagementInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserManagementController extends Controller
 {
@@ -87,7 +88,7 @@ class UserManagementController extends Controller
             'join_date' => 'required',
         ]);
 
-        if (! $request->has('branch_id')) {
+        if (!$request->has('branch_id')) {
             $request['branch_id'] = $this->branch->getById(1)->id;
         }
 
@@ -102,10 +103,14 @@ class UserManagementController extends Controller
 
     public function edit($id)
     {
+        $user = $this->userManagement->getById($id);
+        $role = $user->roles()->pluck('name');
+
         return view('admin.user-management.edit', [
-            'data' => $this->userManagement->getById($id),
+            'data' => $user,
             'roles' => $this->role->get(),
             'branches' => $this->branch->get()->where('id', '!=', 1),
+            'this_role' => $this->role->getByName($role)
         ]);
     }
 
@@ -113,14 +118,14 @@ class UserManagementController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'role' => 'required',
             'phone_number' => 'required',
             'branch_id' => 'nullable|exists:branches,id',
             'join_date' => 'required',
         ]);
 
-        if (! $request->has('branch_id')) {
+        if (!$request->has('branch_id')) {
             $request['branch_id'] = $this->branch->getById(1)->id;
         }
 
@@ -155,6 +160,21 @@ class UserManagementController extends Controller
             return redirect()->route('admin.user-management.index')->with('success', 'Hak akses pengguna berhasil diperbarui');
         } catch (\Throwable $th) {
             return redirect()->route('admin.user-management.index')->with('error', $th->getMessage());
+        }
+    }
+
+
+    public function resetUserPassword($id)
+    {
+        $user = $this->userManagement->getById($id);
+
+        try {
+            $user->password = Hash::make('password');
+            $user->save();
+
+            return response()->json(['status' => 'success', 'message' => 'Password berhasil di reset']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
         }
     }
 }

@@ -8,6 +8,10 @@ interface RoleInterface
 
     public function getById($id);
 
+    public function getByName($name);
+
+    public function getWhich($place);
+
     public function store($data);
 
     public function update($id, $data);

@@ -6,10 +6,12 @@
 
     <x-card-container>
         <div class="text-end mb-4">
-            <x-link-button route="{{ route('admin.user-management.create') }}" color="gray">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Pengguna
-            </x-link-button>
+            @can('create_user')
+                <x-link-button route="{{ route('admin.user-management.create') }}" class="tombol hover:opacity-80">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Pengguna
+                </x-link-button>
+            @endcan
         </div>
         <table id="userTable">
             <thead>
@@ -59,6 +61,44 @@
                                 Swal.fire(
                                     'Gagal!',
                                     'Pengguna gagal dihapus.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            }
+
+            function btnReset(_id, _name) {
+                let url = '{{ route('admin.user-management.reset-password', ':id') }}'.replace(':id', _id);
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: `Password ${_name} akan direset ulang!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Reset Ulang!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Password berhasil direset.',
+                                    'success'
+                                ).then(() => {
+                                    $('#userTable').DataTable().ajax.reload(null, false);
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Password gagal direset.',
                                     'error'
                                 );
                             }

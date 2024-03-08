@@ -12,25 +12,25 @@ class Customers extends Model
 
     protected $table = 'customers';
 
-    protected $fillable = [
-        'name', 'date_of_birth',
-        'place_of_birth',
-        'identity_number',
-        'gender',
-        'occupation',
-        'phone_number',
-        'religion',
-        'email',
-        'marrital_status',
-        'address',
-        'instagram',
-        'youtube',
-        'facebook',
-        'source_of_information'
-    ];
+    protected $guarded = [];
 
     public function reservations()
     {
         return $this->hasMany(Reservations::class, 'customer_id', 'id');
+    }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'customer_id', 'id');
+    }
+
+    public function medicalRecord()
+    {
+        return $this->hasOne(MedicalRecord::class, 'customer_id', 'id');
+    }
+
+    public function examinations()
+    {
+        return $this->hasMany(Examination::class, 'customer_id', 'id');
     }
 }

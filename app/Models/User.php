@@ -26,6 +26,8 @@ class User extends Authenticatable
 
     const OWNER_ROLE = 'owner';
 
+    const TELEMARKETING_ROLE = 'telemarketing';
+
     protected $fillable = [
         'name',
         'email',
@@ -47,6 +49,21 @@ class User extends Authenticatable
 
     public function branch()
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
+
+    public function shift_log()
+    {
+        return $this->hasMany(ShiftLog::class, 'user_id', 'id');
+    }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class, 'cashier_id', 'id');
+    }
+
+    public function addonTransaction()
+    {
+        return $this->hasMany(AddonTransaction::class, 'doctor_id', 'id');
     }
 }

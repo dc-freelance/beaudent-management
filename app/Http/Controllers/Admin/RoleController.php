@@ -53,6 +53,7 @@ class RoleController extends Controller
 
         try {
             $this->role->store($request->all());
+
             return redirect()->route('admin.role.index')->with('success', 'Hak akses berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -76,6 +77,7 @@ class RoleController extends Controller
 
         try {
             $this->role->update($id, $request->all());
+
             return redirect()->route('admin.role.index')->with('success', 'Hak akses berhasil diperbarui');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -88,6 +90,15 @@ class RoleController extends Controller
             $this->role->delete($id);
 
             return response()->json(['status' => 'success', 'message' => 'Hak akses berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function getWhich($place)
+    {
+        try {
+            return $this->role->getWhich($place);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }

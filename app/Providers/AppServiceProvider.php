@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,10 +16,37 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\PermissionInterface::class, \App\Repositories\PermissionRepository::class);
         $this->app->bind(\App\Interfaces\RoleInterface::class, \App\Repositories\RoleRepository::class);
         $this->app->bind(\App\Interfaces\BranchInterface::class, \App\Repositories\BranchRepository::class);
+        $this->app->bind(\App\Interfaces\DashboardInterface::class, \App\Repositories\DashboardRepository::class);
         $this->app->bind(\App\Interfaces\DoctorCategoryInterface::class, \App\Repositories\DoctorCategoryRepository::class);
         $this->app->bind(\App\Interfaces\DoctorInterface::class, \App\Repositories\DoctorRepository::class);
         $this->app->bind(\App\Interfaces\TreatmentInterface::class, \App\Repositories\TreatmentRepository::class);
+        $this->app->bind(\App\Interfaces\CustomerInterface::class, \App\Repositories\CustomerRepository::class);
         $this->app->bind(\App\Interfaces\TreatmentBonusInterface::class, \App\Repositories\TreatmentBonusRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountInterface::class, \App\Repositories\DiscountRepository::class);
+        $this->app->bind(\App\Interfaces\AddonInterface::class, \App\Repositories\AddonRepository::class);
+        $this->app->bind(\App\Interfaces\ItemCategoryInterface::class, \App\Repositories\ItemCategoryRepository::class);
+        $this->app->bind(\App\Interfaces\ItemUnitInterface::class, \App\Repositories\ItemUnitRepository::class);
+        $this->app->bind(\App\Interfaces\SupplierInterface::class, \App\Repositories\SupplierRepository::class);
+        $this->app->bind(\App\Interfaces\ItemUnitInterface::class, \App\Repositories\ItemUnitRepository::class);
+        $this->app->bind(\App\Interfaces\ItemInterface::class, \App\Repositories\ItemRepository::class);
+        $this->app->bind(\App\Interfaces\DoctorScheduleInterface::class, \App\Repositories\DoctorScheduleRepository::class);
+        $this->app->bind(\App\Interfaces\ConfigShiftInterface::class, \App\Repositories\ConfigShiftRepository::class);
+        $this->app->bind(\App\Interfaces\ReservationsInterface::class, \App\Repositories\ReservationsRepository::class);
+        $this->app->bind(\App\Interfaces\ShiftLogInterface::class, \App\Repositories\ShiftLogRepository::class);
+        $this->app->bind(\App\Interfaces\PaymentMethodsInterface::class, \App\Repositories\PaymentMethodsRepository::class);
+        $this->app->bind(\App\Interfaces\TreatmentCategoriesInterface::class, \App\Repositories\TreatmentCategoriesRepository::class);
+        $this->app->bind(\App\Interfaces\TransactionInterface::class, \App\Repositories\TransactionRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountItemInterface::class, \App\Repositories\DiscountItemRepository::class);
+        $this->app->bind(\App\Interfaces\DiscountTreatmentInterface::class, \App\Repositories\DiscountTreatmentRepository::class);
+        $this->app->bind(\App\Interfaces\IncomeReportInterface::class, \App\Repositories\IncomeReportRepository::class);
+        $this->app->bind(\App\Interfaces\TreatmentReportInterface::class, \App\Repositories\TreatmentReportRepository::class);
+        $this->app->bind(\App\Interfaces\PatientVisitReportInterface::class, \App\Repositories\PatientVisitReportRepository::class);
+        $this->app->bind(\App\Interfaces\ShiftReportInterface::class, \App\Repositories\ShiftReportRepository::class);
+        $this->app->bind(\App\Interfaces\ExaminationInterface::class, \App\Repositories\ExaminationRepository::class);
+        $this->app->bind(\App\Interfaces\OdontogramInterface::class, \App\Repositories\OdontogramRepository::class);
+        $this->app->bind(\App\Interfaces\OdontogramResultInterface::class, \App\Repositories\OdontogramResultRepository::class);
+        $this->app->bind(\App\Interfaces\MedicalRecordInterface::class, \App\Repositories\MedicalRecordRepository::class);
+
 
         $this->loadHelpers();
     }
@@ -28,7 +56,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        config(['app.locale' => 'id']);
+        Carbon::setLocale('id');
     }
 
     protected function loadHelpers(): void

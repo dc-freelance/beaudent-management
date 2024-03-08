@@ -13,10 +13,13 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: [
+                    "Inter",
                     "Lexend Deca",
-                    "Plus Jakarta Sans",
+
+                    // "Plus Jakarta Sans",
                     ...defaultTheme.fontFamily.sans,
                 ],
+                poppins: "'Poppins', sans-serif",
             },
             colors: {
                 primary: "#D04848",
@@ -32,7 +35,6 @@ module.exports = {
                 neutral: "#3D4451",
                 "base-100": "#FFFFFF",
             },
-            // font weights
             fontWeight: {
                 thin: 100,
                 light: 300,
@@ -43,8 +45,33 @@ module.exports = {
                 extrabold: 800,
                 black: 900,
             },
+            borderWidth: {
+                DEFAULT: "1px",
+                0: "0",
+                2: "2px",
+                3: "3px",
+                4: "4px",
+                6: "6px",
+                8: "8px",
+            },
+            // font Size
+            fontSize: {
+                tiny: "0.5rem",
+                xs: "0.75rem",
+                sm: "0.8125rem",
+                base: "1rem",
+                lg: "1.125rem",
+                xl: "1.25rem",
+                "2xl": "1.5rem",
+                "3xl": "1.875rem",
+                "4xl": "2.25rem",
+                "5xl": "3rem",
+                "6xl": "4rem",
+                "7xl": "5rem",
+            },
         },
     },
+
     plugins: [
         require("flowbite/plugin")({
             charts: true,

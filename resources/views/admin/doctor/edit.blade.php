@@ -11,24 +11,21 @@
                 @csrf
                 @method('PUT')
                 <x-input id="name" label="Nama Lengkap" name="name" required :value="$data->name" />
-                <div>
-                    <p>Kategori</p>
-                    <div class="mt-1">
-                        <select id="category_id" name="category_id"
-                            class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @if ($category->id == $data->category_id) selected @endif>
-                                    {{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <x-select id="category_id" label="Kategori" name="category_id" required>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ $category->id == $data->category_id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </x-select>
+                <div class="grid grid-cols-2 gap-3">
+                    <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
+                    <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
+                        :value="$data->phone_number" />
                 </div>
-                <x-input id="email" label="Email" name="email" type="email" required :value="$data->email" />
-                <x-input id="phone_number" label="No. Telp" name="phone_number" type="number" required
-                    :value="$data->phone_number" />
                 <x-input id="join_date" label="Tgl. Bergabung" name="join_date" type="date" required
                     :value="$data->join_date" />
-                <div class="mt-6">
+                <div class="max-md:w-2/3 max-md:mx-auto md:w-1/3 lg:w-1/3 xl:w-1/3 pt-5">
                     <x-button type="submit">Simpan Perubahan</x-button>
                 </div>
             </form>
