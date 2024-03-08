@@ -21,20 +21,18 @@ class StoreReservationRequest extends FormRequest
             'is_control' => 'required',
         ];
 
-        if ($this->input('is_control') == 1) {
-            $rules['treatment_id'] = 'nullable';
-        } else {
-            $rules['treatment_id'] = 'required';
-            // $rules['deposit'] = 'required';
-            // $rules['deposit_status'] = 'nullable';
-            // $rules['deposit_receipt'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
-            // $rules['customer_bank_account'] = 'nullable';
-            // $rules['customer_bank'] = 'required';
-            // $rules['customer_bank_account_name'] = 'required';
-            // $rules['transfer_date'] = 'required';
-        }
-
-        return $rules;
+        // if ($this->input('is_control') == 1) {
+        //     $rules['treatment_id'] = 'nullable';
+        // } else {
+        //     $rules['treatment_id'] = 'required';
+        //     // $rules['deposit'] = 'required';
+        //     // $rules['deposit_status'] = 'nullable';
+        //     // $rules['deposit_receipt'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        //     // $rules['customer_bank_account'] = 'nullable';
+        //     // $rules['customer_bank'] = 'required';
+        //     // $rules['customer_bank_account_name'] = 'required';
+        //     // $rules['transfer_date'] = 'required';
+        // }
     }
 
     public function messages()

@@ -31,12 +31,12 @@
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Status</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->is_control ? 'Kontrol' : 'Perawatan' }}</td>
                 </tr> --}}
-                @if ($data->treatments != null)
+                {{-- @if ($data->treatments != null)
                     <tr>
                         <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Layanan yang dipilih</th>
                         <td class="border px-8 py-4 w-3/4">{{ $data->treatments->name }}</td>
                     </tr>
-                @endif
+                @endif --}}
                 <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Status Reservasi</th>
                     <td class="border px-8 py-4 w-3/4">{{ $data->status }}</td>
