@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\DiscountItemController;
 use App\Http\Controllers\Admin\DiscountTreatmentController;
 use App\Http\Controllers\Admin\ExaminationHistoryController;
 use App\Http\Controllers\Admin\IncomeReportController;
+use App\Http\Controllers\Admin\LogMonitorController;
 use App\Http\Controllers\Admin\TreatmentReportController;
 use App\Http\Controllers\Admin\PatientVisitReportController;
 use App\Http\Controllers\API\GetKategoriController;
@@ -398,6 +399,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/show', [ExaminationHistoryController::class, 'show'])->middleware('permission:read_examination_history')->name('admin.examination-history.show');
         Route::get('{id}/examination', [ExaminationHistoryController::class, 'examination'])->middleware('permission:read_examination_history')->name('admin.examination-history.examination');
     });
+    // Log Monitor
+    Route::get('log',[LogMonitorController::class,'index'])->name('log');
 });
 
 // Get Notifikasi Reservation

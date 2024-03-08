@@ -13,6 +13,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('backup:clean')->daily()->at('01:58')->appendOutputTo(storage_path('logs/laravel.log'));
+        $schedule->command('backup:run --only-db')->daily()->at('01:58')->appendOutputTo(storage_path('logs/laravel.log'));
+        // $schedule->command('backup:clean')->everyMinute()->appendOutputTo(storage_path('logs/laravel.log'));
+        // $schedule->command('backup:run --only-db')->everyMinute()->appendOutputTo(storage_path('logs/laravel.log'));
     }
 
     /**

@@ -12,8 +12,10 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
+        "masbug/flysystem-google-drive-ext": "^2.3",
         "mbezhanov/faker-provider-collection": "^2.0",
         "pusher/pusher-php-server": "^7.2",
+        "spatie/laravel-backup": "^8.6",
         "spatie/laravel-permission": "^6.3",
         "yajra/laravel-datatables": "^10.1"
     },
