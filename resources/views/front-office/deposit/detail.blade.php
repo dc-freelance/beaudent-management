@@ -62,10 +62,6 @@
                     <td class="border px-8 py-4 w-3/4">{{ $data->deposit }}</td>
                 </tr>
                 <tr>
-                    <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Status Deposit</th>
-                    <td class="border px-8 py-4 w-3/4">{{ $data->deposit_status ? 'Sudah Bayar' : 'Belum Bayar' }}</td>
-                </tr>
-                <tr>
                     <th class="bg-red-100 border text-left px-8 py-4 w-1/4">Bukti Pembayaran</th>
                     <td class="border px-8 py-4 w-3/4">
                         @if (!empty($data->deposit_receipt))

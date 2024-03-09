@@ -53,7 +53,7 @@ class ReservationsController extends Controller
                     return $data->customers->name;
                 })
                 ->addColumn('is_control', function ($data) {
-                    return $data->is_control ? 'Kontrol' : 'Perawatan';
+                    return $data->is_control == 1 ? 'Kontrol' : 'Perawatan';
                 })
 
                 ->addColumn('action', function ($data) {
@@ -96,7 +96,7 @@ class ReservationsController extends Controller
                     return $data->customers->name;
                 })
                 ->addColumn('is_control', function ($data) {
-                    return $data->is_control ? 'Kontrol' : 'Perawatan';
+                    return $data->is_control == 1 ? 'Kontrol' : 'Perawatan';
                 })
 
                 ->addColumn('action', function ($data) {
@@ -179,7 +179,7 @@ class ReservationsController extends Controller
                     return $data->customers->name;
                 })
                 ->addColumn('is_control', function ($data) {
-                    return $data->is_control ? 'Kontrol' : 'Perawatan';
+                    return $data->is_control == 1 ? 'Kontrol' : 'Perawatan';
                 })
 
                 ->addColumn('action', function ($data) {
@@ -222,7 +222,7 @@ class ReservationsController extends Controller
                     return $data->customers->name;
                 })
                 ->addColumn('is_control', function ($data) {
-                    return $data->is_control ? 'Kontrol' : 'Perawatan';
+                    return $data->is_control == 1 ? 'Kontrol' : 'Perawatan';
                 })
 
                 ->addColumn('action', function ($data) {
@@ -265,7 +265,7 @@ class ReservationsController extends Controller
                     return $data->customers->name;
                 })
                 ->addColumn('is_control', function ($data) {
-                    return $data->is_control ? 'Kontrol' : 'Perawatan';
+                    return $data->is_control == 1 ? 'Kontrol' : 'Perawatan';
                 })
 
                 ->addColumn('action', function ($data) {
