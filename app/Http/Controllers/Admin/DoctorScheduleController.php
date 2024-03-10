@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\DoctorSchedule;
+
 class DoctorScheduleController extends Controller
 {
     private $doctorSchedule;
@@ -117,6 +119,49 @@ class DoctorScheduleController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'error', 'message' => $th->getMessage()]);
+        }
+    }
+
+    public function createMultiple(Request $request)
+    {
+        // dd($request);
+        $inputData = $request->all();
+        $dataToInsert = [];
+
+        foreach ($inputData['shift'] as $shiftName => $shiftData) {
+            $date = $inputData['date'];
+            if (strpos($shiftName, '_day_') !== false) {
+                $dayNumber = intval(substr($shiftName, strpos($shiftName, '_day_') + 5, 1) - 1);
+                $date = date('Y-m-d', strtotime("+$dayNumber day", strtotime($inputData['date'])));
+                
+                if ($dayNumber > 1) {
+                    $date = date('Y-m-d', strtotime("+$dayNumber day", strtotime($inputData['date'])));
+                }
+            }
+
+            $doctorIds = $shiftData["'doctor_id'"];
+            foreach ($doctorIds as $doctorId) {
+                $dataToInsert[] = [
+                    'doctor_id' => $doctorId,
+                    'branch_id' => $inputData['branch_id'],
+                    'date' => $date,
+                    'shift' => $shiftData["'shift_time'"],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+        }
+
+        try {
+
+            DB::beginTransaction();
+            DoctorSchedule::insert($dataToInsert);
+            DB::commit();
+
+            return redirect()->route('admin.doctor-schedule.index')->with('success', 'Data berhasil ditambah');
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->route('admin.doctor-schedule.index')->with('error', $th->getMessage());
         }
     }
 }
