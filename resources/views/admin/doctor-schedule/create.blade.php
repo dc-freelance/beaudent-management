@@ -193,7 +193,7 @@
                                     <tr class="w-full">
                                         <th class="p-4"><center>Sore</center></th>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_1_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_1_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
@@ -207,7 +207,7 @@
                                             </div>
                                         </td>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_2_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_2_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
@@ -221,7 +221,7 @@
                                             </div>
                                         </td>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_3_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_3_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
@@ -235,7 +235,7 @@
                                             </div>
                                         </td>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_4_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_4_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
@@ -249,7 +249,7 @@
                                             </div>
                                         </td>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_5_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_5_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
@@ -263,7 +263,7 @@
                                             </div>
                                         </td>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_6_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_6_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
@@ -277,7 +277,7 @@
                                             </div>
                                         </td>
                                         <td class="p-4">
-                                            <x-input name="shift['shift_day_7_afternoon']['shift_time']" type="hidden" value="Pagi" />
+                                            <x-input name="shift['shift_day_7_afternoon']['shift_time']" type="hidden" value="Sore" />
                                             <p>Pilih Dokter :</p>
                                             <div class="mt-1">
                                                 <x-select
