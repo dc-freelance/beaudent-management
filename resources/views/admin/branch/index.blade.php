@@ -22,6 +22,7 @@
                     <th>Nomor Telpon</th>
                     <th>Alamat</th>
                     <th>Minimum Deposit</th>
+                    <th>Kota</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -106,6 +107,10 @@
                         {
                             data: 'deposit_minimum',
                             name: 'deposit_minimum'
+                        },
+                        {
+                            data: 'city',
+                            name: 'city'
                         },
                         {
                             data: 'action',

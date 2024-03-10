@@ -35,6 +35,9 @@ class BranchController extends Controller
                 ->addColumn('address', function ($data) {
                     return $data->address;
                 })
+                ->addColumn('city', function ($data) {
+                    return $data->city;
+                })
                 ->addColumn('action', function ($data) {
                     return view('admin.branch.column.action', compact('data'));
                 })
@@ -65,6 +68,7 @@ class BranchController extends Controller
             'phone_number' => 'required',
             'address' => 'required',
             'deposit_minimum' => 'required',
+            'city' => 'required',
         ]);
 
         try {
@@ -95,6 +99,7 @@ class BranchController extends Controller
             'phone_number' => 'required',
             'address' => 'required',
             'deposit_minimum' =>'required',
+            'city' =>'required',
         ]);
 
         try {
