@@ -5,7 +5,7 @@
         ['name' => 'Tambah Jadwal Dokter', 'url' => ''],
     ]" title="Tambah Jadwal Dokter" />
 
-    <div class="lg:w-1/2">
+    {{-- <div class="lg:w-1/2">
         <x-card-container>
             <form action="{{ route('admin.doctor-schedule.store') }}" method="POST">
                 @csrf
@@ -53,7 +53,7 @@
                 </div>
             </form>
         </x-card-container>
-    </div>
+    </div> --}}
 
     <div class="w-full">
         <x-card-container>
