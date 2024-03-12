@@ -288,6 +288,21 @@
                     <div class="pt-3">
                         <x-input id="transaction_discount" class="bg-gray-300 hover:cursor-not-allowed" label="Diskon" name="transaction_discount" type="text" placeholder="Rp." value="Rp. {{ number_format($totalDiscountTreatment+$totalDiscountItem, 0, ',', '.') }}" readonly="readonly" required />
                     </div>
+                    <div>
+                        <div class="pt-3">
+                            <p class="mb-2">Jenis Diskon Tambahan :</p>
+                            <select id="transaction_additional_discount_type" name="transaction_additional_discount_type" class="block py-3 pl-3 pr-10 w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option value="nominal" {{ $detailTransaction->additional_discount_type == 'nominal' ? 'selected' : '' }} >Nominal</option>
+                                <option value="percentage" {{ $detailTransaction->additional_discount_type == 'percentage' ? 'selected' : '' }} >Percentage</option>
+                            </select>
+                        </div>
+                        <div class="pt-3" id="parent_nominal" {{ $detailTransaction->additional_discount_type != 'nominal' ? 'hidden' : '' }}>
+                            <x-input id="transaction_additional_discount_nominal" label="Diskon Tambahan :" name="transaction_additional_discount_nominal" type="text" placeholder="Rp." value="Rp. {{ number_format($detailTransaction->additional_discount_nominal, 0, ',', '.') }}" />
+                        </div>
+                        <div class="pt-3" id="parent_percentage" {{ $detailTransaction->additional_discount_type != 'percentage' ? 'hidden' : '' }}>
+                            <x-input id="transaction_additional_discount_percentage" label="Diskon Tambahan :" name="transaction_additional_discount_percentage" type="number" value="{{ $detailTransaction->additional_discount_nominal }}" />
+                        </div>
+                    </div>
                     @php
                         $tempTotalPpn = 0;
                         $tempTotalAfterPpnDiscount = 0;
@@ -299,6 +314,14 @@
                         } else {
                             $tempTotalAfterPpnDiscount = (($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)));
                             $tempTotalPaid = (($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)));
+                        }
+
+                        if($detailTransaction->additional_discount_type == 'nominal'){
+                            $tempTotalAfterPpnDiscount = $tempTotalAfterPpnDiscount - $detailTransaction->additional_discount_nominal;
+                            $tempTotalPaid = $tempTotalPaid - $detailTransaction->additional_discount_nominal;
+                        } else {
+                            $tempTotalAfterPpnDiscount = $tempTotalAfterPpnDiscount - ($tempTotalAfterPpnDiscount * $detailTransaction->additional_discount_nominal / 100);
+                            $tempTotalPaid = $tempTotalPaid - ($tempTotalPaid * $detailTransaction->additional_discount_nominal / 100);
                         }
                     @endphp
                     <div class="pt-3">
@@ -407,6 +430,8 @@
                 var transactionGrandTotalInput = document.getElementById('transaction_grand_total');
                 var totalPaidInput = document.getElementById('transaction_total_paid');
                 statusPpnSelect.addEventListener('change', function () {
+                    transactionDiscountNominalInput.value = 'Rp. 0';
+                    transactionDiscountPercentageInput.value = '0';
                     var selectedValue = statusPpnSelect.value;
                     if (selectedValue === 'Without') {
                         transactionTotalPpnInput.value = 'Rp. 0';
@@ -422,7 +447,87 @@
                 function formatCurrency(amount) {
                     return 'Rp. ' + amount.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
                 }
+
+                // Diskon Tambahan
+                var additionalDiscountSelect = document.getElementById('transaction_additional_discount_type');
+                var parentNominal = document.getElementById('parent_nominal');
+                var parentPercentage = document.getElementById('parent_percentage');
+                var transactionDiscountNominalInput = document.getElementById('transaction_additional_discount_nominal');
+                var transactionDiscountPercentageInput = document.getElementById('transaction_additional_discount_percentage');
+
+                additionalDiscountSelect.addEventListener('change', function () {
+                    transactionDiscountNominalInput.value = 'Rp. 0';
+                    transactionDiscountPercentageInput.value = '0';
+                    
+                    var selectedDiscount = additionalDiscountSelect.value;
+                    if (selectedDiscount == 'nominal') {
+                        parentNominal.style.display = 'block';
+                        parentPercentage.style.display = 'none';
+                    } else if (selectedDiscount == 'percentage') {
+                        parentNominal.style.display = 'none';
+                        parentPercentage.style.display = 'block';
+                    }
+
+                    var selectedValue = statusPpnSelect.value;
+                    if (selectedValue === 'Without') {
+                        transactionTotalPpnInput.value = 'Rp. 0';
+                        transactionGrandTotalInput.value = 'Rp. {{ number_format((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
+                        totalPaidInput.value = 'Rp. {{ number_format((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
+                    } else {
+                        transactionTotalPpnInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100)), 0, ',', '.') }}';
+                        transactionGrandTotalInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
+                        totalPaidInput.value = 'Rp. {{ number_format(((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem))), 0, ',', '.') }}';
+                    }
+                });
+
+                transactionDiscountNominalInput.addEventListener('input', function(event) {
+                    var inputVal = this.value.replace(/\D/g, '');
+                    var formattedVal = 'Rp. ' + new Intl.NumberFormat('id-ID').format(inputVal);
+                    this.value = formattedVal;
+
+                    var selectedValue = statusPpnSelect.value;
+                    if (selectedValue === 'Without') {
+                        var parseGrandTotal = '{{ ((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                        var totalPaid = '{{ ((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                    } else {
+                        var parseGrandTotal = '{{ (((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                        var totalPaid = '{{ (((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                    }
+
+                    var parseDiscountNominal = parseFloat(transactionDiscountNominalInput.value.replace(/\D/g, ''));
+                    transactionGrandTotalInput.value = 'Rp. ' + new Intl.NumberFormat('id-ID').format(parseGrandTotal - parseDiscountNominal);
+
+                    var parseDiscountNominalPaid = parseFloat(transactionDiscountNominalInput.value.replace(/\D/g, ''));
+                    totalPaidInput.value = 'Rp. ' + new Intl.NumberFormat('id-ID').format(totalPaid - parseDiscountNominalPaid);
+                });
+
+                transactionDiscountPercentageInput.addEventListener('input', function(event) {
+                    handleChange(this);
+                });
+                transactionDiscountPercentageInput.addEventListener('input', function(event) {
+
+                    var selectedValue = statusPpnSelect.value;
+                    if (selectedValue === 'Without') {
+                        var parseGrandTotal = '{{ ((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                        var totalPaid = '{{ ((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                    } else {
+                        var parseGrandTotal = '{{ (((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                        var totalPaid = '{{ (((($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - ($totalDiscountTreatment+$totalDiscountItem)) * 10 / 100) + ($detailExaminationTreatment->sum('sub_total')+$detailExaminationItem->sum('sub_total')+$detailAddonExamination->sum('sub_total') - $detailTransaction->examination->reservation->deposit - ($totalDiscountTreatment+$totalDiscountItem)))) }}';
+                    }
+
+                    var parseDiscountPercentage = parseFloat(transactionDiscountPercentageInput.value.replace(/\D/g, '')) / 100;
+                    transactionGrandTotalInput.value = 'Rp. ' + new Intl.NumberFormat('id-ID').format(parseGrandTotal - (parseGrandTotal * parseDiscountPercentage));
+
+                    var parseDiscountPercentagePaid = parseFloat(transactionDiscountPercentageInput.value.replace(/\D/g, '')) / 100;
+                    totalPaidInput.value = 'Rp. ' + new Intl.NumberFormat('id-ID').format(totalPaid - (totalPaid * parseDiscountPercentagePaid));
+                });
             });
+        </script>
+        <script>
+            function handleChange(input) {
+                if (input.value < 0) input.value = 0;
+                if (input.value > 100) input.value = 100;
+            }
         </script>
         <script>
             @include('components.flash-message')

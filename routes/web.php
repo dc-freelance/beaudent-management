@@ -218,6 +218,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->middleware('permission:update_doctor_schedule')->name('admin.doctor-schedule.edit');
         Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->middleware('permission:update_doctor_schedule')->name('admin.doctor-schedule.update');
         Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->middleware('permission:delete_doctor_schedule')->name('admin.doctor-schedule.delete');
+        
+        Route::post('create/multiple', [DoctorScheduleController::class, 'createMultiple'])->middleware('permission:create_doctor_schedule')->name('admin.doctor-schedule.create-multiple');
     });
 
     // Config Shift

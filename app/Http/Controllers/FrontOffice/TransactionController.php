@@ -87,7 +87,7 @@ class TransactionController extends Controller
 
     public function payment_confirm($transaction, Request $request)
     {
-        
+
         $request->validate([
             'transaction_payment_method_id' => 'required',
             'transaction_ppn_status' => 'required',
@@ -108,6 +108,7 @@ class TransactionController extends Controller
             'transaction_grand_total' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_grand_total')),
             'transaction_total_paid' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_total_paid')),
             'transaction_nominal_paid' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_nominal_paid')),
+            'transaction_additional_discount_nominal' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_additional_discount_nominal')),
             'transaction_nominal_return' => str_replace(['Rp.', '.', ','], '', $request->input('transaction_nominal_return'))
         ]);
 
@@ -115,7 +116,14 @@ class TransactionController extends Controller
             return redirect()->back()->with('error', 'Nominal Uang yang dibayarkan Tidak Cukup');
         }
 
+        
         try {
+            if ($request->transaction_additional_discount_type == 'nominal'){
+                $additional_discount = $request->transaction_additional_discount_nominal;
+            } else {
+                $additional_discount = $request->transaction_additional_discount_percentage;
+            }
+            
             DB::beginTransaction();
             $updateTransaction = Transaction::find($transaction);
             $updateTransaction->note = $request->transaction_note;
@@ -127,6 +135,8 @@ class TransactionController extends Controller
             $updateTransaction->deposit = $request->transaction_deposit;
             $updateTransaction->total = $request->transaction_total;
             $updateTransaction->discount = $request->transaction_discount;
+            $updateTransaction->additional_discount_type = $request->transaction_additional_discount_type;
+            $updateTransaction->additional_discount_nominal = $additional_discount;
             $updateTransaction->total_ppn = $request->transaction_total_ppn;
             $updateTransaction->grand_total = $request->transaction_grand_total;
             $updateTransaction->total_paid = $request->transaction_total_paid;
