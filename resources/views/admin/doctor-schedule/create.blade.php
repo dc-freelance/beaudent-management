@@ -79,13 +79,48 @@
                                 <thead class="bg-primary text-white">
                                     <tr class="w-full">
                                         <th class="p-4"><center>Sesi</center></th>
-                                        <th class="p-4"><center>Hari ke-1</center></th>
-                                        <th class="p-4"><center>Hari ke-2</center></th>
-                                        <th class="p-4"><center>Hari ke-3</center></th>
-                                        <th class="p-4"><center>Hari ke-4</center></th>
-                                        <th class="p-4"><center>Hari ke-5</center></th>
-                                        <th class="p-4"><center>Hari ke-6</center></th>
-                                        <th class="p-4"><center>Hari ke-7</center></th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-1</span>
+                                                <p id="day_1">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-2</span>
+                                                <p id="day_2">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-3</span>
+                                                <p id="day_3">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-4</span>
+                                                <p id="day_4">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-5</span>
+                                                <p id="day_5">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-6</span>
+                                                <p id="day_6">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
+                                        <th class="p-4">
+                                            <center>
+                                                <span>Hari ke-7</span>
+                                                <p id="day_7">( dd/mm/yyyy )</p>
+                                            </center>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-gray-100">
@@ -303,4 +338,43 @@
             </form>
         </x-card-container>
     </div>
+
+    @push('js-internal')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tanggalInput = document.getElementById('date');
+
+                const day1 = document.getElementById('day_1');
+                const day2 = document.getElementById('day_2');
+                const day3 = document.getElementById('day_3');
+                const day4 = document.getElementById('day_4');
+                const day5 = document.getElementById('day_5');
+                const day6 = document.getElementById('day_6');
+                const day7 = document.getElementById('day_7');
+
+                tanggalInput.addEventListener('change', function() {
+                    const tanggal = new Date(this.value);
+
+                    day1.textContent = formatDate(tanggal);
+                    day2.textContent = formatDate(addDays(tanggal, 1));
+                    day3.textContent = formatDate(addDays(tanggal, 2));
+                    day4.textContent = formatDate(addDays(tanggal, 3));
+                    day5.textContent = formatDate(addDays(tanggal, 4));
+                    day6.textContent = formatDate(addDays(tanggal, 5));
+                    day7.textContent = formatDate(addDays(tanggal, 6));
+                });
+
+                function addDays(date, days) {
+                    const result = new Date(date);
+                    result.setDate(result.getDate() + days);
+                    return result;
+                }
+
+                function formatDate(date) {
+                    const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+                    return date.toLocaleDateString('id-ID', options);
+                }
+            });
+        </script>
+    @endpush
 </x-app-layout>
