@@ -252,7 +252,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule');
         });
 
-        Route::post('/queue/{id}', [ReservationsController::class, 'setQueue'])->name('front-office.reservation.queue');
+        Route::group(['prefix' => 'queue'], function () {
+            Route::get('/', [ReservationsController::class, 'queue'])->middleware('permission:read_confirm_reservation')->name('front-office.reservation.queue.index');
+            Route::post('/{id}', [ReservationsController::class, 'setQueue'])->middleware('permission:read_confirm_reservation')->name('front-office.reservation.queue');
+        });
 
         Route::group(['prefix' => 'cancel'], function () {
             Route::get('/', [ReservationsController::class, 'cancel_reservations'])->middleware('permission:read_cancel_reservation')->name('front-office.reservations.cancel.index');
