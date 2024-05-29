@@ -278,6 +278,7 @@ class ReservationsController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+
         return view('front-office.reservations.confirm_reservations', compact('date'));
     }
 
@@ -329,6 +330,50 @@ class ReservationsController extends Controller
         $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
         return view('front-office.deposit.detail', compact('data'));
+    }
+
+    public function queue(Request $request)
+    {
+        $date = $request->input('date');
+
+        if ($request->ajax()) {
+            return datatables()
+                ->of($this->reservations->datatable_reservations($date, 'Queue'))
+                ->addColumn('id', function ($data) {
+                    return $data->id;
+                })
+                ->addColumn('no', function ($data) {
+                    return $data->no;
+                })
+                ->addColumn('dokter', function ($data) {
+                    return $data->doctor->name;
+                })
+                ->addColumn('customer_id', function ($data) {
+                    return $data->customers->name;
+                })
+                ->addColumn('branch_id', function ($data) {
+                    return $data->branches->name;
+                })
+                ->addColumn('request_date', function ($data) {
+                    return Carbon::parse($data->request_date)->locale('id')->isoFormat('LL');
+                })
+                ->addColumn('request_time', function ($data) {
+                    return Carbon::parse($data->request_time)->locale('id')->isoFormat('LT');
+                })
+                ->addColumn('customer_id', function ($data) {
+                    return $data->customers->name;
+                })
+                ->addColumn('is_control', function ($data) {
+                    return $data->is_control == 1 ? 'Kontrol' : 'Perawatan';
+                })
+
+                ->addColumn('action', function ($data) {
+                    return view('front-office.reservations.column.action', compact('data'));
+                })
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('front-office.reservations.queue', compact('date'));
     }
 
     public function setQueue(Request $request, $id)

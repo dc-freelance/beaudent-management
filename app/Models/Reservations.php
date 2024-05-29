@@ -15,6 +15,11 @@ class Reservations extends Model
 
     protected $guarded = [];
 
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id')->withTrashed();
+    }
+
     public function branches()
     {
         return $this->belongsTo(Branch::class, 'branch_id', 'id')->withTrashed();

@@ -34,6 +34,14 @@
                 </li>
             @endcan
 
+            @can('read_confirm_reservation')
+                <li class="me-2">
+                    <a href="{{ route('front-office.reservation.queue.index') }}"
+                        class="inline-block p-4 rounded-t-lg {{ request()->routeIs('front-office.reservation.queue.index') ? 'text-red-600 border border-gray-100 border-b-0 shadow-sm bg-white active' : 'hover:text-gray-600 hover:bg-gray-50' }}">Antrian
+                        Pemeriksaan</a>
+                </li>
+            @endcan
+
             @can('read_done_reservation')
                 <li class="me-2">
                     <a href="{{ route('front-office.reservations.done.index') }}"
