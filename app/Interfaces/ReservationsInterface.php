@@ -20,6 +20,8 @@ interface ReservationsInterface
 
     public function cancel($id);
 
+    public function setQueue($data, $id);
+
     public function confirm($id);
 
     public function deposit_confirm($id);

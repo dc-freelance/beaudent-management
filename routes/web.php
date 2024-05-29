@@ -218,7 +218,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('edit/{id}', [DoctorScheduleController::class, 'edit'])->middleware('permission:update_doctor_schedule')->name('admin.doctor-schedule.edit');
         Route::put('update/{id}', [DoctorScheduleController::class, 'update'])->middleware('permission:update_doctor_schedule')->name('admin.doctor-schedule.update');
         Route::delete('delete/{id}', [DoctorScheduleController::class, 'delete'])->middleware('permission:delete_doctor_schedule')->name('admin.doctor-schedule.delete');
-        
+
         Route::post('create/multiple', [DoctorScheduleController::class, 'createMultiple'])->middleware('permission:create_doctor_schedule')->name('admin.doctor-schedule.create-multiple');
     });
 
@@ -235,6 +235,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     // Reservations
     Route::group(['prefix' => 'reservations'], function () {
+
         Route::group(['prefix' => 'wait'], function () {
             Route::get('/', [ReservationsController::class, 'reservations'])->middleware('permission:read_wait_reservation')->name('front-office.reservations.wait.index');
             Route::get('detail/{id}', [ReservationsController::class, 'detail'])->middleware('permission:detail_reservation')->name('front-office.reservations.wait.detail');
@@ -250,6 +251,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::put('reschedule/update/{id}', [ReservationsController::class, 'update'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule.update');
             Route::get('reschedule/{id}', [ReservationsController::class, 'reschedule'])->middleware('permission:reschedule_reservation')->name('front-office.reservations.confirm.reschedule');
         });
+
+        Route::post('/queue/{id}', [ReservationsController::class, 'setQueue'])->name('front-office.reservation.queue');
 
         Route::group(['prefix' => 'cancel'], function () {
             Route::get('/', [ReservationsController::class, 'cancel_reservations'])->middleware('permission:read_cancel_reservation')->name('front-office.reservations.cancel.index');
@@ -402,7 +405,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/examination', [ExaminationHistoryController::class, 'examination'])->middleware('permission:read_examination_history')->name('admin.examination-history.examination');
     });
     // Log Monitor
-    Route::get('log',[LogMonitorController::class,'index'])->name('log');
+    Route::get('log', [LogMonitorController::class, 'index'])->name('log');
 });
 
 // Get Notifikasi Reservation
