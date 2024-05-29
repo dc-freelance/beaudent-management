@@ -274,6 +274,14 @@ class ReservationsRepository implements ReservationsInterface
             ]);
     }
 
+    public function setQueue($data, $id)
+    {
+        return $this->reservations->find($id)->update([
+            'status' => 'Queue',
+            'doctor_id' => $data
+        ]);
+    }
+
     public function deposit_confirm($id)
     {
         return $this->reservations->find($id)->update([

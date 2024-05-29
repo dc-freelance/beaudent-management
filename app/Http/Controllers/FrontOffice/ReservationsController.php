@@ -7,6 +7,7 @@ use App\Interfaces\ReservationsInterface;
 use App\Mail\DepositConfirmation;
 use App\Mail\Reschedule;
 use App\Mail\ReservationConfirmation;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -16,10 +17,12 @@ use function App\Helpers\rupiahFormat;
 class ReservationsController extends Controller
 {
     private $reservations;
+    private $doctors;
 
-    public function __construct(ReservationsInterface $reservations)
+    public function __construct(ReservationsInterface $reservations, Doctor $doctors)
     {
         $this->reservations = $reservations;
+        $this->doctors = $doctors;
     }
 
     public function reservations(Request $request)
@@ -310,9 +313,12 @@ class ReservationsController extends Controller
     public function detail($id)
     {
         $data = $this->reservations->getById($id);
+        $doctors = $this->doctors->whereHas('doctorSchedule', function ($query) {
+            $query->where('date', Carbon::now()->format('Y-m-d'));
+        })->get();
         $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
-        return view('front-office.reservations.detail', compact('data'));
+        return view('front-office.reservations.detail', compact('data', 'doctors'));
     }
 
     public function deposit_detail($id)
@@ -321,6 +327,21 @@ class ReservationsController extends Controller
         $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
         return view('front-office.deposit.detail', compact('data'));
+    }
+
+    public function setQueue(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'doctor_id' => 'required'
+            ]);
+
+            $this->reservations->setQueue($request->input('doctor_id'), $id);
+
+            return redirect()->route('front-office.reservations.confirm.index')->with('success', 'Berhasil dimasukkan dalam antrian');
+        } catch (\Throwable $th) {
+            return redirect()->route('front-office.reservations.confirm.index')->with('error', $th->getMessage());
+        }
     }
 
     public function confirm($id)

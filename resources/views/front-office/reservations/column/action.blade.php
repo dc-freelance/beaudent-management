@@ -11,10 +11,17 @@
             @endrole
         @endcan
         @can('detail_reservation')
-            <a href="{{ route('front-office.reservations.confirm.detail', $data->id) }}"
-                class="text-white bg-blue-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center">
-                Detail
-            </a>
+            @role('frontoffice')
+                <a href="{{ route('front-office.reservations.confirm.detail', $data->id) }}"
+                    class="text-white bg-green-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center">
+                    Detail & Periksa
+                </a>
+            @else
+                <a href="{{ route('front-office.reservations.confirm.detail', $data->id) }}"
+                    class="text-white bg-blue-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center">
+                    Detail
+                </a>
+            @endrole
         @endcan
     @elseif ($data->status === 'Pending')
         @can('detail_reservation')
