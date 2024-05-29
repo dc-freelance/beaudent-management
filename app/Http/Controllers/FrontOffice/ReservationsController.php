@@ -10,6 +10,7 @@ use App\Mail\ReservationConfirmation;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 use function App\Helpers\rupiahFormat;
@@ -315,6 +316,7 @@ class ReservationsController extends Controller
         $data = $this->reservations->getById($id);
         $doctors = $this->doctors->whereHas('doctorSchedule', function ($query) {
             $query->where('date', Carbon::now()->format('Y-m-d'));
+            $query->where('branch_id', Auth::user()->branch_id);
         })->get();
         $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
