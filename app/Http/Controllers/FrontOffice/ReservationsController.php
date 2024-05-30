@@ -273,7 +273,11 @@ class ReservationsController extends Controller
                 })
 
                 ->addColumn('action', function ($data) {
-                    return view('front-office.reservations.column.action', compact('data'));
+                    $doctors = $this->doctors->whereHas('doctorSchedule', function ($query) {
+                        $query->where('date', Carbon::now()->format('Y-m-d'));
+                        $query->where('branch_id', Auth::user()->branch_id);
+                    })->get();
+                    return view('front-office.reservations.column.action', compact('data', 'doctors'));
                 })
                 ->addIndexColumn()
                 ->make(true);
@@ -315,13 +319,13 @@ class ReservationsController extends Controller
     public function detail($id)
     {
         $data = $this->reservations->getById($id);
-        $doctors = $this->doctors->whereHas('doctorSchedule', function ($query) {
-            $query->where('date', Carbon::now()->format('Y-m-d'));
-            $query->where('branch_id', Auth::user()->branch_id);
-        })->get();
+        // $doctors = $this->doctors->whereHas('doctorSchedule', function ($query) {
+        //     $query->where('date', Carbon::now()->format('Y-m-d'));
+        //     $query->where('branch_id', Auth::user()->branch_id);
+        // })->get();
         $data->deposit && $data->deposit = rupiahFormat($data->deposit);
 
-        return view('front-office.reservations.detail', compact('data', 'doctors'));
+        return view('front-office.reservations.detail', compact('data'));
     }
 
     public function deposit_detail($id)
